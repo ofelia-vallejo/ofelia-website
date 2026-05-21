@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofelia Vallejo — Leather House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --marfil:      #F3EEE6;
+      --beige-medio: #EDE5D8;
+      --navy:        #0B1F3A;
+      --espresso:    #3B2B26;
+      --vino:        #5B1E24;
+      --verde:       #1F3527;
+      --carbon:      #141414;
+
+      --text:        var(--navy);
+      --text-soft:   rgba(11, 31, 58, 0.45);
+      --text-muted:  rgba(11, 31, 58, 0.35);
+      --rule:        rgba(11, 31, 58, 0.10);
+      --rule-strong: rgba(11, 31, 58, 0.20);
+
+      --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --pad-x: 48px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.6;
+      letter-spacing: 0.04em;
+      background: var(--marfil);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--navy);
+      color: var(--marfil);
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul { list-style: none; }
+
+    h1, h2, h3 {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      html, body, a, button {
+        cursor: none;
+      }
+    }
+
+    #cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: var(--navy);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate3d(-100px, -100px, 0);
+      transition:
+        width 0.25s var(--ease),
+        height 0.25s var(--ease),
+        background 0.25s var(--ease),
+        border 0.25s var(--ease);
+      will-change: transform;
+    }
+
+    #cursor.is-hover {
+      width: 18px;
+      height: 18px;
+      background: transparent;
+      border: 1px solid var(--navy);
+    }
+
+    #cursor[data-on-dark="true"] {
+      background: var(--marfil);
+    }
+
+    #cursor[data-on-dark="true"].is-hover {
+      background: transparent;
+      border-color: var(--marfil);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+
+    .reveal.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      padding: 0 var(--pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(243, 238, 230, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 1000;
+    }
+
+    .navbar__logo img {
+      width: 80px;
+      height: auto;
+    }
+
+    .navbar__links {
+      display: flex;
+      gap: 40px;
+    }
+
+    .navbar__links a {
+      font-weight: 400;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+      transition: opacity 0.3s var(--ease);
+    }
+
+    .navbar__links a:hover {
+      opacity: 0.5;
+    }
+
+    .navbar__menu-btn {
+      display: none;
+      font-family: inherit;
+      font-weight: 400;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 56px;
+      min-height: 600px;
+      height: 95vh;
+      background: var(--beige-medio);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+
+    .hero__index {
+      position: absolute;
+      top: 48px;
+      left: var(--pad-x);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(11, 31, 58, 0.2);
+      z-index: 2;
+    }
+
+    .hero__content {
+      padding: 0 64px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__label {
+      font-weight: 400;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-soft);
+      margin-bottom: 32px;
+    }
+
+    .hero__title {
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      line-height: 1.08;
+      max-width: 480px;
+    }
+
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 48px;
+      font-weight: 400;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--navy);
+      border-bottom: 1px solid rgba(11, 31, 58, 0.3);
+      padding-bottom: 4px;
+      width: max-content;
+      transition: gap 0.4s var(--ease), border-color 0.4s var(--ease);
+    }
+
+    .hero__cta:hover {
+      gap: 18px;
+      border-bottom-color: var(--navy);
+    }
+
+    .hero__media {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--espresso) 0%, var(--vino) 40%, var(--navy) 100%);
+    }
+
+    .hero__caption {
+      position: absolute;
+      right: 32px;
+      bottom: 32px;
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(243, 238, 230, 0.6);
+    }
+
+    /* STATEMENT */
+    .statement {
+      background: var(--marfil);
+      padding: 100px var(--pad-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .statement__left {
+      flex: 0 0 40%;
+    }
+
+    .statement__rule {
+      width: 40px;
+      height: 1px;
+      background: var(--rule-strong);
+      margin-bottom: 32px;
+    }
+
+    .statement__title {
+      font-size: clamp(24px, 3vw, 40px);
+      color: var(--navy);
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+
+    .statement__watermark {
+      width: 120px;
+      opacity: 0.15;
+      margin-top: 32px;
+    }
+
+    .statement__body {
+      flex: 0 0 50%;
+      max-width: 420px;
+      font-size: 14px;
+      color: rgba(11, 31, 58, 0.6);
+      line-height: 1.8;
+    }
+
+    /* PRODUCTOS */
+    .productos {
+      background: var(--marfil);
+    }
+
+    .productos__header {
+      padding: 40px var(--pad-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px solid var(--rule);
+    }
+
+    .productos__header-l {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--text-soft);
+    }
+
+    .productos__header-r {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-soft);
+      transition: color 0.4s var(--ease);
+    }
+
+    .productos__header-r:hover {
+      color: var(--navy);
+    }
+
+    .productos__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(11, 31, 58, 0.06);
+    }
+
+    .card {
+      background: var(--marfil);
+      display: block;
+    }
+
+    .card__img {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+
+    .card__numeral {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: rgba(243, 238, 230, 0.5);
+    }
+
+    .card__gradient {
+      width: 100%;
+      height: 100%;
+      transition: transform 1s var(--ease);
+    }
+
+    .card:hover .card__gradient {
+      transform: scale(1.04);
+    }
+
+    .card__gradient--1 {
+      background: linear-gradient(170deg, var(--beige-medio) 0%, var(--espresso) 100%);
+    }
+
+    .card__gradient--2 {
+      background: linear-gradient(170deg, var(--beige-medio) 0%, var(--navy) 100%);
+    }
+
+    .card__gradient--3 {
+      background: linear-gradient(170deg, var(--beige-medio) 0%, var(--verde) 100%);
+    }
+
+    .card__info {
+      padding: 16px var(--pad-x) 32px;
+    }
+
+    .card__name {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+    }
+
+    .card__detail {
+      font-size: 11px;
+      color: rgba(11, 31, 58, 0.4);
+      margin-top: 4px;
+    }
+
+    /* SPLIT */
+    .split {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      height: 70vh;
+      min-height: 520px;
+      background: var(--marfil);
+    }
+
+    .split__media {
+      position: relative;
+      background: linear-gradient(135deg, var(--espresso) 0%, #1a0d08 100%);
+    }
+
+    .split__caption {
+      position: absolute;
+      left: 32px;
+      bottom: 32px;
+      font-weight: 400;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: rgba(243, 238, 230, 0.5);
+    }
+
+    .split__body {
+      background: var(--beige-medio);
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .split__label {
+      font-weight: 400;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .split__title {
+      font-size: clamp(26px, 3vw, 42px);
+      color: var(--navy);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .split__copy {
+      font-size: 13px;
+      color: rgba(11, 31, 58, 0.55);
+      line-height: 1.85;
+      max-width: 340px;
+      margin-top: 24px;
+    }
+
+    .split__cta {
+      display: inline-block;
+      margin-top: 40px;
+      width: max-content;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--navy);
+      border-bottom: 1px solid rgba(11, 31, 58, 0.25);
+      padding-bottom: 2px;
+      transition: border-color 0.4s var(--ease);
+    }
+
+    .split__cta:hover {
+      border-bottom-color: var(--navy);
+    }
+
+    /* PERSONALIZACIÓN */
+    .custom {
+      background: var(--navy);
+      padding: 100px var(--pad-x);
+      text-align: center;
+      color: var(--marfil);
+    }
+
+    .custom__label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(243, 238, 230, 0.4);
+      margin-bottom: 28px;
+    }
+
+    .custom__title {
+      font-size: clamp(28px, 4vw, 52px);
+      color: var(--marfil);
+      letter-spacing: 0.03em;
+    }
+
+    .custom__sub {
+      font-size: 13px;
+      color: rgba(243, 238, 230, 0.5);
+      max-width: 400px;
+      margin: 20px auto 0;
+      line-height: 1.8;
+    }
+
+    .custom__cta {
+      display: inline-block;
+      margin-top: 44px;
+      padding: 14px 44px;
+      border: 1px solid rgba(243, 238, 230, 0.3);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--marfil);
+      transition: border-color 0.4s var(--ease);
+    }
+
+    .custom__cta:hover {
+      border-color: rgba(243, 238, 230, 0.8);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(243, 238, 230, 0.06);
+      padding: 60px var(--pad-x) 36px;
+      color: var(--marfil);
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .footer__logo {
+      width: 96px;
+      height: auto;
+      filter: brightness(10);
+    }
+
+    .footer__tag {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(243, 238, 230, 0.35);
+      margin-top: 12px;
+    }
+
+    .footer__col ul li {
+      line-height: 2.6;
+    }
+
+    .footer__col a {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(243, 238, 230, 0.4);
+      transition: color 0.4s var(--ease);
+    }
+
+    .footer__col a:hover {
+      color: var(--marfil);
+    }
+
+    .footer__bottom {
+      border-top: 1px solid rgba(243, 238, 230, 0.06);
+      padding-top: 24px;
+      margin-top: 40px;
+      font-size: 10px;
+      color: rgba(243, 238, 230, 0.2);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      :root { --pad-x: 20px; }
+
+      .navbar__links { display: none; }
+      .navbar__menu-btn { display: block; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .hero__media {
+        order: 1;
+        min-height: 56vh;
+      }
+
+      .hero__content {
+        order: 2;
+        padding: 60px 24px 48px;
+      }
+
+      .hero__index {
+        top: 24px;
+        left: 20px;
+      }
+
+      .statement {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        padding: 80px 24px;
+      }
+
+      .statement__left,
+      .statement__body {
+        flex: none;
+        max-width: none;
+      }
+
+      .statement__watermark {
+        width: 96px;
+      }
+
+      .productos__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .split__media {
+        min-height: 56vh;
+      }
+
+      .split__body {
+        padding: 60px 24px;
+      }
+
+      .custom {
+        padding: 80px 24px;
+      }
+
+      .footer {
+        padding: 48px 24px 32px;
+      }
+
+      .footer__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .productos__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar">
+    <a href="#" class="navbar__logo">
+      <img src="logo-firma.png" alt="Ofelia Vallejo" width="80" height="auto">
+    </a>
+    <nav class="navbar__links">
+      <a href="#">Colección</a>
+      <a href="#">Historia</a>
+      <a href="#">Personalizar</a>
+      <a href="#">Contacto</a>
+    </nav>
+    <button type="button" class="navbar__menu-btn">Menú</button>
+  </header>
+
+  <section class="hero">
+    <p class="hero__index">— 01</p>
+    <div class="hero__content">
+      <p class="hero__label">Leather House · Medellín, Colombia</p>
+      <h1 class="hero__title">Elegancia que permanece.</h1>
+      <a href="#" class="hero__cta">Ver colección →</a>
+    </div>
+    <div class="hero__media" data-dark>
+      <span class="hero__caption">Travel Bag</span>
+    </div>
+  </section>
+
+  <section class="statement reveal">
+    <div class="statement__left">
+      <div class="statement__rule"></div>
+      <h2 class="statement__title">Nacida de una firma.</h2>
+      <img src="logo-firma.png" alt="" class="statement__watermark" width="120" height="auto">
+    </div>
+    <p class="statement__body">
+      La firma de la abuela Ofelia Vallejo no es un logo.<br>
+      Es patrimonio. Es herencia. Es el alma de cada pieza.
+    </p>
+  </section>
+
+  <section class="productos">
+    <div class="productos__header">
+      <span class="productos__header-l">Colección</span>
+      <a href="#" class="productos__header-r">Ver todo →</a>
+    </div>
+    <div class="productos__grid">
+      <a href="#" class="card">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">I</span>
+          <div class="card__gradient card__gradient--1"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Travel Bag I</p>
+          <p class="card__detail">Cuero colombiano</p>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">II</span>
+          <div class="card__gradient card__gradient--2"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Travel Bag II</p>
+          <p class="card__detail">Cuero colombiano</p>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">III</span>
+          <div class="card__gradient card__gradient--3"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Travel Bag III</p>
+          <p class="card__detail">Cuero colombiano</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="split__media" data-dark>
+      <span class="split__caption">Cuero colombiano</span>
+    </div>
+    <div class="split__body">
+      <p class="split__label">Artesanía</p>
+      <h2 class="split__title">Hecho para durar.</h2>
+      <p class="split__copy">
+        Cada pieza de Ofelia Vallejo está diseñada para acompañar
+        tu vida. No una temporada. Una vida.
+      </p>
+      <a href="#" class="split__cta">Conocer más</a>
+    </div>
+  </section>
+
+  <section class="custom reveal" data-dark>
+    <p class="custom__label">Servicio exclusivo</p>
+    <h2 class="custom__title">Tu nombre. En cuero.</h2>
+    <p class="custom__sub">Grabado láser personalizado en cada pieza.</p>
+    <a href="#" class="custom__cta">Solicitar pieza</a>
+  </section>
+
+  <footer class="footer" data-dark>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="logo-firma.png" alt="Ofelia Vallejo" class="footer__logo" width="96" height="auto">
+        <p class="footer__tag">Leather House · Medellín, Colombia</p>
+      </div>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="#">Colección</a></li>
+          <li><a href="#">Historia</a></li>
+          <li><a href="#">Personalizar</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="mailto:atelierofelia.vallejo@gmail.com">atelierofelia.vallejo@gmail.com</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer__bottom">© 2025 Ofelia Vallejo</p>
+  </footer>
+
+  <script>
+    (function () {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    })();
+
+    (function () {
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+      const cursor = document.getElementById('cursor');
+      let mx = -100;
+      let my = -100;
+      let cx = -100;
+      let cy = -100;
+      let rafId = null;
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function tick() {
+        cx = lerp(cx, mx, 0.45);
+        cy = lerp(cy, my, 0.45);
+        cursor.style.transform = 'translate3d(' + (cx - cursor.offsetWidth / 2) + 'px,' + (cy - cursor.offsetHeight / 2) + 'px,0)';
+        rafId = requestAnimationFrame(tick);
+      }
+
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+
+        const el = document.elementFromPoint(e.clientX, e.clientY);
+        const onDark = el && el.closest('[data-dark]');
+        cursor.setAttribute('data-on-dark', onDark ? 'true' : 'false');
+
+        const hoverable = el && el.closest('a, button');
+        cursor.classList.toggle('is-hover', !!hoverable);
+      });
+
+      rafId = requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
