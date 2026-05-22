@@ -1,179 +1,329 @@
 # Ofelia Vallejo — Sistema de Color y Tipografía
 
-> Sistema visual de referencia para diseño web, app, social media y materiales de marca.
+> Sistema visual técnico de referencia para web, app, social media, fotografía y materiales impresos.
+> Extraído directamente del mockup activo `index.html` — fuente única de verdad.
+> Para contexto narrativo ver `brand_discovery.md` y `CLAUDE.md`.
 
 ---
 
-## Paleta de Color Principal
+## 1. Paleta de Color Principal
 
-### Colores Core
+### Colores Core (CSS variables del mockup)
 
-| Nombre | Hex | RGB | Uso |
-|--------|-----|-----|-----|
-| Lavanda Suave | `#C8B8E8` | 200, 184, 232 | Fondos claros, elementos delicados |
-| Lavanda Media | `#A990D4` | 169, 144, 212 | Fondos secundarios, cards |
-| Morado Profundo | `#4A2570` | 74, 37, 112 | Textos premium, acentos fuertes |
-| Morado Oscuro | `#2D1547` | 45, 21, 71 | Fondos oscuros, hero sections |
-| Oro Suave | `#D4AF6A` | 212, 175, 106 | Detalles, highlights, CTAs |
-| Oro Brillante | `#F0C860` | 240, 200, 96 | Destellos, partículas, acentos |
-| Blanco Cálido | `#FAF7F2` | 250, 247, 242 | Fondos limpios, espacio negativo |
-| Negro Suave | `#1A1025` | 26, 16, 37 | Texto principal en fondos claros |
+| Token | Hex | RGB | Uso |
+|---|---|---|---|
+| `--marfil` | `#F3EEE6` | 243, 238, 230 | Fondo principal, lime-wash, lino crudo |
+| `--beige-medio` | `#EDE5D8` | 237, 229, 216 | Fondo secundario, transición suave |
+| `--navy` | `#0B1F3A` | 11, 31, 58 | Texto principal, secciones oscuras, firma original |
+| `--espresso` | `#3B2B26` | 59, 43, 38 | Cuero hero, atmósfera de taller |
+| `--vino` | `#5B1E24` | 91, 30, 36 | Acento de campaña, cuero teñido vino |
+| `--verde` | `#1F3527` | 31, 53, 39 | Cuero verde profundo, naturaleza andina |
+| `--carbon` | `#141414` | 20, 20, 20 | Negro absoluto, hardware oscuro |
 
-### Gradientes Oficiales
+### Colores derivados (transparencias del mockup)
 
 ```css
-/* Hero / Hero Background */
-background: linear-gradient(135deg, #2D1547 0%, #4A2570 40%, #7B4FA6 100%);
-
-/* Lavender Glow */
-background: linear-gradient(180deg, #C8B8E8 0%, #A990D4 50%, #4A2570 100%);
-
-/* Gold Accent */
-background: linear-gradient(90deg, #D4AF6A 0%, #F0C860 50%, #D4AF6A 100%);
-
-/* Premium Dark */
-background: linear-gradient(160deg, #1A1025 0%, #2D1547 50%, #4A2570 100%);
-
-/* Soft Velvet */
-background: linear-gradient(135deg, #E8D5F5 0%, #C8B8E8 40%, #A990D4 100%);
+--text:        var(--navy);                       /* #0B1F3A           */
+--text-soft:   rgba(11, 31, 58, 0.45);            /* navy 45% opacity  */
+--text-muted:  rgba(11, 31, 58, 0.35);            /* navy 35% opacity  */
+--rule:        rgba(11, 31, 58, 0.10);            /* navy 10% opacity  */
+--rule-strong: rgba(11, 31, 58, 0.20);            /* navy 20% opacity  */
 ```
 
-### Glassmorphism
+### Acentos metálicos permitidos
+- Latón antiguo cepillado (brass patinado, mate, ~`#9B7C4E`)
+- Gunmetal cepillado (mate gris oscuro, ~`#3D4248`)
+- Plata bruñida (mate, ~`#B8B5B0`)
+
+**Nunca usar:** oro brillante vectorial, oro rosa, cromados espejo, foil dorado.
+
+---
+
+## 2. Gradientes Oficiales (extraídos del mockup)
 
 ```css
-/* Card Premium */
-background: rgba(200, 184, 232, 0.15);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border: 1px solid rgba(212, 175, 106, 0.3);
-box-shadow: 0 8px 32px rgba(74, 37, 112, 0.3);
+/* Hero / Hero Background — atmósfera espresso/vino/navy */
+background: linear-gradient(160deg,
+  var(--espresso) 0%,
+  var(--vino) 40%,
+  var(--navy) 100%);
 
-/* Dark Glass */
-background: rgba(45, 21, 71, 0.6);
-backdrop-filter: blur(16px);
-border: 1px solid rgba(240, 200, 96, 0.2);
+/* Card Travel Bag I — espresso */
+background: linear-gradient(170deg,
+  var(--beige-medio) 0%,
+  var(--espresso) 100%);
+
+/* Card Travel Bag II — navy */
+background: linear-gradient(170deg,
+  var(--beige-medio) 0%,
+  var(--navy) 100%);
+
+/* Card Travel Bag III — verde */
+background: linear-gradient(170deg,
+  var(--beige-medio) 0%,
+  var(--verde) 100%);
+
+/* Split media — atelier oscuro */
+background: linear-gradient(135deg,
+  var(--espresso) 0%,
+  #1a0d08 100%);
 ```
 
----
-
-## Tipografía
-
-> **Nota:** Las fuentes específicas se confirman con el mockup. Estas son las direcciones correctas.
-
-### Jerarquía Tipográfica
-
-| Nivel | Uso | Estilo |
-|-------|-----|--------|
-| Display | Títulos hero, portadas | Serif elegante o sans-serif premium |
-| H1 | Títulos principales | Semi-bold, espaciado amplio |
-| H2 | Secciones | Medium weight |
-| H3 | Subsecciones | Regular o medium |
-| Body | Texto corrido | Light o regular, legible |
-| Caption | Etiquetas, metadatos | Light, tracking amplio |
-| CTA | Botones, llamadas a acción | Medium o semi-bold |
-
-### Familias Tipográficas Recomendadas
-
-**Opción A — Editorial Luxury:**
-- Display/Títulos: `Cormorant Garamond` o `Playfair Display` (serif emocional)
-- Cuerpo/UI: `DM Sans` o `Inter` (sans-serif limpio)
-
-**Opción B — Modern Premium:**
-- Display/Títulos: `Canela` o `Editorial New` (si disponible)
-- Cuerpo/UI: `Neue Haas Grotesk` o `Sohne`
-
-**Opción C — Accesible (Google Fonts):**
-- Display: `Cormorant Garamond` (Google Fonts, gratis)
-- Cuerpo: `DM Sans` (Google Fonts, gratis)
-
-### Principios Tipográficos
-- **Tracking amplio** en títulos (letter-spacing generoso)
-- **Line-height cómodo** en cuerpo (1.6–1.8)
-- **Contraste de pesos** entre título y cuerpo
-- **Nunca fuentes decorativas excesivas** — elegancia sobre decoración
-- **Jerarquía clara** — máximo 3 niveles por pantalla
+**No crear gradientes fuera de estos.** Si se requiere uno nuevo, aprobarlo y agregarlo aquí.
 
 ---
 
-## Sombras y Efectos
+## 3. Tipografía
+
+### Familias oficiales
+
+**Display / Títulos:** `Cinzel`
+- Serif romano italiano, peso 400 (regular)
+- Carga via Google Fonts: `https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap`
+- Uso: H1, H2, H3, captions de marca, watermarks tipográficos
+
+**Body / UI:** `Helvetica Neue`
+- Fallback: `Helvetica, Arial, sans-serif`
+- Peso 300 (light) por defecto
+- Uso: párrafos, navegación, CTAs, captions UI
+
+### Configuración base (del mockup)
 
 ```css
-/* Sombra Premium Card */
-box-shadow: 0 20px 60px rgba(74, 37, 112, 0.25),
-            0 4px 16px rgba(74, 37, 112, 0.15);
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
 
-/* Glow Dorado */
-box-shadow: 0 0 30px rgba(212, 175, 106, 0.4),
-            0 0 60px rgba(212, 175, 106, 0.2);
-
-/* Sombra Suave */
-box-shadow: 0 8px 24px rgba(45, 21, 71, 0.2);
-
-/* Inner Glow */
-box-shadow: inset 0 1px 0 rgba(240, 200, 96, 0.3);
-```
-
----
-
-## Partículas y Elementos Flotantes
-
-```css
-/* Partícula base */
-width: 4px;
-height: 4px;
-border-radius: 50%;
-background: radial-gradient(circle, #F0C860 0%, rgba(240, 200, 96, 0) 70%);
-animation: float 6s ease-in-out infinite;
-opacity: 0.6;
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
-  50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+h1, h2, h3 {
+  font-family: Cinzel, serif;
+  font-weight: 400;
 }
 ```
 
+### Jerarquía Tipográfica
+
+| Nivel | Familia | Size | Letter-spacing | Uso |
+|---|---|---|---|---|
+| Hero Title | Cinzel | `clamp(32px, 4vw, 52px)` | `-0.01em` | H1 hero |
+| Statement Title | Cinzel | `clamp(24px, 3vw, 40px)` | `0.01em` | H2 statement |
+| Split Title | Cinzel | `clamp(26px, 3vw, 42px)` | `0.02em` | H2 split |
+| Custom Title | Cinzel | `clamp(28px, 4vw, 52px)` | `0.03em` | H2 custom |
+| Card Name | Cinzel | `11px` | `0.12em` | Producto |
+| Section Label | Cinzel | `11px` | `0.3em` UPPERCASE | Header sección |
+| Navbar Link | Helvetica 400 | `11px` | `0.12em` UPPERCASE | Navegación |
+| Body | Helvetica 300 | `13–14px` | `0.04em` | Párrafos |
+| Caption / Meta | Helvetica 400 | `10–11px` | `0.2–0.3em` UPPERCASE | Etiquetas, índices |
+| CTA | Helvetica 400 | `10px` | `0.2em` UPPERCASE | Botones, links accionables |
+
+### Principios Tipográficos
+- **Tracking generoso** en uppercase (entre 0.12em y 0.3em)
+- **Line-height cómodo** (1.6–1.85) en body
+- **Cinzel solo en mayúsculas o iniciales** — preserva su DNA romana
+- **Helvetica light 300** para body — nunca regular o medium en párrafos
+- **Jerarquía clara** — máximo 3 niveles por pantalla
+- **Nunca decorativas** (cursivas swash, Comic, script extra)
+
 ---
 
-## Tokens de Diseño
+## 4. Espaciado y Layout
+
+### Padding lateral (responsive)
+```css
+:root { --pad-x: 48px; }              /* desktop */
+@media (max-width: 900px) {
+  :root { --pad-x: 20px; }            /* mobile  */
+}
+```
+
+### Sistema de espaciado
+
+| Token | Valor | Uso |
+|---|---|---|
+| `xs` | `4px` | Inline gaps mínimos |
+| `sm` | `8px` | Gap entre meta-elementos |
+| `md` | `16px` | Gap base, padding interno cards |
+| `lg` | `32px` | Separación entre componentes |
+| `xl` | `64px` | Margen entre secciones |
+| `2xl` | `128px` | Hero / breathing room cinematográfico |
+
+### Border radius
+**El mockup actual no usa border-radius en cards ni secciones.** Esquinas rectas, editorial.
+Excepciones permitidas: cursor custom (`50%` circular), reveal indicators.
+
+---
+
+## 5. Sombras y Efectos
+
+**Filosofía:** sombras mínimas, casi inexistentes. El editorial fashion-house no necesita sombras drop-shadow exageradas; la profundidad viene de la fotografía y la luz natural dentro de las imágenes.
+
+```css
+/* Glass navbar (único glassmorphism aprobado, muy sutil) */
+background: rgba(243, 238, 230, 0.92);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border-bottom: 1px solid var(--rule);
+
+/* Card hover image scale */
+transition: transform 1s var(--ease);
+transform: scale(1.04); /* on hover */
+
+/* Reveal on scroll */
+opacity: 0 → 1;
+transform: translateY(30px) → translateY(0);
+transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+```
+
+**Nunca:** drop-shadows tipo Material Design, glows neón, sombras coloradas, inner glow dorado.
+
+---
+
+## 6. Cursor Custom (del mockup)
+
+```css
+#cursor {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--navy);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transition:
+    width 0.25s var(--ease),
+    height 0.25s var(--ease),
+    background 0.25s var(--ease),
+    border 0.25s var(--ease);
+}
+
+#cursor.is-hover {
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  border: 1px solid var(--navy);
+}
+
+/* Sobre secciones oscuras */
+#cursor[data-on-dark="true"] {
+  background: var(--marfil);
+}
+#cursor[data-on-dark="true"].is-hover {
+  background: transparent;
+  border-color: var(--marfil);
+}
+```
+
+Solo activo en `(hover: hover) and (pointer: fine)`.
+
+---
+
+## 7. Easing y Animaciones
+
+```css
+--ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+```
+
+| Tipo | Duración | Easing |
+|---|---|---|
+| Hover link / nav | `0.3–0.4s` | `--ease` |
+| Image scale hover | `1s` | `--ease` |
+| Cursor lerp | continuous | `lerp(a, b, 0.45)` |
+| Reveal scroll | `0.9s` | `--ease` |
+| CTA gap expand | `0.4s` | `--ease` |
+
+**Nunca:** rebotes (bounce), spring physics agresivos, animaciones llamativas, parallax pronunciado.
+
+---
+
+## 8. Tokens de Diseño (JSON exportable)
 
 ```json
 {
   "colors": {
     "brand": {
-      "lavender-light": "#C8B8E8",
-      "lavender-mid": "#A990D4",
-      "purple-deep": "#4A2570",
-      "purple-dark": "#2D1547",
-      "gold-soft": "#D4AF6A",
-      "gold-bright": "#F0C860",
-      "white-warm": "#FAF7F2",
-      "black-soft": "#1A1025"
+      "marfil":       "#F3EEE6",
+      "beige-medio":  "#EDE5D8",
+      "navy":         "#0B1F3A",
+      "espresso":     "#3B2B26",
+      "vino":         "#5B1E24",
+      "verde":        "#1F3527",
+      "carbon":       "#141414"
+    },
+    "text": {
+      "primary":  "rgba(11, 31, 58, 1)",
+      "soft":     "rgba(11, 31, 58, 0.45)",
+      "muted":    "rgba(11, 31, 58, 0.35)"
+    },
+    "rule": {
+      "default": "rgba(11, 31, 58, 0.10)",
+      "strong":  "rgba(11, 31, 58, 0.20)"
+    }
+  },
+  "typography": {
+    "display": {
+      "family": "Cinzel, serif",
+      "weight": 400
+    },
+    "body": {
+      "family": "'Helvetica Neue', Helvetica, Arial, sans-serif",
+      "weight": 300,
+      "size": "13px",
+      "line-height": 1.6,
+      "letter-spacing": "0.04em"
     }
   },
   "spacing": {
-    "xs": "4px",
-    "sm": "8px",
-    "md": "16px",
-    "lg": "32px",
-    "xl": "64px",
+    "xs":  "4px",
+    "sm":  "8px",
+    "md":  "16px",
+    "lg":  "32px",
+    "xl":  "64px",
     "2xl": "128px"
   },
-  "radius": {
-    "sm": "8px",
-    "md": "16px",
-    "lg": "24px",
-    "xl": "40px",
-    "full": "9999px"
+  "layout": {
+    "pad-x-desktop": "48px",
+    "pad-x-mobile":  "20px",
+    "navbar-height": "56px"
   },
-  "blur": {
-    "sm": "8px",
-    "md": "16px",
-    "lg": "24px",
-    "xl": "40px"
+  "motion": {
+    "ease":        "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    "hover":       "0.3s",
+    "reveal":      "0.9s",
+    "image-scale": "1s"
   }
 }
 ```
 
 ---
 
-*Última actualización: 2026-05-21*
+## 9. Aplicación en Fotografía
+
+La paleta de marca debe leerse también dentro de las fotografías:
+- **Fondos:** marfil (lime-wash paisa), beige medio (lino, travertino), navy (textiles, paredes oscuras)
+- **Cuero:** espresso (hero), vino (campaña), verde (línea naturaleza), negro carbón (esencial)
+- **Wardrobe del modelo:** estrictamente tonal en estos colores
+- **Props:** latón antiguo, madera nogal, lino crudo, cerámica Carmen de Viboral (blanco + cobalto que NO entra en la paleta core pero sí como acento heritage)
+
+**Color grading post:** Kodak Vision3 250D o Portra 400 emulation, ligeramente desaturado en highlights, sombras ricas, micro-contraste preservado.
+
+---
+
+## 10. Aplicación en Logo y Aplicación Láser
+
+### Firma cursiva (logo principal)
+- Color en pantalla: `var(--navy)` `#0B1F3A`
+- Color en cuero (láser): café oscuro quemado natural sobre el tono del cuero (no se imprime navy literal, es la marca de la quemadura controlada)
+
+### Sello para estampar
+- Vector limpio, alto contraste, sin gradientes
+- Optimizado para reproducción 1:1 sobre cuero a 1–6 cm de ancho según producto
+
+Ver `CLAUDE.md` sección "Logo y marca aplicada" para spots por producto.
+
+---
+
+*Última actualización: 2026-05-22 — Reescritura completa: sistema visual real extraído del mockup activo `index.html`. Eliminada por completo la paleta lavanda/morado/oro brillante de la versión anterior obsoleta.*
