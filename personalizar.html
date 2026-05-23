@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personalizar — Ofelia Vallejo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/brand.css">
+  <style>
+    /* PAGE HERO — navy */
+    .page-hero {
+      margin-top: 56px;
+      background: var(--navy);
+      padding: 100px var(--pad-x) 80px;
+      color: var(--marfil);
+    }
+
+    .page-hero__label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(243, 238, 230, 0.4);
+      margin-bottom: 24px;
+    }
+
+    .page-hero__title {
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--marfil);
+      letter-spacing: 0.02em;
+      line-height: 1.08;
+      max-width: 600px;
+      margin-bottom: 24px;
+    }
+
+    .page-hero__sub {
+      font-size: 14px;
+      color: rgba(243, 238, 230, 0.55);
+      max-width: 480px;
+      line-height: 1.8;
+    }
+
+    /* HOW IT WORKS */
+    .process {
+      background: var(--beige-medio);
+      padding: 80px var(--pad-x);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .process__label {
+      font-family: Cinzel, serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--text-soft);
+      margin-bottom: 48px;
+    }
+
+    .process__steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .step__num {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .step__title {
+      font-size: 15px;
+      color: var(--navy);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .step__body {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.75;
+    }
+
+    /* FORM SECTION */
+    .form-section {
+      background: var(--marfil);
+      padding: 80px var(--pad-x);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .form-section__info {}
+
+    .form-section__label {
+      font-family: Cinzel, serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--text-soft);
+      margin-bottom: 24px;
+    }
+
+    .form-section__title {
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .form-section__body {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .form-section__note {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* FORM */
+    .bespoke-form {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .char-count {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .page-hero { padding: 80px 24px 64px; }
+
+      .process { padding: 64px 24px; }
+      .process__steps { grid-template-columns: 1fr; gap: 36px; }
+
+      .form-section {
+        grid-template-columns: 1fr;
+        padding: 64px 24px;
+        gap: 48px;
+      }
+
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar">
+    <nav class="navbar__nav navbar__nav--left" aria-label="Navegación principal izquierda">
+      <a href="#" class="nav-link" data-active="true">Mujer</a>
+      <a href="#" class="nav-link" data-active="true">Hombre</a>
+      <a href="manifiesto.html" class="nav-link">Historia</a>
+    </nav>
+    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="logo-firma.png" alt="Ofelia Vallejo" width="96" height="auto">
+    </a>
+    <nav class="navbar__nav navbar__nav--right" aria-label="Navegación principal derecha">
+      <a href="coleccion.html" class="nav-link">Cuero</a>
+      <a href="personalizar.html" class="nav-link">Personalizar</a>
+      <a href="contacto.html" class="nav-link">Contacto</a>
+    </nav>
+    <button type="button" class="navbar__menu-btn" aria-expanded="false" aria-controls="nav-drawer">Menú</button>
+  </header>
+
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Navegación móvil">
+    <a href="#" class="nav-link" data-active="true">Mujer</a>
+    <a href="#" class="nav-link" data-active="true">Hombre</a>
+    <a href="manifiesto.html" class="nav-link">Historia</a>
+    <a href="coleccion.html" class="nav-link">Cuero</a>
+    <a href="personalizar.html" class="nav-link">Personalizar</a>
+    <a href="contacto.html" class="nav-link">Contacto</a>
+  </nav>
+
+  <div class="page-hero" data-dark>
+    <p class="page-hero__label">Bespoke · Grabado láser</p>
+    <h1 class="page-hero__title">Tu nombre.<br>En cuero.</h1>
+    <p class="page-hero__sub">
+      Iniciales, nombre o fecha grabados a láser directamente sobre el cuero —
+      sin placas, sin vinil. La marca queda dentro de la piel.
+    </p>
+  </div>
+
+  <section class="process reveal">
+    <p class="process__label">Cómo funciona</p>
+    <div class="process__steps">
+      <div class="step">
+        <p class="step__num">— 01</p>
+        <h2 class="step__title">Elige la pieza</h2>
+        <p class="step__body">Selecciona el producto del catálogo. Todas las piezas admiten grabado láser en la posición oficial de la casa.</p>
+      </div>
+      <div class="step">
+        <p class="step__num">— 02</p>
+        <h2 class="step__title">Define el grabado</h2>
+        <p class="step__body">Iniciales (hasta 3 caracteres), nombre completo, fecha o texto libre. Máximo 60 caracteres. El atelier confirma el boceto antes de grabar.</p>
+      </div>
+      <div class="step">
+        <p class="step__num">— 03</p>
+        <h2 class="step__title">Producción y envío</h2>
+        <p class="step__body">Tiempo de producción: 5–10 días hábiles. Envío desde Medellín a toda Europa con seguimiento.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="form-section__info reveal">
+      <p class="form-section__label">Solicitud</p>
+      <h2 class="form-section__title">Solicitar<br>pieza bespoke.</h2>
+      <p class="form-section__body">
+        Completa el formulario y el atelier te responde en 24–48 h con
+        confirmación de disponibilidad, boceto del grabado y condiciones de pago.
+      </p>
+      <div class="form-section__note">
+        <p>Grabado CO₂ · 0.3–0.4 mm profundidad</p>
+        <p>Posición oficial por producto · Sin costo adicional</p>
+        <p>Cada pieza es irrepetible — no hay dos grabados iguales.</p>
+      </div>
+    </div>
+
+    <form class="bespoke-form" id="form-personalizar" novalidate>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" autocomplete="given-name" required>
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="producto">Pieza</label>
+        <select id="producto" name="producto" required>
+          <option value="" disabled selected>Selecciona una pieza</option>
+          <option value="Travel Bag I">Travel Bag I — Espresso</option>
+          <option value="Travel Bag II">Travel Bag II — Noche</option>
+          <option value="Travel Bag III">Travel Bag III — Bosque</option>
+          <option value="Bandolera Moderna">Bandolera Moderna</option>
+          <option value="Bandolera Elite">Bandolera Elite</option>
+          <option value="Morral Elite">Morral Elite</option>
+          <option value="Morral Clásico">Morral Clásico</option>
+          <option value="Bolso Dama">Bolso Dama</option>
+          <option value="Cinturón">Cinturón</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="tipo_grabado">Tipo de grabado</label>
+          <select id="tipo_grabado" name="tipo_grabado" required>
+            <option value="" disabled selected>Tipo</option>
+            <option value="iniciales">Iniciales (máx. 3)</option>
+            <option value="nombre">Nombre completo</option>
+            <option value="fecha">Fecha</option>
+            <option value="texto">Texto libre</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="texto_grabado">Texto a grabar</label>
+          <input type="text" id="texto_grabado" name="texto_grabado" maxlength="60" required>
+          <p class="char-count"><span id="char-count">0</span> / 60</p>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="mensaje">Notas adicionales (opcional)</label>
+        <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+      </div>
+
+      <div>
+        <button type="submit" class="form-submit">Enviar solicitud</button>
+        <p
+          class="form-notice form-notice--success"
+          id="notice-success"
+          role="status"
+          aria-live="polite"></p>
+        <p
+          class="form-notice form-notice--error"
+          id="notice-error"
+          role="alert"
+          aria-live="assertive"></p>
+      </div>
+    </form>
+  </section>
+
+  <section class="signature-banner reveal" aria-label="Firma de la casa">
+    <img
+      src="06_Identidad_Marca/logos/logo_firma_completa.png"
+      alt="Ofelia Vallejo — Cuero hecho para durar"
+      class="signature-banner__img">
+    <p class="signature-banner__caption">Leather House · Medellín, Colombia</p>
+  </section>
+
+  <footer class="footer" data-dark>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img
+          src="06_Identidad_Marca/logos/logo_firma_completa.png"
+          alt="Ofelia Vallejo"
+          class="footer__logo"
+          width="96"
+          height="auto">
+        <p class="footer__tag">Leather House · Medellín → Zürich</p>
+      </div>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="coleccion.html">Colección</a></li>
+          <li><a href="manifiesto.html">Historia</a></li>
+          <li><a href="personalizar.html">Personalizar</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="https://instagram.com/ofeliavallejo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="mailto:atelierofelia.vallejo@gmail.com">atelierofelia.vallejo@gmail.com</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer__bottom">© 2026 Ofelia Vallejo · Hecho a mano en Medellín</p>
+  </footer>
+
+  <script src="assets/js/brand.js"></script>
+  <script>
+    (function () {
+      const form = document.getElementById('form-personalizar');
+      const btnSubmit = form.querySelector('.form-submit');
+      const noticeOk = document.getElementById('notice-success');
+      const noticeErr = document.getElementById('notice-error');
+      const textoInput = document.getElementById('texto_grabado');
+      const charCount = document.getElementById('char-count');
+
+      // Pre-fill producto from query string
+      const params = new URLSearchParams(location.search);
+      const productoParam = params.get('producto');
+      if (productoParam) {
+        const opt = form.querySelector(`option[value="${productoParam}"]`);
+        if (opt) opt.selected = true;
+      }
+
+      textoInput.addEventListener('input', () => {
+        charCount.textContent = textoInput.value.length;
+      });
+
+      function showNotice(el, msg) {
+        noticeOk.classList.remove('is-visible');
+        noticeErr.classList.remove('is-visible');
+        el.textContent = msg;
+        el.classList.add('is-visible');
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const data = {
+          nombre:        form.nombre.value.trim(),
+          email:         form.email.value.trim(),
+          producto:      form.producto.value,
+          tipo_grabado:  form.tipo_grabado.value,
+          texto_grabado: form.texto_grabado.value.trim(),
+          mensaje:       form.mensaje.value.trim(),
+        };
+
+        if (!data.nombre || !data.email || !data.producto || !data.tipo_grabado || !data.texto_grabado) {
+          showNotice(noticeErr, 'Por favor completa todos los campos obligatorios.');
+          return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Enviando…';
+
+        try {
+          const res = await fetch('/api/personalizar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+          const json = await res.json();
+
+          if (json.ok) {
+            showNotice(noticeOk, json.message);
+            form.reset();
+            charCount.textContent = '0';
+          } else {
+            showNotice(noticeErr, json.error || 'Error al enviar. Intenta de nuevo.');
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = 'Enviar solicitud';
+          }
+        } catch {
+          showNotice(noticeErr, 'Error de conexión. Intenta de nuevo.');
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = 'Enviar solicitud';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
