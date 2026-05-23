@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto — Ofelia Vallejo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/brand.css">
+  <style>
+    /* CONTACT LAYOUT */
+    .contact-wrap {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* LEFT PANEL */
+    .contact-info {
+      background: var(--navy);
+      padding: 100px var(--pad-x);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--marfil);
+    }
+
+    .contact-info__top {}
+
+    .contact-info__label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(243, 238, 230, 0.4);
+      margin-bottom: 32px;
+    }
+
+    .contact-info__title {
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--marfil);
+      letter-spacing: 0.01em;
+      line-height: 1.08;
+      margin-bottom: 32px;
+    }
+
+    .contact-info__sub {
+      font-size: 13px;
+      color: rgba(243, 238, 230, 0.55);
+      max-width: 340px;
+      line-height: 1.8;
+    }
+
+    .contact-info__details {
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .detail__label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: rgba(243, 238, 230, 0.3);
+      margin-bottom: 6px;
+    }
+
+    .detail__value {
+      font-size: 13px;
+      color: rgba(243, 238, 230, 0.7);
+      line-height: 1.6;
+    }
+
+    .detail__value a {
+      color: inherit;
+      border-bottom: 1px solid rgba(243, 238, 230, 0.2);
+      padding-bottom: 1px;
+      transition: border-color 0.3s var(--ease);
+    }
+
+    .detail__value a:hover { border-bottom-color: rgba(243, 238, 230, 0.6); }
+
+    .contact-info__bottom {
+      padding-top: 48px;
+      border-top: 1px solid rgba(243, 238, 230, 0.08);
+      font-size: 10px;
+      color: rgba(243, 238, 230, 0.2);
+      letter-spacing: 0.1em;
+    }
+
+    /* RIGHT PANEL — FORM */
+    .contact-form-wrap {
+      background: var(--marfil);
+      padding: 100px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-form-wrap__label {
+      font-family: Cinzel, serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--text-soft);
+      margin-bottom: 40px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      max-width: 480px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .contact-wrap {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .contact-info {
+        padding: 80px 24px 64px;
+        min-height: 60vh;
+      }
+
+      .contact-form-wrap {
+        padding: 64px 24px;
+      }
+
+      .contact-form { max-width: none; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar">
+    <nav class="navbar__nav navbar__nav--left" aria-label="Navegación principal izquierda">
+      <a href="#" class="nav-link" data-active="true">Mujer</a>
+      <a href="#" class="nav-link" data-active="true">Hombre</a>
+      <a href="manifiesto.html" class="nav-link">Historia</a>
+    </nav>
+    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="logo-firma.png" alt="Ofelia Vallejo" width="96" height="auto">
+    </a>
+    <nav class="navbar__nav navbar__nav--right" aria-label="Navegación principal derecha">
+      <a href="coleccion.html" class="nav-link">Cuero</a>
+      <a href="personalizar.html" class="nav-link">Personalizar</a>
+      <a href="contacto.html" class="nav-link">Contacto</a>
+    </nav>
+    <button type="button" class="navbar__menu-btn" aria-expanded="false" aria-controls="nav-drawer">Menú</button>
+  </header>
+
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Navegación móvil">
+    <a href="#" class="nav-link" data-active="true">Mujer</a>
+    <a href="#" class="nav-link" data-active="true">Hombre</a>
+    <a href="manifiesto.html" class="nav-link">Historia</a>
+    <a href="coleccion.html" class="nav-link">Cuero</a>
+    <a href="personalizar.html" class="nav-link">Personalizar</a>
+    <a href="contacto.html" class="nav-link">Contacto</a>
+  </nav>
+
+  <div class="contact-wrap">
+
+    <!-- LEFT: INFO -->
+    <div class="contact-info" data-dark>
+      <div class="contact-info__top">
+        <p class="contact-info__label">Atelier · Medellín</p>
+        <h1 class="contact-info__title">Hablemos.</h1>
+        <p class="contact-info__sub">
+          Dudas sobre un producto, pedidos a medida, prensa o colaboraciones —
+          el atelier responde en 24–48 h.
+        </p>
+        <div class="contact-info__details">
+          <div class="detail">
+            <p class="detail__label">Email</p>
+            <p class="detail__value">
+              <a href="mailto:atelierofelia.vallejo@gmail.com">
+                atelierofelia.vallejo@gmail.com
+              </a>
+            </p>
+          </div>
+          <div class="detail">
+            <p class="detail__label">Instagram</p>
+            <p class="detail__value">
+              <a href="https://instagram.com/ofeliavallejo" target="_blank" rel="noopener noreferrer">
+                @ofeliavallejo
+              </a>
+            </p>
+          </div>
+          <div class="detail">
+            <p class="detail__label">Atelier</p>
+            <p class="detail__value">
+              Medellín, Antioquia<br>
+              Colombia
+            </p>
+          </div>
+          <div class="detail">
+            <p class="detail__label">Operación europea</p>
+            <p class="detail__value">
+              Zürich, Suiza<br>
+              Envíos a toda Europa
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="contact-info__bottom">Leather House · Medellín → Zürich · Est. 2026</p>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="contact-form-wrap">
+      <p class="contact-form-wrap__label">Mensaje directo</p>
+      <form class="contact-form" id="form-contacto" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" autocomplete="given-name" required>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="asunto">Asunto</label>
+          <select id="asunto" name="asunto">
+            <option value="" disabled selected>Selecciona</option>
+            <option value="Pedido / producto">Pedido / producto</option>
+            <option value="Personalización">Personalización</option>
+            <option value="Prensa / colaboración">Prensa / colaboración</option>
+            <option value="Mayorista / distribución">Mayorista / distribución</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+        </div>
+
+        <div>
+          <button type="submit" class="form-submit">Enviar mensaje</button>
+          <p
+            class="form-notice form-notice--success"
+            id="notice-success"
+            role="status"
+            aria-live="polite"></p>
+          <p
+            class="form-notice form-notice--error"
+            id="notice-error"
+            role="alert"
+            aria-live="assertive"></p>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <footer class="footer" data-dark>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img
+          src="06_Identidad_Marca/logos/logo_firma_completa.png"
+          alt="Ofelia Vallejo"
+          class="footer__logo"
+          width="96"
+          height="auto">
+        <p class="footer__tag">Leather House · Medellín → Zürich</p>
+      </div>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="coleccion.html">Colección</a></li>
+          <li><a href="manifiesto.html">Historia</a></li>
+          <li><a href="personalizar.html">Personalizar</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="https://instagram.com/ofeliavallejo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="mailto:atelierofelia.vallejo@gmail.com">atelierofelia.vallejo@gmail.com</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer__bottom">© 2026 Ofelia Vallejo · Hecho a mano en Medellín</p>
+  </footer>
+
+  <script src="assets/js/brand.js"></script>
+  <script>
+    (function () {
+      const form = document.getElementById('form-contacto');
+      const btnSubmit = form.querySelector('.form-submit');
+      const noticeOk = document.getElementById('notice-success');
+      const noticeErr = document.getElementById('notice-error');
+
+      function showNotice(el, msg) {
+        noticeOk.classList.remove('is-visible');
+        noticeErr.classList.remove('is-visible');
+        el.textContent = msg;
+        el.classList.add('is-visible');
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const data = {
+          nombre:  form.nombre.value.trim(),
+          email:   form.email.value.trim(),
+          asunto:  form.asunto.value,
+          mensaje: form.mensaje.value.trim(),
+        };
+
+        if (!data.nombre || !data.email || !data.mensaje) {
+          showNotice(noticeErr, 'Por favor completa nombre, email y mensaje.');
+          return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Enviando…';
+
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+          const json = await res.json();
+
+          if (json.ok) {
+            showNotice(noticeOk, json.message);
+            form.reset();
+          } else {
+            showNotice(noticeErr, json.error || 'Error al enviar. Intenta de nuevo.');
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = 'Enviar mensaje';
+          }
+        } catch {
+          showNotice(noticeErr, 'Error de conexión. Intenta de nuevo.');
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = 'Enviar mensaje';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

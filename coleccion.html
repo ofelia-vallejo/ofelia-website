@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colección — Ofelia Vallejo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/brand.css">
+  <style>
+    /* PAGE HERO */
+    .page-hero {
+      margin-top: 56px;
+      padding: 80px var(--pad-x) 48px;
+      background: var(--marfil);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+    }
+
+    .page-hero__label {
+      font-family: Cinzel, serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    .page-hero__title {
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      line-height: 1.05;
+    }
+
+    .page-hero__sub {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 340px;
+      line-height: 1.75;
+      text-align: right;
+    }
+
+    /* CATEGORY */
+    .category {
+      background: var(--marfil);
+    }
+
+    .category__header {
+      padding: 48px var(--pad-x) 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px solid var(--rule);
+    }
+
+    .category__header:first-child { border-top: none; }
+
+    .category__label {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--text-soft);
+    }
+
+    .category__count {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    /* PRODUCT GRID */
+    .grid {
+      display: grid;
+      gap: 1px;
+      background: rgba(11, 31, 58, 0.06);
+    }
+
+    .grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+    /* CARD */
+    .card {
+      background: var(--marfil);
+      display: block;
+    }
+
+    .card__img {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+
+    .card__img--wide { aspect-ratio: 4 / 3; }
+
+    .card__numeral {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: rgba(243, 238, 230, 0.5);
+    }
+
+    .card__badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 2;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(243, 238, 230, 0.6);
+      background: rgba(11, 31, 58, 0.25);
+      padding: 4px 10px;
+    }
+
+    .card__gradient {
+      width: 100%;
+      height: 100%;
+      transition: transform 1s var(--ease);
+    }
+
+    .card:hover .card__gradient { transform: scale(1.04); }
+
+    .card__gradient--espresso { background: linear-gradient(170deg, var(--beige-medio) 0%, var(--espresso) 100%); }
+    .card__gradient--navy     { background: linear-gradient(170deg, var(--beige-medio) 0%, var(--navy) 100%); }
+    .card__gradient--verde    { background: linear-gradient(170deg, var(--beige-medio) 0%, var(--verde) 100%); }
+    .card__gradient--vino     { background: linear-gradient(170deg, var(--beige-medio) 0%, var(--vino) 100%); }
+    .card__gradient--carbon   { background: linear-gradient(170deg, #8a7060 0%, var(--carbon) 100%); }
+    .card__gradient--rustico  { background: linear-gradient(170deg, var(--marfil) 0%, #8B5E3C 100%); }
+
+    .card__info { padding: 16px var(--pad-x) 32px; }
+
+    .card__name {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+    }
+
+    .card__detail {
+      font-size: 11px;
+      color: rgba(11, 31, 58, 0.4);
+      margin-top: 4px;
+    }
+
+    .card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--navy);
+      border-bottom: 1px solid rgba(11, 31, 58, 0.2);
+      padding-bottom: 2px;
+      transition: gap 0.4s var(--ease), border-color 0.4s var(--ease);
+    }
+
+    .card:hover .card__cta { gap: 14px; border-bottom-color: var(--navy); }
+
+    /* PERSONALIZACIÓN CTA */
+    .coleccion-cta {
+      background: var(--beige-medio);
+      padding: 80px var(--pad-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 48px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .coleccion-cta__left { max-width: 420px; }
+
+    .coleccion-cta__label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .coleccion-cta__title {
+      font-size: clamp(24px, 3vw, 38px);
+      color: var(--navy);
+      line-height: 1.15;
+    }
+
+    .coleccion-cta__sub {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.75;
+      margin-top: 16px;
+    }
+
+    .coleccion-cta__btn {
+      display: inline-block;
+      padding: 14px 44px;
+      border: 1px solid var(--navy);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--navy);
+      transition: background 0.4s var(--ease), color 0.4s var(--ease);
+      white-space: nowrap;
+    }
+
+    .coleccion-cta__btn:hover {
+      background: var(--navy);
+      color: var(--marfil);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .page-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 24px 40px;
+      }
+
+      .page-hero__sub { text-align: left; max-width: none; }
+
+      .grid--3 { grid-template-columns: 1fr; }
+      .grid--2 { grid-template-columns: 1fr; }
+
+      .coleccion-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 64px 24px;
+        gap: 32px;
+      }
+    }
+
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .grid--3 { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar">
+    <nav class="navbar__nav navbar__nav--left" aria-label="Navegación principal izquierda">
+      <a href="#" class="nav-link" data-active="true">Mujer</a>
+      <a href="#" class="nav-link" data-active="true">Hombre</a>
+      <a href="manifiesto.html" class="nav-link">Historia</a>
+    </nav>
+    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="logo-firma.png" alt="Ofelia Vallejo" width="96" height="auto">
+    </a>
+    <nav class="navbar__nav navbar__nav--right" aria-label="Navegación principal derecha">
+      <a href="coleccion.html" class="nav-link">Cuero</a>
+      <a href="personalizar.html" class="nav-link">Personalizar</a>
+      <a href="contacto.html" class="nav-link">Contacto</a>
+    </nav>
+    <button type="button" class="navbar__menu-btn" aria-expanded="false" aria-controls="nav-drawer">Menú</button>
+  </header>
+
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Navegación móvil">
+    <a href="#" class="nav-link" data-active="true">Mujer</a>
+    <a href="#" class="nav-link" data-active="true">Hombre</a>
+    <a href="manifiesto.html" class="nav-link">Historia</a>
+    <a href="coleccion.html" class="nav-link">Cuero</a>
+    <a href="personalizar.html" class="nav-link">Personalizar</a>
+    <a href="contacto.html" class="nav-link">Contacto</a>
+  </nav>
+
+  <div class="page-hero">
+    <div>
+      <p class="page-hero__label">Colección 01</p>
+      <h1 class="page-hero__title">Cuero<br>colombiano.</h1>
+    </div>
+    <p class="page-hero__sub">
+      Piezas hechas a mano en Medellín. Cuero pleno colombiano, hilo encerado,
+      herrajes macizos. Cada una pensada para durar una vida.
+    </p>
+  </div>
+
+  <!-- TRAVEL BAGS -->
+  <section class="category">
+    <div class="category__header">
+      <span class="category__label">Travel Bags</span>
+      <span class="category__count">3 piezas</span>
+    </div>
+    <div class="grid grid--3">
+
+      <a href="personalizar.html?producto=Travel+Bag+I" class="card" id="travel-bag-i">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">I</span>
+          <span class="card__badge">Espresso</span>
+          <div class="card__gradient card__gradient--espresso"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Travel Bag I</p>
+          <p class="card__detail">Cuero pleno · Espresso · Grabado disponible</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+      <a href="personalizar.html?producto=Travel+Bag+II" class="card" id="travel-bag-ii">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">II</span>
+          <span class="card__badge">Noche</span>
+          <div class="card__gradient card__gradient--navy"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Travel Bag II</p>
+          <p class="card__detail">Cuero pleno · Navy · Grabado disponible</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+      <a href="personalizar.html?producto=Travel+Bag+III" class="card" id="travel-bag-iii">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">III</span>
+          <span class="card__badge">Bosque</span>
+          <div class="card__gradient card__gradient--verde"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Travel Bag III</p>
+          <p class="card__detail">Cuero pleno · Verde profundo · Grabado disponible</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- BANDOLERAS -->
+  <section class="category reveal">
+    <div class="category__header">
+      <span class="category__label">Bandoleras</span>
+      <span class="category__count">2 piezas</span>
+    </div>
+    <div class="grid grid--2">
+
+      <a href="personalizar.html?producto=Bandolera+Moderna" class="card">
+        <div class="card__img card__img--wide" data-dark>
+          <div class="card__gradient card__gradient--carbon"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Bandolera Moderna</p>
+          <p class="card__detail">Cuero pleno · Negro · Correa ajustable</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+      <a href="personalizar.html?producto=Bandolera+Elite" class="card">
+        <div class="card__img card__img--wide" data-dark>
+          <div class="card__gradient card__gradient--espresso"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Bandolera Elite</p>
+          <p class="card__detail">Cuero pleno · Espresso · Herraje latón</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- MORRALES -->
+  <section class="category reveal">
+    <div class="category__header">
+      <span class="category__label">Morrales</span>
+      <span class="category__count">2 piezas</span>
+    </div>
+    <div class="grid grid--2">
+
+      <a href="personalizar.html?producto=Morral+Elite" class="card">
+        <div class="card__img card__img--wide" data-dark>
+          <div class="card__gradient card__gradient--navy"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Morral Elite</p>
+          <p class="card__detail">Cuero pleno · Navy · Compartimentos estructurados</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+      <a href="personalizar.html?producto=Morral+Cl%C3%A1sico" class="card">
+        <div class="card__img card__img--wide" data-dark>
+          <div class="card__gradient card__gradient--rustico"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Morral Clásico</p>
+          <p class="card__detail">Cuero pleno · Rústico · Correas ajustables</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- BOLSO & CINTURONES -->
+  <section class="category reveal">
+    <div class="category__header">
+      <span class="category__label">Bolso & Cinturones</span>
+      <span class="category__count">2 piezas</span>
+    </div>
+    <div class="grid grid--2">
+
+      <a href="personalizar.html?producto=Bolso+Dama" class="card">
+        <div class="card__img card__img--wide" data-dark>
+          <div class="card__gradient card__gradient--vino"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Bolso Dama</p>
+          <p class="card__detail">Cuero pleno · Vino · Tote estructurado</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+      <a href="personalizar.html?producto=Cintur%C3%B3n" class="card">
+        <div class="card__img card__img--wide" data-dark>
+          <div class="card__gradient card__gradient--carbon"></div>
+        </div>
+        <div class="card__info">
+          <p class="card__name">Cinturón</p>
+          <p class="card__detail">Cuero pleno · Negro · Hebilla latón · Unisex</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CTA PERSONALIZACIÓN -->
+  <div class="coleccion-cta reveal">
+    <div class="coleccion-cta__left">
+      <p class="coleccion-cta__label">Bespoke · Bajo pedido</p>
+      <h2 class="coleccion-cta__title">Tu nombre.<br>En cuero.</h2>
+      <p class="coleccion-cta__sub">
+        Todas las piezas pueden personalizarse con grabado láser —
+        iniciales, nombre o fecha directamente sobre el cuero.
+      </p>
+    </div>
+    <a href="personalizar.html" class="coleccion-cta__btn">Solicitar grabado →</a>
+  </div>
+
+  <section class="signature-banner reveal" aria-label="Firma de la casa">
+    <img
+      src="06_Identidad_Marca/logos/logo_firma_completa.png"
+      alt="Ofelia Vallejo — Cuero hecho para durar"
+      class="signature-banner__img">
+    <p class="signature-banner__caption">Leather House · Medellín, Colombia</p>
+  </section>
+
+  <footer class="footer" data-dark>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img
+          src="06_Identidad_Marca/logos/logo_firma_completa.png"
+          alt="Ofelia Vallejo"
+          class="footer__logo"
+          width="96"
+          height="auto">
+        <p class="footer__tag">Leather House · Medellín → Zürich</p>
+      </div>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="coleccion.html">Colección</a></li>
+          <li><a href="manifiesto.html">Historia</a></li>
+          <li><a href="personalizar.html">Personalizar</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__col">
+        <ul>
+          <li><a href="https://instagram.com/ofeliavallejo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="mailto:atelierofelia.vallejo@gmail.com">atelierofelia.vallejo@gmail.com</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer__bottom">© 2026 Ofelia Vallejo · Hecho a mano en Medellín</p>
+  </footer>
+
+  <script src="assets/js/brand.js"></script>
+</body>
+</html>
