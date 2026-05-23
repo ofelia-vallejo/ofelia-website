@@ -593,6 +593,36 @@
       .navbar__links { display: none; }
       .navbar__menu-btn { display: block; }
 
+      /* Logo: monograma OV arriba en móvil */
+      .navbar__logo .logo--firma-completa { display: none; }
+      .navbar__logo .logo--monograma {
+        display: block;
+        width: 38px;
+      }
+
+      /* Banner inferior móvil con firma completa */
+      .signature-banner {
+        display: block;
+        background: var(--marfil);
+        padding: 80px 24px 64px;
+        text-align: center;
+        border-top: 1px solid var(--rule);
+      }
+      .signature-banner__img {
+        width: clamp(220px, 70vw, 320px);
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+      .signature-banner__caption {
+        margin-top: 18px;
+        font-family: Cinzel, serif;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--text-soft);
+      }
+
       .hero {
         grid-template-columns: 1fr;
         height: auto;
@@ -672,12 +702,21 @@
   <div id="cursor" aria-hidden="true"></div>
 
   <header class="navbar">
-    <a href="#" class="navbar__logo">
-      <img src="logo-firma.png" alt="Ofelia Vallejo" width="80" height="auto">
+    <a href="#" class="navbar__logo" aria-label="Ofelia Vallejo">
+      <!-- Desktop: firma completa (esquina superior izquierda) -->
+      <img
+        src="06_Identidad_Marca/logos/logo_firma_completa.png"
+        alt="Ofelia Vallejo — Cuero hecho para durar"
+        class="logo--firma-completa">
+      <!-- Móvil: monograma OV -->
+      <img
+        src="06_Identidad_Marca/logos/logo_tarjetas_sello.png"
+        alt="Ofelia Vallejo"
+        class="logo--monograma">
     </a>
     <nav class="navbar__links">
       <a href="#">Colección</a>
-      <a href="#">Historia</a>
+      <a href="manifiesto.html">Historia</a>
       <a href="#">Personalizar</a>
       <a href="#">Contacto</a>
     </nav>
@@ -700,7 +739,7 @@
     <div class="statement__left">
       <div class="statement__rule"></div>
       <h2 class="statement__title">Nacida de una firma.</h2>
-      <img src="logo-firma.png" alt="" class="statement__watermark" width="120" height="auto">
+      <img src="06_Identidad_Marca/logos/logo_firma_completa.png" alt="" class="statement__watermark" width="120" height="auto">
     </div>
     <p class="statement__body">
       La firma de mi abuela Ofelia no es un logo.<br>
@@ -771,16 +810,25 @@
     <a href="#" class="custom__cta">Solicitar pieza</a>
   </section>
 
+  <!-- Banner inferior móvil: firma completa destacada antes del footer -->
+  <section class="signature-banner reveal" aria-label="Firma de la casa">
+    <img
+      src="06_Identidad_Marca/logos/logo_firma_completa.png"
+      alt="Ofelia Vallejo — Cuero hecho para durar"
+      class="signature-banner__img">
+    <p class="signature-banner__caption">Leather House · Medellín, Colombia</p>
+  </section>
+
   <footer class="footer" data-dark>
     <div class="footer__grid">
       <div class="footer__brand">
-        <img src="logo-firma.png" alt="Ofelia Vallejo" class="footer__logo" width="96" height="auto">
+        <img src="06_Identidad_Marca/logos/logo_firma_completa.png" alt="Ofelia Vallejo" class="footer__logo" width="96" height="auto">
         <p class="footer__tag">Leather House · Medellín → Zürich</p>
       </div>
       <nav class="footer__col">
         <ul>
           <li><a href="#">Colección</a></li>
-          <li><a href="#">Historia</a></li>
+          <li><a href="manifiesto.html">Historia</a></li>
           <li><a href="#">Personalizar</a></li>
           <li><a href="#">Contacto</a></li>
         </ul>
