@@ -9,6 +9,7 @@ Sitio estático v4. Abrir `index.html` en el navegador o desplegar en Vercel.
 ```
 ofelia-vallejo/
 ├── index.html              ← Home deploy (fuente activa)
+├── banner-intro.html       ← intro globo D3 (5 etapas → index.html)
 ├── Home v6.html            ← ground truth / referencia del mockup
 ├── logo-firma.png          ← firma OV caligráfica 200×80, fondo transparente (→ SVG pendiente)
 └── assets/
@@ -17,7 +18,8 @@ ofelia-vallejo/
 
 ## Archivos
 
-- `index.html` — Home v4 (única versión activa)
+- `index.html` — Home (única versión activa en producción)
+- `banner-intro.html` — Intro cartográfica D3 + TopoJSON; Saltar / Entrar → `index.html`
 - `logo-firma.png` — Firma OV (navbar 96px · footer 112px + brightness · statement 132px @ 18% opacidad). Guía: `04_Prompts_Visuales/logo_firma_ov.md`
 - `assets/img/` — Fotos de producto y lifestyle (añadir aquí: `hero.jpg`, `bag-01.jpg`, etc.)
 
