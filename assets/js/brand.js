@@ -59,7 +59,7 @@
 })();
 
 (function () {
-  const btn = document.querySelector('.navbar__menu-btn');
+  const btn = document.querySelector('.menu-btn');
   const drawer = document.querySelector('.nav-drawer');
   if (!btn || !drawer) return;
 

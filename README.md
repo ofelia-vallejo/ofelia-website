@@ -8,8 +8,9 @@ Sitio estático v4. Abrir `index.html` en el navegador o desplegar en Vercel.
 
 ```
 ofelia-vallejo/
-├── index.html              ← Home v4 (renombrado)
-├── logo-firma.png          ← firma OV vectorizada (fondo transparente)
+├── index.html              ← Home deploy (fuente activa)
+├── Home v6.html            ← ground truth / referencia del mockup
+├── logo-firma.png          ← firma OV caligráfica 200×80, fondo transparente (→ SVG pendiente)
 └── assets/
     └── img/                ← fotos reales del cuero (futuro)
 ```
@@ -17,7 +18,7 @@ ofelia-vallejo/
 ## Archivos
 
 - `index.html` — Home v4 (única versión activa)
-- `logo-firma.png` — Logo de firma OV (PNG, fondo transparente)
+- `logo-firma.png` — Firma OV (navbar 96px · footer 112px + brightness · statement 132px @ 18% opacidad). Guía: `04_Prompts_Visuales/logo_firma_ov.md`
 - `assets/img/` — Fotos de producto y lifestyle (añadir aquí: `hero.jpg`, `bag-01.jpg`, etc.)
 
 ## Deploy (Vercel)
