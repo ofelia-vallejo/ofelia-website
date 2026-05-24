@@ -274,7 +274,7 @@ ofelia vallejo/
 ├── VERSION
 ├── index.html                         ← mockup activo (Home v4 estático para Vercel)
 ├── vercel.json
-├── logo-firma.png                     ← logo placeholder (pendiente: subir versión final + 2 variantes)
+├── logo-firma.png                     ← firma OV caligráfica (tridente); ver 04_Prompts_Visuales/logo_firma_ov.md
 ├── assets/
 │   └── img/                           ← imágenes finales generadas para el sitio
 ├── 01_Contabilidad/                   ← finanzas, ingresos, egresos, facturación

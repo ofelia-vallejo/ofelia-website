@@ -122,16 +122,17 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   padding-left: 36px;
 }
 
-.navbar__logo {
-  flex-shrink: 0;
+.navbar__logo-img {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
-.navbar__logo img {
+.navbar__firma {
+  height: 34px;
+  width: auto;
   display: block;
-  height: auto;
-  width: 96px;
+  mix-blend-mode: multiply;
 }
 
 .nav-link {
@@ -388,11 +389,13 @@ footer {
   .navbar .util { display: none; }
   .menu-btn { display: inline-block; }
 
-  .navbar__logo {
+  .navbar__logo-img {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
+
+  .navbar__firma { height: 26px; }
 
   .signature-banner {
     display: block;

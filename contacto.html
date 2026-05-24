@@ -9,136 +9,293 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/brand.css">
   <style>
-    /* CONTACT LAYOUT */
-    .contact-wrap {
+    /* HERO */
+    .contact-hero {
       margin-top: 56px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: calc(100vh - 56px);
-    }
-
-    /* LEFT PANEL */
-    .contact-info {
       background: var(--navy);
-      padding: 100px var(--pad-x);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      padding: 100px var(--pad-x) 80px;
       color: var(--marfil);
     }
 
-    .contact-info__top {}
-
-    .contact-info__label {
+    .contact-hero__label {
       font-size: 10px;
+      font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 0.3em;
       color: rgba(243, 238, 230, 0.4);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
-    .contact-info__title {
-      font-size: clamp(32px, 4vw, 52px);
-      color: var(--marfil);
-      letter-spacing: 0.01em;
+    .contact-hero__title {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: 0.02em;
       line-height: 1.08;
-      margin-bottom: 32px;
+      max-width: 640px;
+      margin-bottom: 24px;
     }
 
-    .contact-info__sub {
-      font-size: 13px;
+    .contact-hero__body {
+      font-size: 14px;
+      font-weight: 300;
       color: rgba(243, 238, 230, 0.55);
-      max-width: 340px;
-      line-height: 1.8;
+      max-width: 480px;
+      line-height: 1.85;
     }
 
-    .contact-info__details {
-      margin-top: 64px;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
+    /* CHANNELS */
+    .contact-channels {
+      background: var(--marfil);
+      padding: 80px var(--pad-x);
+      border-bottom: 1px solid var(--rule);
     }
 
-    .detail__label {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: rgba(243, 238, 230, 0.3);
-      margin-bottom: 6px;
+    .contact-channels__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    .detail__value {
-      font-size: 13px;
-      color: rgba(243, 238, 230, 0.7);
+    .channel__icon {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 20px;
+      color: var(--navy);
+    }
+
+    .channel__title {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .channel__body {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .channel__extra {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--text-muted);
       line-height: 1.6;
+      margin-top: 8px;
     }
 
-    .detail__value a {
-      color: inherit;
-      border-bottom: 1px solid rgba(243, 238, 230, 0.2);
-      padding-bottom: 1px;
+    .channel__cta {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--navy);
+      border-bottom: 1px solid rgba(11, 31, 58, 0.25);
+      padding-bottom: 2px;
       transition: border-color 0.3s var(--ease);
     }
 
-    .detail__value a:hover { border-bottom-color: rgba(243, 238, 230, 0.6); }
+    .channel__cta:hover { border-bottom-color: var(--navy); }
 
-    .contact-info__bottom {
-      padding-top: 48px;
-      border-top: 1px solid rgba(243, 238, 230, 0.08);
-      font-size: 10px;
-      color: rgba(243, 238, 230, 0.2);
-      letter-spacing: 0.1em;
-    }
-
-    /* RIGHT PANEL — FORM */
-    .contact-form-wrap {
+    /* FORM */
+    .contact-form-section {
       background: var(--marfil);
-      padding: 100px 64px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      padding: 80px var(--pad-x) 100px;
     }
 
-    .contact-form-wrap__label {
+    .contact-form-section__inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .contact-form-section__title {
       font-family: Cinzel, serif;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.35em;
-      color: var(--text-soft);
+      font-weight: 400;
+      font-size: clamp(22px, 3vw, 32px);
+      color: var(--navy);
+      letter-spacing: 0.02em;
       margin-bottom: 40px;
     }
 
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 28px;
-      max-width: 480px;
+      gap: 8px;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .contact-form__group {
+      margin-bottom: 20px;
+    }
+
+    .contact-form__group label {
+      display: block;
+      font-size: 9px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .contact-form input.form-field,
+    .contact-form select.form-field,
+    .contact-form textarea.form-field {
+      border: none;
+      border-bottom: 1px solid rgba(11, 31, 58, 0.2);
+      background: transparent;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: var(--navy);
+      padding: 12px 0;
+      width: 100%;
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.3s;
+    }
+
+    .contact-form select.form-field {
+      cursor: pointer;
+      appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, var(--navy) 50%),
+        linear-gradient(135deg, var(--navy) 50%, transparent 50%);
+      background-position: calc(100% - 16px) calc(50% + 2px),
+        calc(100% - 10px) calc(50% + 2px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    .contact-form textarea.form-field {
+      resize: vertical;
+      min-height: 96px;
+      line-height: 1.7;
+    }
+
+    .contact-form input.form-field:focus,
+    .contact-form select.form-field:focus,
+    .contact-form textarea.form-field:focus {
+      border-bottom-color: var(--navy);
+    }
+
+    .contact-form__grabado {
+      display: flex;
+      align-items: center;
       gap: 20px;
+      padding: 16px 0 8px;
     }
 
-    /* RESPONSIVE */
+    .contact-form__grabado label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      color: var(--text-soft);
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .contact-form__grabado input[type="radio"] {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--navy);
+      margin: 0;
+    }
+
+    .contact-form__submit {
+      margin-top: 28px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--navy);
+      padding: 0 0 4px;
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--navy);
+      cursor: none;
+      transition: letter-spacing 0.4s var(--ease), opacity 0.3s;
+    }
+
+    .contact-form__submit:hover { letter-spacing: 0.28em; }
+    .contact-form__submit:disabled { opacity: 0.4; }
+
+    .contact-form__legal {
+      margin-top: 20px;
+      font-size: 8px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .form-notice {
+      margin-top: 16px;
+      font-size: 11px;
+      display: none;
+    }
+
+    .form-notice.is-visible { display: block; }
+    .form-notice--success { color: var(--verde); }
+    .form-notice--error { color: var(--vino); }
+
+    /* CLOSING */
+    .contact-closing {
+      background: var(--espresso);
+      padding: 64px var(--pad-x);
+      text-align: center;
+      color: var(--marfil);
+    }
+
+    .contact-closing__brand {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(243, 238, 230, 0.75);
+      margin-bottom: 12px;
+    }
+
+    .contact-closing__tagline {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(243, 238, 230, 0.35);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     @media (max-width: 900px) {
-      .contact-wrap {
+      .contact-hero { padding: 80px 24px 64px; }
+      .contact-channels { padding: 64px 24px; }
+      .contact-channels__grid {
         grid-template-columns: 1fr;
-        min-height: auto;
+        gap: 40px;
       }
-
-      .contact-info {
-        padding: 80px 24px 64px;
-        min-height: 60vh;
-      }
-
-      .contact-form-wrap {
-        padding: 64px 24px;
-      }
-
-      .contact-form { max-width: none; }
-      .form-row { grid-template-columns: 1fr; }
+      .contact-form-section { padding: 64px 24px 80px; }
+      .contact-closing { padding: 48px 24px; }
     }
   </style>
 </head>
@@ -152,8 +309,8 @@
       <a href="#" class="nav-link" data-active="true">Hombre</a>
       <a href="manifiesto.html" class="nav-link">Historia</a>
     </nav>
-    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
-      <img src="logo-firma.png" alt="Ofelia Vallejo" width="96" height="auto">
+    <a href="index.html" class="navbar__logo-img" aria-label="Ofelia Vallejo — Inicio">
+      <img src="logo-firma.png" alt="Ofelia Vallejo" class="navbar__firma">
     </a>
     <nav class="util" aria-label="Navegación principal derecha">
       <a href="coleccion.html" class="nav-link">Cuero</a>
@@ -172,102 +329,112 @@
     <a href="contacto.html" class="nav-link">Contacto</a>
   </nav>
 
-  <div class="contact-wrap">
+  <section class="contact-hero" data-dark>
+    <p class="contact-hero__label">Leather House · Medellín — Zürich</p>
+    <h1 class="contact-hero__title">Construyamos<br>algo tuyo.</h1>
+    <p class="contact-hero__body">
+      Cada pieza se hace a pedido. Cuéntanos qué necesitas
+      y te respondemos en menos de 48 horas.
+    </p>
+  </section>
 
-    <!-- LEFT: INFO -->
-    <div class="contact-info" data-dark>
-      <div class="contact-info__top">
-        <p class="contact-info__label">Atelier · Medellín</p>
-        <h1 class="contact-info__title">Hablemos.</h1>
-        <p class="contact-info__sub">
-          Dudas sobre un producto, pedidos a medida, prensa o colaboraciones —
-          el atelier responde en 24–48 h.
+  <section class="contact-channels reveal">
+    <div class="contact-channels__grid">
+      <div class="channel">
+        <svg class="channel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="0"/>
+          <path d="M3 7l9 7 9-7"/>
+        </svg>
+        <h2 class="channel__title">Pedidos</h2>
+        <p class="channel__body">
+          Para cotizaciones, pedidos personalizados y consultas sobre materiales.
         </p>
-        <div class="contact-info__details">
-          <div class="detail">
-            <p class="detail__label">Email</p>
-            <p class="detail__value">
-              <a href="mailto:atelierofelia.vallejo@gmail.com">
-                atelierofelia.vallejo@gmail.com
-              </a>
-            </p>
-          </div>
-          <div class="detail">
-            <p class="detail__label">Instagram</p>
-            <p class="detail__value">
-              <a href="https://instagram.com/ofeliavallejo" target="_blank" rel="noopener noreferrer">
-                @ofeliavallejo
-              </a>
-            </p>
-          </div>
-          <div class="detail">
-            <p class="detail__label">Atelier</p>
-            <p class="detail__value">
-              Medellín, Antioquia<br>
-              Colombia
-            </p>
-          </div>
-          <div class="detail">
-            <p class="detail__label">Operación europea</p>
-            <p class="detail__value">
-              Zürich, Suiza<br>
-              Envíos a toda Europa
-            </p>
-          </div>
-        </div>
+        <a href="mailto:hola@ofeliavallejo.com" class="channel__cta">hola@ofeliavallejo.com</a>
       </div>
-      <p class="contact-info__bottom">Leather House · Medellín → Zürich · Est. 2026</p>
-    </div>
 
-    <!-- RIGHT: FORM -->
-    <div class="contact-form-wrap">
-      <p class="contact-form-wrap__label">Mensaje directo</p>
+      <div class="channel">
+        <svg class="channel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+          <path d="M6 4h4l2 4-2.5 2.5a11 11 0 005 5L17 13l4 2v4a2 2 0 01-2 2A16 16 0 014 6a2 2 0 012-2z"/>
+        </svg>
+        <h2 class="channel__title">WhatsApp</h2>
+        <p class="channel__body">
+          Respuesta directa. Para hablar de tu pieza, medidas y detalles de grabado.
+        </p>
+        <a href="#" class="channel__cta">Escribir por WhatsApp →</a>
+      </div>
+
+      <div class="channel">
+        <svg class="channel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+          <path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/>
+          <circle cx="12" cy="10" r="2.5"/>
+        </svg>
+        <h2 class="channel__title">Taller</h2>
+        <p class="channel__body">
+          Diseñado y producido en Medellín, Antioquia, Colombia.
+        </p>
+        <p class="channel__extra">Distribución desde Zürich, Suiza.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-form-section reveal">
+    <div class="contact-form-section__inner">
+      <h2 class="contact-form-section__title">Cuéntanos tu idea</h2>
       <form class="contact-form" id="form-contacto" novalidate>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" autocomplete="given-name" required>
-          </div>
-          <div class="form-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" autocomplete="email" required>
-          </div>
+        <div class="contact-form__group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" class="form-field" autocomplete="name" required>
         </div>
 
-        <div class="form-field">
-          <label for="asunto">Asunto</label>
-          <select id="asunto" name="asunto">
+        <div class="contact-form__group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" class="form-field" autocomplete="email" required>
+        </div>
+
+        <div class="contact-form__group">
+          <label for="producto">Producto de interés</label>
+          <select id="producto" name="producto" class="form-field" required>
             <option value="" disabled selected>Selecciona</option>
-            <option value="Pedido / producto">Pedido / producto</option>
-            <option value="Personalización">Personalización</option>
-            <option value="Prensa / colaboración">Prensa / colaboración</option>
-            <option value="Mayorista / distribución">Mayorista / distribución</option>
+            <option value="Travel Bag">Travel Bag</option>
+            <option value="Bandolera">Bandolera</option>
+            <option value="Morral">Morral</option>
+            <option value="Cinturón">Cinturón</option>
+            <option value="Bolso">Bolso</option>
             <option value="Otro">Otro</option>
           </select>
         </div>
 
-        <div class="form-field">
-          <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+        <div class="contact-form__group">
+          <label id="grabado-label">¿Quieres grabado personalizado?</label>
+          <div class="contact-form__grabado" role="group" aria-labelledby="grabado-label">
+            <label>
+              <input type="radio" name="grabado" value="si" required>
+              Sí
+            </label>
+            <label>
+              <input type="radio" name="grabado" value="no">
+              No
+            </label>
+          </div>
         </div>
 
-        <div>
-          <button type="submit" class="form-submit">Enviar mensaje</button>
-          <p
-            class="form-notice form-notice--success"
-            id="notice-success"
-            role="status"
-            aria-live="polite"></p>
-          <p
-            class="form-notice form-notice--error"
-            id="notice-error"
-            role="alert"
-            aria-live="assertive"></p>
+        <div class="contact-form__group">
+          <label for="mensaje">Tu mensaje</label>
+          <textarea id="mensaje" name="mensaje" class="form-field" rows="4" required></textarea>
         </div>
+
+        <button type="submit" class="contact-form__submit">Enviar →</button>
+        <p class="contact-form__legal">Tu información es privada. Solo la usamos para responderte.</p>
+        <p class="form-notice form-notice--success" id="notice-success" role="status" aria-live="polite"></p>
+        <p class="form-notice form-notice--error" id="notice-error" role="alert" aria-live="assertive"></p>
       </form>
     </div>
+  </section>
 
-  </div>
+  <section class="contact-closing reveal" data-dark aria-label="Cierre editorial">
+    <p class="contact-closing__brand">Leather House · Ofelia Vallejo · Medellín, Colombia</p>
+    <p class="contact-closing__tagline">Elegancia que permanece.</p>
+  </section>
 
   <footer data-dark id="contacto">
     <div class="foot__cols">
@@ -314,7 +481,7 @@
   <script>
     (function () {
       const form = document.getElementById('form-contacto');
-      const btnSubmit = form.querySelector('.form-submit');
+      const btnSubmit = form.querySelector('.contact-form__submit');
       const noticeOk = document.getElementById('notice-success');
       const noticeErr = document.getElementById('notice-error');
 
@@ -328,15 +495,17 @@
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const grabado = form.querySelector('input[name="grabado"]:checked');
+        const producto = form.producto.value;
         const data = {
           nombre:  form.nombre.value.trim(),
           email:   form.email.value.trim(),
-          asunto:  form.asunto.value,
+          asunto:  `${producto} · Grabado: ${grabado ? (grabado.value === 'si' ? 'Sí' : 'No') : '—'}`,
           mensaje: form.mensaje.value.trim(),
         };
 
-        if (!data.nombre || !data.email || !data.mensaje) {
-          showNotice(noticeErr, 'Por favor completa nombre, email y mensaje.');
+        if (!data.nombre || !data.email || !producto || !grabado || !data.mensaje) {
+          showNotice(noticeErr, 'Por favor completa todos los campos obligatorios.');
           return;
         }
 
@@ -358,12 +527,12 @@
           } else {
             showNotice(noticeErr, json.error || 'Error al enviar. Intenta de nuevo.');
             btnSubmit.disabled = false;
-            btnSubmit.textContent = 'Enviar mensaje';
+            btnSubmit.textContent = 'Enviar →';
           }
         } catch {
           showNotice(noticeErr, 'Error de conexión. Intenta de nuevo.');
           btnSubmit.disabled = false;
-          btnSubmit.textContent = 'Enviar mensaje';
+          btnSubmit.textContent = 'Enviar →';
         }
       });
     })();

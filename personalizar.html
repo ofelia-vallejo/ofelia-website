@@ -84,6 +84,151 @@
       line-height: 1.75;
     }
 
+    /* MATERIALS */
+    .materials {
+      background: var(--marfil);
+      padding: 80px var(--pad-x);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .materials__title {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--navy);
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .materials__subtitle {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(11, 31, 58, 0.08);
+      margin: 64px 0 0;
+    }
+
+    .material-card {
+      background: var(--marfil);
+      overflow: hidden;
+      border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    }
+
+    .material-card__swatch {
+      height: 120px;
+      background-color: var(--swatch);
+      background-image:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.07) 0%, transparent 42%),
+        linear-gradient(20deg, rgba(0, 0, 0, 0.12) 0%, transparent 38%),
+        repeating-linear-gradient(
+          92deg,
+          rgba(0, 0, 0, 0.04) 0px,
+          rgba(0, 0, 0, 0.04) 1px,
+          transparent 1px,
+          transparent 4px
+        ),
+        repeating-linear-gradient(
+          8deg,
+          rgba(255, 255, 255, 0.03) 0px,
+          rgba(255, 255, 255, 0.03) 1px,
+          transparent 1px,
+          transparent 5px
+        );
+    }
+
+    .material-card__body {
+      padding: 28px;
+    }
+
+    .material-card__name {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+    }
+
+    .material-card__desc {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .material-card__props {
+      font-size: 8px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* LASER FEATURE */
+    .laser-feature {
+      background: var(--navy);
+      padding: 80px var(--pad-x);
+      color: var(--marfil);
+      text-align: center;
+    }
+
+    .laser-feature__label {
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(243, 238, 230, 0.4);
+      margin-bottom: 24px;
+    }
+
+    .laser-feature__title {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+      color: var(--marfil);
+      margin-bottom: 20px;
+    }
+
+    .laser-feature__body {
+      max-width: 520px;
+      margin: 0 auto;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(243, 238, 230, 0.55);
+      line-height: 1.85;
+    }
+
+    .laser-feature__cta {
+      display: inline-block;
+      margin-top: 32px;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--marfil);
+      border-bottom: 1px solid rgba(243, 238, 230, 0.35);
+      padding-bottom: 3px;
+      transition: border-color 0.4s var(--ease), letter-spacing 0.4s var(--ease);
+    }
+
+    .laser-feature__cta:hover {
+      border-color: var(--marfil);
+      letter-spacing: 0.28em;
+    }
+
     /* FORM SECTION */
     .form-section {
       background: var(--marfil);
@@ -161,6 +306,11 @@
       }
 
       .form-row { grid-template-columns: 1fr; }
+
+      .materials { padding: 64px 24px; }
+      .materials-grid { grid-template-columns: 1fr; margin-top: 40px; }
+
+      .laser-feature { padding: 64px 24px; }
     }
   </style>
 </head>
@@ -174,8 +324,8 @@
       <a href="#" class="nav-link" data-active="true">Hombre</a>
       <a href="manifiesto.html" class="nav-link">Historia</a>
     </nav>
-    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
-      <img src="logo-firma.png" alt="Ofelia Vallejo" width="96" height="auto">
+    <a href="index.html" class="navbar__logo-img" aria-label="Ofelia Vallejo — Inicio">
+      <img src="logo-firma.png" alt="Ofelia Vallejo" class="navbar__firma">
     </a>
     <nav class="util" aria-label="Navegación principal derecha">
       <a href="coleccion.html" class="nav-link">Cuero</a>
@@ -224,7 +374,61 @@
     </div>
   </section>
 
-  <section class="form-section">
+  <section class="materials reveal" aria-labelledby="materials-title">
+    <h2 class="materials__title" id="materials-title">El Cuero que Elegimos</h2>
+    <p class="materials__subtitle">Cuero colombiano full-grain. Curtido vegetal. Sin compromisos.</p>
+
+    <div class="materials-grid">
+      <article class="material-card">
+        <div class="material-card__swatch" style="--swatch: #3B2B26" aria-hidden="true"></div>
+        <div class="material-card__body">
+          <h3 class="material-card__name">Cuero Full-Grain Espresso</h3>
+          <p class="material-card__desc">
+            La capa más noble del cuero. Grano natural intacto, sin correcciones.
+            Envejece con carácter — cada rasguño se convierte en historia.
+          </p>
+          <p class="material-card__props">Durabilidad máxima · Pátina natural · Curtido vegetal</p>
+        </div>
+      </article>
+
+      <article class="material-card">
+        <div class="material-card__swatch" style="--swatch: #0B1F3A" aria-hidden="true"></div>
+        <div class="material-card__body">
+          <h3 class="material-card__name">Cuero Full-Grain Navy</h3>
+          <p class="material-card__desc">
+            Cuero teñido en penetración profunda. El azul más serio
+            que existe en cuero colombiano. Sin forro, sin relleno.
+          </p>
+          <p class="material-card__props">Tinte mineral · Forro en lino · Hardware latón antiguo</p>
+        </div>
+      </article>
+
+      <article class="material-card">
+        <div class="material-card__swatch" style="--swatch: #1F3527" aria-hidden="true"></div>
+        <div class="material-card__body">
+          <h3 class="material-card__name">Cuero Full-Grain Verde Profundo</h3>
+          <p class="material-card__desc">
+            Verde andino. El color de la montaña antioqueña traducido
+            a cuero de la más alta calidad.
+          </p>
+          <p class="material-card__props">Edición limitada · Origen Antioquia · Pátina verde oscuro</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="laser-feature reveal" data-dark>
+    <p class="laser-feature__label">Servicio Insignia</p>
+    <h2 class="laser-feature__title">Tu nombre.<br>En cuero.</h2>
+    <p class="laser-feature__body">
+      Grabado láser CO₂ a 0.4mm de profundidad. El calor carboniza levemente
+      el borde del trazo, creando un registro permanente que no se desprende,
+      no se decolora, no envejece. Tu firma sobre la firma de Ofelia.
+    </p>
+    <a href="#solicitud-formulario" class="laser-feature__cta">Solicitar pieza personalizada →</a>
+  </section>
+
+  <section class="form-section" id="solicitud-formulario">
     <div class="form-section__info reveal">
       <p class="form-section__label">Solicitud</p>
       <h2 class="form-section__title">Solicitar<br>pieza bespoke.</h2>
