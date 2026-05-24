@@ -146,8 +146,8 @@
 
   <div id="cursor" aria-hidden="true"></div>
 
-  <header class="navbar">
-    <nav class="navbar__nav navbar__nav--left" aria-label="Navegación principal izquierda">
+  <header class="navbar" role="banner">
+    <nav class="nav-section" aria-label="Navegación principal izquierda">
       <a href="#" class="nav-link" data-active="true">Mujer</a>
       <a href="#" class="nav-link" data-active="true">Hombre</a>
       <a href="manifiesto.html" class="nav-link">Historia</a>
@@ -155,12 +155,12 @@
     <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
       <img src="logo-firma.png" alt="Ofelia Vallejo" width="96" height="auto">
     </a>
-    <nav class="navbar__nav navbar__nav--right" aria-label="Navegación principal derecha">
+    <nav class="util" aria-label="Navegación principal derecha">
       <a href="coleccion.html" class="nav-link">Cuero</a>
       <a href="personalizar.html" class="nav-link">Personalizar</a>
       <a href="contacto.html" class="nav-link">Contacto</a>
     </nav>
-    <button type="button" class="navbar__menu-btn" aria-expanded="false" aria-controls="nav-drawer">Menú</button>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="nav-drawer">Menú</button>
   </header>
 
   <nav class="nav-drawer" id="nav-drawer" aria-label="Navegación móvil">
@@ -269,33 +269,45 @@
 
   </div>
 
-  <footer class="footer" data-dark>
-    <div class="footer__grid">
-      <div class="footer__brand">
-        <img
-          src="06_Identidad_Marca/logos/logo_firma_completa.png"
-          alt="Ofelia Vallejo"
-          class="footer__logo"
-          width="96"
-          height="auto">
-        <p class="footer__tag">Leather House · Medellín → Zürich</p>
+  <footer data-dark id="contacto">
+    <div class="foot__cols">
+      <div class="foot__brand">
+        <img src="logo-firma.png" alt="Ofelia Vallejo" class="foot__logo" width="112" height="auto">
+        <p class="foot__tag">Leather House · Medellín, Colombia</p>
       </div>
-      <nav class="footer__col">
+      <nav class="foot__col" aria-label="Casa">
+        <h4>Casa</h4>
         <ul>
-          <li><a href="coleccion.html">Colección</a></li>
+          <li><a href="index.html#mujer">Mujer</a></li>
+          <li><a href="index.html#hombre">Hombre</a></li>
+          <li><a href="coleccion.html">Cuero</a></li>
           <li><a href="manifiesto.html">Historia</a></li>
-          <li><a href="personalizar.html">Personalizar</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
         </ul>
       </nav>
-      <nav class="footer__col">
+      <nav class="foot__col" aria-label="Atelier">
+        <h4>Atelier</h4>
+        <ul>
+          <li><a href="personalizar.html">Personalizar</a></li>
+          <li><a href="#">Cuidado</a></li>
+          <li><a href="#">Reparación</a></li>
+        </ul>
+      </nav>
+      <nav class="foot__col" aria-label="Contacto">
+        <h4>Contacto</h4>
         <ul>
           <li><a href="https://instagram.com/ofeliavallejo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a href="mailto:atelierofelia.vallejo@gmail.com">atelierofelia.vallejo@gmail.com</a></li>
+          <li><a href="mailto:atelierofelia.vallejo@gmail.com">Escribir</a></li>
         </ul>
       </nav>
     </div>
-    <p class="footer__bottom">© 2026 Ofelia Vallejo · Hecho a mano en Medellín</p>
+    <div class="foot__bottom">
+      <span>© 2025 Ofelia Vallejo · Medellín, Colombia</span>
+      <span>
+        <a href="#">Privacidad</a>
+        ·
+        <a href="#">Términos</a>
+      </span>
+    </div>
   </footer>
 
   <script src="assets/js/brand.js"></script>
