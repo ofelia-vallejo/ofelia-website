@@ -417,26 +417,26 @@
       overflow: hidden;
     }
 
-    .gender__media > div {
+    .gender__photo {
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
       transition: transform 0.9s var(--ease);
     }
 
-    .gender__panel:hover .gender__media > div {
+    .gender__panel:hover .gender__photo {
       transform: scale(1.02);
     }
 
-    .gender__panel--mujer .gender__media > div {
-      background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(11, 31, 58, 0.25) 100%),
-        linear-gradient(150deg, var(--beige-medio) 0%, var(--vino) 55%, var(--navy) 100%);
-    }
-
-    .gender__panel--hombre .gender__media > div {
-      background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(11, 31, 58, 0.3) 100%),
-        linear-gradient(150deg, var(--beige-medio) 0%, var(--espresso) 50%, var(--navy) 100%);
+    .gender__media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(11, 31, 58, 0.32) 100%);
     }
 
     .gender__media .caption {
@@ -947,7 +947,14 @@
       <p class="gender__sub">Carteras, bolsos y piezas de viaje. Cuero pleno colombiano, hechas a mano en Medellín.</p>
       <span class="gender__cta">Entrar a la colección <span aria-hidden="true">→</span></span>
       <div class="gender__media" data-dark>
-        <div></div>
+        <img
+          src="assets/img/inicio/mujer.jpg"
+          alt="Mujer con bolso en cuero — colección Mujer"
+          class="gender__photo"
+          width="682"
+          height="1024"
+          loading="eager"
+          decoding="async">
         <span class="caption">Bolso Estación</span>
       </div>
     </a>
@@ -958,7 +965,14 @@
       <p class="gender__sub">Maletines, portafolios y piezas de viaje. Cuero pleno colombiano, herrajes de latón macizo.</p>
       <span class="gender__cta">Entrar a la colección <span aria-hidden="true">→</span></span>
       <div class="gender__media" data-dark>
-        <div></div>
+        <img
+          src="assets/img/inicio/hombre.jpg"
+          alt="Hombre con maletín en cuero — colección Hombre"
+          class="gender__photo"
+          width="682"
+          height="1024"
+          loading="eager"
+          decoding="async">
         <span class="caption">Maletín Antioquia</span>
       </div>
     </a>

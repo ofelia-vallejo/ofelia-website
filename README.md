@@ -13,7 +13,9 @@ ofelia-vallejo/
 ├── Home v6.html            ← ground truth / referencia del mockup
 ├── logo-firma.png          ← firma OV caligráfica 200×80, fondo transparente (→ SVG pendiente)
 └── assets/
-    └── img/                ← fotos reales del cuero (futuro)
+    └── img/
+        ├── inicio/         ← hero Mujer / Hombre (home.html)
+        └── …               ← logos, producto, lifestyle (futuro)
 ```
 
 ## Archivos
