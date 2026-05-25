@@ -685,6 +685,26 @@
     document.getElementById('coordsVal').textContent = formatCoord(-r[0], -r[1]);
   }
 
+  let stage = 0, busy = false;
+
+  /* Resaltado por etapa (no solo por escala — activa al iniciar cada aterrizaje) */
+  function applyLayerState() {
+    lInked.classList.toggle('off', stage < 1 || stage >= 3);
+    lDepts.classList.toggle('on', stage >= 2);
+    lRegion.classList.toggle('on', stage >= 3);
+    lDeco.classList.toggle('on', stage >= 4);
+    const showPin = stage >= 3 && stage < 4 && pinEl.dataset.placed === '1';
+    pinEl.classList.toggle('on', showPin);
+    if (stage < 3) pinEl.classList.remove('on', 'deep');
+    if (stage !== 4) pinEl.classList.remove('deep');
+  }
+
+  function setStage(n) {
+    stage = n;
+    stageEl.dataset.stage = String(n);
+    applyLayerState();
+  }
+
   function redraw() {
     const sw = strokeFor(proj.scale());
     $world.selectAll('path').attr('d', path).attr('stroke-width', sw.land);
@@ -704,10 +724,7 @@
         pinEl.dataset.placed = '1';
       }
     }
-    lDepts.classList.toggle('on', proj.scale() > 600);
-    lInked.classList.toggle('off', proj.scale() > 1300);
-    lRegion.classList.toggle('on', proj.scale() > 1800 && stage >= 2);
-    lDeco.classList.toggle('on', proj.scale() > 2500 && stage >= 3);
+    applyLayerState();
     updateCoords();
   }
 
@@ -875,55 +892,51 @@
   }
 
   /* ─── Stage machine ──────────────────────────────── */
-  let stage = 0, busy = false;
-
   async function toStage1() {
     if (busy) return; busy = true;
-    stageEl.dataset.stage = '1';
+    setStage(1);
     updatePanel(1);
     await animate({ rotTo:[74,-4,0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:2200 });
-    stage = 1; busy = false;
+    busy = false;
   }
 
   async function toStage2() {
     if (busy) return; busy = true;
-    stageEl.dataset.stage = '2';
+    setStage(2);
     updatePanel(2);
     await animate({ rotTo:[-colombiaCenter[0],-colombiaCenter[1],0], scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200 });
-    stage = 2; busy = false;
+    busy = false;
   }
 
   async function toStage3() {
     if (busy) return; busy = true;
-    stageEl.dataset.stage = '3';
+    setStage(3);
     updatePanel(3);
-    await animate({ rotTo:[-antioquiaCenter[0],-antioquiaCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
-    if (pinEl.dataset.placed) pinEl.classList.add('on');
     animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
-    stage = 3; busy = false;
+    await animate({ rotTo:[-antioquiaCenter[0],-antioquiaCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
+    busy = false;
   }
 
   async function toStage4() {
     if (busy) return; busy = true;
-    stageEl.dataset.stage = '4';
+    setStage(4);
     updatePanel(4);
     pinEl.classList.add('deep');
     await animate({ rotTo:[-guatapeCenter[0],-guatapeCenter[1],0], scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
-    stage = 4; busy = false;
+    busy = false;
   }
 
   async function resetAll() {
     if (busy) return; busy = true;
-    stageEl.dataset.stage = '0';
-    pinEl.classList.remove('on','deep');
     coordAnimated = false;
     const place = document.getElementById('coordsPlace');
     const vals = document.getElementById('coordsVal');
     if (place) { place.textContent = 'Atlas · listo'; place.classList.remove('resolved'); }
     if (vals) vals.textContent = formatCoord(0, 0);
+    setStage(0);
     updatePanel(0);
     await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
-    stage = 0; busy = false;
+    busy = false;
   }
 
   /* ─── Click handlers ─────────────────────────────── */
