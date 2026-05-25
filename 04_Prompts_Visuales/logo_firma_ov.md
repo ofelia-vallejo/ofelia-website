@@ -6,7 +6,9 @@ Marca de firma de **Ofelia Vallejo Leather House**. No es un logotipo tipográfi
 
 | Propiedad | Valor |
 |-----------|--------|
-| Ruta | `logo-firma.png` (raíz del proyecto) |
+| Ruta web | `assets/img/logo_firma_completa.svg` + `logo_tarjetas_sello.svg` (envuelven el PNG canónico) |
+| PNG canónico | `assets/img/logo_firma_completa.png`, `assets/img/logo_tarjetas_sello.png` |
+| Legacy raíz | `logo-firma.png` (deprecado — no usar en páginas nuevas) |
 | Dimensiones | 200 × 80 px |
 | Fondo | Transparente (RGBA) |
 | Recorte | Bounding box del trazo (sin canvas con padding extra) |
@@ -17,7 +19,10 @@ Marca de firma de **Ofelia Vallejo Leather House**. No es un logotipo tipográfi
 
 | Contexto | Tamaño | Color / efecto | Selector / notas |
 |----------|--------|----------------|------------------|
-| **Navbar** | `height: 34px` | `mix-blend-mode: multiply` sobre marfil | `.navbar__firma` / `.b-nav__firma` |
+| **Navbar desktop** | `max-width: 180px`, `height: 34px` | `mix-blend-mode: multiply` | `logo_firma_completa.svg` |
+| **Navbar mobile** | `max-width: 48px`, `height: 38px` | `mix-blend-mode: multiply` | `logo_tarjetas_sello.svg` |
+| **Intro step0 (fondo oscuro)** | `max-width: 120px`, `height: 52px` | `filter: brightness(10)` | `logo_tarjetas_sello.svg` |
+| **Card intro (sello)** | en `.card .seal` 64×64 | `mix-blend-mode: multiply` | `logo_tarjetas_sello.svg` |
 | **Footer** | `112` | Marfil sobre navy | `.foot__logo { filter: brightness(10); }` |
 | **Statement** (marca de agua) | `132` | Navy al 18% | `.banner-statement__mark { opacity: 0.18; }` |
 | **Signature banner** (mobile) | `clamp(220px, 70vw, 320px)` | Navy original | Solo `index.html` / páginas con bloque móvil |

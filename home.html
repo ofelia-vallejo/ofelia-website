@@ -124,8 +124,11 @@
     .navbar__firma {
       height: 34px;
       width: auto;
+      max-width: 180px;
       display: block;
       mix-blend-mode: multiply;
+      object-fit: contain;
+      object-position: center;
     }
     .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
 
@@ -211,7 +214,7 @@
 
     @media (max-width: 768px) {
       .navbar { padding: 0 20px; }
-      .navbar__firma { height: 24px; }
+      .navbar__firma { height: 38px; max-width: 48px; }
       .navbar__right { gap: 18px; }
     }
 
@@ -908,7 +911,10 @@
   <header class="navbar" role="banner">
     <div class="navbar__left"></div>
     <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
-      <img src="logo-firma.png" alt="Ofelia Vallejo" class="navbar__firma">
+      <picture>
+        <source media="(max-width: 768px)" srcset="assets/img/logo_tarjetas_sello.svg">
+        <img src="assets/img/logo_firma_completa.svg" alt="Ofelia Vallejo" class="navbar__firma">
+      </picture>
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -938,7 +944,7 @@
       <p class="gender__big">I</p>
       <p class="gender__label">Maison · Otoño MMXXVI</p>
       <h2 class="gender__title">Mujer</h2>
-      <p class="gender__sub">Carteras, bolsos y travel pieces en cuero colombiano.</p>
+      <p class="gender__sub">Carteras, bolsos y piezas de viaje. Cuero pleno colombiano, hechas a mano en Medellín.</p>
       <span class="gender__cta">Entrar a la colección <span aria-hidden="true">→</span></span>
       <div class="gender__media" data-dark>
         <div></div>
@@ -949,7 +955,7 @@
       <p class="gender__big">II</p>
       <p class="gender__label">Maison · Otoño MMXXVI</p>
       <h2 class="gender__title">Hombre</h2>
-      <p class="gender__sub">Maletines, billeteras y travel bags en cuero colombiano.</p>
+      <p class="gender__sub">Maletines, portafolios y piezas de viaje. Cuero pleno colombiano, herrajes de latón macizo.</p>
       <span class="gender__cta">Entrar a la colección <span aria-hidden="true">→</span></span>
       <div class="gender__media" data-dark>
         <div></div>
@@ -961,10 +967,10 @@
   <section class="banner-statement reveal" id="historia">
     <div class="banner-statement__rule" aria-hidden="true"></div>
     <h2 class="banner-statement__title">Nacida de una firma.</h2>
-    <img src="logo-firma.png" alt="" class="banner-statement__mark" width="132" height="auto" aria-hidden="true">
+    <img src="assets/img/logo_firma_completa.svg" alt="" class="banner-statement__mark" width="132" height="auto" aria-hidden="true">
     <p class="banner-statement__body">
-      La firma de la abuela Ofelia Vallejo no es un logo.<br>
-      Es patrimonio. Es herencia. Es el alma de cada pieza.
+      La firma de mi abuela Ofelia no es un logo.<br>
+      Es la herencia que cruzó el océano con nosotras — el alma paisa de cada pieza que hoy nace en el atelier.
     </p>
   </section>
 
@@ -1035,38 +1041,37 @@
 
   <section class="banner-cuero reveal">
     <div class="banner-cuero__media" data-dark>
-      <span class="banner-cuero__caption">Cuero colombiano</span>
+      <span class="banner-cuero__caption">Cuero pleno · Medellín</span>
     </div>
     <div class="banner-cuero__body">
-      <p class="banner-cuero__label">Artesanía</p>
+      <p class="banner-cuero__label">Atelier · Medellín</p>
       <h2 class="banner-cuero__title">Hecho para durar.</h2>
       <p class="banner-cuero__copy">
-        Cada pieza de Ofelia Vallejo está diseñada para
-        acompañar tu vida. No una temporada. Una vida.
+        Cuero pleno colombiano. Hilo encerado. Herrajes de latón macizo. Cada pieza se corta, se cose y se sella a mano en Medellín — pensada para una vida, no para una temporada.
       </p>
-      <a href="coleccion.html" class="banner-cuero__cta">Conocer más</a>
+      <a href="coleccion.html" class="banner-cuero__cta">Conocer el atelier</a>
     </div>
   </section>
 
   <section class="banner-custom reveal" id="personalizar" data-dark>
-    <p class="banner-custom__label">Servicio exclusivo</p>
+    <p class="banner-custom__label">Bespoke · Bajo pedido</p>
     <h2 class="banner-custom__title">Tu nombre. En cuero.</h2>
-    <p class="banner-custom__sub">Grabado láser personalizado en cada pieza.</p>
+    <p class="banner-custom__sub">Iniciales, nombre o fecha grabados a láser sobre el cuero — la pieza es tuya antes de salir del atelier.</p>
     <a href="personalizar.html" class="banner-custom__cta">Solicitar pieza</a>
   </section>
 
   </main>
 
   <section class="signature-banner reveal" aria-label="Firma de la casa">
-    <img src="logo-firma.png" alt="Ofelia Vallejo" class="signature-banner__img" width="320" height="auto">
-    <p class="signature-banner__caption">Leather House · Medellín, Colombia</p>
+    <img src="assets/img/logo_firma_completa.svg" alt="Ofelia Vallejo" class="signature-banner__img" width="320" height="auto">
+    <p class="signature-banner__caption">Leather House · Medellín → Zürich</p>
   </section>
 
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="logo-firma.png" alt="Ofelia Vallejo" class="foot__logo" width="112" height="auto">
-        <p class="foot__tag">Leather House · Medellín, Colombia</p>
+        <img src="assets/img/logo_firma_completa.svg" alt="Ofelia Vallejo" class="foot__logo" width="112" height="auto">
+        <p class="foot__tag">Leather House · Medellín → Zürich</p>
       </div>
       <nav class="foot__col" aria-label="Casa">
         <h4>Casa</h4>
@@ -1094,7 +1099,7 @@
       </nav>
     </div>
     <div class="foot__bottom">
-      <span>© 2025 Ofelia Vallejo · Medellín, Colombia</span>
+      <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
       <span>
         <a href="#">Privacidad</a>
         ·
