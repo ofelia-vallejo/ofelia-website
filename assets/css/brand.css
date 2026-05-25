@@ -106,7 +106,7 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   justify-content: space-between;
 }
 
-.navbar__left  { flex: 1; display: flex; align-items: center; }
+.navbar__left  { flex: 1; display: flex; align-items: center; gap: 28px; }
 .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
 
 .navbar__firma {
@@ -213,6 +213,13 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   .navbar { padding: 0 20px; }
   .navbar__firma { height: 38px; max-width: 48px; }
   .navbar__right { gap: 18px; }
+  .nav-link--desk { display: none; }
+}
+
+.category,
+.gender__panel,
+[id] {
+  scroll-margin-top: 72px;
 }
 
 /* FOOTER */

@@ -9,13 +9,16 @@
 
 Fuente canónica: `06_Identidad_Marca/logos/`.
 
-## Fotos
+## Fotos por categoría
 
 | Carpeta | Contenido |
 |---------|-----------|
-| `inicio/` | Hero Mujer / Hombre |
-| `producto/` | Estudio producto |
-| `lifestyle/` | Modelo |
+| `inicio/` | Hero editorial Mujer / Hombre (lifestyle, pieza visible) |
+| `producto/mujer/` | Estudio · bolso tote, travel bag cognac, mochila cognac |
+| `producto/hombre/` | Estudio · travel bag / maletín negro |
+| `lifestyle/hombre/` | Modelo hombre · arco, pasillo |
 | `cuero/` | Atelier y detalle grabado |
+
+**Regla:** una imagen = un producto o una variante de color. No reutilizar la misma foto para piezas distintas en la colección.
 
 Deploy: **Vercel** → `ofeliavallejo.com`.
