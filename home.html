@@ -121,13 +121,18 @@
 
     .navbar__left  { flex: 1; display: flex; align-items: center; gap: 28px; }
     .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
+    .navbar__logo {
+      background: transparent;
+    }
+
     .navbar__firma {
-      height: 40px;
+      height: 52px;
       width: auto;
-      max-width: 200px;
+      max-width: min(340px, 46vw);
       display: block;
       object-fit: contain;
       object-position: center;
+      background: transparent;
     }
     .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
 
@@ -222,7 +227,7 @@
 
     @media (max-width: 768px) {
       .navbar { padding: 0 20px; }
-      .navbar__firma { height: 38px; max-width: 48px; }
+      .navbar__firma { height: 44px; max-width: min(260px, 72vw); }
       .navbar__right { gap: 18px; }
     }
 
@@ -240,9 +245,15 @@
     }
 
     .foot__logo {
-      width: 112px;
+      width: 140px;
       height: auto;
-      filter: brightness(10);
+      background: transparent;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .signature-banner__img {
+      background: transparent;
     }
 
     .foot__tag {
@@ -435,7 +446,7 @@
     }
 
     .gender__panel--mujer .gender__photo {
-      object-position: 50% 38%;
+      object-position: 50% 32%;
     }
 
     .gender__panel--hombre .gender__media {
@@ -443,7 +454,7 @@
     }
 
     .gender__panel--hombre .gender__photo {
-      object-position: 50% 100%;
+      object-position: 50% 88%;
       object-fit: cover;
     }
 
@@ -507,8 +518,9 @@
 
     .banner-statement__mark {
       display: block;
-      width: 132px;
+      width: 180px;
       height: auto;
+      background: transparent;
       opacity: 0.18;
       margin: 40px auto 0;
     }
@@ -597,8 +609,8 @@
       display: block;
     }
 
-    .edit__side--mujer .media__photo { object-position: 50% 55%; }
-    .edit__side--hombre .media__photo { object-position: 50% 62%; }
+    .edit__side--mujer .media__photo { object-position: 50% 48%; }
+    .edit__side--hombre .media__photo { object-position: 50% 78%; }
 
     .edit__side .mini-img img {
       width: 100%;
@@ -961,10 +973,7 @@
       <a href="manifiesto.html" class="nav-link nav-link--desk">Historia</a>
     </div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <picture>
-        <source media="(max-width: 768px)" srcset="assets/img/logo_sello.png">
-        <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma">
-      </picture>
+      <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma" width="320" height="56">
     </a>
     <div class="navbar__right">
       <a href="coleccion.html" class="nav-link nav-link--desk">Cuero</a>
@@ -1029,7 +1038,7 @@
           height="1024"
           loading="eager"
           decoding="async">
-        <span class="caption">Maletín Antioquia</span>
+        <span class="caption">Travel Bag · Cognac</span>
       </div>
     </a>
   </section>
@@ -1087,15 +1096,15 @@
         </div>
       </div>
       <div class="edit__side edit__side--hombre">
-        <a href="coleccion.html#travel-bag-ii" class="media" data-dark>
+        <a href="coleccion.html#bandolera-elite" class="media" data-dark>
           <span class="roman">II</span>
           <span class="badge">Hombre</span>
           <div class="media__frame">
-            <img src="assets/img/producto/hombre/travel-bag-negro.jpg" alt="Maletín Antioquia en cuero negro" class="media__photo" loading="lazy" decoding="async">
+            <img src="assets/img/lifestyle/hombre/hombre-duffel-arco.jpg" alt="Travel bag cognac — colección Hombre" class="media__photo" loading="lazy" decoding="async">
           </div>
           <div class="meta">
-            <p class="name">Maletín Antioquia</p>
-            <p class="det">Cuero navy · MMXXVI</p>
+            <p class="name">Travel Bag · Arco</p>
+            <p class="det">Cuero cognac · MMXXVI</p>
           </div>
         </a>
         <div class="strip">
