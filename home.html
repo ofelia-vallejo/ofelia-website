@@ -119,7 +119,7 @@
       justify-content: space-between;
     }
 
-    .navbar__left  { flex: 1; display: flex; align-items: center; }
+    .navbar__left  { flex: 1; display: flex; align-items: center; gap: 28px; }
     .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
     .navbar__firma {
       height: 34px;
@@ -193,6 +193,15 @@
     }
     .nav-panel.is-open { transform: translateX(0); pointer-events: auto; }
     .nav-panel__links { display: flex; flex-direction: column; }
+    .nav-panel__group {
+      margin: 0 0 6px;
+      padding-top: 18px;
+      font-size: 7.5px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(243,238,230,.28);
+    }
+    .nav-panel__group:first-child { padding-top: 0; }
     .nav-panel__link {
       font-family: 'Cinzel', serif; font-size: 17px; letter-spacing: .07em;
       color: rgba(243,238,230,.70); text-decoration: none;
@@ -900,6 +909,7 @@
       footer { padding: 48px 24px 32px; }
       .foot__cols { grid-template-columns: 1fr 1fr; }
       .foot__cols .foot__brand { grid-column: 1 / -1; }
+      .nav-link--desk { display: none; }
     }
 
   </style>
@@ -909,14 +919,21 @@
   <div id="cursor" aria-hidden="true"></div>
 
   <header class="navbar" role="banner">
-    <div class="navbar__left"></div>
-    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+    <div class="navbar__left">
+      <a href="#mujer" class="nav-link nav-link--desk">Mujer</a>
+      <a href="#hombre" class="nav-link nav-link--desk">Hombre</a>
+      <a href="manifiesto.html" class="nav-link nav-link--desk">Historia</a>
+    </div>
+    <a href="#top" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
       <picture>
         <source media="(max-width: 768px)" srcset="assets/img/logo_tarjetas_sello.svg">
         <img src="assets/img/logo_firma_completa.svg" alt="Ofelia Vallejo" class="navbar__firma">
       </picture>
     </a>
     <div class="navbar__right">
+      <a href="coleccion.html" class="nav-link nav-link--desk">Cuero</a>
+      <a href="personalizar.html" class="nav-link nav-link--desk">Personalizar</a>
+      <a href="#contacto" class="nav-link nav-link--desk">Contacto</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
@@ -926,21 +943,24 @@
   <div class="nav-overlay" id="navOverlay"></div>
   <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
     <div class="nav-panel__links">
-      <a href="#mujer"          class="nav-panel__link">Mujer</a>
-      <a href="#hombre"         class="nav-panel__link">Hombre</a>
+      <p class="nav-panel__group">Casa</p>
+      <a href="#mujer" class="nav-panel__link">Mujer</a>
+      <a href="#hombre" class="nav-panel__link">Hombre</a>
+      <p class="nav-panel__group">Maison</p>
       <a href="manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="coleccion.html"  class="nav-panel__link">Cuero</a>
+      <a href="coleccion.html" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
       <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
-      <a href="contacto.html"   class="nav-panel__link">Contacto</a>
+      <a href="#contacto" class="nav-panel__link">Contacto</a>
     </div>
-    <span class="nav-panel__foot">Leather House · Medellín</span>
+    <span class="nav-panel__foot">Leather House · Medellín → Zürich</span>
   </nav>
 
   <main>
   <section class="gender" id="top">
     <p class="gender__index">— 01 / Casa</p>
     <div class="gender__divider" aria-hidden="true"></div>
-    <a href="#mujer" class="gender__panel gender__panel--mujer" id="mujer">
+    <a href="coleccion.html" class="gender__panel gender__panel--mujer" id="mujer">
       <p class="gender__big">I</p>
       <p class="gender__label">Maison · Otoño MMXXVI</p>
       <h2 class="gender__title">Mujer</h2>
@@ -958,7 +978,7 @@
         <span class="caption">Bolso Estación</span>
       </div>
     </a>
-    <a href="#hombre" class="gender__panel gender__panel--hombre" id="hombre">
+    <a href="coleccion.html" class="gender__panel gender__panel--hombre" id="hombre">
       <p class="gender__big">II</p>
       <p class="gender__label">Maison · Otoño MMXXVI</p>
       <h2 class="gender__title">Hombre</h2>
@@ -1100,15 +1120,16 @@
         <h4>Atelier</h4>
         <ul>
           <li><a href="personalizar.html">Personalizar</a></li>
-          <li><a href="#">Cuidado</a></li>
-          <li><a href="#">Reparación</a></li>
+          <li><a href="coleccion.html">Cuidado del cuero</a></li>
+          <li><a href="contacto.html">Reparación</a></li>
         </ul>
       </nav>
       <nav class="foot__col" aria-label="Contacto">
         <h4>Contacto</h4>
         <ul>
+          <li><a href="contacto.html">Visitar atelier</a></li>
           <li><a href="https://instagram.com/ofeliavallejo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a href="mailto:atelierofelia.vallejo@gmail.com">Escribir</a></li>
+          <li><a href="mailto:hola@ofeliavallejo.com">hola@ofeliavallejo.com</a></li>
         </ul>
       </nav>
     </div>

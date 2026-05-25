@@ -182,6 +182,15 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 .nav-panel.is-open { transform: translateX(0); pointer-events: auto; }
 .nav-panel__links { display: flex; flex-direction: column; }
+.nav-panel__group {
+  margin: 0 0 6px;
+  padding-top: 18px;
+  font-size: 7.5px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(243,238,230,.28);
+}
+.nav-panel__group:first-child { padding-top: 0; }
 .nav-panel__link {
   font-family: 'Cinzel', serif; font-size: 17px; letter-spacing: .07em;
   color: rgba(243,238,230,.70); text-decoration: none;
