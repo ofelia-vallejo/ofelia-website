@@ -374,6 +374,56 @@
     .card .seal { margin: 0 auto; }
     .stage[data-stage="4"] .card { bottom: 80px; }
   }
+
+  /* ─── Mobile global ──────────────────────────────── */
+  @media (max-width: 768px) {
+    /* Panels */
+    .panels {
+      bottom: 128px;
+      width: calc(100vw - 48px);
+    }
+    .panel__title {
+      font-size: clamp(20px, 7vw, 30px);
+    }
+    .panel__label {
+      font-size: 7px; margin-bottom: 8px;
+    }
+    .panel__body {
+      font-size: 12px;
+    }
+
+    /* Click hint */
+    .click-hint {
+      bottom: 92px; font-size: 8px; letter-spacing: 0.24em;
+    }
+
+    /* Nav dots */
+    .nav-dots { bottom: 60px; }
+
+    /* Controls */
+    .controls { bottom: 36px; right: 20px; }
+
+    /* Card */
+    .card {
+      width: calc(100vw - 32px);
+      padding: 20px 20px;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+    }
+    .card .enter {
+      grid-column: 1 / -1;
+      width: 100%; padding: 14px;
+      font-size: 9px;
+    }
+    .card .seal {
+      width: 48px; height: 48px; font-size: 16px;
+    }
+    .card .info .name { font-size: 15px; }
+    .stage[data-stage="4"] .card { bottom: 72px; }
+
+    /* Corners spacing */
+    .corner.tl, .corner.tr { top: 56px; }
+  }
 </style>
 </head>
 <body>
@@ -469,17 +519,17 @@
     <div class="panel active" data-panel="0">
       <p class="panel__label">Cartografía · 0001</p>
       <h2 class="panel__title">El mundo de Ofelia.</h2>
-      <p class="panel__body">Todo gran legado comienza con un nombre.</p>
+      <p class="panel__body">Un proyecto nace en algún lugar de la tierra.</p>
     </div>
     <div class="panel" data-panel="1">
       <p class="panel__label">Capítulo I · Latinoamérica</p>
-      <h2 class="panel__title">Donde el tiempo<br>no se apresura.</h2>
-      <p class="panel__body">En este continente, el cuero se trabaja como siempre se amó: con las manos.</p>
+      <h2 class="panel__title">Donde el tiempo<br>se respeta.</h2>
+      <p class="panel__body">Donde la tradición se transforma en arte, no con paciencia sino con amor.</p>
     </div>
     <div class="panel" data-panel="2">
       <p class="panel__label">Capítulo II · Colombia</p>
-      <h2 class="panel__title">Cuero que nace<br>bajo el sol andino.</h2>
-      <p class="panel__body">Full-grain colombiano. Curtido despacio, firmado con orgullo.</p>
+      <h2 class="panel__title">Tierra de<br>talabarteros.</h2>
+      <p class="panel__body">Curtidores y artesanos firman cada pieza como una promesa heredada.</p>
     </div>
     <div class="panel" data-panel="3">
       <p class="panel__label">Capítulo III · Antioquia · Guatapé</p>
@@ -718,11 +768,12 @@
   });
 
   /* ─── Panel + dots + hint sync ───────────────────── */
+  const tap = ('ontouchstart' in window) ? 'Toque' : 'Haga clic';
   const hints = [
-    'Haga clic en el globo',
-    'Haga clic en Colombia ●',
-    'Haga clic en Antioquia ●',
-    'Haga clic en Guatapé ●',
+    `${tap} en el globo`,
+    `${tap} en Colombia ●`,
+    `${tap} en Antioquia ●`,
+    `${tap} en Guatapé ●`,
     ''
   ];
 
