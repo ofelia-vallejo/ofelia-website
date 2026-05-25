@@ -126,7 +126,6 @@
       width: auto;
       max-width: 180px;
       display: block;
-      mix-blend-mode: multiply;
       object-fit: contain;
       object-position: center;
     }
@@ -435,6 +434,14 @@
       transition: transform 0.9s var(--ease);
     }
 
+    .gender__panel--mujer .gender__photo {
+      object-position: 50% 38%;
+    }
+
+    .gender__panel--hombre .gender__photo {
+      object-position: 50% 78%;
+    }
+
     .gender__panel:hover .gender__photo {
       transform: scale(1.02);
     }
@@ -559,26 +566,34 @@
       aspect-ratio: 4 / 5;
     }
 
-    .edit__side .media > div:first-child {
+    .edit__side .media__frame {
       width: 100%;
       height: 100%;
+      position: relative;
+      overflow: hidden;
       transition: transform 1s var(--ease);
     }
 
-    .edit__side:hover .media > div:first-child {
+    .edit__side:hover .media__frame {
       transform: scale(1.04);
     }
 
-    .edit__side--mujer .media > div:first-child {
-      background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(11, 31, 58, 0.4) 100%),
-        linear-gradient(150deg, var(--beige-medio) 0%, var(--vino) 55%, var(--navy) 100%);
+    .edit__side .media__photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .edit__side--hombre .media > div:first-child {
-      background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(11, 31, 58, 0.45) 100%),
-        linear-gradient(150deg, var(--beige-medio) 0%, var(--espresso) 55%, var(--navy) 100%);
+    .edit__side--mujer .media__photo { object-position: 50% 55%; }
+    .edit__side--hombre .media__photo { object-position: 50% 50%; }
+
+    .edit__side .media__frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(11, 31, 58, 0.45) 100%);
+      pointer-events: none;
     }
 
     .edit__side .roman {
@@ -661,35 +676,19 @@
     .edit__side .strip .mini-img {
       aspect-ratio: 1 / 1;
       margin-bottom: 14px;
+      overflow: hidden;
       transition: transform 0.6s var(--ease);
+    }
+
+    .edit__side .strip .mini-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .edit__side .strip a:hover .mini-img {
       transform: scale(1.04);
-    }
-
-    .edit__side--mujer .strip > a:nth-child(1) .mini-img {
-      background: linear-gradient(160deg, var(--beige-medio) 0%, var(--vino) 100%);
-    }
-
-    .edit__side--mujer .strip > a:nth-child(2) .mini-img {
-      background: linear-gradient(160deg, var(--beige-medio) 0%, var(--espresso) 100%);
-    }
-
-    .edit__side--mujer .strip > a:nth-child(3) .mini-img {
-      background: linear-gradient(160deg, var(--beige-medio) 0%, var(--verde) 100%);
-    }
-
-    .edit__side--hombre .strip > a:nth-child(1) .mini-img {
-      background: linear-gradient(160deg, var(--beige-medio) 0%, var(--navy) 100%);
-    }
-
-    .edit__side--hombre .strip > a:nth-child(2) .mini-img {
-      background: linear-gradient(160deg, var(--beige-medio) 0%, var(--espresso) 100%);
-    }
-
-    .edit__side--hombre .strip > a:nth-child(3) .mini-img {
-      background: linear-gradient(160deg, var(--beige-medio) 0%, var(--carbon) 100%);
     }
 
     .edit__side .strip .mini-name {
@@ -720,11 +719,22 @@
 
     .banner-cuero__media {
       position: relative;
-      background: linear-gradient(135deg, var(--espresso) 0%, var(--carbon) 100%);
+      overflow: hidden;
+      background: var(--espresso);
+    }
+
+    .banner-cuero__photo {
+      width: 100%;
+      height: 100%;
+      min-height: 56vh;
+      object-fit: cover;
+      object-position: 50% 35%;
+      display: block;
     }
 
     .banner-cuero__caption {
       position: absolute;
+      z-index: 2;
       left: 32px;
       bottom: 32px;
       font-weight: 400;
@@ -1018,7 +1028,9 @@
         <a href="coleccion.html" class="media" data-dark>
           <span class="roman">I</span>
           <span class="badge">Mujer</span>
-          <div></div>
+          <div class="media__frame">
+            <img src="assets/img/producto/bolso-tote-cognac.jpg" alt="Bolso Estación en cuero cognac" class="media__photo" loading="lazy" decoding="async">
+          </div>
           <div class="meta">
             <p class="name">Bolso Estación</p>
             <p class="det">Cuero vino · MMXXVI</p>
@@ -1026,17 +1038,23 @@
         </a>
         <div class="strip">
           <a href="coleccion.html">
-            <div class="mini-img" data-dark></div>
+            <div class="mini-img" data-dark>
+              <img src="assets/img/producto/travel-bag-cognac.jpg" alt="Mochila cognac" loading="lazy" decoding="async">
+            </div>
             <p class="mini-name">Cartera Carrera 70</p>
             <p class="mini-det">Cuero vino</p>
           </a>
           <a href="coleccion.html">
-            <div class="mini-img" data-dark></div>
+            <div class="mini-img" data-dark>
+              <img src="assets/img/producto/mochila-cognac-ii.jpg" alt="Mochila cognac II" loading="lazy" decoding="async">
+            </div>
             <p class="mini-name">Bolso Antioquia</p>
             <p class="mini-det">Cuero espresso</p>
           </a>
           <a href="coleccion.html">
-            <div class="mini-img" data-dark></div>
+            <div class="mini-img" data-dark>
+              <img src="assets/img/inicio/mujer.jpg" alt="Colección mujer" loading="lazy" decoding="async">
+            </div>
             <p class="mini-name">Cartera Páramo</p>
             <p class="mini-det">Cuero verde</p>
           </a>
@@ -1046,7 +1064,9 @@
         <a href="coleccion.html" class="media" data-dark>
           <span class="roman">II</span>
           <span class="badge">Hombre</span>
-          <div></div>
+          <div class="media__frame">
+            <img src="assets/img/producto/travel-bag-negro.jpg" alt="Maletín Antioquia en cuero negro" class="media__photo" loading="lazy" decoding="async">
+          </div>
           <div class="meta">
             <p class="name">Maletín Antioquia</p>
             <p class="det">Cuero navy · MMXXVI</p>
@@ -1054,17 +1074,23 @@
         </a>
         <div class="strip">
           <a href="coleccion.html">
-            <div class="mini-img" data-dark></div>
+            <div class="mini-img" data-dark>
+              <img src="assets/img/producto/travel-bag-negro.jpg" alt="Travel bag negro" loading="lazy" decoding="async">
+            </div>
             <p class="mini-name">Travel · Comuna</p>
             <p class="mini-det">Cuero navy</p>
           </a>
           <a href="coleccion.html">
-            <div class="mini-img" data-dark></div>
+            <div class="mini-img" data-dark>
+              <img src="assets/img/lifestyle/hombre-arco.jpg" alt="Portafolio lifestyle" loading="lazy" decoding="async">
+            </div>
             <p class="mini-name">Portafolio Ofelia</p>
             <p class="mini-det">Cuero espresso</p>
           </a>
           <a href="coleccion.html">
-            <div class="mini-img" data-dark></div>
+            <div class="mini-img" data-dark>
+              <img src="assets/img/cuero/detalle-grabado.jpg" alt="Detalle grabado en cuero" loading="lazy" decoding="async">
+            </div>
             <p class="mini-name">Billetera Carrera</p>
             <p class="mini-det">Cuero carbón</p>
           </a>
@@ -1075,6 +1101,7 @@
 
   <section class="banner-cuero reveal">
     <div class="banner-cuero__media" data-dark>
+      <img src="assets/img/cuero/banner-atelier.jpg" alt="Atelier Ofelia Vallejo — cuero hecho a mano" class="banner-cuero__photo" loading="lazy" decoding="async">
       <span class="banner-cuero__caption">Cuero pleno · Medellín</span>
     </div>
     <div class="banner-cuero__body">
