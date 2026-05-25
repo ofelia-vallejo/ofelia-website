@@ -171,7 +171,7 @@
   }
   .layer-inked.off path { fill-opacity: 0; stroke-opacity: 0; }
   .layer-depts path { fill: none; stroke: var(--ink); stroke-width: 0.55; opacity: 0; transition: opacity 0.8s var(--ease); }
-  .layer-depts.on path { opacity: 0.85; }
+  .layer-depts.on path { opacity: 0.70; }
   .layer-region path {
     fill: var(--ink); fill-opacity: 0; stroke: var(--ink); stroke-width: 0.9;
     opacity: 0; transition: opacity 0.8s var(--ease), fill-opacity 0.8s var(--ease);
@@ -246,20 +246,17 @@
     transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
   }
   .panel.active { opacity: 1; transform: translateY(0); }
-  .panel__label {
-    font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
-    letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(11,31,58,0.45); margin-bottom: 12px;
-  }
+  .panel__label { display: none; }
   .panel__title {
-    font-family: 'Cinzel', serif; font-size: clamp(22px, 2.8vw, 38px);
+    font-family: 'Cinzel', serif; font-size: clamp(24px, 3.2vw, 42px);
     font-weight: 400; letter-spacing: 0.02em; line-height: 1.22;
-    color: var(--ink); margin-bottom: 10px;
+    color: var(--ink); margin-bottom: 12px;
+    text-shadow: 0 2px 16px rgba(243,238,230,1), 0 0 32px rgba(243,238,230,0.9);
   }
   .panel__body {
-    font-size: 13px; letter-spacing: 0.05em;
-    color: rgba(11,31,58,0.78); line-height: 1.7;
-    text-shadow: 0 1px 8px rgba(243,238,230,0.9), 0 0 20px rgba(243,238,230,0.7);
+    font-size: 14px; letter-spacing: 0.06em;
+    color: rgba(11,31,58,0.88); line-height: 1.75;
+    text-shadow: 0 1px 12px rgba(243,238,230,1), 0 0 24px rgba(243,238,230,0.8);
   }
 
   /* ─── Click hint ─────────────────────────────────── */
@@ -269,7 +266,8 @@
     display: inline-flex; align-items: center; gap: 10px;
     font-family: 'JetBrains Mono', monospace; font-size: 9px;
     letter-spacing: 0.32em; text-transform: uppercase;
-    color: rgba(11,31,58,0.45); z-index: 6; white-space: nowrap;
+    color: rgba(11,31,58,0.72); z-index: 6; white-space: nowrap;
+    text-shadow: 0 1px 8px rgba(243,238,230,1);
   }
   .click-hint__dot {
     width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
@@ -523,8 +521,8 @@
     </div>
     <div class="panel" data-panel="1">
       <p class="panel__label">Capítulo I · Latinoamérica</p>
-      <h2 class="panel__title">Donde el tiempo<br>se respeta.</h2>
-      <p class="panel__body">Donde la tradición se transforma en arte,<br>y se crea con paciencia y con amor.</p>
+      <h2 class="panel__title">Donde la tradición<br>se transforma en arte.</h2>
+      <p class="panel__body">y se crea con paciencia y con amor.</p>
     </div>
     <div class="panel" data-panel="2">
       <p class="panel__label">Capítulo II · Colombia</p>
@@ -533,8 +531,8 @@
     </div>
     <div class="panel" data-panel="3">
       <p class="panel__label">Capítulo III · Antioquia · Guatapé</p>
-      <h2 class="panel__title">Nacida de<br>una firma.</h2>
-      <p class="panel__body">La abuela Ofelia lo firmó todo. Nosotros lo heredamos en cuero.</p>
+      <h2 class="panel__title">Cuero hecho<br>para durar.</h2>
+      <p class="panel__body">Una promesa que nació en Guatapé<br>y viaja al mundo en cuero.</p>
     </div>
     <div class="panel" data-panel="4">
     </div>
@@ -634,9 +632,9 @@
 
   function strokeFor(scale) {
     return {
-      land:   Math.min(0.9, 0.35 + scale/8000),
-      dept:   Math.min(1.1, 0.4  + scale/5000),
-      region: Math.min(2.2, 0.6  + scale/2000)
+      land:   Math.min(0.75, 0.3 + scale/9000),
+      dept:   Math.min(0.9,  0.3 + scale/6000),
+      region: Math.min(1.8,  0.5 + scale/2200)
     };
   }
 
