@@ -53,8 +53,12 @@
     padding: 0 48px;
   }
   .navbar__left  { flex: 1; display: flex; align-items: center; }
-  .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
-  .navbar__firma { height: 30px; width: auto; mix-blend-mode: multiply; display: block; }
+  .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; outline: none; }
+  .navbar__firma {
+    height: 34px; width: auto; max-width: 180px;
+    mix-blend-mode: multiply; display: block;
+    object-fit: contain; object-position: center;
+  }
   .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
   .nav-link {
     font-family: 'Helvetica Neue', sans-serif; font-weight: 400;
@@ -108,7 +112,7 @@
   .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
   @media (max-width: 768px) {
     .navbar { padding: 0 20px; }
-    .navbar__firma { height: 24px; }
+    .navbar__firma { height: 38px; max-width: 48px; }
     .navbar__right { gap: 18px; }
   }
 
@@ -120,13 +124,13 @@
     transition: opacity 1.4s var(--ease);
   }
   .step0.out { opacity: 0; pointer-events: none; }
-  .step0__mono {
-    font-family: 'Cinzel', serif; font-size: 28px;
-    letter-spacing: 0.5em; text-indent: 0.5em; text-align: center;
-    color: rgba(243,238,230,0);
-    transition: color 1.1s var(--ease);
+  .step0__logo {
+    height: 52px; width: auto; max-width: 120px;
+    object-fit: contain; display: block;
+    opacity: 0; filter: brightness(10);
+    transition: opacity 1.1s var(--ease);
   }
-  .step0__mono.vis { color: rgba(243,238,230,0.88); }
+  .step0__logo.vis { opacity: 0.92; }
   .step0__tag {
     position: absolute; bottom: 80px; left: 50%;
     transform: translateX(-50%);
@@ -352,7 +356,11 @@
   .card .seal {
     width: 64px; height: 64px; border: 1px solid var(--ink);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 0.4em; color: var(--ink);
+    padding: 10px; box-sizing: border-box;
+  }
+  .card .seal img {
+    width: 100%; height: 100%; object-fit: contain;
+    mix-blend-mode: multiply; display: block;
   }
   .card .info { display: flex; flex-direction: column; gap: 4px; }
   .card .info .name { font-family: 'Cinzel', serif; font-size: 19px; letter-spacing: 0.05em; }
@@ -432,8 +440,8 @@
   <div class="navbar__left"></div>
   <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
     <picture>
-      <source media="(max-width: 768px)" srcset="assets/img/logo_tarjetas_sello.png">
-      <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo" class="navbar__firma">
+      <source media="(max-width: 768px)" srcset="assets/img/logo_tarjetas_sello.svg">
+      <img src="assets/img/logo_firma_completa.svg" alt="Ofelia Vallejo" class="navbar__firma">
     </picture>
   </a>
   <div class="navbar__right">
@@ -458,7 +466,7 @@
 
 <!-- ─── Pantalla oscura de entrada ──────────────────── -->
 <div class="step0" id="step0">
-  <div class="step0__mono" id="step0Mono">O  V</div>
+  <img src="assets/img/logo_tarjetas_sello.svg" alt="" class="step0__logo" id="step0Logo" aria-hidden="true">
   <p class="step0__tag" id="step0Tag">Leather House · Medellín, Colombia</p>
   <span class="step0__loading" id="step0Loading">Cartografía · cargando atlas</span>
 </div>
@@ -538,6 +546,8 @@
       <p class="panel__body">Una promesa que nació en Guatapé<br>y viaja al mundo en cuero.</p>
     </div>
     <div class="panel" data-panel="4">
+      <h2 class="panel__title">Bienvenida<br>a la Casa.</h2>
+      <p class="panel__body">Guatapé · Antioquia · Colombia</p>
     </div>
   </div>
 
@@ -575,7 +585,9 @@
 
   <!-- Tarjeta final (stage 4) -->
   <div class="card" id="card">
-    <div class="seal">OV</div>
+    <div class="seal">
+      <img src="assets/img/logo_tarjetas_sello.svg" alt="" aria-hidden="true">
+    </div>
     <div class="info">
       <span class="name">Guatapé · Antioquia</span>
       <span class="coord-txt">06° 14′ N · 75° 09′ O · 1.880 m s.n.m.</span>
@@ -736,16 +748,41 @@
     lDeco.appendChild(c);
   });
 
-  pinEl.dataset.lng = -75.5812;
-  pinEl.dataset.lat = 6.2476;
+  pinEl.dataset.lng = guatapeCenter[0];
+  pinEl.dataset.lat = guatapeCenter[1];
 
   /* ─── Initial draw + entrance ────────────────────── */
   redraw();
 
-  /* Step0 entrance sequence */
-  const step0Mono = document.getElementById('step0Mono');
+  const step0Logo = document.getElementById('step0Logo');
   const step0Tag  = document.getElementById('step0Tag');
-  setTimeout(() => step0Mono.classList.add('vis'), 300);
+  const step0Load = document.getElementById('step0Loading');
+  if (step0Load) step0Load.textContent = 'Atlas · listo';
+
+  let coordAnimated = false;
+  function animateCoordsTo(lng, lat, placeLabel) {
+    if (coordAnimated) return;
+    coordAnimated = true;
+    const valsEl = document.getElementById('coordsVal');
+    const placeEl = document.getElementById('coordsPlace');
+    const dur = 2800, t0 = performance.now();
+    const startLng = 0, startLat = 0;
+    function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      const curLng = startLng + (lng - startLng) * e;
+      const curLat = startLat + (lat - startLat) * e;
+      if (valsEl) valsEl.textContent = formatCoord(curLng, curLat);
+      if (p < 1) requestAnimationFrame(tick);
+      else if (placeEl) {
+        placeEl.textContent = placeLabel;
+        placeEl.classList.add('resolved');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  setTimeout(() => { if (step0Logo) step0Logo.classList.add('vis'); }, 300);
   setTimeout(() => step0Tag.classList.add('vis'),  900);
   setTimeout(() => step0El.classList.add('out'), 2200);
   setTimeout(() => { step0El.remove(); updatePanel(0); }, 3800);
@@ -788,9 +825,8 @@
     if (hintEl)   hintEl.textContent = hints[idx] || '';
     if (hintWrap) hintWrap.style.display = hints[idx] ? 'inline-flex' : 'none';
     backBtn.disabled = idx <= 0;
-    if (idx === 4) {
-      const place = document.getElementById('coordsPlace');
-      if (place) { place.textContent = 'Guatapé, Antioquia · Colombia'; place.classList.add('resolved'); }
+    if (idx >= 3 && !coordAnimated) {
+      animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
     }
   }
 
@@ -839,6 +875,7 @@
     updatePanel(3);
     await animate({ rotTo:[-antioquiaCenter[0],-antioquiaCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
     pinEl.classList.add('on');
+    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
     stage = 3; busy = false;
   }
 
@@ -855,8 +892,11 @@
     if (busy) return; busy = true;
     stageEl.dataset.stage = '0';
     pinEl.classList.remove('on','deep');
+    coordAnimated = false;
     const place = document.getElementById('coordsPlace');
-    if (place) { place.textContent = 'Cargando atlas…'; place.classList.remove('resolved'); }
+    const vals = document.getElementById('coordsVal');
+    if (place) { place.textContent = 'Atlas · listo'; place.classList.remove('resolved'); }
+    if (vals) vals.textContent = formatCoord(0, 0);
     updatePanel(0);
     await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
     stage = 0; busy = false;
@@ -913,10 +953,16 @@
   /* ─── Resize ─────────────────────────────────────── */
   window.addEventListener('resize', () => {
     W = window.innerWidth; H = window.innerHeight;
+    const newInit = Math.min(W, H) * 0.36;
+    if (stage === 0) {
+      proj.scale(newInit);
+      setClip(newInit);
+    }
     proj.translate([W/2, H/2]);
     const [cx, cy] = proj.translate();
     clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy);
     waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy);
+    waterCircle.setAttribute('r', currentClip + 2);
     redraw();
   });
 
