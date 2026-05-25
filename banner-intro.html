@@ -153,6 +153,7 @@
     position: absolute; inset: 0;
     transform: rotateX(0deg); transform-origin: 50% 60%;
     transition: transform 0s; will-change: transform;
+    overflow: hidden;
   }
   .globe-svg { width: 100%; height: 100%; display: block; }
   .grain {
@@ -567,11 +568,21 @@
 
   /* ─── Projection ─────────────────────────────────── */
   let W = window.innerWidth, H = window.innerHeight;
-  const proj = d3.geoOrthographic().scale(98).translate([W/2, H/2]).clipAngle(90);
+  const INIT_SCALE = Math.min(W, H) * 0.36;
+  const proj = d3.geoOrthographic().scale(INIT_SCALE).translate([W/2, H/2]).clipAngle(90);
   const path = d3.geoPath(proj);
-  let currentClip = 100, currentTilt = 0;
+  let currentClip = INIT_SCALE, currentTilt = 0;
 
-  function setClip(r) { clipC.setAttribute('r', r); }
+  const waterCircle = lWater.querySelector('circle');
+
+  function setClip(r) {
+    currentClip = r;
+    const [cx, cy] = proj.translate();
+    clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy); clipC.setAttribute('r', r);
+    waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy); waterCircle.setAttribute('r', r + 2);
+  }
+  /* init clip & water at projection center */
+  setClip(INIT_SCALE);
   function setTilt(deg) { currentTilt = deg; tiltEl.style.transform = 'rotateX(' + deg + 'deg)'; }
 
   function strokeFor(scale) {
@@ -681,7 +692,6 @@
 
   /* ─── Initial draw + entrance ────────────────────── */
   redraw();
-  setClip(100);
 
   /* Step0 entrance sequence */
   const step0Mono = document.getElementById('step0Mono');
@@ -798,7 +808,7 @@
     const place = document.getElementById('coordsPlace');
     if (place) { place.textContent = 'Cargando atlas…'; place.classList.remove('resolved'); }
     updatePanel(0);
-    await animate({ rotTo:[20,-10,0], scaleTo:98, clipTo:100, tiltTo:0, ms:1600 });
+    await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
     stage = 0; busy = false;
   }
 
@@ -854,6 +864,9 @@
   window.addEventListener('resize', () => {
     W = window.innerWidth; H = window.innerHeight;
     proj.translate([W/2, H/2]);
+    const [cx, cy] = proj.translate();
+    clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy);
+    waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy);
     redraw();
   });
 
