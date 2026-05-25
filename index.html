@@ -119,34 +119,15 @@
       justify-content: space-between;
     }
 
-    .navbar .nav-section {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      gap: 36px;
-      padding-right: 36px;
-    }
-
-    .navbar .util {
-      flex: 1;
-      display: flex;
-      justify-content: flex-start;
-      gap: 36px;
-      padding-left: 36px;
-    }
-
-    .navbar__logo-img {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
+    .navbar__left  { flex: 1; display: flex; align-items: center; }
+    .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
     .navbar__firma {
       height: 34px;
       width: auto;
       display: block;
       mix-blend-mode: multiply;
     }
+    .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
 
     .nav-link {
       position: relative;
@@ -184,46 +165,55 @@
     }
 
     .menu-btn {
-      display: none;
-      font-family: inherit;
-      font-weight: 400;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--navy);
-      background: none;
-      border: none;
-      padding: 0;
-      margin-left: auto;
+      background: none; border: none; padding: 0;
+      width: 26px; height: 16px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      flex-shrink: 0;
     }
-
-    .nav-drawer {
-      display: none;
-      position: fixed;
-      top: 56px; left: 0; right: 0;
-      background: rgba(243, 238, 230, 0.98);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--rule);
-      padding: 28px var(--pad-x);
-      z-index: 999;
-      flex-direction: column;
-      gap: 22px;
+    .menu-btn span {
+      display: block; height: 1px; background: var(--navy);
+      transition: transform .34s var(--ease), opacity .34s var(--ease);
+      transform-origin: center;
     }
+    .menu-btn.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .menu-btn.is-open span:nth-child(2) { opacity: 0; }
+    .menu-btn.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-    .nav-drawer.is-open { display: flex; }
-
-    .nav-drawer a {
-      font-weight: 400;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--navy);
-      transition: opacity 0.3s var(--ease);
+    .nav-panel {
+      position: fixed; top: 0; right: 0;
+      width: min(300px, 82vw); height: 100vh;
+      background: var(--navy); z-index: 200;
+      transform: translateX(100%);
+      transition: transform .52s cubic-bezier(0.25,0.46,0.45,0.94);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 44px; pointer-events: none;
     }
+    .nav-panel.is-open { transform: translateX(0); pointer-events: auto; }
+    .nav-panel__links { display: flex; flex-direction: column; }
+    .nav-panel__link {
+      font-family: 'Cinzel', serif; font-size: 17px; letter-spacing: .07em;
+      color: rgba(243,238,230,.70); text-decoration: none;
+      padding: 14px 0; border-bottom: 1px solid rgba(243,238,230,.07);
+      transition: color .3s;
+    }
+    .nav-panel__link:last-child { border-bottom: none; }
+    .nav-panel__link:hover { color: var(--marfil); }
+    .nav-panel__foot {
+      position: absolute; bottom: 36px; left: 44px;
+      font-size: 7.5px; letter-spacing: .24em; text-transform: uppercase;
+      color: rgba(243,238,230,.22);
+    }
+    .nav-overlay {
+      position: fixed; inset: 0; z-index: 199;
+      background: transparent; pointer-events: none; transition: background .4s;
+    }
+    .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
 
-    .nav-drawer a:hover { opacity: 0.5; }
-    .nav-drawer a[aria-current="page"] { opacity: 0.4; }
+    @media (max-width: 768px) {
+      .navbar { padding: 0 20px; }
+      .navbar__firma { height: 24px; }
+      .navbar__right { gap: 18px; }
+    }
 
     footer {
       background: var(--navy);
@@ -840,243 +830,12 @@
 
     /* RESPONSIVE — tablet */
     @media (max-width: 1100px) {
-      .navbar .nav-section,
-      .navbar .util { gap: 24px; }
       .navbar a.nav-link { font-size: 10px; letter-spacing: 0.14em; }
-    }
-
-    /* ─── INTRO BANNER OVERLAY ─────────────────────────── */
-    body.intro-active { overflow: hidden; }
-
-    #intro-banner {
-      position: fixed; inset: 0;
-      background: var(--marfil);
-      z-index: 500;
-      overflow: hidden;
-    }
-    #intro-banner.exiting {
-      opacity: 0;
-      transition: opacity 1.4s var(--ease);
-      pointer-events: none;
-    }
-
-    #ib-step0 {
-      position: absolute; inset: 0;
-      background: var(--carbon);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 30;
-      transition: opacity 1.4s var(--ease);
-    }
-    #ib-step0.out { opacity: 0; pointer-events: none; }
-
-    .ib-s0-mono {
-      font-family: Cinzel, serif;
-      font-size: 28px;
-      letter-spacing: 0.5em;
-      text-indent: 0.5em;
-      color: rgba(243,238,230,0.0);
-      transition: color 1.1s var(--ease);
-    }
-    .ib-s0-mono.vis { color: rgba(243,238,230,0.88); }
-
-    .ib-s0-tagline {
-      position: absolute;
-      bottom: 80px; left: 50%;
-      transform: translateX(-50%);
-      font-size: 9px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(243,238,230,0.0);
-      white-space: nowrap;
-      transition: color 1.4s var(--ease) 0.6s;
-    }
-    .ib-s0-tagline.vis { color: rgba(243,238,230,0.3); }
-
-    .ib-nav {
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px;
-      z-index: 20;
-      border-bottom: 1px solid rgba(11,31,58,0.10);
-    }
-    .ib-nav__group {
-      flex: 1; display: flex; align-items: center; gap: 28px;
-    }
-    .ib-nav__group--right { justify-content: flex-end; }
-    .ib-nav__link {
-      font-size: 9.5px; letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(11,31,58,0.28);
-    }
-    .ib-nav__logo {
-      font-family: Cinzel, serif;
-      font-size: 14px; letter-spacing: 0.12em;
-      color: var(--navy);
-      flex-shrink: 0; padding: 0 40px;
-    }
-
-    #ib-globe {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -48%);
-      opacity: 0;
-      transition: opacity 2.4s var(--ease);
-      pointer-events: none;
-    }
-    #ib-globe.vis { opacity: 1; }
-
-    .ib-side {
-      position: absolute; top: 50%;
-      font-size: 8.5px; letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: rgba(11,31,58,0.28);
-      white-space: nowrap; pointer-events: none;
-      opacity: 0;
-      transition: opacity 1.8s var(--ease) 0.8s;
-    }
-    .ib-side.vis { opacity: 1; }
-    .ib-side--left  { left: 28px;  transform: translateY(-50%) rotate(-90deg); transform-origin: center center; }
-    .ib-side--right { right: 28px; transform: translateY(-50%) rotate(90deg);  transform-origin: center center; }
-
-    .ib-bgtext {
-      position: absolute;
-      font-size: 8px; letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(11,31,58,0.06);
-      pointer-events: none; white-space: nowrap;
-    }
-
-    .ib-panels {
-      position: absolute;
-      bottom: 132px; left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      width: min(560px, 80vw);
-    }
-    .ib-panel {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
-      pointer-events: none;
-    }
-    .ib-panel.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-
-    .ib-panel__label {
-      font-size: 8.5px; letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(11,31,58,0.28);
-      margin-bottom: 14px;
-    }
-    .ib-panel__headline {
-      font-family: Cinzel, serif;
-      font-size: clamp(26px, 3.6vw, 46px);
-      font-weight: 400; letter-spacing: 0.04em; line-height: 1.18;
-      color: var(--navy); margin-bottom: 14px;
-    }
-    .ib-panel__body {
-      font-size: 12px; letter-spacing: 0.07em;
-      color: rgba(11,31,58,0.45); line-height: 1.75;
-    }
-
-    .ib-controls {
-      position: absolute;
-      bottom: 48px; left: 50%;
-      transform: translateX(-50%);
-      display: flex; align-items: center; gap: 28px;
-      z-index: 20;
-      opacity: 0;
-      transition: opacity 1.4s var(--ease) 1.2s;
-    }
-    .ib-controls.vis { opacity: 1; }
-    .ib-controls button {
-      background: none; border: none;
-      font-family: inherit; font-weight: 300;
-      font-size: 9.5px; letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(11,31,58,0.35);
-      padding: 8px 4px;
-      transition: color 0.3s;
-    }
-    .ib-controls button:hover { color: var(--navy); }
-    .ib-controls button:disabled { opacity: 0.25; pointer-events: none; }
-
-    .ib-dots { display: flex; gap: 7px; align-items: center; }
-    .ib-dot {
-      width: 4px; height: 4px; border-radius: 50%;
-      background: rgba(11,31,58,0.2);
-      transition: background 0.4s, width 0.4s, border-radius 0.4s;
-    }
-    .ib-dot.active { background: var(--navy); width: 14px; border-radius: 2px; }
-
-    .ib-coords {
-      position: absolute; bottom: 28px; left: 48px;
-      z-index: 10; opacity: 0;
-      transition: opacity 1.6s var(--ease) 1.4s;
-    }
-    .ib-coords.vis { opacity: 1; }
-    .ib-coords__meta {
-      font-size: 7.5px; letter-spacing: 0.22em;
-      text-transform: uppercase; color: rgba(11,31,58,0.28); margin-bottom: 3px;
-    }
-    .ib-coords__vals {
-      font-size: 11px; letter-spacing: 0.12em;
-      color: rgba(11,31,58,0.55);
-      font-variant-numeric: tabular-nums;
-    }
-    .ib-coords__place {
-      display: block; margin-top: 2px;
-      font-size: 7.5px; letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(11,31,58,0.25);
-      transition: color 1s;
-    }
-    .ib-coords__place.resolved { color: rgba(11,31,58,0.42); }
-
-    .ib-brand {
-      position: absolute; bottom: 28px; right: 48px;
-      font-family: Cinzel, serif;
-      font-size: 10.5px; letter-spacing: 0.14em;
-      color: rgba(11,31,58,0.35);
-      z-index: 10; opacity: 0;
-      transition: opacity 1.6s var(--ease) 1.6s;
-    }
-    .ib-brand.vis { opacity: 1; }
-
-    .ib-progress {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 1px; background: rgba(11,31,58,0.07); z-index: 10;
-    }
-    #ib-prog-fill { height: 100%; width: 0%; background: rgba(11,31,58,0.4); }
-
-    @media (max-width: 768px) {
-      .ib-nav__group { display: none; }
-      .ib-nav__logo  { padding: 0; }
-      .ib-side       { display: none; }
-      .ib-bgtext     { display: none; }
-      .ib-panel__headline { font-size: clamp(22px, 7vw, 34px); }
-      .ib-panels  { bottom: 120px; }
-      .ib-controls{ bottom: 40px; }
     }
 
     /* RESPONSIVE — mobile */
     @media (max-width: 900px) {
       :root { --pad-x: 20px; }
-
-      .navbar { padding: 0 20px; }
-      .navbar .nav-section { display: none; }
-      .navbar .util { display: none; }
-      .menu-btn { display: inline-block; }
-
-      .navbar__logo-img {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .navbar__firma { height: 26px; }
 
       .signature-banner {
         display: block;
@@ -1142,113 +901,34 @@
 
   </style>
 </head>
-<body class="intro-active">
-
-  <!-- ─── INTRO OVERLAY ──────────────────────────────────── -->
-  <div id="intro-banner">
-
-    <div id="ib-step0">
-      <div style="text-align:center">
-        <div class="ib-s0-mono" id="ib-mono">O  V</div>
-      </div>
-      <p class="ib-s0-tagline" id="ib-s0-tag">Leather House · Medellín, Colombia</p>
-    </div>
-
-    <nav class="ib-nav" aria-hidden="true">
-      <div class="ib-nav__group ib-nav__group--left">
-        <span class="ib-nav__link">Hombre</span>
-        <span class="ib-nav__link">Historia</span>
-      </div>
-      <span class="ib-nav__logo">O  V</span>
-      <div class="ib-nav__group ib-nav__group--right">
-        <span class="ib-nav__link">Cuero</span>
-        <span class="ib-nav__link">Personalizar</span>
-        <span class="ib-nav__link">Contacto</span>
-      </div>
-    </nav>
-
-    <canvas id="ib-globe"></canvas>
-
-    <div class="ib-side ib-side--left"  id="ib-lbl-left">Mundo · Latitudes · Longitudes</div>
-    <div class="ib-side ib-side--right" id="ib-lbl-right">Cartografía · Atlas · Herencia</div>
-
-    <div class="ib-bgtext" style="top:32%; left:72px;">Cuero colombiano · Full-grain</div>
-    <div class="ib-bgtext" style="top:42%; right:72px; text-align:right;">European leather house · Zürich</div>
-    <div class="ib-bgtext" style="top:58%; left:72px;">Grabado láser · Herencia paisa</div>
-
-    <div class="ib-panels" id="ib-panels">
-      <div class="ib-panel" data-panel="1">
-        <p class="ib-panel__label">I · Origen</p>
-        <h2 class="ib-panel__headline">De Medellín<br>al mundo.</h2>
-        <p class="ib-panel__body">Cuero colombiano full-grain.<br>Manos antioqueñas. Destino: Europa.</p>
-      </div>
-      <div class="ib-panel" data-panel="2">
-        <p class="ib-panel__label">II · Oficio</p>
-        <h2 class="ib-panel__headline">Hecho para<br>durar.</h2>
-        <p class="ib-panel__body">Cada pieza lleva la firma de la abuela.<br>Grabado láser. Una herencia en cuero.</p>
-      </div>
-      <div class="ib-panel" data-panel="3">
-        <p class="ib-panel__label">III · Territorio</p>
-        <h2 class="ib-panel__headline">El mundo<br>de Ofelia.</h2>
-        <p class="ib-panel__body">Una historia de cuero en la Tierra.</p>
-      </div>
-      <div class="ib-panel" data-panel="4">
-        <p class="ib-panel__label">Leather House · Medellín, Colombia</p>
-        <h2 class="ib-panel__headline">Elegancia<br>que permanece.</h2>
-        <p class="ib-panel__body">Bienvenido a la casa de Ofelia Vallejo.</p>
-      </div>
-    </div>
-
-    <div class="ib-controls" id="ib-controls">
-      <button id="ib-btn-volver" disabled>← Volver</button>
-      <div class="ib-dots">
-        <span class="ib-dot" data-n="1"></span>
-        <span class="ib-dot" data-n="2"></span>
-        <span class="ib-dot" data-n="3"></span>
-        <span class="ib-dot" data-n="4"></span>
-      </div>
-      <button id="ib-btn-saltar">Saltar →</button>
-    </div>
-
-    <div class="ib-coords" id="ib-coords">
-      <div class="ib-coords__meta">Coordenadas · Proyección</div>
-      <div class="ib-coords__vals">
-        <span id="ib-c-lat">00°00'N</span>&nbsp;·&nbsp;<span id="ib-c-lon">00°00'O</span>
-      </div>
-      <span class="ib-coords__place" id="ib-c-place">Cargando atlas…</span>
-    </div>
-
-    <div class="ib-brand" id="ib-brand">Ofelia Vallejo</div>
-    <div class="ib-progress"><div id="ib-prog-fill"></div></div>
-
-  </div><!-- #intro-banner -->
+<body>
 
   <div id="cursor" aria-hidden="true"></div>
 
   <header class="navbar" role="banner">
-    <nav class="nav-section" aria-label="Navegación principal izquierda">
-      <a href="#" class="nav-link" data-active="true">Mujer</a>
-      <a href="#" class="nav-link" data-active="true">Hombre</a>
-      <a href="manifiesto.html" class="nav-link">Historia</a>
-    </nav>
-    <a href="index.html" class="navbar__logo-img" aria-label="Ofelia Vallejo — Inicio">
+    <div class="navbar__left">
+      <a href="#hombre" class="nav-link">Hombre</a>
+    </div>
+    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
       <img src="logo-firma.png" alt="Ofelia Vallejo" class="navbar__firma">
     </a>
-    <nav class="util" aria-label="Navegación principal derecha">
-      <a href="coleccion.html" class="nav-link">Cuero</a>
-      <a href="personalizar.html" class="nav-link">Personalizar</a>
-      <a href="#contacto" class="nav-link">Contacto</a>
-    </nav>
-    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Abrir menú de navegación">Menú</button>
+    <div class="navbar__right">
+      <a href="#mujer" class="nav-link">Mujer</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <nav class="nav-drawer" id="nav-drawer" aria-label="Navegación móvil">
-    <a href="#" class="nav-link" data-active="true">Mujer</a>
-    <a href="#" class="nav-link" data-active="true">Hombre</a>
-    <a href="manifiesto.html" class="nav-link">Historia</a>
-    <a href="coleccion.html" class="nav-link">Cuero</a>
-    <a href="personalizar.html" class="nav-link">Personalizar</a>
-    <a href="#contacto" class="nav-link">Contacto</a>
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
+    <div class="nav-panel__links">
+      <a href="manifiesto.html" class="nav-panel__link">Historia</a>
+      <a href="coleccion.html"  class="nav-panel__link">Cuero</a>
+      <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="contacto.html"   class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín</span>
   </nav>
 
   <main>
@@ -1425,169 +1105,6 @@
   </footer>
 
   <script>
-    /* ═══════════════════════════════════════════
-       INTRO BANNER — globe animation
-    ═══════════════════════════════════════════ */
-    (function () {
-      var canvas = document.getElementById('ib-globe');
-      var ctx    = canvas.getContext('2d');
-      var W, H, R, cx, cy, ibAngle = 0, ibLastTS = 0;
-
-      function sizeGlobe() {
-        var vMin = Math.min(window.innerWidth, window.innerHeight);
-        var size = Math.min(vMin * 0.78, 640);
-        canvas.width  = size;
-        canvas.height = size;
-        W = H = size; R = size * 0.455; cx = cy = size / 2;
-      }
-
-      function drawGlobe(a) {
-        ctx.clearRect(0, 0, W, H);
-        ctx.save();
-        ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.clip();
-        for (var lat = -80; lat <= 80; lat += 20) {
-          var phi = lat * Math.PI / 180;
-          var py  = cy - R * Math.sin(phi);
-          var pr  = R  * Math.cos(phi);
-          var isEq = lat === 0;
-          ctx.beginPath();
-          ctx.ellipse(cx, py, pr, pr * 0.19, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = isEq ? 'rgba(11,31,58,0.20)' : 'rgba(11,31,58,0.08)';
-          ctx.lineWidth   = isEq ? 1.1 : 0.6;
-          ctx.stroke();
-        }
-        for (var lon = 0; lon < 360; lon += 20) {
-          var lambda = (lon * Math.PI / 180) + a;
-          var cosL   = Math.cos(lambda);
-          var absX   = Math.abs(cosL);
-          var front  = cosL > 0;
-          var op     = front ? (0.08 + 0.11 * cosL) : (0.03 * (1 + cosL));
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, R * absX, R, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = 'rgba(11,31,58,' + op.toFixed(3) + ')';
-          ctx.lineWidth   = front ? 0.75 : 0.4;
-          ctx.stroke();
-        }
-        ctx.restore();
-        ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(11,31,58,0.16)'; ctx.lineWidth = 1; ctx.stroke();
-        var grad = ctx.createRadialGradient(cx, cy, R * 0.5, cx, cy, R);
-        grad.addColorStop(0, 'rgba(243,238,230,0)');
-        grad.addColorStop(1, 'rgba(243,238,230,0.28)');
-        ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
-        ctx.fillStyle = grad; ctx.fill();
-      }
-
-      function rafLoop(ts) {
-        var dt = Math.min(ts - ibLastTS, 64);
-        ibLastTS = ts;
-        ibAngle += 0.00022 * dt;
-        drawGlobe(ibAngle);
-        requestAnimationFrame(rafLoop);
-      }
-
-      sizeGlobe();
-      requestAnimationFrame(rafLoop);
-      window.addEventListener('resize', sizeGlobe);
-
-      /* Coordinates → Medellín */
-      var TGT_LAT = { d: 6,  m: 14 };
-      var TGT_LON = { d: 75, m: 34 };
-      var coordDone = false;
-
-      function fmt(d, m, dir) {
-        return String(Math.floor(d)).padStart(2,'0') + '°' +
-               String(Math.floor(m)).padStart(2,'0') + "'" + dir;
-      }
-
-      function animateCoords() {
-        if (coordDone) return;
-        coordDone = true;
-        var dur = 3600, t0 = performance.now();
-        function tick(now) {
-          var p = Math.min((now - t0) / dur, 1);
-          var e = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
-          document.getElementById('ib-c-lat').textContent = fmt(TGT_LAT.d * e, TGT_LAT.m * e, 'N');
-          document.getElementById('ib-c-lon').textContent = fmt(TGT_LON.d * e, TGT_LON.m * e, 'O');
-          if (p < 1) { requestAnimationFrame(tick); }
-          else {
-            var place = document.getElementById('ib-c-place');
-            place.textContent = 'Medellín, Antioquia · Colombia';
-            place.classList.add('resolved');
-          }
-        }
-        requestAnimationFrame(tick);
-      }
-
-      /* Step system */
-      var ibStep = 0, IB_TOTAL = 4, IB_AUTO_MS = 4200, ibProgTimer = null;
-
-      function ibShowStep(n) {
-        n = Math.max(1, Math.min(IB_TOTAL, n));
-        ibStep = n;
-        document.querySelectorAll('.ib-panel').forEach(function(p) { p.classList.remove('active'); });
-        var panel = document.querySelector('.ib-panel[data-panel="' + n + '"]');
-        if (panel) panel.classList.add('active');
-        document.querySelectorAll('.ib-dot').forEach(function(d) {
-          d.classList.toggle('active', +d.dataset.n === n);
-        });
-        document.getElementById('ib-btn-volver').disabled = n <= 1;
-        ibKillProgress();
-        if (n < IB_TOTAL) {
-          ibStartProgress(IB_AUTO_MS);
-        } else {
-          ibProgTimer = setTimeout(exitIntro, 3200);
-        }
-        if (n >= 2) animateCoords();
-      }
-
-      function ibKillProgress() {
-        clearTimeout(ibProgTimer);
-        var fill = document.getElementById('ib-prog-fill');
-        fill.style.transition = 'none'; fill.style.width = '0%';
-      }
-
-      function ibStartProgress(ms) {
-        var fill = document.getElementById('ib-prog-fill');
-        fill.style.width = '0%'; fill.style.transition = 'none';
-        void fill.offsetWidth;
-        fill.style.transition = 'width ' + ms + 'ms linear';
-        fill.style.width = '100%';
-        ibProgTimer = setTimeout(function() { ibShowStep(ibStep + 1); }, ms);
-      }
-
-      function exitIntro() {
-        ibKillProgress();
-        var banner = document.getElementById('intro-banner');
-        banner.classList.add('exiting');
-        setTimeout(function() {
-          banner.remove();
-          document.body.classList.remove('intro-active');
-        }, 1400);
-      }
-
-      document.getElementById('ib-btn-volver').addEventListener('click', function() { ibShowStep(ibStep - 1); });
-      document.getElementById('ib-btn-saltar').addEventListener('click', exitIntro);
-
-      /* Entrance sequence */
-      var step0  = document.getElementById('ib-step0');
-      var ovMono = document.getElementById('ib-mono');
-      var s0tag  = document.getElementById('ib-s0-tag');
-      setTimeout(function() { ovMono.classList.add('vis'); }, 300);
-      setTimeout(function() { s0tag.classList.add('vis'); }, 900);
-      setTimeout(function() {
-        step0.classList.add('out');
-        canvas.classList.add('vis');
-        document.getElementById('ib-lbl-left').classList.add('vis');
-        document.getElementById('ib-lbl-right').classList.add('vis');
-        document.getElementById('ib-coords').classList.add('vis');
-        document.getElementById('ib-brand').classList.add('vis');
-        document.getElementById('ib-controls').classList.add('vis');
-      }, 2200);
-      setTimeout(function() { if (step0.parentNode) step0.remove(); }, 3800);
-      setTimeout(function() { ibShowStep(1); }, 2600);
-    })();
-
     (function () {
       const reveals = document.querySelectorAll('.reveal');
       if (!reveals.length) return;
@@ -1647,23 +1164,27 @@
     })();
 
     (function () {
-      const btn = document.querySelector('.menu-btn');
-      const drawer = document.querySelector('.nav-drawer');
-      if (!btn || !drawer) return;
+      const btn     = document.getElementById('menuBtn');
+      const panel   = document.getElementById('navPanel');
+      const overlay = document.getElementById('navOverlay');
+      if (!btn || !panel) return;
 
-      btn.addEventListener('click', () => {
-        const open = drawer.classList.toggle('is-open');
-        btn.textContent = open ? 'Cerrar' : 'Menú';
-        btn.setAttribute('aria-expanded', String(open));
-      });
+      function open()  {
+        panel.classList.add('is-open');
+        overlay.classList.add('is-active');
+        btn.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      function close() {
+        panel.classList.remove('is-open');
+        overlay.classList.remove('is-active');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
 
-      drawer.querySelectorAll('a').forEach((a) => {
-        a.addEventListener('click', () => {
-          drawer.classList.remove('is-open');
-          btn.textContent = 'Menú';
-          btn.setAttribute('aria-expanded', 'false');
-        });
-      });
+      btn.addEventListener('click', () => panel.classList.contains('is-open') ? close() : open());
+      overlay.addEventListener('click', close);
+      panel.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
     })();
   </script>
 </body>

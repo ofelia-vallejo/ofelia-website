@@ -59,21 +59,25 @@
 })();
 
 (function () {
-  const btn = document.querySelector('.menu-btn');
-  const drawer = document.querySelector('.nav-drawer');
-  if (!btn || !drawer) return;
+  const btn     = document.getElementById('menuBtn');
+  const panel   = document.getElementById('navPanel');
+  const overlay = document.getElementById('navOverlay');
+  if (!btn || !panel) return;
 
-  btn.addEventListener('click', () => {
-    const open = drawer.classList.toggle('is-open');
-    btn.textContent = open ? 'Cerrar' : 'Menú';
-    btn.setAttribute('aria-expanded', String(open));
-  });
+  function open()  {
+    panel.classList.add('is-open');
+    overlay.classList.add('is-active');
+    btn.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  function close() {
+    panel.classList.remove('is-open');
+    overlay.classList.remove('is-active');
+    btn.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
 
-  drawer.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', () => {
-      drawer.classList.remove('is-open');
-      btn.textContent = 'Menú';
-      btn.setAttribute('aria-expanded', 'false');
-    });
-  });
+  btn.addEventListener('click', () => panel.classList.contains('is-open') ? close() : open());
+  overlay.addEventListener('click', close);
+  panel.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
 })();

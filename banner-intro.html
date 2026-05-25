@@ -11,13 +11,13 @@
 
 <style>
   :root {
-    --bg:       #F3EEE6;   /* marfil */
-    --ink:      #0B1F3A;   /* navy — reemplaza la tinta del spec */
-    --accent:   #5B1E24;   /* vino — reemplaza el oro */
-    --soft-1:   rgba(11,31,58,0.55);
-    --soft-2:   rgba(11,31,58,0.32);
-    --soft-3:   rgba(11,31,58,0.14);
-    --ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --bg:     #F3EEE6;
+    --ink:    #0B1F3A;
+    --accent: #5B1E24;
+    --s1:     rgba(11,31,58,0.55);
+    --s2:     rgba(11,31,58,0.32);
+    --s3:     rgba(11,31,58,0.14);
+    --ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body {
@@ -26,76 +26,168 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 300; font-size: 13px;
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
-    height: 100%;
+    overflow: hidden; height: 100%;
   }
-  .cinzel { font-family: 'Cinzel', serif; font-weight: 400; letter-spacing: 0.04em; }
-  .mono   { font-family: 'JetBrains Mono', monospace; font-weight: 400; letter-spacing: 0.18em; }
+  @media (hover: hover) and (pointer: fine) { html, body, a, button { cursor: none; } }
+
+  /* ─── Custom cursor ──────────────────────────────── */
+  #ov-cursor {
+    position: fixed; top: 0; left: 0;
+    width: 6px; height: 6px;
+    background: var(--ink); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate3d(-200px,-200px,0);
+    transition: width .2s, height .2s, background .2s, border-color .2s;
+    border: 1px solid transparent;
+  }
+  #ov-cursor.hov { width: 18px; height: 18px; background: transparent; border-color: var(--ink); }
+
+  /* ─── Navbar ─────────────────────────────────────── */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px; z-index: 50;
+    background: rgba(243,238,230,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(11,31,58,0.09);
+    display: flex; align-items: center;
+    padding: 0 48px;
+  }
+  .navbar__left  { flex: 1; display: flex; align-items: center; }
+  .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
+  .navbar__firma { height: 30px; width: auto; mix-blend-mode: multiply; display: block; }
+  .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
+  .nav-link {
+    font-family: 'Helvetica Neue', sans-serif; font-weight: 400;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--ink); opacity: 0.55; text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .nav-link:hover { opacity: 1; }
+  .menu-btn {
+    background: none; border: none; padding: 0;
+    width: 26px; height: 16px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .menu-btn span {
+    display: block; height: 1px; background: var(--ink);
+    transition: transform .34s var(--ease), opacity .34s var(--ease);
+    transform-origin: center;
+  }
+  .menu-btn.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .menu-btn.is-open span:nth-child(2) { opacity: 0; }
+  .menu-btn.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+  .nav-panel {
+    position: fixed; top: 0; right: 0;
+    width: min(300px, 82vw); height: 100vh;
+    background: var(--ink); z-index: 200;
+    transform: translateX(100%);
+    transition: transform .52s cubic-bezier(0.25,0.46,0.45,0.94);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 44px; pointer-events: none;
+  }
+  .nav-panel.is-open { transform: translateX(0); pointer-events: auto; }
+  .nav-panel__links { display: flex; flex-direction: column; }
+  .nav-panel__link {
+    font-family: 'Cinzel', serif; font-size: 17px; letter-spacing: .07em;
+    color: rgba(243,238,230,.70); text-decoration: none;
+    padding: 14px 0; border-bottom: 1px solid rgba(243,238,230,.07);
+    transition: color .3s;
+  }
+  .nav-panel__link:last-child { border-bottom: none; }
+  .nav-panel__link:hover { color: var(--bg); }
+  .nav-panel__foot {
+    position: absolute; bottom: 36px; left: 44px;
+    font-size: 7.5px; letter-spacing: .24em; text-transform: uppercase;
+    color: rgba(243,238,230,.22);
+  }
+  .nav-overlay {
+    position: fixed; inset: 0; z-index: 199;
+    background: transparent; pointer-events: none; transition: background .4s;
+  }
+  .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
+  @media (max-width: 768px) {
+    .navbar { padding: 0 20px; }
+    .navbar__firma { height: 24px; }
+    .navbar__right { gap: 18px; }
+  }
+
+  /* ─── Step 0 — dark entrance ─────────────────────── */
+  .step0 {
+    position: fixed; inset: 0; z-index: 100;
+    background: #141414;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 1.4s var(--ease);
+  }
+  .step0.out { opacity: 0; pointer-events: none; }
+  .step0__mono {
+    font-family: 'Cinzel', serif; font-size: 28px;
+    letter-spacing: 0.5em; text-indent: 0.5em; text-align: center;
+    color: rgba(243,238,230,0);
+    transition: color 1.1s var(--ease);
+  }
+  .step0__mono.vis { color: rgba(243,238,230,0.88); }
+  .step0__tag {
+    position: absolute; bottom: 80px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+    white-space: nowrap; color: rgba(243,238,230,0);
+    transition: color 1.4s var(--ease) 0.6s;
+  }
+  .step0__tag.vis { color: rgba(243,238,230,0.3); }
+  .step0__loading {
+    position: absolute; bottom: 56px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(243,238,230,0.22);
+  }
 
   /* ─── Stage ─────────────────────────────────────── */
   .stage {
     position: fixed; inset: 0;
-    perspective: 1400px;
-    perspective-origin: 50% 65%;
+    perspective: 1400px; perspective-origin: 50% 65%;
     overflow: hidden;
   }
   .tilt-wrap {
     position: absolute; inset: 0;
-    transform: rotateX(0deg);
-    transform-origin: 50% 60%;
-    transition: transform 0s; /* set by JS */
-    will-change: transform;
+    transform: rotateX(0deg); transform-origin: 50% 60%;
+    transition: transform 0s; will-change: transform;
   }
-  .globe-svg {
-    width: 100%; height: 100%;
-    display: block;
-  }
-  /* paper grain overlay */
+  .globe-svg { width: 100%; height: 100%; display: block; }
   .grain {
     position: absolute; inset: 0;
-    mix-blend-mode: multiply;
-    opacity: 0.22;
-    pointer-events: none;
-    z-index: 2;
+    mix-blend-mode: multiply; opacity: 0.22; pointer-events: none; z-index: 2;
   }
 
-  /* ─── SVG layer styles ────────────────────────────── */
+  /* ─── SVG layer styles ───────────────────────────── */
   .layer-water circle { fill: var(--bg); }
-  .layer-graticule path {
-    fill: none; stroke: var(--ink); stroke-width: 0.4;
-    opacity: 0.14;
-  }
-  .layer-world path {
-    fill: none; stroke: var(--ink); stroke-width: 0.6;
-    opacity: 0.85;
-  }
+  .layer-graticule path { fill: none; stroke: var(--ink); stroke-width: 0.4; opacity: 0.14; }
+  .layer-world path { fill: none; stroke: var(--ink); stroke-width: 0.6; opacity: 0.85; }
   .layer-inked path {
-    fill: var(--ink); fill-opacity: 0.92;
-    stroke: var(--ink); stroke-width: 0.8;
+    fill: var(--ink); fill-opacity: 0.92; stroke: var(--ink); stroke-width: 0.8;
     transition: fill-opacity 0.6s var(--ease);
   }
   .layer-inked.off path { fill-opacity: 0; }
-  .layer-depts path {
-    fill: none; stroke: var(--ink); stroke-width: 0.55;
-    opacity: 0; transition: opacity 0.8s var(--ease);
-  }
+  .layer-depts path { fill: none; stroke: var(--ink); stroke-width: 0.55; opacity: 0; transition: opacity 0.8s var(--ease); }
   .layer-depts.on path { opacity: 0.65; }
   .layer-region path {
-    fill: var(--ink); fill-opacity: 0;
-    stroke: var(--ink); stroke-width: 0.9;
+    fill: var(--ink); fill-opacity: 0; stroke: var(--ink); stroke-width: 0.9;
     opacity: 0; transition: opacity 0.8s var(--ease), fill-opacity 0.8s var(--ease);
   }
   .layer-region.on path { opacity: 1; fill-opacity: 0.06; }
-  .layer-decorative path,
-  .layer-decorative circle {
+  .layer-decorative path, .layer-decorative circle {
     stroke: var(--ink); stroke-width: 0.5; fill: none;
     opacity: 0; transition: opacity 0.8s var(--ease);
   }
   .layer-decorative.on path,
   .layer-decorative.on circle { opacity: 0.45; }
 
-  /* Pin */
-  .pin { opacity: 0; transition: opacity 0.5s var(--ease), transform 0.6s var(--ease); transform-origin: center; transform-box: fill-box; }
+  /* ─── Pin ────────────────────────────────────────── */
+  .pin {
+    opacity: 0; transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+    transform-origin: center; transform-box: fill-box;
+  }
   .pin.on { opacity: 1; }
   .pin.deep { transform: scale(1.6); }
   .pin .core { fill: var(--accent); }
@@ -105,383 +197,227 @@
     transform-origin: center; transform-box: fill-box;
   }
   .pin .halo--2 { animation-delay: 0.9s; }
-  @keyframes pin-pulse {
-    0%   { r: 5;  opacity: 0.95; }
-    100% { r: 78; opacity: 0;    }
-  }
+  @keyframes pin-pulse { 0% { r: 5; opacity: 0.95; } 100% { r: 78; opacity: 0; } }
 
-  /* Atmosphere (radial bloom in center) */
-  .atmos {
-    position: absolute; left: 50%; top: 50%;
-    width: 200px; height: 200px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    box-shadow: 0 0 80px 30px rgba(11,31,58,0.18);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 1s var(--ease);
-  }
-  .stage[data-stage="0"] .atmos { opacity: 0; }
-  .stage[data-stage="1"] .atmos { opacity: 1; }
-  .stage[data-stage="2"] .atmos { opacity: 0.6; }
-  .stage[data-stage="3"] .atmos,
-  .stage[data-stage="4"] .atmos { opacity: 0; }
-
-  /* Vignette (stage 4) */
+  /* ─── Vignette (stage 4) ─────────────────────────── */
   .vignette {
     position: absolute; inset: 0; z-index: 3;
     background: radial-gradient(ellipse at center, transparent 30%, rgba(11,31,58,0.18) 80%, rgba(11,31,58,0.32) 100%);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 1.2s var(--ease);
+    pointer-events: none; opacity: 0; transition: opacity 1.2s var(--ease);
   }
   .stage[data-stage="4"] .vignette { opacity: 1; }
 
-  /* ─── Whirl (stage 0 only — orbital rings around 200px globe) ─── */
-  .whirl {
-    position: absolute; left: 50%; top: 50%;
-    width: 360px; height: 360px;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 4;
-    transition: opacity 0.8s var(--ease);
-  }
-  .stage:not([data-stage="0"]) .whirl { opacity: 0; }
-  .whirl > svg {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-  }
-  .whirl .ring-slow { animation: spin-slow 90s linear infinite; }
-  .whirl .ring-ccw  { animation: spin-ccw  38s linear infinite; }
-  .whirl .ring-cw   { animation: spin-cw   22s linear infinite; }
-  .whirl .ring-fast { animation: spin-fast 11s linear infinite; }
-  @keyframes spin-slow { to { transform: rotate(360deg);  } }
-  @keyframes spin-ccw  { to { transform: rotate(-360deg); } }
-  @keyframes spin-cw   { to { transform: rotate(360deg);  } }
-  @keyframes spin-fast { to { transform: rotate(720deg);  } }
-  .whirl text {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 7px; letter-spacing: 0.4em;
-    fill: var(--ink); opacity: 0.55;
-  }
+  /* ─── Cartographic corners ───────────────────────── */
+  .corner { position: absolute; width: 28px; height: 28px; z-index: 5; pointer-events: none; }
+  .corner.tl { top: 68px; left: 24px; border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); opacity: 0.3; }
+  .corner.tr { top: 68px; right: 24px; border-top: 1px solid var(--ink); border-right: 1px solid var(--ink); opacity: 0.3; }
+  .corner.bl { bottom: 24px; left: 24px; border-bottom: 1px solid var(--ink); border-left: 1px solid var(--ink); opacity: 0.3; }
+  .corner.br { bottom: 24px; right: 24px; border-bottom: 1px solid var(--ink); border-right: 1px solid var(--ink); opacity: 0.3; }
 
-  /* Cartographic corners — letterpress feel */
-  .corner {
-    position: absolute;
-    width: 28px; height: 28px;
-    z-index: 5;
-    pointer-events: none;
+  /* ─── Side labels ────────────────────────────────── */
+  .side {
+    position: absolute; top: 50%; z-index: 5;
+    font-size: 8px; letter-spacing: 0.26em; text-transform: uppercase;
+    color: rgba(11,31,58,0.20); white-space: nowrap; pointer-events: none;
   }
-  .corner.tl { top: 24px; left: 24px;  border-top: 1px solid var(--ink); border-left:  1px solid var(--ink); }
-  .corner.tr { top: 24px; right: 24px; border-top: 1px solid var(--ink); border-right: 1px solid var(--ink); }
-  .corner.bl { bottom: 24px; left: 24px;  border-bottom: 1px solid var(--ink); border-left:  1px solid var(--ink); }
-  .corner.br { bottom: 24px; right: 24px; border-bottom: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+  .side--left  { left: 22px;  transform: translateY(-50%) rotate(-90deg); }
+  .side--right { right: 22px; transform: translateY(-50%) rotate(90deg); }
+  @media (max-width: 768px) { .side { display: none; } }
 
-  /* ─── HUD ─────────────────────────────────────────── */
-  .hud {
-    position: absolute; z-index: 6;
-    pointer-events: none;
-    color: var(--ink);
+  /* ─── Decorative background text ────────────────── */
+  .bgtext {
+    position: absolute; font-size: 8px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: rgba(11,31,58,0.055);
+    pointer-events: none; white-space: nowrap; z-index: 4;
   }
-  .hud.tl { top: 40px; left: 60px; }
-  .hud.tr { top: 40px; right: 60px; text-align: right; }
-  .hud.bl { bottom: 40px; left: 60px; }
-  .hud.br { bottom: 40px; right: 60px; text-align: right; }
-  .hud .label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--soft-1); margin-bottom: 4px; }
-  .hud .val   { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: var(--ink); }
+  @media (max-width: 768px) { .bgtext { display: none; } }
 
-  .breadcrumb {
-    display: flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
-  }
-  .breadcrumb .item { color: var(--soft-2); transition: color 0.4s ease; }
-  .breadcrumb .item.active { color: var(--ink); }
-  .breadcrumb .sep { color: var(--soft-3); }
-
-  .counter { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.32em; color: var(--soft-1); text-transform: uppercase; }
-
-  /* ─── Caption block — center bottom area ──────────── */
-  .caption {
-    position: absolute; left: 50%; bottom: 96px;
+  /* ─── Content panels ─────────────────────────────── */
+  .panels {
+    position: absolute; bottom: 116px; left: 50%;
     transform: translateX(-50%);
-    z-index: 6;
-    text-align: center;
-    pointer-events: none;
-    width: min(560px, 80vw);
+    text-align: center; width: min(520px, 78vw);
+    z-index: 6; pointer-events: none;
   }
-  .caption .eyebrow {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
-    color: var(--soft-1);
-    margin-bottom: 14px;
+  .panel {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
   }
-  .caption h2 {
-    margin: 0;
-    font-family: 'Cinzel', serif; font-weight: 400;
-    font-size: clamp(22px, 2.4vw, 32px);
-    letter-spacing: 0.02em; line-height: 1.25;
-    color: var(--ink);
+  .panel.active { opacity: 1; transform: translateY(0); }
+  .panel__label {
+    font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(11,31,58,0.45); margin-bottom: 12px;
   }
-  .caption .quote {
-    margin: 12px auto 0;
-    max-width: 420px;
-    font-style: italic;
-    font-size: 12px; color: var(--soft-1);
-    line-height: 1.6;
+  .panel__title {
+    font-family: 'Cinzel', serif; font-size: clamp(22px, 2.8vw, 38px);
+    font-weight: 400; letter-spacing: 0.02em; line-height: 1.22;
+    color: var(--ink); margin-bottom: 10px;
   }
-  .hint {
-    margin-top: 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--soft-1);
-    display: inline-flex; align-items: center; gap: 12px;
-    pointer-events: auto;
+  .panel__body {
+    font-size: 12px; letter-spacing: 0.05em;
+    color: rgba(11,31,58,0.52); line-height: 1.7;
   }
-  .hint .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    animation: hint-pulse 1.4s ease-in-out infinite;
+
+  /* ─── Click hint ─────────────────────────────────── */
+  .click-hint {
+    position: absolute; bottom: 80px; left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(11,31,58,0.45); z-index: 6; white-space: nowrap;
+  }
+  .click-hint__dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    animation: hint-pulse 1.4s ease-in-out infinite; flex-shrink: 0;
   }
   @keyframes hint-pulse {
-    0%, 100% { opacity: 0.5; transform: scale(1);   }
-    50%      { opacity: 1;   transform: scale(1.4); }
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.4); }
   }
 
-  /* ─── Reticle (cruceta central) ───────────────────── */
-  .reticle {
-    position: absolute; left: 50%; top: 50%;
-    width: 220px; height: 220px;
-    transform: translate(-50%, -50%) scale(1);
-    pointer-events: none;
-    z-index: 5;
-    opacity: 0;
-    transition: opacity 0.6s var(--ease), transform 0.8s var(--ease);
+  /* ─── Nav dots ───────────────────────────────────── */
+  .nav-dots {
+    position: absolute; bottom: 50px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px; align-items: center; z-index: 6;
   }
-  .stage[data-stage="1"] .reticle { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  .stage[data-stage="2"] .reticle { opacity: 0.6; transform: translate(-50%, -50%) scale(0.65); }
-  .stage[data-stage="3"] .reticle { opacity: 0.35; transform: translate(-50%, -50%) scale(0.45); }
-  .stage[data-stage="4"] .reticle { opacity: 0; }
-  .reticle svg { width: 100%; height: 100%; display: block; }
-  .reticle line   { stroke: var(--ink); stroke-width: 0.6; opacity: 0.45; }
-  .reticle circle { fill: none; stroke: var(--ink); stroke-width: 0.5; opacity: 0.3; stroke-dasharray: 2 5; }
+  .nav-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(11,31,58,0.22);
+    transition: background 0.4s, width 0.4s, border-radius 0.4s;
+  }
+  .nav-dot.active { background: var(--ink); width: 16px; border-radius: 3px; }
 
-  /* ─── Back + Skip ─────────────────────────────────── */
+  /* ─── Coordinates ────────────────────────────────── */
+  .coords {
+    position: absolute; bottom: 28px; left: 48px; z-index: 6; pointer-events: none;
+  }
+  .coords__meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 7.5px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(11,31,58,0.35); margin-bottom: 3px;
+  }
+  .coords__vals {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.14em; color: rgba(11,31,58,0.55);
+  }
+  .coords__place {
+    display: block; margin-top: 2px; font-size: 7.5px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(11,31,58,0.25); transition: color 1s;
+  }
+  .coords__place.resolved { color: rgba(11,31,58,0.45); }
+  @media (max-width: 768px) { .coords { left: 20px; } }
+
+  /* ─── Brand label ────────────────────────────────── */
+  .brand-lbl {
+    position: absolute; bottom: 28px; right: 48px; z-index: 6;
+    font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.14em;
+    color: rgba(11,31,58,0.28); pointer-events: none;
+  }
+  @media (max-width: 768px) { .brand-lbl { right: 20px; } }
+
+  /* ─── Controls (Volver / Saltar) ─────────────────── */
   .controls {
-    position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
-    z-index: 8;
-    display: flex; gap: 14px; align-items: center;
-    background: rgba(243,238,230,0.95);
-    backdrop-filter: blur(8px);
-    padding: 8px 16px;
-    border: 1px solid var(--soft-3);
+    position: absolute; bottom: 44px; right: 48px;
+    z-index: 8; display: flex; gap: 10px; align-items: center;
+    /* hidden when nav-dots are also here — move to right side */
   }
   .controls button {
     background: transparent; border: 0;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ink); opacity: 0.6;
-    cursor: pointer;
-    padding: 4px 8px;
-    transition: opacity 0.3s ease;
+    font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink); opacity: 0.38; padding: 4px 0;
+    transition: opacity 0.3s;
   }
-  .controls button:hover { opacity: 1; }
-  .controls .divider { width: 1px; height: 10px; background: var(--soft-3); }
+  .controls button:hover { opacity: 0.75; }
+  .controls button:disabled { opacity: 0.15; pointer-events: none; }
+  .controls .divider { width: 1px; height: 10px; background: var(--s3); }
 
-  /* ─── Final card (stage 4 slide-in) ───────────────── */
+  /* ─── Final card (stage 4) ───────────────────────── */
   .card {
     position: absolute; left: 50%; bottom: -240px;
     transform: translateX(-50%);
-    z-index: 7;
-    width: min(640px, 88vw);
-    background: var(--bg);
-    border: 1px solid var(--ink);
+    z-index: 7; width: min(640px, 88vw);
+    background: var(--bg); border: 1px solid var(--ink);
     padding: 28px 32px;
-    display: grid;
-    grid-template-columns: 64px 1fr auto;
-    gap: 24px;
-    align-items: center;
+    display: grid; grid-template-columns: 64px 1fr auto;
+    gap: 24px; align-items: center;
     transition: bottom 0.9s var(--ease);
   }
   .stage[data-stage="4"] .card { bottom: 60px; }
   .card .seal {
-    width: 64px; height: 64px;
-    border: 1px solid var(--ink);
+    width: 64px; height: 64px; border: 1px solid var(--ink);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Cinzel', serif; font-weight: 400;
-    font-size: 24px; letter-spacing: 0.4em;
-    color: var(--ink);
+    font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 0.4em; color: var(--ink);
   }
   .card .info { display: flex; flex-direction: column; gap: 4px; }
-  .card .info .name { font-family: 'Cinzel', serif; font-weight: 400; font-size: 20px; letter-spacing: 0.05em; }
-  .card .info .coords { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--soft-1); }
+  .card .info .name { font-family: 'Cinzel', serif; font-size: 19px; letter-spacing: 0.05em; }
+  .card .info .coord-txt {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.18em; color: var(--s1);
+  }
   .card .enter {
-    background: transparent;
-    border: 1px solid var(--ink);
-    padding: 12px 28px;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--ink);
-    cursor: pointer;
-    transition: background 0.5s ease, color 0.5s ease;
+    background: transparent; border: 1px solid var(--ink);
+    padding: 12px 28px; font-family: 'Helvetica Neue', sans-serif;
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink);
+    transition: background 0.5s, color 0.5s;
   }
   .card .enter:hover { background: var(--ink); color: var(--bg); }
-
-  /* ─── Loading state (before data ready) ───────────── */
-  .boot {
-    position: fixed; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--bg);
-    z-index: 100;
-    transition: opacity 0.6s var(--ease);
-  }
-  .boot.hidden { opacity: 0; pointer-events: none; }
-  .boot .ring {
-    width: 28px; height: 28px;
-    border: 1px solid var(--soft-3);
-    border-top-color: var(--ink);
-    border-radius: 50%;
-    animation: boot-spin 1.2s linear infinite;
-  }
-  @keyframes boot-spin { to { transform: rotate(360deg); } }
-  .boot .msg {
-    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--soft-1);
-  }
-
-  /* Destination (peek behind intro after finish) */
-  .destination {
-    position: fixed; inset: 0;
-    background: var(--bg); z-index: 0;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .destination .preview {
-    color: var(--soft-2);
-    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-  }
-  .dest-nav {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 56px; z-index: 10;
-    background: rgba(243,238,230,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(11,31,58,0.10);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 48px;
-  }
-  .dest-nav__main { display: flex; gap: 32px; }
-  .dest-nav__main a {
-    font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: #0B1F3A; text-decoration: none; font-weight: 400;
-    transition: opacity .3s;
-  }
-  .dest-nav__main a:hover { opacity: .5; }
-  .dest-nav__burger {
-    background: none; border: none; width: 28px; height: 18px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    padding: 0; cursor: pointer;
-  }
-  .dest-nav__burger span {
-    display: block; height: 1px; background: #0B1F3A;
-    transition: transform .35s, opacity .35s; transform-origin: center;
-  }
-  .dest-nav__burger.open span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
-  .dest-nav__burger.open span:nth-child(2) { opacity: 0; }
-  .dest-nav__burger.open span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
-
-  .dest-menu {
-    position: fixed; top: 0; right: 0;
-    width: min(300px, 78vw); height: 100vh;
-    background: #0B1F3A; z-index: 200;
-    transform: translateX(100%);
-    transition: transform .55s cubic-bezier(0.25,0.46,0.45,0.94);
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 80px 44px;
-  }
-  .dest-menu.open { transform: translateX(0); }
-  .dest-menu__links a {
-    display: block; font-family: 'Cinzel', serif; font-size: 17px;
-    letter-spacing: .08em; color: rgba(243,238,230,.72);
-    text-decoration: none; margin-bottom: 26px;
-    transition: color .3s;
-  }
-  .dest-menu__links a:hover { color: #F3EEE6; }
-  .dest-menu__foot {
-    position: absolute; bottom: 36px; left: 44px;
-    font-size: 7.5px; letter-spacing: .22em; text-transform: uppercase;
-    color: rgba(243,238,230,.22);
-  }
-  .dest-overlay {
-    position: fixed; inset: 0; z-index: 199;
-    background: transparent; pointer-events: none;
-    transition: background .4s;
-  }
-  .dest-overlay.on { background: rgba(11,31,58,.28); pointer-events: auto; }
-
-  @media (hover: hover) and (pointer: fine) {
-    html, body, a, button { cursor: none; }
-  }
-  #ov-cursor {
-    position: fixed; top: 0; left: 0;
-    width: 6px; height: 6px;
-    background: #0B1F3A; border-radius: 50%;
-    pointer-events: none; z-index: 9999;
-    transform: translate3d(-200px,-200px,0);
-    transition: width .2s, height .2s, background .2s, border-color .2s;
-    border: 1px solid transparent;
-  }
-  #ov-cursor.hov {
-    width: 18px; height: 18px;
-    background: transparent; border-color: #0B1F3A;
+  @media (max-width: 600px) {
+    .card { grid-template-columns: 1fr; text-align: center; }
+    .card .seal { margin: 0 auto; }
+    .stage[data-stage="4"] .card { bottom: 80px; }
   }
 </style>
 </head>
 <body>
 <div id="ov-cursor"></div>
 
-<!-- Loading boot screen while topojson loads -->
-<div class="boot" id="boot">
-  <div class="ring"></div>
-  <div class="msg">Cartografía · cargando atlas</div>
-</div>
-
-<!-- Destination preview behind the intro -->
-<section class="destination" aria-hidden="true">
-  <nav class="dest-nav">
-    <a href="index.html" class="dest-nav__logo">
-      <img src="logo-firma.png" alt="Ofelia Vallejo" style="height:30px;width:auto;mix-blend-mode:multiply;">
-    </a>
-    <div class="dest-nav__main">
-      <a href="index.html#hombre">Hombre</a>
-      <a href="index.html#mujer">Mujer</a>
-    </div>
-    <button class="dest-nav__burger" id="burgerBtn" aria-label="Menú">
+<!-- ─── Navbar: Hombre | Logo | Mujer | ☰ ──────────── -->
+<header class="navbar">
+  <div class="navbar__left">
+    <a href="index.html#hombre" class="nav-link">Hombre</a>
+  </div>
+  <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+    <img src="logo-firma.png" alt="Ofelia Vallejo" class="navbar__firma">
+  </a>
+  <div class="navbar__right">
+    <a href="index.html#mujer" class="nav-link">Mujer</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Menú">
       <span></span><span></span><span></span>
     </button>
-  </nav>
-  <div class="dest-menu" id="destMenu">
-    <div class="dest-menu__links">
-      <a href="manifiesto.html">Historia</a>
-      <a href="personalizar.html">Personalización</a>
-      <a href="coleccion.html">Materiales</a>
-      <a href="contacto.html">Contacto</a>
-    </div>
-    <span class="dest-menu__foot">Leather House · Medellín, Colombia</span>
   </div>
-  <div class="dest-overlay" id="destOverlay"></div>
-  <div class="preview">⟶ Home v6 espera detrás de la intro</div>
-</section>
+</header>
 
-<!-- Intro stage -->
+<div class="nav-panel" id="navPanel" aria-hidden="true">
+  <div class="nav-panel__links">
+    <a href="manifiesto.html"   class="nav-panel__link">Historia</a>
+    <a href="coleccion.html"    class="nav-panel__link">Cuero</a>
+    <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
+    <a href="contacto.html"     class="nav-panel__link">Contacto</a>
+  </div>
+  <span class="nav-panel__foot">Leather House · Medellín, Colombia</span>
+</div>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ─── Pantalla oscura de entrada ──────────────────── -->
+<div class="step0" id="step0">
+  <div class="step0__mono" id="step0Mono">O  V</div>
+  <p class="step0__tag" id="step0Tag">Leather House · Medellín, Colombia</p>
+  <span class="step0__loading" id="step0Loading">Cartografía · cargando atlas</span>
+</div>
+
+<!-- ─── Escena del globo ─────────────────────────────── -->
 <div class="stage" id="stage" data-stage="0">
 
   <span class="corner tl"></span>
   <span class="corner tr"></span>
   <span class="corner bl"></span>
   <span class="corner br"></span>
-
-  <div class="atmos"></div>
 
   <div class="tilt-wrap" id="tiltWrap">
     <svg class="globe-svg" id="svg">
@@ -495,17 +431,14 @@
         </filter>
         <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100" /></clipPath>
       </defs>
-
       <g clip-path="url(#globe-clip)">
-        <g class="layer-water" id="lWater"><circle cx="0" cy="0" r="100" /></g>
-        <g class="layer-graticule" id="lGrat"></g>
-        <g class="layer-world" id="lWorld"></g>
-        <g class="layer-inked" id="lInked"></g>
-        <g class="layer-depts" id="lDepts"></g>
-        <g class="layer-region" id="lRegion"></g>
+        <g class="layer-water"      id="lWater"><circle cx="0" cy="0" r="100" /></g>
+        <g class="layer-graticule"  id="lGrat"></g>
+        <g class="layer-world"      id="lWorld"></g>
+        <g class="layer-inked"      id="lInked"></g>
+        <g class="layer-depts"      id="lDepts"></g>
+        <g class="layer-region"     id="lRegion"></g>
         <g class="layer-decorative" id="lDeco"></g>
-
-        <!-- Pin -->
         <g class="pin" id="pin">
           <circle class="halo halo--1" cx="0" cy="0" r="5" />
           <circle class="halo halo--2" cx="0" cy="0" r="5" />
@@ -515,143 +448,108 @@
     </svg>
   </div>
 
-  <!-- Paper grain overlay -->
+  <!-- Grain overlay -->
   <svg class="grain" preserveAspectRatio="none">
     <rect width="100%" height="100%" filter="url(#grain-filter)"/>
   </svg>
 
-  <!-- Vignette + whirl + reticle -->
   <div class="vignette"></div>
 
-  <div class="whirl">
-    <!-- Ring 1 — outermost, slow, text -->
-    <svg viewBox="0 0 360 360" class="ring-slow">
-      <defs>
-        <path id="arc1" d="M 180,180 m -170,0 a 170,170 0 1,1 340,0 a 170,170 0 1,1 -340,0" fill="none" />
-      </defs>
-      <circle cx="180" cy="180" r="170" fill="none" stroke="#0B1F3A" stroke-width="0.4" stroke-dasharray="1 14" opacity="0.4"/>
-      <text>
-        <textPath href="#arc1" startOffset="0">ANTIOQUIA  ·  MEDELLÍN  ·  COLOMBIA  ·  LATINOAMÉRICA  ·  ATLÁNTICO  ·  PACÍFICO  ·  </textPath>
-      </text>
-    </svg>
-    <!-- Ring 2 — counter-clockwise medium -->
-    <svg viewBox="0 0 360 360" class="ring-ccw">
-      <circle cx="180" cy="180" r="148" fill="none" stroke="#0B1F3A" stroke-width="0.6" stroke-dasharray="3 9" opacity="0.5"/>
-    </svg>
-    <!-- Ring 3 — clockwise -->
-    <svg viewBox="0 0 360 360" class="ring-cw">
-      <circle cx="180" cy="180" r="132" fill="none" stroke="#5B1E24" stroke-width="0.5" stroke-dasharray="38 220" opacity="0.7"/>
-    </svg>
-    <!-- Ring 4 — fast, thin -->
-    <svg viewBox="0 0 360 360" class="ring-fast">
-      <circle cx="180" cy="180" r="118" fill="none" stroke="#0B1F3A" stroke-width="0.3" stroke-dasharray="1 4" opacity="0.6"/>
-      <!-- radial ticks every 15° -->
-      <g stroke="#0B1F3A" stroke-width="0.5" opacity="0.4">
-        <line x1="180" y1="0"   x2="180" y2="12" />
-        <line x1="180" y1="360" x2="180" y2="348" />
-        <line x1="0"   y1="180" x2="12"  y2="180" />
-        <line x1="360" y1="180" x2="348" y2="180" />
-      </g>
-    </svg>
-  </div>
+  <!-- Etiquetas laterales -->
+  <div class="side side--left">Mundo · Latitudes · Longitudes</div>
+  <div class="side side--right">Cartografía · Atlas · Herencia</div>
 
-  <!-- Reticle (appears stage 1+) -->
-  <div class="reticle">
-    <svg viewBox="0 0 220 220">
-      <line x1="110" y1="0" x2="110" y2="80" />
-      <line x1="110" y1="140" x2="110" y2="220" />
-      <line x1="0" y1="110" x2="80" y2="110" />
-      <line x1="140" y1="110" x2="220" y2="110" />
-      <circle cx="110" cy="110" r="38" />
-      <circle cx="110" cy="110" r="60" />
-      <text x="110" y="6" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="2" fill="#0B1F3A" opacity="0.5">N</text>
-      <text x="110" y="218" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="2" fill="#0B1F3A" opacity="0.5">S</text>
-      <text x="6"   y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="2" fill="#0B1F3A" opacity="0.5">W</text>
-      <text x="214" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="2" fill="#0B1F3A" opacity="0.5">E</text>
-    </svg>
-  </div>
+  <!-- Texto decorativo de fondo -->
+  <div class="bgtext" style="top:34%;left:72px;">Cuero colombiano · Full-grain</div>
+  <div class="bgtext" style="top:56%;right:72px;text-align:right;">European leather house · Zürich</div>
 
-  <!-- HUD corners -->
-  <div class="hud tl">
-    <div class="breadcrumb" id="bcrumb">
-      <span class="item active" data-i="0">Mundo</span>
-      <span class="sep">›</span>
-      <span class="item" data-i="1">Latinoamérica</span>
-      <span class="sep">›</span>
-      <span class="item" data-i="2">Colombia</span>
-      <span class="sep">›</span>
-      <span class="item" data-i="3">Antioquia</span>
-      <span class="sep">›</span>
-      <span class="item" data-i="4">Medellín</span>
+  <!-- Paneles de contenido -->
+  <div class="panels" id="panels">
+    <div class="panel active" data-panel="0">
+      <p class="panel__label">Cartografía · 0001</p>
+      <h2 class="panel__title">El mundo de Ofelia.</h2>
+      <p class="panel__body">Una casa nace en algún lugar de la Tierra.</p>
+    </div>
+    <div class="panel" data-panel="1">
+      <p class="panel__label">Capítulo I · Latinoamérica</p>
+      <h2 class="panel__title">Donde el tiempo<br>se respeta.</h2>
+      <p class="panel__body">En el sur del continente, el cuero se trabaja con paciencia.</p>
+    </div>
+    <div class="panel" data-panel="2">
+      <p class="panel__label">Capítulo II · Colombia</p>
+      <h2 class="panel__title">Tierra de<br>talabarteros.</h2>
+      <p class="panel__body">Curtidores y artesanos firman cada hide como una promesa heredada.</p>
+    </div>
+    <div class="panel" data-panel="3">
+      <p class="panel__label">Capítulo III · Antioquia</p>
+      <h2 class="panel__title">Valle de Aburrá.</h2>
+      <p class="panel__body">Entre dos cordilleras, el río Medellín baja del sur al norte.</p>
+    </div>
+    <div class="panel" data-panel="4">
+      <p class="panel__label">Capítulo IV · Medellín</p>
+      <h2 class="panel__title">Ofelia Vallejo<br>Maison.</h2>
+      <p class="panel__body">Hecha aquí, a 1.495 metros sobre el nivel del mar.</p>
     </div>
   </div>
-  <div class="hud tr">
-    <div class="label">Atlas</div>
-    <div class="counter" id="counter">01 / 05</div>
-  </div>
-  <div class="hud bl">
-    <div class="label">Coordenadas · proyección</div>
-    <div class="val" id="coords">00°00′N · 00°00′W</div>
-  </div>
-  <div class="hud br">
-    <div class="label">Cartografía</div>
-    <div class="val">Ofelia Vallejo</div>
+
+  <!-- Indicador de clic -->
+  <div class="click-hint" id="clickHint">
+    <span class="click-hint__dot"></span>
+    <span id="hintText">Haga clic en el globo</span>
   </div>
 
-  <!-- Controls -->
+  <!-- Dots de navegación -->
+  <div class="nav-dots" id="navDots">
+    <span class="nav-dot active" data-n="0"></span>
+    <span class="nav-dot" data-n="1"></span>
+    <span class="nav-dot" data-n="2"></span>
+    <span class="nav-dot" data-n="3"></span>
+    <span class="nav-dot" data-n="4"></span>
+  </div>
+
+  <!-- Coordenadas bottom-left -->
+  <div class="coords">
+    <div class="coords__meta">Coordenadas · Proyección</div>
+    <div class="coords__vals" id="coordsVal">00°00′N · 00°00′O</div>
+    <span class="coords__place" id="coordsPlace">Cargando atlas…</span>
+  </div>
+
+  <!-- Brand label bottom-right -->
+  <div class="brand-lbl">Ofelia Vallejo</div>
+
+  <!-- Controles Volver / Saltar -->
   <div class="controls">
-    <button id="backBtn">← Volver</button>
+    <button id="backBtn" disabled>← Volver</button>
     <span class="divider"></span>
     <button id="skipBtn">Saltar →</button>
-    <span class="divider"></span>
-    <button id="replayBtn">↻ Replay</button>
   </div>
 
-  <!-- Caption -->
-  <div class="caption" id="caption">
-    <span class="eyebrow" id="capEye">Estableciendo coordenadas</span>
-    <h2 class="cinzel" id="capTitle">El mundo de Ofelia.</h2>
-    <p class="quote" id="capQuote">Una casa nace en algún lugar de la Tierra.</p>
-    <span class="hint" id="hint">
-      <span class="dot"></span>
-      <span class="hint-text" id="hintText">Haga clic en el globo</span>
-    </span>
-  </div>
-
-  <!-- Final arrival card -->
+  <!-- Tarjeta final (stage 4) -->
   <div class="card" id="card">
     <div class="seal">OV</div>
     <div class="info">
-      <span class="name cinzel">Medellín · Antioquia</span>
-      <span class="coords mono">06° 14′ N · 75° 35′ O · 1.495 m s.n.m.</span>
+      <span class="name">Medellín · Antioquia</span>
+      <span class="coord-txt">06° 14′ N · 75° 35′ O · 1.495 m s.n.m.</span>
     </div>
     <button class="enter" id="enterBtn">Entrar a la Casa →</button>
   </div>
 
-</div>
+</div><!-- .stage -->
 
-<!-- d3 + topojson from CDN -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
 <script>
 (async function(){
-  /* ─── Setup ─────────────────────────────────────── */
-  const svg     = document.getElementById('svg');
+  /* ─── Setup ──────────────────────────────────────── */
+  const svgEl   = document.getElementById('svg');
   const stageEl = document.getElementById('stage');
   const tiltEl  = document.getElementById('tiltWrap');
   const clipC   = document.getElementById('clipCircle');
-  const coordsEl= document.getElementById('coords');
-  const counter = document.getElementById('counter');
-  const bcrumb  = document.getElementById('bcrumb');
-  const capEye  = document.getElementById('capEye');
-  const capTitle= document.getElementById('capTitle');
-  const capQuote= document.getElementById('capQuote');
-  const hintText= document.getElementById('hintText');
-  const card    = document.getElementById('card');
-  const boot    = document.getElementById('boot');
+  const step0El = document.getElementById('step0');
+  const pinEl   = document.getElementById('pin');
+  const backBtn = document.getElementById('backBtn');
 
-  // Layer refs
   const lWater = document.getElementById('lWater');
   const lGrat  = document.getElementById('lGrat');
   const lWorld = document.getElementById('lWorld');
@@ -659,30 +557,23 @@
   const lDepts = document.getElementById('lDepts');
   const lRegion= document.getElementById('lRegion');
   const lDeco  = document.getElementById('lDeco');
-  const pinEl  = document.getElementById('pin');
 
-  // d3-select layer roots
-  const $world = d3.select(lWorld);
-  const $inked = d3.select(lInked);
-  const $depts = d3.select(lDepts);
-  const $region= d3.select(lRegion);
-  const $deco  = d3.select(lDeco);
-  const $grat  = d3.select(lGrat);
-  const $water = d3.select(lWater);
+  const $world  = d3.select(lWorld);
+  const $inked  = d3.select(lInked);
+  const $depts  = d3.select(lDepts);
+  const $region = d3.select(lRegion);
+  const $deco   = d3.select(lDeco);
+  const $grat   = d3.select(lGrat);
 
-  /* ─── Projection ────────────────────────────────── */
+  /* ─── Projection ─────────────────────────────────── */
   let W = window.innerWidth, H = window.innerHeight;
   const proj = d3.geoOrthographic().scale(98).translate([W/2, H/2]).clipAngle(90);
   const path = d3.geoPath(proj);
-
-  let currentClip = 100;
-  let currentTilt = 0;
+  let currentClip = 100, currentTilt = 0;
 
   function setClip(r) { clipC.setAttribute('r', r); }
-  function setTilt(deg) {
-    currentTilt = deg;
-    tiltEl.style.transform = 'rotateX(' + deg + 'deg)';
-  }
+  function setTilt(deg) { currentTilt = deg; tiltEl.style.transform = 'rotateX(' + deg + 'deg)'; }
+
   function strokeFor(scale) {
     return {
       land:   Math.min(1.1, 0.45 + scale/6000),
@@ -690,19 +581,18 @@
       region: Math.min(1.9, 0.5  + scale/2500)
     };
   }
+
   function formatCoord(lng, lat) {
-    const lngAbs = Math.abs(lng), latAbs = Math.abs(lat);
-    const lngD = Math.floor(lngAbs), lngM = Math.floor((lngAbs - lngD) * 60);
-    const latD = Math.floor(latAbs), latM = Math.floor((latAbs - latD) * 60);
-    const ns = lat >= 0 ? 'N' : 'S';
-    const ew = lng >= 0 ? 'E' : 'O';
-    return latD.toString().padStart(2,'0')+'°'+latM.toString().padStart(2,'0')+'′'+ns
-         + ' · ' + lngD.toString().padStart(2,'0')+'°'+lngM.toString().padStart(2,'0')+'′'+ew;
+    const la = Math.abs(lat), lo = Math.abs(lng);
+    const latD = Math.floor(la), latM = Math.floor((la - latD) * 60);
+    const lonD = Math.floor(lo), lonM = Math.floor((lo - lonD) * 60);
+    return latD.toString().padStart(2,'0') + '°' + latM.toString().padStart(2,'0') + '′' + (lat >= 0 ? 'N' : 'S')
+         + ' · ' + lonD.toString().padStart(2,'0') + '°' + lonM.toString().padStart(2,'0') + '′' + (lng >= 0 ? 'E' : 'O');
   }
+
   function updateCoords() {
-    // proj.rotate is [-lng, -lat, roll]
     const r = proj.rotate();
-    coordsEl.textContent = formatCoord(-r[0], -r[1]);
+    document.getElementById('coordsVal').textContent = formatCoord(-r[0], -r[1]);
   }
 
   function redraw() {
@@ -712,31 +602,23 @@
     $depts.selectAll('path').attr('d', path).attr('stroke-width', sw.dept);
     $region.selectAll('path').attr('d', path).attr('stroke-width', sw.region);
     $deco.selectAll('path').attr('d', path);
-    $deco.selectAll('circle.deco').each(function(){
-      const lng = +this.getAttribute('data-lng'), lat = +this.getAttribute('data-lat');
-      const pt = proj([lng, lat]);
+    $deco.selectAll('circle.deco').each(function() {
+      const pt = proj([+this.getAttribute('data-lng'), +this.getAttribute('data-lat')]);
       if (pt) { this.setAttribute('cx', pt[0]); this.setAttribute('cy', pt[1]); }
     });
     $grat.selectAll('path').attr('d', path);
-
-    // Pin position
-    const pin = pinEl.dataset;
-    if (pin.lng && pin.lat) {
-      const pt = proj([+pin.lng, +pin.lat]);
+    if (pinEl.dataset.lng) {
+      const pt = proj([+pinEl.dataset.lng, +pinEl.dataset.lat]);
       if (pt) pinEl.setAttribute('transform', 'translate(' + pt[0] + ',' + pt[1] + ')');
     }
-
-    // Scale-triggered class toggles
-    const scale = proj.scale();
-    lDepts.classList.toggle('on', scale > 800);
-    lInked.classList.toggle('off', scale > 1300);
-    lRegion.classList.toggle('on', scale > 1800 && stage >= 3);
-    lDeco.classList.toggle('on', scale > 2500 && stage >= 3);
-
+    lDepts.classList.toggle('on', proj.scale() > 800);
+    lInked.classList.toggle('off', proj.scale() > 1300);
+    lRegion.classList.toggle('on', proj.scale() > 1800 && stage >= 3);
+    lDeco.classList.toggle('on', proj.scale() > 2500 && stage >= 3);
     updateCoords();
   }
 
-  /* ─── Load data ─────────────────────────────────── */
+  /* ─── Load data ──────────────────────────────────── */
   let world50, colombiaGeo;
   try {
     const [w, c] = await Promise.all([
@@ -744,105 +626,72 @@
       d3.json('https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json')
     ]);
     world50 = w; colombiaGeo = c;
-  } catch (err) {
-    console.error('Atlas load failed', err);
-    document.querySelector('#boot .msg').textContent = 'Error cargando atlas · revisa conexión';
+  } catch(err) {
+    const el = document.getElementById('step0Loading');
+    if (el) el.textContent = 'Error cargando atlas · revisa conexión';
     return;
   }
 
-  // Convert world topojson → GeoJSON
-  const countries = topojson.feature(world50, world50.objects.countries);
-  // Identify Colombia by name
-  const colombia = countries.features.find(f => f.properties && /colombia/i.test(f.properties.name));
+  const countries  = topojson.feature(world50, world50.objects.countries);
+  const colombia   = countries.features.find(f => f.properties && /colombia/i.test(f.properties.name));
+  const antioquia  = colombiaGeo.features.find(f => f.properties &&
+    /antioquia/i.test(f.properties.NOMBRE_DPT || f.properties.name || ''));
 
-  // Antioquia from departments GeoJSON
-  const antioquia = colombiaGeo.features.find(f => f.properties && /antioquia/i.test(f.properties.NOMBRE_DPT || f.properties.name || ''));
+  /* Pre-compute centroids once */
+  const colombiaCenter  = colombia  ? d3.geoCentroid(colombia)  : [-74.3, 4.6];
+  const antioquiaCenter = antioquia ? d3.geoCentroid(antioquia) : [-75.5, 6.5];
 
-  /* ─── Draw initial layers ───────────────────────── */
-  // Graticule (lat/long net) — fine, low opacity
+  /* ─── Draw layers ────────────────────────────────── */
   const graticule = d3.geoGraticule().step([15, 15]);
   $grat.append('path').datum(graticule()).attr('d', path);
+  $world.selectAll('path').data(countries.features).join('path').attr('d', path);
+  if (colombia)  $inked.append('path').datum(colombia).attr('d', path);
+  $depts.selectAll('path').data(colombiaGeo.features).join('path').attr('d', path);
+  if (antioquia) $region.append('path').datum(antioquia).attr('d', path);
 
-  // World countries — outlines
-  $world.selectAll('path')
-    .data(countries.features)
-    .join('path')
-    .attr('d', path);
+  /* Decorative river + ridges */
+  $deco.append('path').datum({ type:'LineString', coordinates:[
+    [-75.43,6.07],[-75.44,6.10],[-75.46,6.14],[-75.47,6.18],
+    [-75.49,6.21],[-75.52,6.25],[-75.54,6.30],[-75.55,6.36],
+    [-75.56,6.42],[-75.55,6.48],[-75.53,6.54],[-75.50,6.58]
+  ]}).attr('d', path);
+  $deco.append('path').datum({ type:'LineString', coordinates:[
+    [-75.30,5.90],[-75.28,6.00],[-75.27,6.10],[-75.25,6.22],
+    [-75.24,6.34],[-75.22,6.46],[-75.21,6.58],[-75.20,6.70]
+  ]}).attr('d', path);
+  $deco.append('path').datum({ type:'LineString', coordinates:[
+    [-75.75,5.90],[-75.74,6.05],[-75.72,6.20],[-75.70,6.35],[-75.68,6.50],[-75.66,6.65]
+  ]}).attr('d', path);
 
-  // Inked Colombia (filled)
-  if (colombia) {
-    $inked.append('path').datum(colombia).attr('d', path);
-  }
-
-  // Departments of Colombia
-  $depts.selectAll('path')
-    .data(colombiaGeo.features)
-    .join('path')
-    .attr('d', path);
-
-  // Region (Antioquia outlined + tinted)
-  if (antioquia) {
-    $region.append('path').datum(antioquia).attr('d', path);
-  }
-
-  /* ─── Decorative: river Medellín + cordillera ridges ─── */
-  // River Medellín (approx, simplified)
-  const riverCoords = [
-    [-75.43, 6.07], [-75.44, 6.10], [-75.46, 6.14], [-75.47, 6.18],
-    [-75.49, 6.21], [-75.52, 6.25], [-75.54, 6.30], [-75.55, 6.36],
-    [-75.56, 6.42], [-75.55, 6.48], [-75.53, 6.54], [-75.50, 6.58]
-  ];
-  $deco.append('path')
-    .datum({ type: 'LineString', coordinates: riverCoords })
-    .attr('d', path);
-
-  // Cordillera Central — approx ridge east of Aburrá valley
-  const ridgeE = [
-    [-75.30, 5.90], [-75.28, 6.00], [-75.27, 6.10], [-75.25, 6.22],
-    [-75.24, 6.34], [-75.22, 6.46], [-75.21, 6.58], [-75.20, 6.70]
-  ];
-  $deco.append('path')
-    .datum({ type: 'LineString', coordinates: ridgeE })
-    .attr('d', path);
-
-  // Cordillera Occidental — approx west of Aburrá
-  const ridgeW = [
-    [-75.75, 5.90], [-75.74, 6.05], [-75.72, 6.20], [-75.70, 6.35],
-    [-75.68, 6.50], [-75.66, 6.65]
-  ];
-  $deco.append('path')
-    .datum({ type: 'LineString', coordinates: ridgeW })
-    .attr('d', path);
-
-  // City markers (small dots at known towns around Medellín)
-  const towns = [
-    {n:'Bello',     lng:-75.5573, lat:6.3373},
-    {n:'Envigado',  lng:-75.5836, lat:6.1717},
-    {n:'Itagüí',    lng:-75.5993, lat:6.1717},
-    {n:'Sabaneta',  lng:-75.6164, lat:6.1500},
-    {n:'Caldas',    lng:-75.6353, lat:6.0917},
-    {n:'Copacabana',lng:-75.5076, lat:6.3475},
-    {n:'La Estrella',lng:-75.6353,lat:6.1583}
-  ];
-  towns.forEach(t => {
-    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  [{n:'Bello',lng:-75.5573,lat:6.3373},{n:'Envigado',lng:-75.5836,lat:6.1717},
+   {n:'Itagüí',lng:-75.5993,lat:6.1717},{n:'Sabaneta',lng:-75.6164,lat:6.1500},
+   {n:'Caldas',lng:-75.6353,lat:6.0917},{n:'Copacabana',lng:-75.5076,lat:6.3475},
+   {n:'La Estrella',lng:-75.6353,lat:6.1583}
+  ].forEach(t => {
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
     c.classList.add('deco');
-    c.setAttribute('r', '1.2');
+    c.setAttribute('r','1.2');
     c.setAttribute('data-lng', t.lng);
     c.setAttribute('data-lat', t.lat);
     lDeco.appendChild(c);
   });
 
-  /* ─── Pin (Medellín center) ─────────────────────── */
   pinEl.dataset.lng = -75.5812;
   pinEl.dataset.lat = 6.2476;
 
-  /* ─── Initial draw + free-spin ──────────────────── */
+  /* ─── Initial draw + entrance ────────────────────── */
   redraw();
   setClip(100);
-  boot.classList.add('hidden');
 
-  // Stage 0: free-spin
+  /* Step0 entrance sequence */
+  const step0Mono = document.getElementById('step0Mono');
+  const step0Tag  = document.getElementById('step0Tag');
+  setTimeout(() => step0Mono.classList.add('vis'), 300);
+  setTimeout(() => step0Tag.classList.add('vis'),  900);
+  setTimeout(() => step0El.classList.add('out'), 2200);
+  setTimeout(() => { step0El.remove(); updatePanel(0); }, 3800);
+
+  /* Free-spin (stage 0) */
   let spinTimer = d3.timer(() => {
     if (stage === 0 && !busy) {
       const r = proj.rotate();
@@ -851,128 +700,94 @@
     }
   });
 
-  /* ─── Animate helper ────────────────────────────── */
-  const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) spinTimer.stop();
+    else if (stage === 0 && !busy) {
+      spinTimer = d3.timer(() => {
+        if (stage === 0 && !busy) { const r = proj.rotate(); proj.rotate([r[0]+0.16,r[1],r[2]]); redraw(); }
+      });
+    }
+  });
 
-  function animate({rotTo, scaleTo, clipTo, tiltTo, ms = 1800, ease = easeInOutCubic}) {
+  /* ─── Panel + dots + hint sync ───────────────────── */
+  const hints = [
+    'Haga clic en el globo',
+    'Haga clic en Colombia ●',
+    'Haga clic en Antioquia ●',
+    'Haga clic en Medellín ●',
+    ''
+  ];
+
+  function updatePanel(idx) {
+    document.querySelectorAll('.panel').forEach(p =>
+      p.classList.toggle('active', +p.dataset.panel === idx));
+    document.querySelectorAll('.nav-dot').forEach(d =>
+      d.classList.toggle('active', +d.dataset.n === idx));
+    const hintEl   = document.getElementById('hintText');
+    const hintWrap = document.getElementById('clickHint');
+    if (hintEl)   hintEl.textContent = hints[idx] || '';
+    if (hintWrap) hintWrap.style.display = hints[idx] ? 'inline-flex' : 'none';
+    backBtn.disabled = idx <= 0;
+    if (idx === 4) {
+      const place = document.getElementById('coordsPlace');
+      if (place) { place.textContent = 'Medellín, Antioquia · Colombia'; place.classList.add('resolved'); }
+    }
+  }
+
+  /* ─── Animate helper ─────────────────────────────── */
+  const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+
+  function animate({rotTo, scaleTo, clipTo, tiltTo, ms = 1800}) {
     return new Promise(resolve => {
-      const startRot   = proj.rotate().slice();
-      const startScale = proj.scale();
-      const startClip  = currentClip;
-      const startTilt  = currentTilt;
+      const r0 = proj.rotate().slice(), s0 = proj.scale(), c0 = currentClip, t0val = currentTilt;
       const t0 = performance.now();
-
       function frame(t) {
-        const e = Math.min(1, (t - t0) / ms);
-        const k = ease(e);
-        if (rotTo) {
-          proj.rotate([
-            startRot[0] + (rotTo[0] - startRot[0]) * k,
-            startRot[1] + (rotTo[1] - startRot[1]) * k,
-            (rotTo[2] !== undefined) ? startRot[2] + (rotTo[2] - startRot[2]) * k : startRot[2]
-          ]);
-        }
-        if (scaleTo !== undefined) proj.scale(startScale + (scaleTo - startScale) * k);
-        if (clipTo !== undefined) {
-          currentClip = startClip + (clipTo - startClip) * k;
-          setClip(currentClip);
-        }
-        if (tiltTo !== undefined) {
-          setTilt(startTilt + (tiltTo - startTilt) * k);
-        }
+        const k = ease(Math.min(1, (t - t0) / ms));
+        if (rotTo)   proj.rotate([r0[0]+(rotTo[0]-r0[0])*k, r0[1]+(rotTo[1]-r0[1])*k, r0[2]]);
+        if (scaleTo !== undefined) proj.scale(s0 + (scaleTo - s0) * k);
+        if (clipTo  !== undefined) { currentClip = c0 + (clipTo - c0) * k; setClip(currentClip); }
+        if (tiltTo  !== undefined) setTilt(t0val + (tiltTo - t0val) * k);
         redraw();
-        if (e < 1) requestAnimationFrame(frame);
-        else resolve();
+        if (k < 1) requestAnimationFrame(frame); else resolve();
       }
       requestAnimationFrame(frame);
     });
   }
 
-  /* ─── Stage machine ─────────────────────────────── */
-  let stage = 0;
-  let busy = false;
+  /* ─── Stage machine ──────────────────────────────── */
+  let stage = 0, busy = false;
 
-  // Cinematic copy per stage (brand-aligned, no invented quotes)
-  const copy = {
-    0: { eye: 'Cartografía · 0001',           title: 'El mundo de Ofelia.',           quote: 'Una casa nace en algún lugar de la Tierra.',                                 hint: 'Haga clic en el globo' },
-    1: { eye: 'Capítulo I · Latinoamérica',   title: 'Donde el tiempo se respeta.',   quote: 'En el sur del continente, el cuero todavía se trabaja con paciencia.',       hint: 'Haga clic en Colombia ●' },
-    2: { eye: 'Capítulo II · Colombia',       title: 'Tierra de talabarteros.',       quote: 'Curtidores y artesanos firman cada hide como una promesa heredada.',         hint: 'Haga clic en Antioquia ●' },
-    3: { eye: 'Capítulo III · Antioquia',     title: 'Valle de Aburrá.',              quote: 'Entre dos cordilleras, el río Medellín baja del sur al norte.',              hint: 'Haga clic en Medellín ●' },
-    4: { eye: 'Capítulo IV · Medellín',       title: 'Ofelia Vallejo · Maison.',      quote: 'Hecha aquí, a 1.495 metros sobre el nivel del mar.',                         hint: '' }
-  };
-
-  function setCopy(idx) {
-    const c = copy[idx];
-    capEye.textContent = c.eye;
-    capTitle.textContent = c.title;
-    capQuote.textContent = c.quote;
-    hintText.textContent = c.hint;
-    document.getElementById('hint').style.display = c.hint ? 'inline-flex' : 'none';
-    counter.textContent = (idx + 1).toString().padStart(2,'0') + ' / 05';
-    // breadcrumb
-    bcrumb.querySelectorAll('.item').forEach(it => {
-      it.classList.toggle('active', +it.dataset.i <= idx);
-    });
-  }
-
-  // Stage 0 → 1: open clip, fly to LatAm with Colombia inked
   async function toStage1() {
     if (busy) return; busy = true;
     stageEl.dataset.stage = '1';
-    setCopy(1);
-    await animate({
-      rotTo: [74, -4, 0],
-      scaleTo: Math.min(W, H) * 0.62,
-      clipTo: Math.max(W, H) * 1.6,
-      tiltTo: 0,
-      ms: 2200
-    });
+    updatePanel(1);
+    await animate({ rotTo:[74,-4,0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:2200 });
     stage = 1; busy = false;
   }
 
-  // Stage 1 → 2: zoom into Colombia
   async function toStage2() {
     if (busy) return; busy = true;
     stageEl.dataset.stage = '2';
-    setCopy(2);
-    const cCenter = d3.geoCentroid(colombia);
-    await animate({
-      rotTo: [-cCenter[0], -cCenter[1], 0],
-      scaleTo: Math.min(W, H) * 3.6,
-      tiltTo: 4,
-      ms: 2200
-    });
+    updatePanel(2);
+    await animate({ rotTo:[-colombiaCenter[0],-colombiaCenter[1],0], scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200 });
     stage = 2; busy = false;
   }
 
-  // Stage 2 → 3: zoom into Antioquia
   async function toStage3() {
     if (busy) return; busy = true;
     stageEl.dataset.stage = '3';
-    setCopy(3);
-    const aCenter = antioquia ? d3.geoCentroid(antioquia) : [-75.5, 6.5];
-    await animate({
-      rotTo: [-aCenter[0], -aCenter[1], 0],
-      scaleTo: Math.min(W, H) * 12,
-      tiltTo: 10,
-      ms: 2200
-    });
+    updatePanel(3);
+    await animate({ rotTo:[-antioquiaCenter[0],-antioquiaCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
     pinEl.classList.add('on');
     stage = 3; busy = false;
   }
 
-  // Stage 3 → 4: zoom into Medellín, full tilt, card slides in
   async function toStage4() {
     if (busy) return; busy = true;
     stageEl.dataset.stage = '4';
-    setCopy(4);
+    updatePanel(4);
     pinEl.classList.add('deep');
-    await animate({
-      rotTo: [75.5812, -6.2476, 0],
-      scaleTo: Math.min(W, H) * 28,
-      tiltTo: 18,
-      ms: 2400
-    });
+    await animate({ rotTo:[75.5812,-6.2476,0], scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
     stage = 4; busy = false;
   }
 
@@ -980,49 +795,31 @@
     if (busy) return; busy = true;
     stageEl.dataset.stage = '0';
     pinEl.classList.remove('on','deep');
-    setCopy(0);
-    await animate({
-      rotTo: [20, -10, 0],
-      scaleTo: 98,
-      clipTo: 100,
-      tiltTo: 0,
-      ms: 1600
-    });
+    const place = document.getElementById('coordsPlace');
+    if (place) { place.textContent = 'Cargando atlas…'; place.classList.remove('resolved'); }
+    updatePanel(0);
+    await animate({ rotTo:[20,-10,0], scaleTo:98, clipTo:100, tiltTo:0, ms:1600 });
     stage = 0; busy = false;
   }
 
-  /* ─── Click handling ────────────────────────────── */
-  svg.addEventListener('click', (e) => {
+  /* ─── Click handlers ─────────────────────────────── */
+  svgEl.addEventListener('click', () => {
     if (busy) return;
-    if (stage === 0) return toStage1();
-    if (stage === 1) return toStage2();
-    if (stage === 2) return toStage3();
-    if (stage === 3) return toStage4();
+    if (stage === 0) toStage1();
+    else if (stage === 1) toStage2();
+    else if (stage === 2) toStage3();
+    else if (stage === 3) toStage4();
   });
 
-  pinEl.addEventListener('click', (e) => {
+  pinEl.addEventListener('click', e => {
     e.stopPropagation();
-    if (busy) return;
-    if (stage === 3) return toStage4();
+    if (!busy && stage === 3) toStage4();
   });
 
-  document.getElementById('backBtn').addEventListener('click', resetAll);
+  backBtn.addEventListener('click', resetAll);
 
   document.getElementById('skipBtn').addEventListener('click', () => {
     window.location.href = 'index.html';
-  });
-
-  document.getElementById('replayBtn').addEventListener('click', async () => {
-    if (busy) return;
-    await resetAll();
-    await new Promise(r => setTimeout(r, 600));
-    if (stage === 0) { await toStage1(); }
-    await new Promise(r => setTimeout(r, 1200));
-    if (stage === 1) { await toStage2(); }
-    await new Promise(r => setTimeout(r, 1200));
-    if (stage === 2) { await toStage3(); }
-    await new Promise(r => setTimeout(r, 1200));
-    if (stage === 3) { await toStage4(); }
   });
 
   document.getElementById('enterBtn').addEventListener('click', () => {
@@ -1031,40 +828,34 @@
     setTimeout(() => { window.location.href = 'index.html'; }, 1100);
   });
 
-  const burgerBtn   = document.getElementById('burgerBtn');
-  const destMenu    = document.getElementById('destMenu');
-  const destOverlay = document.getElementById('destOverlay');
-  if (burgerBtn) {
-    burgerBtn.addEventListener('click', () => {
-      const open = destMenu.classList.toggle('open');
-      burgerBtn.classList.toggle('open', open);
-      destOverlay.classList.toggle('on', open);
-    });
-    destOverlay.addEventListener('click', () => {
-      destMenu.classList.remove('open');
-      burgerBtn.classList.remove('open');
-      destOverlay.classList.remove('on');
-    });
-  }
+  /* ─── Navbar hamburger ───────────────────────────── */
+  (function(){
+    const btn     = document.getElementById('menuBtn');
+    const panel   = document.getElementById('navPanel');
+    const overlay = document.getElementById('navOverlay');
+    const open  = () => { panel.classList.add('is-open'); overlay.classList.add('is-active'); btn.classList.add('is-open'); btn.setAttribute('aria-expanded','true'); panel.setAttribute('aria-hidden','false'); };
+    const close = () => { panel.classList.remove('is-open'); overlay.classList.remove('is-active'); btn.classList.remove('is-open'); btn.setAttribute('aria-expanded','false'); panel.setAttribute('aria-hidden','true'); };
+    btn.addEventListener('click', () => panel.classList.contains('is-open') ? close() : open());
+    overlay.addEventListener('click', close);
+    document.addEventListener('keydown', e => e.key === 'Escape' && close());
+  })();
 
-  const ovCur = document.getElementById('ov-cursor');
+  /* ─── Custom cursor ──────────────────────────────── */
+  const cur = document.getElementById('ov-cursor');
   document.addEventListener('mousemove', e => {
-    ovCur.style.transform = `translate3d(${e.clientX-3}px,${e.clientY-3}px,0)`;
+    cur.style.transform = `translate3d(${e.clientX-3}px,${e.clientY-3}px,0)`;
   });
   document.querySelectorAll('a,button').forEach(el => {
-    el.addEventListener('mouseenter', () => ovCur.classList.add('hov'));
-    el.addEventListener('mouseleave', () => ovCur.classList.remove('hov'));
+    el.addEventListener('mouseenter', () => cur.classList.add('hov'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
   });
 
-  /* ─── Resize ────────────────────────────────────── */
+  /* ─── Resize ─────────────────────────────────────── */
   window.addEventListener('resize', () => {
     W = window.innerWidth; H = window.innerHeight;
     proj.translate([W/2, H/2]);
     redraw();
   });
-
-  // Initial copy
-  setCopy(0);
 
 })();
 </script>
