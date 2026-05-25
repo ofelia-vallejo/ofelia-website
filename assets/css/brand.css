@@ -114,7 +114,6 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   width: auto;
   max-width: 180px;
   display: block;
-  mix-blend-mode: multiply;
   object-fit: contain;
   object-position: left center;
 }
