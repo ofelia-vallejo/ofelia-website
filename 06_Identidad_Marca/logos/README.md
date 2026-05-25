@@ -1,62 +1,26 @@
 # Logos Ofelia Vallejo — CARPETA BLOQUEADA
 
-> ⛔ **INMUTABLE.** Estos 3 archivos son **la firma manuscrita de la abuela Ofelia Vallejo**, ya rasterizada en su forma definitiva. Son **patrimonio familiar**, no assets editables.
+> ⛔ **INMUTABLE.** Patrimonio familiar. Solo existen **2 archivos** en esta carpeta.
 
 ---
 
-## Reglas absolutas (no negociables)
+## Los 2 archivos canónicos (únicos)
 
-- ❌ **Nunca** modificar, redibujar, "limpiar" o re-trazar la firma.
-- ❌ **Nunca** generar variantes con IA, modelar en 3D, animar la cursiva.
-- ❌ **Nunca** crear monogramas alternativos ni estilizar la O o la V.
-- ❌ **Nunca** cambiar el color del navy original.
-- ❌ **Nunca** aplicar filtros, sombras, contornos, foil dorado, marcos.
-- ❌ **Nunca** generar la firma como texto vectorial nuevo.
-
-## Único trabajo permitido sobre estos archivos
-
-- ✅ Eliminar fondo → PNG transparente.
-- ✅ Reescalar manteniendo proporción y nitidez (sin re-trazar).
-- ✅ Optimizar peso del archivo sin pérdida visible.
-
----
-
-## Los 3 archivos canónicos
-
-| Archivo | Qué es | Uso exclusivo |
+| Archivo | Qué es | Uso en el sitio |
 |---|---|---|
-| `logo_sello_laser.png` | Monograma **OV** con tridente — sólido, alto contraste | **Grabado láser CO₂ sobre cuero** (todos los productos) |
-| `logo_tarjetas_sello.png` | Monograma **OV** sobre pincelada navy — versión sello | Tarjetas pequeñas, sellos físicos, avatar RRSS, watermark pequeño, **navbar móvil del sitio** |
-| `logo_firma_completa.png` | **Firma cursiva** "Ofelia Vallejo" + tagline "Cuero hecho para durar" | **Navbar desktop**, banner inferior móvil, footer, packaging grande, papelería, presentaciones |
+| `logo_sello.png` | Monograma **O · tridente · V** (sello horizontal) | Navbar móvil, intro oscura (`index.html` step0), sello del cajón Guatapé |
+| `logo_firma.png` | **Firma cursiva** "Ofelia Vallejo" + línea + "Cuero hecho para durar" | Navbar desktop, watermark statement, banner firma, footer |
+
+Copia web activa: `assets/img/logo_sello.png` y `assets/img/logo_firma.png`.
 
 ---
 
-## Placement web (ver `/index.html`)
+## Reglas
 
-**Desktop**
-- Navbar superior izquierdo → `logo_firma_completa.png` (clase `.logo--firma-completa`, 180px de ancho).
-
-**Mobile**
-- Navbar superior izquierdo → `logo_tarjetas_sello.png` (clase `.logo--monograma`, 38px de ancho).
-- Banner inferior antes del footer → `logo_firma_completa.png` (sección `.signature-banner`, 220–320px de ancho).
-
-**Otros placements**
-- Watermark del statement "Nacida de una firma" → `logo_firma_completa.png` al 15% de opacidad.
-- Footer (col 1) → `logo_firma_completa.png` invertido sobre navy.
+- ❌ No crear variantes, SVG alternativos, ni `logo-firma.png` en la raíz.
+- ❌ No usar `logo_sello_laser`, `logo_tarjetas_sello`, `logo_firma_completa` — **eliminados**.
+- ✅ Solo reescalar manteniendo proporción.
 
 ---
 
-## Grabado láser sobre cuero
-
-`logo_sello_laser.png` se reproduce **1:1** sobre el cuero mediante láser CO₂ (~0.3–0.4 mm de profundidad, marca recessed café oscuro / navy quemado). **Nunca** placa metálica, foil, vinilo, bordado.
-
-Posición por producto:
-- **Travel Bag** → esquina inferior derecha del panel frontal, ~4 cm de los bordes.
-- **Tote (Bolso Dama)** → centrado al frente bajo, ~6 cm sobre la base.
-- **Cinturón** → centrado en la punta, ~2 cm del extremo.
-- **Bandolera** → esquina inferior derecha del panel frontal, ~3 cm de los bordes.
-- **Morral** → sobre el passant superior o esquina inferior derecha.
-
----
-
-*Última actualización: 2026-05-23 — Carpeta creada y bloqueada como patrimonio familiar.*
+*Actualizado: 2026-05-26 — Solo firma + sello oficiales.*
