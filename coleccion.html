@@ -251,29 +251,29 @@
   <div id="cursor" aria-hidden="true"></div>
 
   <header class="navbar" role="banner">
-    <nav class="nav-section" aria-label="Navegación principal izquierda">
-      <a href="#" class="nav-link" data-active="true">Mujer</a>
-      <a href="#" class="nav-link" data-active="true">Hombre</a>
-      <a href="manifiesto.html" class="nav-link">Historia</a>
-    </nav>
-    <a href="index.html" class="navbar__logo-img" aria-label="Ofelia Vallejo — Inicio">
+    <div class="navbar__left">
+      <a href="index.html#hombre" class="nav-link">Hombre</a>
+    </div>
+    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
       <img src="logo-firma.png" alt="Ofelia Vallejo" class="navbar__firma">
     </a>
-    <nav class="util" aria-label="Navegación principal derecha">
-      <a href="coleccion.html" class="nav-link">Cuero</a>
-      <a href="personalizar.html" class="nav-link">Personalizar</a>
-      <a href="contacto.html" class="nav-link">Contacto</a>
-    </nav>
-    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="nav-drawer">Menú</button>
+    <div class="navbar__right">
+      <a href="index.html#mujer" class="nav-link">Mujer</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <nav class="nav-drawer" id="nav-drawer" aria-label="Navegación móvil">
-    <a href="#" class="nav-link" data-active="true">Mujer</a>
-    <a href="#" class="nav-link" data-active="true">Hombre</a>
-    <a href="manifiesto.html" class="nav-link">Historia</a>
-    <a href="coleccion.html" class="nav-link">Cuero</a>
-    <a href="personalizar.html" class="nav-link">Personalizar</a>
-    <a href="contacto.html" class="nav-link">Contacto</a>
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
+    <div class="nav-panel__links">
+      <a href="manifiesto.html" class="nav-panel__link">Historia</a>
+      <a href="coleccion.html" class="nav-panel__link" aria-current="page">Cuero</a>
+      <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="contacto.html" class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín</span>
   </nav>
 
   <div class="page-hero">
