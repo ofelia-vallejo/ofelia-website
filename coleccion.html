@@ -261,14 +261,18 @@
   <div id="cursor" aria-hidden="true"></div>
 
   <header class="navbar" role="banner">
-    <div class="navbar__left"></div>
-    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
-      <picture>
-        <source media="(max-width: 768px)" srcset="assets/img/logo_sello.png">
-        <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma">
-      </picture>
+    <div class="navbar__left">
+      <a href="home.html#mujer" class="nav-link nav-link--desk">Mujer</a>
+      <a href="home.html#hombre" class="nav-link nav-link--desk">Hombre</a>
+      <a href="manifiesto.html" class="nav-link nav-link--desk">Historia</a>
+    </div>
+    <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+      <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma" width="320" height="56">
     </a>
     <div class="navbar__right">
+      <a href="coleccion.html" class="nav-link nav-link--desk" data-active="true">Cuero</a>
+      <a href="personalizar.html" class="nav-link nav-link--desk">Personalizar</a>
+      <a href="contacto.html" class="nav-link nav-link--desk">Contacto</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
@@ -286,7 +290,7 @@
       <a href="coleccion.html" class="nav-panel__link" aria-current="page">Cuero</a>
       <p class="nav-panel__group">Atelier</p>
       <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
-      <a href="home.html#contacto" class="nav-panel__link">Contacto</a>
+      <a href="contacto.html" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Zürich</span>
   </nav>
@@ -301,10 +305,10 @@
     </p>
   </div>
 
-  <!-- TRAVEL BAGS -->
-  <section class="category">
+  <!-- MUJER -->
+  <section class="category" id="mujer">
     <div class="category__header">
-      <span class="category__label">Travel Bags</span>
+      <span class="category__label">Mujer · Travel & Tote</span>
       <span class="category__count">3 piezas</span>
     </div>
     <div class="grid grid--3">
@@ -313,7 +317,7 @@
         <div class="card__img" data-dark>
           <span class="card__numeral">I</span>
           <span class="card__badge">Espresso</span>
-          <img src="assets/img/producto/travel-bag-cognac.jpg" alt="Travel Bag I — cuero cognac" class="card__photo" loading="lazy" decoding="async">
+          <img src="assets/img/producto/mujer/travel-bag-cognac.jpg" alt="Travel Bag I — cuero cognac" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Travel Bag I</p>
@@ -322,28 +326,52 @@
         </div>
       </a>
 
-      <a href="personalizar.html?producto=Travel+Bag+II" class="card" id="travel-bag-ii">
-        <div class="card__img" data-dark>
-          <span class="card__numeral">II</span>
-          <span class="card__badge">Noche</span>
-          <img src="assets/img/producto/travel-bag-negro.jpg" alt="Travel Bag II — cuero negro" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Travel Bag II</p>
-          <p class="card__detail">Cuero pleno · Navy · Grabado a láser</p>
-          <span class="card__cta">Solicitar →</span>
-        </div>
-      </a>
-
       <a href="personalizar.html?producto=Travel+Bag+III" class="card" id="travel-bag-iii">
         <div class="card__img" data-dark>
           <span class="card__numeral">III</span>
           <span class="card__badge">Bosque</span>
-          <img src="assets/img/producto/mochila-cognac-ii.jpg" alt="Travel Bag III — cuero cognac" class="card__photo" loading="lazy" decoding="async">
+          <img src="assets/img/producto/mujer/mochila-cognac-ii.jpg" alt="Travel Bag III — mochila cognac" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Travel Bag III</p>
           <p class="card__detail">Cuero pleno · Verde profundo · Grabado a láser</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+      <a href="personalizar.html?producto=Bolso+Dama" class="card" id="bolso-dama">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">—</span>
+          <span class="card__badge">Vino</span>
+          <img src="assets/img/producto/mujer/bolso-tote-cognac.jpg" alt="Bolso Dama — tote cognac" class="card__photo" loading="lazy" decoding="async">
+        </div>
+        <div class="card__info">
+          <p class="card__name">Bolso Dama</p>
+          <p class="card__detail">Cuero pleno · Vino · Tote estructurado</p>
+          <span class="card__cta">Solicitar →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- HOMBRE -->
+  <section class="category reveal" id="hombre">
+    <div class="category__header">
+      <span class="category__label">Hombre · Travel & Maletín</span>
+      <span class="category__count">1 pieza · estudio</span>
+    </div>
+    <div class="grid grid--3">
+
+      <a href="personalizar.html?producto=Travel+Bag+II" class="card" id="travel-bag-ii">
+        <div class="card__img" data-dark>
+          <span class="card__numeral">II</span>
+          <span class="card__badge">Noche</span>
+          <img src="assets/img/producto/hombre/travel-bag-negro.jpg" alt="Travel Bag II — maletín cuero negro" class="card__photo" loading="lazy" decoding="async">
+        </div>
+        <div class="card__info">
+          <p class="card__name">Travel Bag II · Maletín Antioquia</p>
+          <p class="card__detail">Cuero pleno · Navy · Grabado a láser</p>
           <span class="card__cta">Solicitar →</span>
         </div>
       </a>
@@ -354,14 +382,14 @@
   <!-- BANDOLERAS -->
   <section class="category reveal">
     <div class="category__header">
-      <span class="category__label">Bandoleras</span>
-      <span class="category__count">2 piezas</span>
+      <span class="category__label">Hombre · Bandoleras</span>
+      <span class="category__count">2 piezas · lifestyle</span>
     </div>
     <div class="grid grid--2">
 
-      <a href="personalizar.html?producto=Bandolera+Moderna" class="card">
+      <a href="personalizar.html?producto=Bandolera+Moderna" class="card" id="bandolera-moderna">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/producto/travel-bag-negro.jpg" alt="Bandolera Moderna" class="card__photo" loading="lazy" decoding="async">
+          <img src="assets/img/lifestyle/hombre/hombre-pasillo.jpg" alt="Bandolera Moderna — lifestyle pasillo" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Bandolera Moderna</p>
@@ -370,9 +398,9 @@
         </div>
       </a>
 
-      <a href="personalizar.html?producto=Bandolera+Elite" class="card">
+      <a href="personalizar.html?producto=Bandolera+Elite" class="card" id="bandolera-elite">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/lifestyle/hombre-arco.jpg" alt="Bandolera Elite" class="card__photo" loading="lazy" decoding="async">
+          <img src="assets/img/lifestyle/hombre/hombre-arco.jpg" alt="Bandolera Elite — lifestyle arco" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Bandolera Elite</p>
@@ -392,9 +420,9 @@
     </div>
     <div class="grid grid--2">
 
-      <a href="personalizar.html?producto=Morral+Elite" class="card">
+      <a href="personalizar.html?producto=Morral+Elite" class="card" id="morral-elite">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/lifestyle/hombre-pasillo.jpg" alt="Morral Elite" class="card__photo" loading="lazy" decoding="async">
+          <img src="assets/img/lifestyle/hombre/hombre-pasillo.jpg" alt="Morral Elite — lifestyle" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Morral Elite</p>
@@ -403,9 +431,9 @@
         </div>
       </a>
 
-      <a href="personalizar.html?producto=Morral+Cl%C3%A1sico" class="card">
+      <a href="personalizar.html?producto=Morral+Cl%C3%A1sico" class="card" id="morral-clasico">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/inicio/mujer.jpg" alt="Morral Clásico" class="card__photo" loading="lazy" decoding="async">
+          <img src="assets/img/producto/mujer/mochila-cognac-ii.jpg" alt="Morral Clásico — mochila cognac" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Morral Clásico</p>
@@ -417,28 +445,17 @@
     </div>
   </section>
 
-  <!-- BOLSO & CINTURONES -->
-  <section class="category reveal">
+  <!-- CINTURONES -->
+  <section class="category reveal" id="cuidado">
     <div class="category__header">
-      <span class="category__label">Bolso & Cinturones</span>
-      <span class="category__count">2 piezas</span>
+      <span class="category__label">Accesorios · Detalle</span>
+      <span class="category__count">1 pieza</span>
     </div>
     <div class="grid grid--2">
 
-      <a href="personalizar.html?producto=Bolso+Dama" class="card">
+      <a href="personalizar.html?producto=Cintur%C3%B3n" class="card" id="cinturon">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/producto/bolso-tote-cognac.jpg" alt="Bolso Dama — tote cognac" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Bolso Dama</p>
-          <p class="card__detail">Cuero pleno · Vino · Tote estructurado</p>
-          <span class="card__cta">Solicitar →</span>
-        </div>
-      </a>
-
-      <a href="personalizar.html?producto=Cintur%C3%B3n" class="card">
-        <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/cuero/detalle-grabado.jpg" alt="Cinturón — detalle cuero" class="card__photo" loading="lazy" decoding="async">
+          <img src="assets/img/cuero/detalle-grabado.jpg" alt="Cinturón — detalle cuero grabado" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Cinturón</p>

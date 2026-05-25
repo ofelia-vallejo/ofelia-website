@@ -1,10 +1,8 @@
-# Imágenes — sección inicial (Home)
-
-Fotos hero del split **Mujer / Hombre** en `home.html`.
+# Hero editorial — inicio
 
 | Archivo | Uso | Encuadre |
 |---------|-----|----------|
-| `mujer.jpg` | Panel izquierdo · Colección Mujer | Lifestyle espalda · bolso cognac · `object-position: 50% 38%` |
-| `hombre.jpg` | Panel derecho · Colección Hombre | Modelo con mochila negra · bolso visible · `object-position: 50% 78%` |
+| `mujer.jpg` | Home · panel Mujer | Pieza visible (espalda / bolso) |
+| `hombre.jpg` | Home · panel Hombre | Anclar al maletín (`object-position: 50% 100%`) |
 
-Ratio exportado: **682×1024** (2:3 vertical).
+No usar fotos de producto de estudio aquí; reservar `producto/mujer/` y `producto/hombre/` para ficha y colección.

@@ -1,5 +1,47 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/assets/img/logo_tarjetas_sello.png",
+      "destination": "/assets/img/logo_sello.png",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/logo-firma.png",
+      "destination": "/assets/img/logo_firma.png",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/bolso-tote-cognac.jpg",
+      "destination": "/assets/img/producto/mujer/bolso-tote-cognac.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/travel-bag-cognac.jpg",
+      "destination": "/assets/img/producto/mujer/travel-bag-cognac.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/mochila-cognac-ii.jpg",
+      "destination": "/assets/img/producto/mujer/mochila-cognac-ii.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/travel-bag-negro.jpg",
+      "destination": "/assets/img/producto/hombre/travel-bag-negro.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/lifestyle/hombre-arco.jpg",
+      "destination": "/assets/img/lifestyle/hombre/hombre-arco.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/lifestyle/hombre-pasillo.jpg",
+      "destination": "/assets/img/lifestyle/hombre/hombre-pasillo.jpg",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
