@@ -171,12 +171,12 @@
   }
   .layer-inked.off path { fill-opacity: 0; stroke-opacity: 0; }
   .layer-depts path { fill: none; stroke: var(--ink); stroke-width: 0.55; opacity: 0; transition: opacity 0.8s var(--ease); }
-  .layer-depts.on path { opacity: 0.65; }
+  .layer-depts.on path { opacity: 0.85; }
   .layer-region path {
     fill: var(--ink); fill-opacity: 0; stroke: var(--ink); stroke-width: 0.9;
     opacity: 0; transition: opacity 0.8s var(--ease), fill-opacity 0.8s var(--ease);
   }
-  .layer-region.on path { opacity: 1; fill-opacity: 0.06; }
+  .layer-region.on path { opacity: 1; fill-opacity: 0.72; }
   .layer-decorative path, .layer-decorative circle {
     stroke: var(--ink); stroke-width: 0.5; fill: none;
     opacity: 0; transition: opacity 0.8s var(--ease);
@@ -469,26 +469,24 @@
     <div class="panel active" data-panel="0">
       <p class="panel__label">Cartografía · 0001</p>
       <h2 class="panel__title">El mundo de Ofelia.</h2>
-      <p class="panel__body">Un proyecto nace en algún lugar de la tierra.</p>
+      <p class="panel__body">Todo gran legado comienza con un nombre.</p>
     </div>
     <div class="panel" data-panel="1">
       <p class="panel__label">Capítulo I · Latinoamérica</p>
-      <h2 class="panel__title">Donde el tiempo<br>se respeta.</h2>
-      <p class="panel__body">Donde la tradición se transforma en arte, no con paciencia sino con amor.</p>
+      <h2 class="panel__title">Donde el tiempo<br>no se apresura.</h2>
+      <p class="panel__body">En este continente, el cuero se trabaja como siempre se amó: con las manos.</p>
     </div>
     <div class="panel" data-panel="2">
       <p class="panel__label">Capítulo II · Colombia</p>
-      <h2 class="panel__title">Tierra de<br>talabarteros.</h2>
-      <p class="panel__body">Curtidores y artesanos firman cada hide como una promesa heredada.</p>
+      <h2 class="panel__title">Cuero que nace<br>bajo el sol andino.</h2>
+      <p class="panel__body">Full-grain colombiano. Curtido despacio, firmado con orgullo.</p>
     </div>
     <div class="panel" data-panel="3">
       <p class="panel__label">Capítulo III · Antioquia · Guatapé</p>
-      <h2 class="panel__title">Tierra de artesanos.</h2>
-      <p class="panel__body">De Guatapé al mundo. El cuero paisa viaja lejos.</p>
+      <h2 class="panel__title">Nacida de<br>una firma.</h2>
+      <p class="panel__body">La abuela Ofelia lo firmó todo. Nosotros lo heredamos en cuero.</p>
     </div>
     <div class="panel" data-panel="4">
-      <p class="panel__label">Capítulo IV · Medellín</p>
-      <h2 class="panel__title">Ofelia Vallejo<br>Maison.</h2>
     </div>
   </div>
 
@@ -621,7 +619,7 @@
       const pt = proj([+pinEl.dataset.lng, +pinEl.dataset.lat]);
       if (pt) pinEl.setAttribute('transform', 'translate(' + pt[0] + ',' + pt[1] + ')');
     }
-    lDepts.classList.toggle('on', proj.scale() > 800);
+    lDepts.classList.toggle('on', proj.scale() > 600);
     lInked.classList.toggle('off', proj.scale() > 1300);
     lRegion.classList.toggle('on', proj.scale() > 1800 && stage >= 2);
     lDeco.classList.toggle('on', proj.scale() > 2500 && stage >= 3);
