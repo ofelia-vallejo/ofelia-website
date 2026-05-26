@@ -216,6 +216,13 @@
     opacity: 0; transition: opacity 0.8s var(--ease), fill-opacity 0.8s var(--ease);
   }
   .layer-region.on path { opacity: 1; fill-opacity: 0.72; }
+  .stage[data-flight="1"] .layer-inked path,
+  .stage[data-flight="1"] .layer-depts path,
+  .stage[data-flight="1"] .layer-region path,
+  .stage[data-flight="1"] .layer-decorative path,
+  .stage[data-flight="1"] .layer-decorative circle {
+    transition: none !important;
+  }
   .layer-decorative path, .layer-decorative circle {
     stroke: var(--ink); stroke-width: 0.5; fill: none;
     opacity: 0; transition: opacity 0.8s var(--ease);
@@ -915,20 +922,26 @@
   }
 
   /* ─── Stage machine ──────────────────────────────── */
+  function beginFlight() {
+    busy = true;
+    stageEl.dataset.flight = '1';
+  }
+
+  function endFlight() {
+    busy = false;
+    stageEl.dataset.flight = '0';
+  }
+
   async function toStage1() {
-    if (busy) return; busy = true;
-    setStage(1);
     updatePanel(1);
     await animate({ rotTo:[74,-4,0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:2200 });
+    setStage(1);
     revealMap(1);
-    busy = false;
   }
 
   async function toStage2() {
-    if (busy) return; busy = true;
     pinEl.dataset.placed = '0';
     pinEl.classList.remove('on', 'deep');
-    setStage(2);
     updatePanel(2);
     await animate({
       rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
@@ -936,13 +949,11 @@
       tiltTo: 4,
       ms: 2200
     });
+    setStage(2);
     revealMap(2);
-    busy = false;
   }
 
   async function toStage3() {
-    if (busy) return; busy = true;
-    setStage(3);
     updatePanel(3);
     await animate({
       rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
@@ -950,15 +961,13 @@
       tiltTo: 7,
       ms: 2200
     });
+    setStage(3);
     revealMap(3);
-    busy = false;
   }
 
   async function toStage4() {
-    if (busy) return; busy = true;
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
     coordAnimated = false;
-    setStage(4);
     updatePanel(4);
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
@@ -966,56 +975,67 @@
       tiltTo: 10,
       ms: 2200
     });
+    setStage(4);
     revealMap(4);
     animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
-    busy = false;
   }
 
   async function toStage5() {
-    if (busy) return; busy = true;
-    setStage(5);
     updatePanel(5);
     await animate({ scaleTo: Math.min(W, H) * 28, tiltTo: 18, ms: 2400 });
+    setStage(5);
     revealMap(5);
     pinEl.classList.add('deep');
-    busy = false;
   }
 
   async function resetAll() {
-    if (busy) return; busy = true;
     coordAnimated = false;
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
     const place = document.getElementById('coordsPlace');
     const vals = document.getElementById('coordsVal');
     if (place) { place.textContent = 'Cargando atlas…'; place.classList.remove('resolved'); }
     if (vals) vals.textContent = formatCoord(0, 0);
-    setStage(0);
     updatePanel(0);
     await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
+    setStage(0);
     revealMap(0);
-    busy = false;
+  }
+
+  async function runStage(fn) {
+    beginFlight();
+    try { await fn(); }
+    finally { endFlight(); }
   }
 
   /* ─── Click handlers ─────────────────────────────── */
   let lastAdvanceAt = 0;
   svgEl.addEventListener('click', e => {
     e.preventDefault();
+    e.stopPropagation();
     const now = Date.now();
-    if (busy || now - lastAdvanceAt < 800) return;
+    if (busy || now - lastAdvanceAt < 900) return;
     lastAdvanceAt = now;
-    if (stage === 0) toStage1();
-    else if (stage === 1) toStage2();
-    else if (stage === 2) toStage3();
-    else if (stage === 3) toStage4();
-    else if (stage === 4) toStage5();
+    if (stage === 0) runStage(toStage1);
+    else if (stage === 1) runStage(toStage2);
+    else if (stage === 2) runStage(toStage3);
+    else if (stage === 3) runStage(toStage4);
+    else if (stage === 4) runStage(toStage5);
   });
 
   pinEl.addEventListener('click', e => {
     e.stopPropagation();
-    if (!busy && stage === 4) toStage5();
+    e.preventDefault();
+    if (busy || stage !== 4) return;
+    const now = Date.now();
+    if (now - lastAdvanceAt < 900) return;
+    lastAdvanceAt = now;
+    runStage(toStage5);
   });
 
-  backBtn.addEventListener('click', resetAll);
+  backBtn.addEventListener('click', () => {
+    if (busy) return;
+    runStage(resetAll);
+  });
 
   document.getElementById('skipBtn').addEventListener('click', () => {
     window.location.href = 'home.html';

@@ -238,6 +238,21 @@
       letter-spacing: 0.28em;
     }
 
+    .laser-feature__visual {
+      margin: 48px auto 0;
+      max-width: 720px;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+    }
+
+    .laser-feature__photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 58%;
+      display: block;
+    }
+
     /* FORM SECTION */
     .form-section {
       background: var(--marfil);
@@ -437,6 +452,16 @@
       el borde del trazo, creando un registro permanente que no se desprende,
       no se decolora, no envejece. Tu firma sobre la firma de Ofelia.
     </p>
+    <figure class="laser-feature__visual" data-dark>
+      <img
+        src="imagenes nuevas/detalle/firma-travel-bag-cognac.jpg"
+        alt="Detalle de grabado láser en cuero cognac — firma Ofelia Vallejo"
+        class="laser-feature__photo"
+        width="1024"
+        height="682"
+        loading="lazy"
+        decoding="async">
+    </figure>
     <a href="#solicitud-formulario" class="laser-feature__cta">Solicitar pieza personalizada →</a>
   </section>
 
@@ -471,14 +496,14 @@
         <label for="producto">Pieza</label>
         <select id="producto" name="producto" required>
           <option value="" disabled selected>Selecciona una pieza</option>
-          <option value="Travel Bag I">Travel Bag I — Espresso</option>
-          <option value="Travel Bag II">Travel Bag II — Noche</option>
-          <option value="Travel Bag III">Travel Bag III — Bosque</option>
+          <option value="Travel Bag I">Travel Bag I — Cognac</option>
+          <option value="Travel Bag II">Travel Bag II — Negro</option>
+          <option value="Travel Bag III">Travel Bag III — Cognac</option>
           <option value="Bandolera Moderna">Bandolera Moderna</option>
           <option value="Bandolera Elite">Bandolera Elite</option>
-          <option value="Morral Elite">Morral Elite</option>
-          <option value="Morral Clásico">Morral Clásico</option>
-          <option value="Bolso Dama">Bolso Dama</option>
+          <option value="Morral Elite">Morral Elite — Negro</option>
+          <option value="Morral Clásico">Morral Clásico — Cognac</option>
+          <option value="Bolso Dama">Bolso Dama — Cognac</option>
           <option value="Cinturón">Cinturón</option>
         </select>
       </div>
