@@ -35,6 +35,11 @@
       "source": "/assets/img/cuero/:file",
       "destination": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
       "permanent": true
+    },
+    {
+      "source": "/producto/travel-bag-ii",
+      "destination": "/producto/maletin",
+      "permanent": false
     }
   ],
   "headers": [
