@@ -574,30 +574,37 @@
   <div class="panels" id="panels">
     <div class="panel active" data-panel="0">
       <div class="panel__card">
-        <h2 class="panel__title">El mundo.</h2>
+        <h2 class="panel__title">El mundo de Ofelia Vallejo.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Ofelia Vallejo nace en un punto del planeta — y se abre al que sabe mirar.</p>
+        <p class="panel__body">Un proyecto que nace en algún lugar de la tierra.</p>
       </div>
     </div>
     <div class="panel" data-panel="1">
       <div class="panel__card">
-        <h2 class="panel__title">Colombia.</h2>
+        <h2 class="panel__title">Donde la tradición se transforma en arte.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Cordillera, curtido vegetal y oficio heredado. Aquí empieza el cuero.</p>
+        <p class="panel__body">y se crea con paciencia y con amor.</p>
       </div>
     </div>
     <div class="panel" data-panel="2">
       <div class="panel__card">
-        <h2 class="panel__title">Antioquia.</h2>
+        <h2 class="panel__title">Tierra de talabarteros.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Talabartería paisa. Manos que cortan, cosen y graban — pieza a pieza.</p>
+        <p class="panel__body">Curtidores y artesanos firman cada pieza como una promesa heredada.</p>
       </div>
     </div>
     <div class="panel" data-panel="3">
       <div class="panel__card">
-        <h2 class="panel__title">Guatapé.</h2>
+        <h2 class="panel__title">El Eje de la eterna primavera.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Piedra, agua y atelier. La firma de la abuela permanece en el cuero.</p>
+        <p class="panel__body">Talleres entre montañas y valles — donde el cuero toma forma.</p>
+      </div>
+    </div>
+    <div class="panel" data-panel="4">
+      <div class="panel__card">
+        <h2 class="panel__title">Cuero hecho para durar.</h2>
+        <hr class="panel__rule" aria-hidden="true">
+        <p class="panel__body">Una promesa que nació en Guatapé y viaja al mundo en cuero.</p>
       </div>
     </div>
   </div>
@@ -874,7 +881,8 @@
   /* ─── Panel + dots + hint sync ───────────────────── */
   const tap = ('ontouchstart' in window) ? 'Toque' : 'Clic';
   const hints = [
-    `${tap} en Colombia`,
+    `${tap} en el globo`,
+    tap === 'Toque' ? 'Toque Colombia' : 'Haga clic en Colombia',
     `${tap} en Antioquia`,
     `${tap} en Guatapé`,
     ''
@@ -976,6 +984,8 @@
       ms: 1600
     });
     revealMap(3);
+    document.querySelectorAll('.panel').forEach(p =>
+      p.classList.toggle('active', +p.dataset.panel === 4));
     await animate({ scaleTo: Math.min(W, H) * 22, tiltTo: 14, ms: 1700 });
     setStage(3);
     revealMap(4);
