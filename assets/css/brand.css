@@ -120,6 +120,16 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   max-width: min(460px, 90vw);
 }
 
+.navbar__badge {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 1px 6px rgba(11, 31, 58, 0.08);
+}
+
 .navbar__firma {
   display: block;
   width: auto;
@@ -323,6 +333,7 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 @media (max-width: 768px) {
   .navbar { padding: 0 20px; }
   .navbar__logo { max-width: min(360px, 92vw); padding: 0 12px; }
+  .navbar__badge { width: 36px; height: 36px; }
   .navbar__firma { max-height: 38px; }
   .foot__logo { width: 56px; }
   .navbar__right { gap: 18px; }

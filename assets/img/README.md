@@ -4,7 +4,8 @@
 
 | Archivo | Uso |
 |---------|-----|
-| `logo_firma_nav.png` | Navbar |
+| `logo_sello_badge.png` | Navbar + favicon (sello en círculo marfil) |
+| `logo_firma_nav.png` | Firma cursiva (referencia / desktop alterno) |
 | `logo_firma_completa.png` | Nacida de una firma |
 | `logo_sello.png` | Footer, intro globo |
 
