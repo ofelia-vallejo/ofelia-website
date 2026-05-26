@@ -99,4 +99,67 @@ module.exports = {
       { title: 'Materiales', body: 'Cuero negro full-grain · compartimentos internos.' },
     ],
   },
+  cinturon: {
+    colorData: {
+      'negro-liso': {
+        label: 'Negro · Liso',
+        leather: ['#1a1a1a', '#141414', '#0a0a0a'],
+        images: [
+          '/imagenes nuevas/producto/accesorios/cinturon/negro-liso-estudio.jpg',
+          '/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg',
+        ],
+        alts: ['Cinturón — negro liso', 'Cinturón — grabado en punta'],
+      },
+      'negro-granulado': {
+        label: 'Negro · Granulado',
+        leather: ['#222222', '#141414', '#0a0a0a'],
+        images: ['/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg'],
+        alts: ['Cinturón — negro granulado'],
+      },
+      'navy-granulado': {
+        label: 'Navy · Granulado',
+        leather: ['#152a45', '#0B1F3A', '#081628'],
+        images: [
+          '/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg',
+          '/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg',
+        ],
+        alts: ['Cinturón — navy granulado', 'Cinturón — detalle de grano'],
+      },
+      'espresso-liso': {
+        label: 'Espresso · Liso',
+        leather: ['#4a362e', '#3B2B26', '#2e211c'],
+        images: [
+          '/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-estudio.jpg',
+          '/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg',
+        ],
+        alts: ['Cinturón — espresso liso', 'Cinturón — plano editorial'],
+      },
+      'espresso-granulado': {
+        label: 'Espresso · Granulado',
+        leather: ['#4a362e', '#3B2B26', '#2e211c'],
+        images: [
+          '/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg',
+          '/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg',
+        ],
+        alts: ['Cinturón — espresso granulado', 'Cinturón — pasador grabado'],
+      },
+      'cognac-liso': {
+        label: 'Cognac · Liso',
+        leather: ['#9a6b42', '#8B5E3C', '#6d4a2c'],
+        images: [
+          '/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg',
+          '/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg',
+          '/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg',
+        ],
+        alts: ['Cinturón — cognac liso', 'Cinturón — cognac plano', 'Cinturón — monograma punta'],
+      },
+    },
+    accordion: [
+      { title: 'Materiales', body: 'Cuero pleno colombiano · hebilla gunmetal cepillada.' },
+      { title: 'Acabados', body: 'Liso o granulado · seis combinaciones de color.' },
+      { title: 'Grabado láser', body: 'Monograma OV en la punta · ~2 cm del extremo.' },
+    ],
+    editorialImage: '/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg',
+    editorialCaption: 'Seis acabados. Una firma en cuero.',
+  },
 };

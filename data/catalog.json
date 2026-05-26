@@ -1,12 +1,13 @@
 {
   "version": 1,
   "currency": "CHF",
-  "updatedAt": "2026-05-26T00:00:00.000Z",
+  "updatedAt": "2026-05-26T18:30:00.000Z",
   "categories": [
     { "id": "mujer", "label": "Mujer · Colección Guanábana", "sort": 1 },
     { "id": "hombre", "label": "Hombre · Colección Borojó", "sort": 2 },
     { "id": "bandoleras", "label": "Hombre · Colección Uchuva", "sort": 3 },
-    { "id": "morrales", "label": "Colección Chontaduro", "sort": 4 }
+    { "id": "morrales", "label": "Colección Chontaduro", "sort": 4 },
+    { "id": "accesorios", "label": "Accesorios · Colección Curuba", "sort": 5 }
   ],
   "products": [
     {
@@ -260,27 +261,117 @@
       "id": "cinturon",
       "slug": "cinturon",
       "name": "Cinturón",
-      "shortDescription": "Cuero pleno · Unisex",
-      "description": "Cinturón en cuero full-grain con hebilla latón antiguo.",
-      "category": "hombre",
+      "shortDescription": "Cuero pleno · Liso o granulado · Grabado en punta",
+      "description": "Cinturón unisex en cuero colombiano full-grain. Hebilla gunmetal cepillada. Monograma OV grabado a láser en la punta — ~2 cm del extremo. Hecho a mano en Medellín.",
+      "category": "accesorios",
       "line": "cinturon",
       "active": true,
       "personalizable": true,
       "basePrice": 120,
       "engravePrice": 18,
-      "inventory": 10,
-      "lowStockAt": 3,
+      "inventory": 24,
+      "lowStockAt": 4,
       "pdpPath": "/producto/cinturon",
-      "images": [],
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-estudio.jpg",
+          "alt": "Cinturón — negro liso",
+          "kind": "hero",
+          "sort": 0
+        }
+      ],
       "variants": [
-        { "id": "v-negro", "sku": "CIN-NEG", "colorName": "Negro", "colorHex": "#141414", "inventory": 5, "sort": 0 },
-        { "id": "v-rustico", "sku": "CIN-RUS", "colorName": "Rústico", "colorHex": "#8B5E3C", "inventory": 5, "sort": 1 }
+        { "id": "v-negro-liso", "colorKey": "negro-liso", "sku": "CIN-NL", "colorName": "Negro · Liso", "colorHex": "#141414", "inventory": 4, "sort": 0 },
+        { "id": "v-negro-granulado", "colorKey": "negro-granulado", "sku": "CIN-NG", "colorName": "Negro · Granulado", "colorHex": "#1a1a1a", "inventory": 4, "sort": 1 },
+        { "id": "v-navy-granulado", "colorKey": "navy-granulado", "sku": "CIN-NVG", "colorName": "Navy · Granulado", "colorHex": "#0B1F3A", "inventory": 4, "sort": 2 },
+        { "id": "v-espresso-liso", "colorKey": "espresso-liso", "sku": "CIN-EL", "colorName": "Espresso · Liso", "colorHex": "#3B2B26", "inventory": 4, "sort": 3 },
+        { "id": "v-espresso-granulado", "colorKey": "espresso-granulado", "sku": "CIN-EG", "colorName": "Espresso · Granulado", "colorHex": "#3B2B26", "inventory": 4, "sort": 4 },
+        { "id": "v-cognac-liso", "colorKey": "cognac-liso", "sku": "CIN-CL", "colorName": "Cognac · Liso", "colorHex": "#8B5E3C", "inventory": 4, "sort": 5 }
+      ],
+      "colorData": {
+        "negro-liso": {
+          "label": "Negro · Liso",
+          "leather": ["#1a1a1a", "#141414", "#0a0a0a"],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-estudio.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
+          ],
+          "alts": [
+            "Cinturón — negro liso · vista estudio",
+            "Cinturón — negro liso · grabado OV en punta"
+          ]
+        },
+        "negro-granulado": {
+          "label": "Negro · Granulado",
+          "leather": ["#222222", "#141414", "#0a0a0a"],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg"
+          ],
+          "alts": [
+            "Cinturón — negro granulado · grano visible"
+          ]
+        },
+        "navy-granulado": {
+          "label": "Navy · Granulado",
+          "leather": ["#152a45", "#0B1F3A", "#081628"],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg"
+          ],
+          "alts": [
+            "Cinturón — navy granulado · vista estudio",
+            "Cinturón — navy granulado · detalle de grano"
+          ]
+        },
+        "espresso-liso": {
+          "label": "Espresso · Liso",
+          "leather": ["#4a362e", "#3B2B26", "#2e211c"],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-estudio.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg"
+          ],
+          "alts": [
+            "Cinturón — espresso liso · vista estudio",
+            "Cinturón — espresso liso · plano editorial"
+          ]
+        },
+        "espresso-granulado": {
+          "label": "Espresso · Granulado",
+          "leather": ["#4a362e", "#3B2B26", "#2e211c"],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg"
+          ],
+          "alts": [
+            "Cinturón — espresso granulado · costura al tono",
+            "Cinturón — espresso granulado · pasador grabado"
+          ]
+        },
+        "cognac-liso": {
+          "label": "Cognac · Liso",
+          "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg"
+          ],
+          "alts": [
+            "Cinturón — cognac liso · vista estudio",
+            "Cinturón — cognac liso · plano editorial",
+            "Cinturón — cognac liso · monograma en punta"
+          ]
+        }
+      },
+      "accordion": [
+        { "title": "Materiales", "body": "Cuero pleno colombiano · forro en tono natural · hebilla gunmetal cepillada · pasador de cuero a juego." },
+        { "title": "Acabados", "body": "Liso — superficie uniforme. Granulado — grano natural visible, costura perimetral en tonos café o tabaco según color." },
+        { "title": "Grabado láser", "body": "Monograma OV o iniciales en la punta · ~2 cm del extremo · CO₂ ~0,35 mm · confirmación del atelier antes de producir." }
       ],
       "engrave": {
-        "fonts": ["clasica", "romana"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" } },
-        "layouts": ["texto"],
-        "zone": { "x": 0.5, "y": 0.15, "width": 0.3, "height": 0.06 }
+        "fonts": ["clasica", "romana", "firma"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" } },
+        "layouts": ["texto", "monograma-ov"],
+        "zone": { "x": 0.5, "y": 0.12, "width": 0.28, "height": 0.08 }
       }
     }
   ]
