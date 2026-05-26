@@ -1,0 +1,61 @@
+# Catálogo fotográfico — `imagenes nuevas/`
+
+Revisión visual 2026-05-26. Solo archivos de esta carpeta para producto/lifestyle.  
+Colores según el cuero **visible en foto** (no etiquetas inventadas).
+
+| file | color_detected | style | product_type | engraving_visible | recommended_site_slot | notes |
+|------|----------------|-------|--------------|-------------------|----------------------|-------|
+| `detalle/firma-mochila-negro.jpg` | negro | detalle/macro | mochila (detalle) | sí (OV + cierre) | personalizar · detalle grabado | Macro negro, ideal sección láser |
+| `detalle/firma-travel-bag-cognac.jpg` | cognac (+ correas espresso) | detalle/macro | duffel / travel bag | sí (firma cursiva) | personalizar · detalle grabado | Macro cognac entre correas |
+| `inicio/hero-mujer-aeropuerto.jpg` | cognac | editorial lifestyle | mochila | sí (esquina frontal) | home · hero mujer | Modelo de espaldas, terminal |
+| `inicio/hero-hombre-aeropuerto-duffel-negro.jpg` | negro | editorial lifestyle | duffel / travel bag | sí (lateral) | home · hero hombre | Duffel negro, aeropuerto |
+| `lifestyle/hombre/duffel-cognac-lifestyle.jpg` | cognac | editorial lifestyle | duffel / travel bag | sí (lateral) | coleccion · lifestyle duffel (reserva) | Arquitectura clásica, caminando |
+| `lifestyle/hombre/mochila-chocolate-hotel-lifestyle.jpg` | chocolate | editorial lifestyle | mochila | sí | reserva / futura ficha chocolate | Hotel / fachada |
+| `lifestyle/hombre/mochila-chocolate-lifestyle.jpg` | chocolate | editorial lifestyle | mochila | sí | reserva / futura ficha chocolate | Café europeo, modelo sentado |
+| `lifestyle/hombre/mochila-cognac-hotel-lifestyle.jpg` | cognac | editorial lifestyle | mochila | sí | reserva hombre cognac | Placa OV en muro |
+| `lifestyle/hombre/mochila-cognac-lifestyle.jpg` | cognac | editorial lifestyle | mochila | sí | reserva hombre cognac | Pasillo arcos, modelo de espaldas |
+| `lifestyle/hombre/mochila-negro-aeropuerto.jpg` | negro | editorial lifestyle | mochila | sí | reserva morral negro | Aeropuerto, vista trasera |
+| `lifestyle/hombre/mochila-negro-lifestyle-02.jpg` | negro | editorial lifestyle | mochila | sí | reserva morral negro | Arco piedra, perfil |
+| `lifestyle/hombre/mochila-negro-lifestyle-03.jpg` | negro | editorial lifestyle | mochila | sí | reserva (duplicado cercano a -02) | Variante arquitectura |
+| `lifestyle/hombre/mochila-negro-lifestyle.jpg` | negro | editorial lifestyle | mochila | sí | home · strip morral hombre; coleccion · morral elite | Corredor europeo, modelo sosteniendo mochila |
+| `lifestyle/mujer/mochila-chocolate-lifestyle.jpg` | chocolate / espresso oscuro | editorial lifestyle | mochila | sí | reserva mujer chocolate | Calle Florencia, modelo caminando |
+| `lifestyle/mujer/mochila-cognac-lifestyle-02.jpg` | cognac | editorial lifestyle | mochila | sí | reserva mujer cognac | Variante editorial |
+| `lifestyle/mujer/mochila-cognac-lifestyle-03.jpg` | cognac | editorial lifestyle | mochila | sí | reserva mujer cognac | Variante editorial |
+| `lifestyle/mujer/mochila-cognac-lifestyle.jpg` | cognac | editorial lifestyle | mochila | sí | reserva mujer cognac | Pasillo arcos |
+| `lifestyle/mujer/mochila-negro-lifestyle.jpg` | negro | editorial lifestyle | mochila | sí | reserva morral negro mujer | Café París, mochila en suelo |
+| `lifestyle/mujer/tote-cognac-lifestyle.jpg` | cognac | editorial lifestyle | tote | sí | home · banner cuero | Modelo caminando, tote lateral |
+| `producto/hombre/mochila-chocolate-estudio-02.jpg` | chocolate | estudio editorial | mochila | sí | reserva estudio chocolate | Pedestal oscuro, planta |
+| `producto/hombre/mochila-chocolate-estudio.jpg` | chocolate | estudio editorial | mochila | sí | reserva estudio chocolate | Escalones piedra |
+| `producto/hombre/mochila-negro-estudio-02.jpg` | negro | estudio editorial | mochila | sí | reserva estudio negro | Arcos exterior |
+| `producto/hombre/mochila-negro-estudio.jpg` | negro | estudio editorial | mochila | sí | reserva estudio negro | Fondo degradado oro–negro |
+| `producto/hombre/travel-bag-negro-estudio.jpg` | negro | estudio editorial | duffel / travel bag | sí (OV central) | home · hombre hero; coleccion · travel bag II | Duffel negro, columna piedra |
+| `producto/mujer/mochila-cognac-estudio-01.jpg` | cognac | estudio producto | mochila | sí | home · strip TB III; coleccion · travel bag III | Fondo degradado cálido |
+| `producto/mujer/mochila-cognac-estudio-02.jpg` | cognac | estudio producto | mochila | sí | coleccion · morral clásico | Variante frontal, cremalleras doradas |
+| `producto/mujer/tote-cognac-editorial.jpg` | cognac | estudio editorial | tote | sí | home · edit mujer hero; coleccion · bolso dama | Suelo piedra, luz lateral |
+| `producto/mujer/travel-bag-cognac-estudio.jpg` | cognac | estudio editorial | duffel / travel bag | sí | home · strip TB I; coleccion · travel bag I; index intro | Duffel cognac, bloque piedra |
+
+## Slots del sitio (asignación actual)
+
+| Página | Slot | Archivo | Vacío |
+|--------|------|---------|-------|
+| home | Hero mujer (único) | `inicio/hero-mujer-aeropuerto.jpg` | |
+| home | Edit mujer · hero | `producto/mujer/tote-cognac-editorial.jpg` | |
+| home | Edit mujer · Travel Bag I | `producto/mujer/travel-bag-cognac-estudio.jpg` | |
+| home | Edit mujer · Travel Bag III | `producto/mujer/mochila-cognac-estudio-01.jpg` | |
+| home | Edit mujer · Bolso Dama mini | `lifestyle/mujer/tote-cognac-lifestyle.jpg` | |
+| home | Banner cuero | `lifestyle/mujer/tote-cognac-lifestyle.jpg` | |
+| coleccion | Travel Bag I | `producto/mujer/travel-bag-cognac-estudio.jpg` | |
+| coleccion | Travel Bag III | `producto/mujer/mochila-cognac-estudio-01.jpg` | |
+| coleccion | Bolso Dama | `producto/mujer/tote-cognac-editorial.jpg` | |
+| coleccion | Travel Bag II | `producto/hombre/travel-bag-negro-estudio.jpg` | |
+| coleccion | Bandolera Moderna / Elite | — | **vacío** (gradiente) |
+| coleccion | Morral Elite | `lifestyle/hombre/mochila-negro-lifestyle.jpg` | |
+| coleccion | Morral Clásico | `producto/mujer/mochila-cognac-estudio-02.jpg` | |
+| coleccion | Cinturón / Billeteras / Correas | — | **vacío** (gradiente) |
+| personalizar | Detalle grabado | `detalle/firma-travel-bag-cognac.jpg` | |
+
+## Sin foto congruente (mantener vacío)
+
+- Bandolera Moderna, Bandolera Elite (crossbody / portafolio)
+- Cinturón, billeteras, correas
+- Cuero vino, verde bosque, navy (ninguna foto en carpeta)

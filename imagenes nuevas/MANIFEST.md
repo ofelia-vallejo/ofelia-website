@@ -27,5 +27,5 @@
 - `producto/mujer/mochila-cognac-estudio-01.jpg`
 - `producto/mujer/mochila-cognac-estudio-02.jpg`
 - `producto/mujer/tote-cognac-editorial.jpg`
-- `producto/mujer/tote-cognac-estudio.jpg`
+- `producto/mujer/tote-cognac-editorial.jpg`
 - `producto/mujer/travel-bag-cognac-estudio.jpg`
