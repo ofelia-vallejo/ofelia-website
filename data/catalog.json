@@ -3,11 +3,31 @@
   "currency": "CHF",
   "updatedAt": "2026-05-26T18:30:00.000Z",
   "categories": [
-    { "id": "mujer", "label": "Mujer · Colección Guanábana", "sort": 1 },
-    { "id": "hombre", "label": "Hombre · Colección Borojó", "sort": 2 },
-    { "id": "bandoleras", "label": "Hombre · Colección Uchuva", "sort": 3 },
-    { "id": "morrales", "label": "Colección Chontaduro", "sort": 4 },
-    { "id": "accesorios", "label": "Accesorios · Colección Curuba", "sort": 5 }
+    {
+      "id": "mujer",
+      "label": "Mujer · Colección Guanábana",
+      "sort": 1
+    },
+    {
+      "id": "hombre",
+      "label": "Hombre · Colección Borojó",
+      "sort": 2
+    },
+    {
+      "id": "bandoleras",
+      "label": "Hombre · Colección Uchuva",
+      "sort": 3
+    },
+    {
+      "id": "morrales",
+      "label": "Colección Chontaduro",
+      "sort": 4
+    },
+    {
+      "id": "accesorios",
+      "label": "Accesorios · Colección Curuba",
+      "sort": 5
+    }
   ],
   "products": [
     {
@@ -35,14 +55,54 @@
         }
       ],
       "variants": [
-        { "id": "v-cognac", "sku": "TB-I-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 3, "sort": 0 },
-        { "id": "v-espresso", "sku": "TB-I-ESP", "colorName": "Espresso", "colorHex": "#3B2B26", "inventory": 2, "sort": 1 }
+        {
+          "id": "v-cognac",
+          "sku": "TB-I-COG",
+          "colorName": "Cognac",
+          "colorHex": "#8B5E3C",
+          "inventory": 3,
+          "sort": 0
+        },
+        {
+          "id": "v-espresso",
+          "sku": "TB-I-ESP",
+          "colorName": "Espresso",
+          "colorHex": "#3B2B26",
+          "inventory": 2,
+          "sort": 1
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica", "firma"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" }, "L": { "maxChars": 60, "label": "Frase breve" } },
-        "layouts": ["texto", "monograma-ov", "texto-monograma"],
-        "zone": { "x": 0.72, "y": 0.78, "width": 0.22, "height": 0.1 }
+        "fonts": [
+          "romana",
+          "clasica",
+          "firma"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 12,
+            "label": "Nombre"
+          },
+          "L": {
+            "maxChars": 60,
+            "label": "Frase breve"
+          }
+        },
+        "layouts": [
+          "texto",
+          "monograma-ov",
+          "texto-monograma"
+        ],
+        "zone": {
+          "x": 0.72,
+          "y": 0.78,
+          "width": 0.22,
+          "height": 0.1
+        }
       }
     },
     {
@@ -70,13 +130,45 @@
         }
       ],
       "variants": [
-        { "id": "v-negro", "sku": "TB-II-NEG", "colorName": "Negro", "colorHex": "#141414", "inventory": 4, "sort": 0 }
+        {
+          "id": "v-negro",
+          "sku": "TB-II-NEG",
+          "colorName": "Negro",
+          "colorHex": "#141414",
+          "inventory": 4,
+          "sort": 0
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica", "firma"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" }, "L": { "maxChars": 60, "label": "Frase breve" } },
-        "layouts": ["texto", "monograma-ov"],
-        "zone": { "x": 0.72, "y": 0.78, "width": 0.22, "height": 0.1 }
+        "fonts": [
+          "romana",
+          "clasica",
+          "firma"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 12,
+            "label": "Nombre"
+          },
+          "L": {
+            "maxChars": 60,
+            "label": "Frase breve"
+          }
+        },
+        "layouts": [
+          "texto",
+          "monograma-ov"
+        ],
+        "zone": {
+          "x": 0.72,
+          "y": 0.78,
+          "width": 0.22,
+          "height": 0.1
+        }
       }
     },
     {
@@ -104,13 +196,44 @@
         }
       ],
       "variants": [
-        { "id": "v-cognac", "sku": "TB-III-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 3, "sort": 0 }
+        {
+          "id": "v-cognac",
+          "sku": "TB-III-COG",
+          "colorName": "Cognac",
+          "colorHex": "#8B5E3C",
+          "inventory": 3,
+          "sort": 0
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" }, "L": { "maxChars": 50, "label": "Frase breve" } },
-        "layouts": ["texto", "monograma-ov"],
-        "zone": { "x": 0.7, "y": 0.75, "width": 0.24, "height": 0.1 }
+        "fonts": [
+          "romana",
+          "clasica"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 12,
+            "label": "Nombre"
+          },
+          "L": {
+            "maxChars": 50,
+            "label": "Frase breve"
+          }
+        },
+        "layouts": [
+          "texto",
+          "monograma-ov"
+        ],
+        "zone": {
+          "x": 0.7,
+          "y": 0.75,
+          "width": 0.24,
+          "height": 0.1
+        }
       }
     },
     {
@@ -137,13 +260,45 @@
         }
       ],
       "variants": [
-        { "id": "v-cognac", "sku": "BD-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 6, "sort": 0 }
+        {
+          "id": "v-cognac",
+          "sku": "BD-COG",
+          "colorName": "Cognac",
+          "colorHex": "#8B5E3C",
+          "inventory": 6,
+          "sort": 0
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica", "firma"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 10, "label": "Nombre" }, "L": { "maxChars": 40, "label": "Frase breve" } },
-        "layouts": ["texto", "monograma-ov"],
-        "zone": { "x": 0.5, "y": 0.82, "width": 0.35, "height": 0.08 }
+        "fonts": [
+          "romana",
+          "clasica",
+          "firma"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 10,
+            "label": "Nombre"
+          },
+          "L": {
+            "maxChars": 40,
+            "label": "Frase breve"
+          }
+        },
+        "layouts": [
+          "texto",
+          "monograma-ov"
+        ],
+        "zone": {
+          "x": 0.5,
+          "y": 0.82,
+          "width": 0.35,
+          "height": 0.08
+        }
       }
     },
     {
@@ -170,13 +325,40 @@
         }
       ],
       "variants": [
-        { "id": "v-negro", "sku": "ME-NEG", "colorName": "Negro", "colorHex": "#141414", "inventory": 4, "sort": 0 }
+        {
+          "id": "v-negro",
+          "sku": "ME-NEG",
+          "colorName": "Negro",
+          "colorHex": "#141414",
+          "inventory": 4,
+          "sort": 0
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" } },
-        "layouts": ["texto", "monograma-ov"],
-        "zone": { "x": 0.68, "y": 0.72, "width": 0.2, "height": 0.1 }
+        "fonts": [
+          "romana",
+          "clasica"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 12,
+            "label": "Nombre"
+          }
+        },
+        "layouts": [
+          "texto",
+          "monograma-ov"
+        ],
+        "zone": {
+          "x": 0.68,
+          "y": 0.72,
+          "width": 0.2,
+          "height": 0.1
+        }
       }
     },
     {
@@ -196,13 +378,39 @@
       "pdpPath": "/producto/morral-clasico",
       "images": [],
       "variants": [
-        { "id": "v-cognac", "sku": "MC-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 0, "sort": 0 }
+        {
+          "id": "v-cognac",
+          "sku": "MC-COG",
+          "colorName": "Cognac",
+          "colorHex": "#8B5E3C",
+          "inventory": 0,
+          "sort": 0
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" } },
-        "layouts": ["texto"],
-        "zone": { "x": 0.68, "y": 0.72, "width": 0.2, "height": 0.1 }
+        "fonts": [
+          "romana",
+          "clasica"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 12,
+            "label": "Nombre"
+          }
+        },
+        "layouts": [
+          "texto"
+        ],
+        "zone": {
+          "x": 0.68,
+          "y": 0.72,
+          "width": 0.2,
+          "height": 0.1
+        }
       }
     },
     {
@@ -222,13 +430,39 @@
       "pdpPath": "/producto/bandolera-moderna",
       "images": [],
       "variants": [
-        { "id": "v-carbon", "sku": "BM-CAR", "colorName": "Carbón", "colorHex": "#141414", "inventory": 2, "sort": 0 }
+        {
+          "id": "v-carbon",
+          "sku": "BM-CAR",
+          "colorName": "Carbón",
+          "colorHex": "#141414",
+          "inventory": 2,
+          "sort": 0
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 8, "label": "Nombre" } },
-        "layouts": ["texto"],
-        "zone": { "x": 0.75, "y": 0.8, "width": 0.18, "height": 0.08 }
+        "fonts": [
+          "romana",
+          "clasica"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 8,
+            "label": "Nombre"
+          }
+        },
+        "layouts": [
+          "texto"
+        ],
+        "zone": {
+          "x": 0.75,
+          "y": 0.8,
+          "width": 0.18,
+          "height": 0.08
+        }
       }
     },
     {
@@ -248,13 +482,39 @@
       "pdpPath": "/producto/bandolera-elite",
       "images": [],
       "variants": [
-        { "id": "v-carbon", "sku": "BE-CAR", "colorName": "Carbón", "colorHex": "#141414", "inventory": 2, "sort": 0 }
+        {
+          "id": "v-carbon",
+          "sku": "BE-CAR",
+          "colorName": "Carbón",
+          "colorHex": "#141414",
+          "inventory": 2,
+          "sort": 0
+        }
       ],
       "engrave": {
-        "fonts": ["romana", "clasica"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 8, "label": "Nombre" } },
-        "layouts": ["texto"],
-        "zone": { "x": 0.75, "y": 0.8, "width": 0.18, "height": 0.08 }
+        "fonts": [
+          "romana",
+          "clasica"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 8,
+            "label": "Nombre"
+          }
+        },
+        "layouts": [
+          "texto"
+        ],
+        "zone": {
+          "x": 0.75,
+          "y": 0.8,
+          "width": 0.18,
+          "height": 0.08
+        }
       }
     },
     {
@@ -274,105 +534,203 @@
       "pdpPath": "/producto/cinturon",
       "images": [
         {
-          "url": "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-estudio.jpg",
-          "alt": "Cinturón — negro liso",
+          "url": "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+          "alt": "Cinturón — negro liso · plano editorial",
           "kind": "hero",
           "sort": 0
         }
       ],
       "variants": [
-        { "id": "v-negro-liso", "colorKey": "negro-liso", "sku": "CIN-NL", "colorName": "Negro · Liso", "colorHex": "#141414", "inventory": 4, "sort": 0 },
-        { "id": "v-negro-granulado", "colorKey": "negro-granulado", "sku": "CIN-NG", "colorName": "Negro · Granulado", "colorHex": "#1a1a1a", "inventory": 4, "sort": 1 },
-        { "id": "v-navy-granulado", "colorKey": "navy-granulado", "sku": "CIN-NVG", "colorName": "Navy · Granulado", "colorHex": "#0B1F3A", "inventory": 4, "sort": 2 },
-        { "id": "v-espresso-liso", "colorKey": "espresso-liso", "sku": "CIN-EL", "colorName": "Espresso · Liso", "colorHex": "#3B2B26", "inventory": 4, "sort": 3 },
-        { "id": "v-espresso-granulado", "colorKey": "espresso-granulado", "sku": "CIN-EG", "colorName": "Espresso · Granulado", "colorHex": "#3B2B26", "inventory": 4, "sort": 4 },
-        { "id": "v-cognac-liso", "colorKey": "cognac-liso", "sku": "CIN-CL", "colorName": "Cognac · Liso", "colorHex": "#8B5E3C", "inventory": 4, "sort": 5 }
+        {
+          "id": "v-negro-liso",
+          "colorKey": "negro-liso",
+          "sku": "CIN-NL",
+          "colorName": "Negro · Liso",
+          "colorHex": "#141414",
+          "inventory": 4,
+          "sort": 0
+        },
+        {
+          "id": "v-negro-granulado",
+          "colorKey": "negro-granulado",
+          "sku": "CIN-NG",
+          "colorName": "Negro · Granulado",
+          "colorHex": "#141414",
+          "inventory": 4,
+          "sort": 1
+        },
+        {
+          "id": "v-navy-granulado",
+          "colorKey": "navy-granulado",
+          "sku": "CIN-NVG",
+          "colorName": "Navy · Granulado",
+          "colorHex": "#0B1F3A",
+          "inventory": 4,
+          "sort": 2
+        },
+        {
+          "id": "v-espresso-liso",
+          "colorKey": "espresso-liso",
+          "sku": "CIN-EL",
+          "colorName": "Espresso · Liso",
+          "colorHex": "#3B2B26",
+          "inventory": 4,
+          "sort": 3
+        },
+        {
+          "id": "v-espresso-granulado",
+          "colorKey": "espresso-granulado",
+          "sku": "CIN-EG",
+          "colorName": "Espresso · Granulado",
+          "colorHex": "#3B2B26",
+          "inventory": 4,
+          "sort": 4
+        },
+        {
+          "id": "v-cognac-liso",
+          "colorKey": "cognac-liso",
+          "sku": "CIN-CL",
+          "colorName": "Cognac · Liso",
+          "colorHex": "#8B5E3C",
+          "inventory": 4,
+          "sort": 5
+        }
       ],
       "colorData": {
         "negro-liso": {
           "label": "Negro · Liso",
-          "leather": ["#4d515e", "#2c3443", "#141414"],
+          "leather": [
+            "#2c3443",
+            "#141414",
+            "#0a0a0a"
+          ],
           "images": [
-            "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-estudio.jpg",
-            "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
+            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg"
           ],
           "alts": [
-            "Cinturón — negro liso · vista estudio",
+            "Cinturón — negro liso · plano editorial",
             "Cinturón — negro liso · grabado OV en punta"
           ]
         },
         "negro-granulado": {
           "label": "Negro · Granulado",
-          "leather": ["#61463a", "#44352d", "#141414"],
-          "images": [
-            "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg"
+          "leather": [
+            "#2c3443",
+            "#141414",
+            "#0a0a0a"
           ],
-          "alts": [
-            "Cinturón — negro granulado · grano visible"
-          ]
+          "images": [],
+          "alts": []
         },
         "navy-granulado": {
           "label": "Navy · Granulado",
-          "leather": ["#2d313c", "#0B1F3A", "#202733"],
+          "leather": [
+            "#152a45",
+            "#0B1F3A",
+            "#081628"
+          ],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
-            "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg"
+            "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg"
           ],
           "alts": [
             "Cinturón — navy granulado · vista estudio",
-            "Cinturón — navy granulado · detalle de grano"
+            "Cinturón — navy granulado · detalle de grano",
+            "Cinturón — navy granulado · forro natural"
           ]
         },
         "espresso-liso": {
           "label": "Espresso · Liso",
-          "leather": ["#847a6e", "#3B2B26", "#262e3e"],
+          "leather": [
+            "#4a362e",
+            "#3B2B26",
+            "#2e211c"
+          ],
           "images": [
-            "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-estudio.jpg",
-            "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg"
+            "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg",
+            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg"
           ],
           "alts": [
             "Cinturón — espresso liso · vista estudio",
-            "Cinturón — espresso liso · plano editorial"
+            "Cinturón — espresso liso · detalle de superficie"
           ]
         },
         "espresso-granulado": {
           "label": "Espresso · Granulado",
-          "leather": ["#746250", "#3B2B26", "#281e1a"],
+          "leather": [
+            "#4a362e",
+            "#3B2B26",
+            "#2e211c"
+          ],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg",
-            "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg"
+            "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg"
           ],
           "alts": [
             "Cinturón — espresso granulado · costura al tono",
-            "Cinturón — espresso granulado · pasador grabado"
+            "Cinturón — espresso granulado · grano visible"
           ]
         },
         "cognac-liso": {
           "label": "Cognac · Liso",
-          "leather": ["#6d4a2c", "#8B5E3C", "#48362f"],
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
           "images": [
-            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg",
-            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
-            "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg"
+            "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
           ],
           "alts": [
-            "Cinturón — cognac liso · vista estudio",
-            "Cinturón — cognac liso · plano editorial",
             "Cinturón — cognac liso · monograma en punta"
           ]
         }
       },
       "accordion": [
-        { "title": "Materiales", "body": "Cuero pleno colombiano · forro en tono natural · hebilla gunmetal cepillada · pasador de cuero a juego." },
-        { "title": "Acabados", "body": "Liso — superficie uniforme. Granulado — grano natural visible, costura perimetral en tonos café o tabaco según color." },
-        { "title": "Grabado láser", "body": "Monograma OV o iniciales en la punta · ~2 cm del extremo · CO₂ ~0,35 mm · confirmación del atelier antes de producir." }
+        {
+          "title": "Materiales",
+          "body": "Cuero pleno colombiano · forro en tono natural · hebilla gunmetal cepillada · pasador de cuero a juego."
+        },
+        {
+          "title": "Acabados",
+          "body": "Liso — superficie uniforme. Granulado — grano natural visible, costura perimetral en tonos café o tabaco según color."
+        },
+        {
+          "title": "Grabado láser",
+          "body": "Monograma OV o iniciales en la punta · ~2 cm del extremo · CO₂ ~0,35 mm · confirmación del atelier antes de producir."
+        }
       ],
       "engrave": {
-        "fonts": ["clasica", "romana", "firma"],
-        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" } },
-        "layouts": ["texto", "monograma-ov"],
-        "zone": { "x": 0.5, "y": 0.12, "width": 0.28, "height": 0.08 }
-      }
+        "fonts": [
+          "clasica",
+          "romana",
+          "firma"
+        ],
+        "sizes": {
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 12,
+            "label": "Nombre"
+          }
+        },
+        "layouts": [
+          "texto",
+          "monograma-ov"
+        ],
+        "zone": {
+          "x": 0.5,
+          "y": 0.12,
+          "width": 0.28,
+          "height": 0.08
+        }
+      },
+      "editorialImage": "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg",
+      "editorialCaption": "Seis acabados. Una firma en cuero."
     }
   ]
 }

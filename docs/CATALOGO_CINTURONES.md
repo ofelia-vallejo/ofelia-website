@@ -1,34 +1,37 @@
 # Catálogo · Cinturón / Correas
 
 **Producto único:** `/producto/cinturon`  
-**Imágenes:** `imagenes nuevas/producto/accesorios/cinturon/`
+**Fuente de verdad:** `data/cinturon-assets.json` (color real verificado con cuentagotas + revisión visual)  
+**Sincronizar catálogo:** `python3 scripts/sync-cinturon-catalog.py`
 
-## Colores de cuero (muestreados de `*-estudio.jpg`)
+> Los nombres de archivo en disco **no siempre coinciden** con el color del cuero. Usar siempre `colorKey` + mapa de assets, nunca confiar solo en el nombre del JPG.
 
-| colorKey | Gradiente swatch (claro → medio → oscuro) |
-|----------|-------------------------------------------|
-| `negro-liso` | `#4d515e` · `#2c3443` · `#141414` |
-| `negro-granulado` | `#61463a` · `#44352d` · `#141414` |
-| `navy-granulado` | `#2d313c` · `#0B1F3A` · `#202733` |
-| `espresso-liso` | `#847a6e` · `#3B2B26` · `#262e3e` |
-| `espresso-granulado` | `#746250` · `#3B2B26` · `#281e1a` |
-| `cognac-liso` | `#6d4a2c` · `#8B5E3C` · `#48362f` |
+## Tokens de color (marca)
 
-## Matriz de acabados (6 variantes)
+| Familia | colorHex | Gradiente swatch (claro → medio → oscuro) |
+|---------|----------|-------------------------------------------|
+| Negro | `#141414` | `#2c3443` · `#141414` · `#0a0a0a` |
+| Navy | `#0B1F3A` | `#152a45` · `#0B1F3A` · `#081628` |
+| Espresso | `#3B2B26` | `#4a362e` · `#3B2B26` · `#2e211c` |
+| Cognac | `#8B5E3C` | `#9a6b42` · `#8B5E3C` · `#6d4a2c` |
 
-| colorKey | Color | Acabado | SKU | Archivos |
-|----------|-------|---------|-----|----------|
-| `negro-liso` | Negro | Liso | CIN-NL | `negro-liso-estudio.jpg`, `negro-liso-detalle.jpg` |
-| `negro-granulado` | Negro | Granulado | CIN-NG | `negro-granulado-estudio.jpg` |
-| `navy-granulado` | Navy | Granulado | CIN-NVG | `navy-granulado-estudio.jpg`, `navy-granulado-detalle.jpg` |
-| `espresso-liso` | Espresso | Liso | CIN-EL | `espresso-liso-estudio.jpg`, `espresso-liso-plano.jpg` |
-| `espresso-granulado` | Espresso | Granulado | CIN-EG | `espresso-granulado-estudio.jpg`, `espresso-granulado-detalle.jpg` |
-| `cognac-liso` | Cognac | Liso | CIN-CL | `cognac-liso-estudio.jpg`, `cognac-liso-plano.jpg`, `cognac-liso-detalle.jpg` |
+## Matriz colorKey → fotos reales
 
-## Sin variante en esta tanda
+| colorKey | Color · Acabado | Archivos asignados (contenido real) |
+|----------|-----------------|-------------------------------------|
+| `negro-liso` | Negro · Liso | `cognac-liso-plano.jpg`, `cognac-liso-detalle.jpg` |
+| `negro-granulado` | Negro · Granulado | *(sin foto — placeholder en colección)* |
+| `navy-granulado` | Navy · Granulado | `navy-granulado-estudio.jpg`, `navy-granulado-detalle.jpg`, `espresso-granulado-detalle.jpg` |
+| `espresso-liso` | Espresso · Liso | `negro-granulado-estudio.jpg`, `cognac-liso-estudio.jpg` |
+| `espresso-granulado` | Espresso · Granulado | `espresso-granulado-estudio.jpg`, `espresso-liso-plano.jpg` |
+| `cognac-liso` | Cognac · Liso | `negro-liso-detalle.jpg` |
 
-- Navy · Liso
-- Cognac · Granulado
+## Archivos sin variante (pendiente)
+
+| Archivo en disco | Color real | Nota |
+|------------------|------------|------|
+| `negro-liso-estudio.jpg` | Navy · Liso | Reservado para futura variante `navy-liso` |
+| `espresso-liso-estudio.jpg` | Navy · Liso | Duplicado editorial navy liso |
 
 ## Colección
 
@@ -36,8 +39,9 @@ Sección `#cinturones` en `coleccion.html` — 6 tarjetas con hash al PDP (`#neg
 
 ## Postgres
 
-Tras actualizar fotos en repo:
+Tras actualizar fotos o mapa en repo:
 
 ```bash
+python3 scripts/sync-cinturon-catalog.py
 npm run db:migrate
 ```

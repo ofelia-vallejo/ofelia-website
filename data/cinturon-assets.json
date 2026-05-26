@@ -1,0 +1,101 @@
+{
+  "_note": "Mapa verificado visualmente + cuentagotas. El nombre del archivo en disco puede no coincidir con el color real.",
+  "negro-liso": {
+    "label": "Negro · Liso",
+    "badge": "Negro",
+    "texture": "liso",
+    "brand_hex": "#141414",
+    "leather": ["#2c3443", "#141414", "#0a0a0a"],
+    "files": ["cognac-liso-plano.jpg", "cognac-liso-detalle.jpg"],
+    "images": [
+      "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+      "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg"
+    ],
+    "alts": [
+      "Cinturón — negro liso · plano editorial",
+      "Cinturón — negro liso · grabado OV en punta"
+    ]
+  },
+  "negro-granulado": {
+    "label": "Negro · Granulado",
+    "badge": "Negro",
+    "texture": "granulado",
+    "brand_hex": "#141414",
+    "leather": ["#2c3443", "#141414", "#0a0a0a"],
+    "files": [],
+    "images": [],
+    "alts": []
+  },
+  "navy-granulado": {
+    "label": "Navy · Granulado",
+    "badge": "Navy",
+    "texture": "granulado",
+    "brand_hex": "#0B1F3A",
+    "leather": ["#152a45", "#0B1F3A", "#081628"],
+    "files": [
+      "navy-granulado-estudio.jpg",
+      "navy-granulado-detalle.jpg",
+      "espresso-granulado-detalle.jpg"
+    ],
+    "images": [
+      "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
+      "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg",
+      "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg"
+    ],
+    "alts": [
+      "Cinturón — navy granulado · vista estudio",
+      "Cinturón — navy granulado · detalle de grano",
+      "Cinturón — navy granulado · forro natural"
+    ]
+  },
+  "espresso-liso": {
+    "label": "Espresso · Liso",
+    "badge": "Espresso",
+    "texture": "liso",
+    "brand_hex": "#3B2B26",
+    "leather": ["#4a362e", "#3B2B26", "#2e211c"],
+    "files": ["negro-granulado-estudio.jpg", "cognac-liso-estudio.jpg"],
+    "images": [
+      "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg",
+      "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg"
+    ],
+    "alts": [
+      "Cinturón — espresso liso · vista estudio",
+      "Cinturón — espresso liso · detalle de superficie"
+    ]
+  },
+  "espresso-granulado": {
+    "label": "Espresso · Granulado",
+    "badge": "Espresso",
+    "texture": "granulado",
+    "brand_hex": "#3B2B26",
+    "leather": ["#4a362e", "#3B2B26", "#2e211c"],
+    "files": ["espresso-granulado-estudio.jpg", "espresso-liso-plano.jpg"],
+    "images": [
+      "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg",
+      "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg"
+    ],
+    "alts": [
+      "Cinturón — espresso granulado · costura al tono",
+      "Cinturón — espresso granulado · grano visible"
+    ]
+  },
+  "cognac-liso": {
+    "label": "Cognac · Liso",
+    "badge": "Cognac",
+    "texture": "liso",
+    "brand_hex": "#8B5E3C",
+    "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"],
+    "files": ["negro-liso-detalle.jpg"],
+    "images": [
+      "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
+    ],
+    "alts": [
+      "Cinturón — cognac liso · monograma en punta"
+    ]
+  },
+  "_unused_files": {
+    "negro-liso-estudio.jpg": "navy · liso — pendiente variante",
+    "espresso-liso-estudio.jpg": "navy · liso — pendiente variante"
+  }
+}
