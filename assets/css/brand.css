@@ -126,38 +126,77 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 
 .brand-logo,
+/* Nacida de una firma */
+.banner-statement {
+  background: var(--marfil);
+  padding: 120px var(--pad-x);
+  text-align: center;
+}
+
+.banner-statement__rule {
+  width: 40px;
+  height: 1px;
+  background: var(--rule-strong);
+  margin: 0 auto 36px;
+}
+
+.banner-statement__title {
+  margin: 0 auto;
+  max-width: 720px;
+  font-family: Cinzel, serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 48px);
+  letter-spacing: 0.01em;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.banner-statement__title a {
+  color: inherit;
+  transition: opacity 0.35s var(--ease);
+}
+
+.banner-statement__title a:hover { opacity: 0.72; }
+
+.banner-statement__body {
+  margin: 36px auto 0;
+  max-width: 480px;
+  font-weight: 300;
+  font-size: 13px;
+  color: rgba(11, 31, 58, 0.6);
+  line-height: 1.85;
+}
+
+/* Firma completa (estampado) + sello — una sola vez aquí; footer solo sello sólido */
 .banner-statement__emblem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
-  margin: 32px auto 0;
+  gap: 20px;
+  margin: 40px auto 0;
 }
 
-.banner-statement__emblem img,
-.signature-banner__img {
+.banner-statement__emblem img {
   background: transparent;
 }
 
 .banner-statement__mark {
   display: block;
-  width: min(160px, 42vw);
+  width: min(132px, 36vw);
   height: auto;
   margin: 0;
   object-fit: contain;
   opacity: 0.18;
-  mix-blend-mode: multiply;
 }
 
 .banner-statement__seal {
   display: block;
-  width: 44px;
+  width: 48px;
   height: auto;
   margin: 0;
   object-fit: contain;
   object-position: center center;
-  opacity: 0.22;
-  mix-blend-mode: multiply;
+  opacity: 0.2;
 }
 
 .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
@@ -356,8 +395,8 @@ footer {
 
 .foot__bottom a:hover { color: var(--marfil); }
 
-/* SIGNATURE BANNER — mobile only */
-.signature-banner { display: none; }
+/* Sin banner extra de sello — evita duplicar el footer */
+.signature-banner { display: none !important; }
 
 /* FORM SHARED STYLES */
 .form-field {
@@ -449,6 +488,8 @@ footer {
 /* RESPONSIVE — mobile */
 @media (max-width: 900px) {
   :root { --pad-x: 20px; }
+
+  .banner-statement { padding: 80px 24px; }
 
   .signature-banner {
     display: block;
