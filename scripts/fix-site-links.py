@@ -12,6 +12,7 @@ FILES = [
     "contacto.html",
     "personalizar.html",
     "cuenta.html",
+    "producto/index.html",
     "gracias.html",
     "index.html",
     "producto/travel-bag.html",

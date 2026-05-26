@@ -316,7 +316,7 @@
     position: absolute; bottom: 140px; left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    width: min(480px, 80vw);
+    width: min(560px, 90vw);
     z-index: 6; pointer-events: none;
   }
   .panel {
@@ -337,11 +337,11 @@
   }
   .panel__title {
     font-family: 'Cinzel', serif;
-    font-size: clamp(18px, 2.4vw, 28px);
+    font-size: clamp(15px, 2vw, 22px);
     font-weight: 400;
-    letter-spacing: 0.06em;
-    line-height: 1.28;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+    text-transform: none;
     color: var(--ink);
     margin: 0 0 14px;
     max-width: 100%;
@@ -857,7 +857,7 @@
   setTimeout(() => step0El.classList.add('out'), 2200);
   setTimeout(() => {
     step0El.remove();
-    updatePanel(0);
+    syncUI();
     if (navbarEl) navbarEl.classList.add('is-visible');
   }, 3800);
 
@@ -888,17 +888,22 @@
     ''
   ];
 
-  function updatePanel(idx) {
-    const showPanel = idx < 3;
+  function updatePanel(panelIdx) {
+    const showPanel = stage < 3 && panelIdx < 4;
     document.querySelectorAll('.panel').forEach(p =>
-      p.classList.toggle('active', showPanel && +p.dataset.panel === idx));
+      p.classList.toggle('active', showPanel && +p.dataset.panel === panelIdx));
     document.querySelectorAll('.nav-dot').forEach(d =>
-      d.classList.toggle('active', idx < 3 && +d.dataset.n === idx));
+      d.classList.toggle('active', stage < 3 && +d.dataset.n === stage));
     const hintEl   = document.getElementById('hintText');
     const hintWrap = document.getElementById('clickHint');
-    if (hintEl)   hintEl.textContent = hints[idx] || '';
-    if (hintWrap) hintWrap.style.display = hints[idx] ? 'inline-flex' : 'none';
-    backBtn.disabled = idx <= 0;
+    if (hintEl)   hintEl.textContent = hints[stage] || '';
+    if (hintWrap) hintWrap.style.display = (stage < 3 && hints[stage]) ? 'inline-flex' : 'none';
+    backBtn.disabled = stage <= 0;
+  }
+
+  function syncUI() {
+    const panelIdx = stage >= 3 ? 3 : stage;
+    updatePanel(panelIdx);
   }
 
   /* ─── Animate helper ─────────────────────────────── */
@@ -946,7 +951,6 @@
     if (spinTimer) spinTimer.stop();
     pinEl.dataset.placed = '0';
     pinEl.classList.remove('on', 'deep');
-    updatePanel(1);
     await animate({
       rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 2.8,
@@ -955,10 +959,10 @@
     });
     setStage(1);
     revealMap(1);
+    syncUI();
   }
 
   async function toStage2() {
-    updatePanel(2);
     await animate({
       rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 5.5,
@@ -967,6 +971,7 @@
     });
     setStage(2);
     revealMap(2);
+    syncUI();
   }
 
   async function toStage3() {
@@ -989,17 +994,17 @@
     await animate({ scaleTo: Math.min(W, H) * 22, tiltTo: 14, ms: 1700 });
     setStage(3);
     revealMap(4);
-    updatePanel(3);
+    syncUI();
   }
 
   async function resetAll() {
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
     pinEl.classList.remove('on', 'deep');
-    updatePanel(0);
     const resetScale = Math.min(window.innerWidth, window.innerHeight) * 0.36;
     await animate({ rotTo: [20, -10, 0], scaleTo: resetScale, tiltTo: 0, ms: 1600 });
     setStage(0);
     revealMap(0);
+    syncUI();
     if (!spinTimer) spinTimer = d3.timer(spinFrame);
   }
 
@@ -1029,7 +1034,6 @@
     try {
       if (stage === 1) await resetAll();
       else if (stage === 2) {
-        updatePanel(1);
         await animate({
           rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
           scaleTo: Math.min(W, H) * 2.8,
@@ -1038,8 +1042,8 @@
         });
         setStage(1);
         revealMap(1);
+        syncUI();
       } else if (stage === 3) {
-        updatePanel(2);
         pinEl.classList.remove('on', 'deep');
         await animate({
           rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
@@ -1049,6 +1053,7 @@
         });
         setStage(2);
         revealMap(2);
+        syncUI();
       }
     } finally {
       endFlight();

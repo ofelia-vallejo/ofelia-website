@@ -28,7 +28,7 @@
       "pdpPath": "/producto/travel-bag-i",
       "images": [
         {
-          "url": "/assets/img/nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
+          "url": "/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
           "alt": "Travel Bag I — cuero cognac",
           "kind": "hero",
           "sort": 0
@@ -63,7 +63,7 @@
       "pdpPath": "/producto/travel-bag-ii",
       "images": [
         {
-          "url": "/assets/img/nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
+          "url": "/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
           "alt": "Travel Bag II — cuero negro",
           "kind": "hero",
           "sort": 0
@@ -291,7 +291,7 @@
       "colorData": {
         "negro-liso": {
           "label": "Negro · Liso",
-          "leather": ["#1a1a1a", "#141414", "#0a0a0a"],
+          "leather": ["#4d515e", "#2c3443", "#141414"],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-estudio.jpg",
             "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
@@ -303,7 +303,7 @@
         },
         "negro-granulado": {
           "label": "Negro · Granulado",
-          "leather": ["#222222", "#141414", "#0a0a0a"],
+          "leather": ["#61463a", "#44352d", "#141414"],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg"
           ],
@@ -313,7 +313,7 @@
         },
         "navy-granulado": {
           "label": "Navy · Granulado",
-          "leather": ["#152a45", "#0B1F3A", "#081628"],
+          "leather": ["#2d313c", "#0B1F3A", "#202733"],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
             "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg"
@@ -325,7 +325,7 @@
         },
         "espresso-liso": {
           "label": "Espresso · Liso",
-          "leather": ["#4a362e", "#3B2B26", "#2e211c"],
+          "leather": ["#847a6e", "#3B2B26", "#262e3e"],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-estudio.jpg",
             "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg"
@@ -337,7 +337,7 @@
         },
         "espresso-granulado": {
           "label": "Espresso · Granulado",
-          "leather": ["#4a362e", "#3B2B26", "#2e211c"],
+          "leather": ["#746250", "#3B2B26", "#281e1a"],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg",
             "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg"
@@ -349,7 +349,7 @@
         },
         "cognac-liso": {
           "label": "Cognac · Liso",
-          "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"],
+          "leather": ["#6d4a2c", "#8B5E3C", "#48362f"],
           "images": [
             "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg",
             "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",

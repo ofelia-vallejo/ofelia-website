@@ -6,7 +6,7 @@
   const KEY_POPUP = 'ov_popup_dismissed';
   const KEY_DRAFTS = 'ov_atelier_drafts';
 
-  const IMG_MODAL = 'assets/img/nuevas/detalle/firma-travel-bag-cognac.jpg';
+  const IMG_MODAL = '/imagenes nuevas/detalle/firma-travel-bag-cognac.jpg';
 
   function readJSON(key, fallback) {
     try {

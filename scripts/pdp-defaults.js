@@ -7,15 +7,9 @@ module.exports = {
         leather: ['#4a362e', '#3B2B26', '#2e211c'],
         images: [
           '/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg',
-          '/assets/img/nuevas/producto/mujer/estudio-01.jpg',
-          '/assets/img/nuevas/producto/mujer/estudio-02.jpg',
-          '/assets/img/nuevas/producto/mujer/estudio-03.jpg',
         ],
         alts: [
-          'Travel Bag I — cuero espresso',
-          'Travel Bag I — detalle de costura',
-          'Travel Bag I — herrajes latón',
-          'Travel Bag I — grabado láser OV',
+          'Travel Bag I — cuero cognac',
         ],
       },
       navy: {
@@ -40,14 +34,10 @@ module.exports = {
         images: [
           '/imagenes nuevas/producto/hombre/mochila-chocolate-estudio.jpg',
           '/imagenes nuevas/producto/hombre/mochila-chocolate-estudio-02.jpg',
-          '/assets/img/nuevas/producto/mujer/estudio-04.jpg',
-          '/assets/img/nuevas/producto/mujer/estudio-05.jpg',
         ],
         alts: [
           'Travel Bag I — verde andino',
           'Travel Bag I — detalle verde',
-          'Travel Bag I — costuras',
-          'Travel Bag I — grabado',
         ],
       },
     },
@@ -103,7 +93,7 @@ module.exports = {
     colorData: {
       'negro-liso': {
         label: 'Negro · Liso',
-        leather: ['#1a1a1a', '#141414', '#0a0a0a'],
+        leather: ['#4d515e', '#2c3443', '#141414'],
         images: [
           '/imagenes nuevas/producto/accesorios/cinturon/negro-liso-estudio.jpg',
           '/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg',
@@ -112,13 +102,13 @@ module.exports = {
       },
       'negro-granulado': {
         label: 'Negro · Granulado',
-        leather: ['#222222', '#141414', '#0a0a0a'],
+        leather: ['#61463a', '#44352d', '#141414'],
         images: ['/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg'],
         alts: ['Cinturón — negro granulado'],
       },
       'navy-granulado': {
         label: 'Navy · Granulado',
-        leather: ['#152a45', '#0B1F3A', '#081628'],
+        leather: ['#2d313c', '#0B1F3A', '#202733'],
         images: [
           '/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg',
           '/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg',
@@ -127,7 +117,7 @@ module.exports = {
       },
       'espresso-liso': {
         label: 'Espresso · Liso',
-        leather: ['#4a362e', '#3B2B26', '#2e211c'],
+        leather: ['#847a6e', '#3B2B26', '#262e3e'],
         images: [
           '/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-estudio.jpg',
           '/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg',
@@ -136,7 +126,7 @@ module.exports = {
       },
       'espresso-granulado': {
         label: 'Espresso · Granulado',
-        leather: ['#4a362e', '#3B2B26', '#2e211c'],
+        leather: ['#746250', '#3B2B26', '#281e1a'],
         images: [
           '/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg',
           '/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg',
@@ -145,7 +135,7 @@ module.exports = {
       },
       'cognac-liso': {
         label: 'Cognac · Liso',
-        leather: ['#9a6b42', '#8B5E3C', '#6d4a2c'],
+        leather: ['#6d4a2c', '#8B5E3C', '#48362f'],
         images: [
           '/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg',
           '/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg',

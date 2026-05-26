@@ -20,21 +20,39 @@
   }
 
   function imgUrl(url) {
+    if (window.OVMedia) return window.OVMedia.url(url);
     if (!url) return '';
     if (url.startsWith('http') || url.startsWith('/')) return url;
     return '/' + url;
   }
 
+  function filterImages(urls) {
+    if (window.OVMedia) return window.OVMedia.filterImages(urls);
+    return (urls || []).filter(function (u) {
+      return u && String(u).trim();
+    });
+  }
+
   function buildColorData(product) {
     if (product.colorData && Object.keys(product.colorData).length) {
-      return product.colorData;
+      const out = {};
+      Object.keys(product.colorData).forEach(function (k) {
+        const v = product.colorData[k];
+        const images = filterImages(v.images).map(imgUrl);
+        const alts = (v.alts || []).slice(0, images.length);
+        while (alts.length < images.length) {
+          alts.push(v.label || product.name);
+        }
+        out[k] = Object.assign({}, v, { images: images, alts: alts });
+      });
+      return out;
     }
-    const imgs = (product.images || []).map((i) => imgUrl(i.url));
-    const alts = (product.images || []).map((i) => i.alt || product.name);
-    if (!imgs.length) {
-      imgs.push('/assets/img/nuevas/producto/mujer/estudio-01.jpg');
-      alts.push(product.name);
-    }
+    const rawUrls = filterImages((product.images || []).map((i) => i.url));
+    const imgs = rawUrls.map(imgUrl);
+    const alts = (product.images || [])
+      .filter((i) => i.url && String(i.url).trim())
+      .map((i) => i.alt || product.name)
+      .slice(0, imgs.length);
     const key = (product.variants && product.variants[0] && product.variants[0].colorKey)
       || (product.variants && product.variants[0] && product.variants[0].id)
       || 'default';
@@ -75,15 +93,22 @@
           { title: 'Grabado láser', body: 'Personalización CO₂ · confirmación del atelier antes de grabar.' },
         ];
 
-    const thumbs = colorData[firstColor].images.map((src, i) =>
-      '<button type="button" class="pdp__thumb' + (i === 0 ? ' is-active' : '') + '" role="tab" data-index="' + i + '" aria-selected="' + (i === 0) + '">' +
-        '<img src="' + esc(imgUrl(src)) + '" alt="" loading="' + (i === 0 ? 'eager' : 'lazy') + '">' +
-      '</button>'
-    ).join('');
+    const galleryImages = colorData[firstColor].images || [];
+    const hasGallery = galleryImages.length > 0;
 
-    const slides = colorData[firstColor].images.map((src, i) =>
-      '<div class="pdp__slide"><img src="' + esc(imgUrl(src)) + '" alt="' + esc(colorData[firstColor].alts[i]) + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '"></div>'
-    ).join('');
+    const thumbs = hasGallery
+      ? galleryImages.map((src, i) =>
+          '<button type="button" class="pdp__thumb' + (i === 0 ? ' is-active' : '') + '" role="tab" data-index="' + i + '" aria-selected="' + (i === 0) + '">' +
+            '<img src="' + esc(imgUrl(src)) + '" alt="" loading="' + (i === 0 ? 'eager' : 'lazy') + '">' +
+          '</button>'
+        ).join('')
+      : '';
+
+    const slides = hasGallery
+      ? galleryImages.map((src, i) =>
+          '<div class="pdp__slide"><img src="' + esc(imgUrl(src)) + '" alt="' + esc(colorData[firstColor].alts[i]) + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '"></div>'
+        ).join('')
+      : '';
 
     const swatches = colorKeys.map((k) =>
       '<button type="button" class="pdp__swatch' + (k === firstColor ? ' is-active' : '') + '" data-color="' + esc(k) + '" style="background:' + esc(colorData[k].leather[1] || '#3B2B26') + '" aria-label="' + esc(colorData[k].label) + '"></button>'
@@ -112,8 +137,9 @@
       );
     }).join('');
 
-    const hero = imgUrl(colorData[firstColor].images[0]);
+    const hero = hasGallery ? imgUrl(galleryImages[0]) : '';
     const editorial = p.editorialImage ? imgUrl(p.editorialImage) : '';
+    const showEditorial = Boolean(editorial);
 
     document.title = p.name + ' · Ofelia Vallejo';
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -127,13 +153,15 @@
 
     pdp.innerHTML =
       '<div class="pdp__layout reveal">' +
-        '<div class="pdp__gallery" data-dark>' +
-          '<div class="pdp__thumbs" role="tablist">' + thumbs + '</div>' +
-          '<div class="pdp__stage">' +
-            '<img id="pdpMainImg" class="pdp__main-img" src="' + esc(hero) + '" alt="' + esc(p.name) + '">' +
+        '<div class="pdp__gallery' + (hasGallery ? '' : ' pdp__gallery--pending') + '" data-dark>' +
+          (hasGallery ? '<div class="pdp__thumbs" role="tablist">' + thumbs + '</div>' : '') +
+          '<div class="pdp__stage' + (hasGallery ? '' : ' pdp__stage--pending') + '" style="--leather-mid:' + esc(colorData[firstColor].leather[1] || '#3B2B26') + '">' +
+            (hasGallery
+              ? '<img id="pdpMainImg" class="pdp__main-img" src="' + esc(hero) + '" alt="' + esc(p.name) + '">'
+              : '<p class="pdp__stage-empty" id="pdpStageEmpty">Imagen en proceso</p>') +
           '</div>' +
-          '<div class="pdp__carousel" id="pdpCarousel">' + slides + '</div>' +
-          '<div class="pdp__dots" id="pdpDots"></div>' +
+          (hasGallery ? '<div class="pdp__carousel" id="pdpCarousel">' + slides + '</div>' : '') +
+          (hasGallery ? '<div class="pdp__dots" id="pdpDots"></div>' : '') +
         '</div>' +
         '<div class="pdp__info">' +
           '<nav class="pdp-breadcrumb"><a href="/home.html">Inicio</a><span class="pdp-breadcrumb__sep">/</span><a href="/coleccion.html">Cuero</a><span class="pdp-breadcrumb__sep">/</span><span aria-current="page">' + esc(p.name) + '</span></nav>' +
@@ -169,7 +197,7 @@
           '<p class="pdp__cta-secondary" id="pdpPayNote" style="margin-top:10px;font-size:10px;opacity:0.5"></p>' +
         '</div>' +
       '</div>' +
-      (editorial ? (
+      (showEditorial ? (
         '<section class="pdp__editorial reveal"><div class="pdp__editorial-media" data-dark><img src="' + esc(editorial) + '" alt="" loading="lazy"></div>' +
         (p.editorialCaption ? '<p class="pdp__editorial-caption">' + esc(p.editorialCaption) + '</p>' : '') +
         '</section>'
@@ -224,16 +252,36 @@
       if (!variant) return;
       const idx = typeof thumbIndex === 'number' ? thumbIndex : 0;
       activeThumbIndex = idx;
+      const stage = document.querySelector('.pdp__stage');
+      const imgs = variant.images || [];
+
+      if (!imgs.length) {
+        if (stage) {
+          stage.classList.add('pdp__stage--pending');
+          stage.style.setProperty('--leather-mid', variant.leather[1] || '#3B2B26');
+        }
+        if (mainImg) mainImg.style.display = 'none';
+        if (colorNameEl) colorNameEl.textContent = variant.label;
+        updateLeatherPreview(variant.leather);
+        return;
+      }
+
+      if (stage) stage.classList.remove('pdp__stage--pending');
+      if (mainImg) mainImg.style.display = '';
+
       thumbs.forEach(function (btn, i) {
         const img = btn.querySelector('img');
+        if (!img || !imgs[i]) return;
         btn.classList.add('is-swapping');
         setTimeout(function () {
-          img.src = imgUrl(variant.images[i]);
+          img.src = imgUrl(imgs[i]);
           btn.classList.remove('is-swapping');
         }, FADE_MS);
         btn.classList.toggle('is-active', i === idx);
       });
-      crossfadeImage(mainImg, imgUrl(variant.images[idx]), variant.alts[idx]);
+      if (mainImg && imgs[idx]) {
+        crossfadeImage(mainImg, imgUrl(imgs[idx]), variant.alts[idx]);
+      }
       if (colorNameEl) colorNameEl.textContent = variant.label;
       updateLeatherPreview(variant.leather);
     }
