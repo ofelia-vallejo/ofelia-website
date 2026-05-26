@@ -7,8 +7,10 @@ Colores según el cuero **visible en foto** (no etiquetas inventadas).
 |------|----------------|-------|--------------|-------------------|----------------------|-------|
 | `detalle/firma-mochila-negro.jpg` | negro | detalle/macro | mochila (detalle) | sí (OV + cierre) | personalizar · detalle grabado | Macro negro, ideal sección láser |
 | `detalle/firma-travel-bag-cognac.jpg` | cognac (+ correas espresso) | detalle/macro | duffel / travel bag | sí (firma cursiva) | personalizar · detalle grabado | Macro cognac entre correas |
-| `inicio/hero-mujer-aeropuerto.jpg` | cognac | editorial lifestyle | mochila | sí (esquina frontal) | home · hero mujer | Modelo de espaldas, terminal |
-| `inicio/hero-hombre-aeropuerto-duffel-negro.jpg` | negro | editorial lifestyle | duffel / travel bag | sí (lateral) | home · hero hombre | Duffel negro, aeropuerto |
+| `inicio/hero-mujer-aeropuerto.jpg` | cognac | editorial lifestyle | mochila | sí (esquina frontal) | reserva | Modelo de espaldas, terminal |
+| `inicio/hero-mujer-cocora-mochila-cognac.jpg` | cognac | editorial lifestyle | mochila | sí (esquina frontal) | home · hero mujer | Espaldas, palmas de cera · Cocora |
+| `inicio/hero-hombre-aeropuerto-duffel-negro.jpg` | negro | editorial lifestyle | duffel / travel bag | sí (lateral) | reserva | Duffel negro, aeropuerto |
+| `inicio/hero-hombre-guatape-duffel-negro.jpg` | negro | editorial lifestyle | duffel / travel bag | sí (lateral) | home · hero hombre | Guatapé, Peñol, duffel negro |
 | `lifestyle/hombre/duffel-cognac-lifestyle.jpg` | cognac | editorial lifestyle | duffel / travel bag | sí (lateral) | coleccion · lifestyle duffel (reserva) | Arquitectura clásica, caminando |
 | `lifestyle/hombre/mochila-chocolate-hotel-lifestyle.jpg` | chocolate | editorial lifestyle | mochila | sí | reserva / futura ficha chocolate | Hotel / fachada |
 | `lifestyle/hombre/mochila-chocolate-lifestyle.jpg` | chocolate | editorial lifestyle | mochila | sí | reserva / futura ficha chocolate | Café europeo, modelo sentado |
@@ -38,8 +40,8 @@ Colores según el cuero **visible en foto** (no etiquetas inventadas).
 
 | Página | Slot | Archivo | Vacío |
 |--------|------|---------|-------|
-| home | Hero mujer | `inicio/hero-mujer-aeropuerto.jpg` | |
-| home | Hero hombre | `inicio/hero-hombre-aeropuerto-duffel-negro.jpg` | |
+| home | Hero mujer | `inicio/hero-mujer-cocora-mochila-cognac.jpg` | Cocora · mochila cognac |
+| home | Hero hombre | `inicio/hero-hombre-guatape-duffel-negro.jpg` | Guatapé · duffel negro |
 | home | Edit mujer · Bolso Dama | `producto/mujer/tote-cognac-editorial.jpg` | reemplaza tote-cognac-estudio (logo incorrecto) |
 | home | Edit hombre · Travel Bag II | `producto/hombre/travel-bag-negro-estudio.jpg` | |
 | home | Edit mujer · Travel Bag I | `producto/mujer/travel-bag-cognac-estudio.jpg` | |

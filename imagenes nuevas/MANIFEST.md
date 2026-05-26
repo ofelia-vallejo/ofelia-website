@@ -3,7 +3,9 @@
 - `detalle/firma-mochila-negro.jpg`
 - `detalle/firma-travel-bag-cognac.jpg`
 - `inicio/hero-hombre-aeropuerto-duffel-negro.jpg`
+- `inicio/hero-hombre-guatape-duffel-negro.jpg`
 - `inicio/hero-mujer-aeropuerto.jpg`
+- `inicio/hero-mujer-cocora-mochila-cognac.jpg`
 - `lifestyle/hombre/duffel-cognac-lifestyle.jpg`
 - `lifestyle/hombre/mochila-chocolate-hotel-lifestyle.jpg`
 - `lifestyle/hombre/mochila-chocolate-lifestyle.jpg`
