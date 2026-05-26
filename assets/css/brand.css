@@ -134,6 +134,8 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 .brand-logo,
 /* Nacida de una firma */
 .banner-statement {
+  position: relative;
+  overflow: hidden;
   background: var(--marfil);
   padding: 120px var(--pad-x);
   text-align: center;
@@ -173,35 +175,31 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   line-height: 1.85;
 }
 
-/* Firma completa (estampado) — una sola vez aquí */
-.banner-statement__emblem {
+/* Firma completa — watermark único (sin sello) */
+.banner-statement__watermark {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 36px auto 0;
-}
-
-.banner-statement__emblem img {
-  background: transparent;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .banner-statement__mark {
   display: block;
-  width: min(160px, 42vw);
+  width: min(280px, 72vw);
   height: auto;
   margin: 0;
   object-fit: contain;
-  opacity: 0.18;
+  opacity: 0.12;
 }
 
-.banner-statement__seal {
-  display: block;
-  width: 48px;
-  height: auto;
-  margin: 0;
-  object-fit: contain;
-  object-position: center center;
-  opacity: 0.2;
+.banner-statement__rule,
+.banner-statement__title,
+.banner-statement__body {
+  position: relative;
+  z-index: 1;
 }
 
 .navbar__right {

@@ -38,8 +38,10 @@ Colores según el cuero **visible en foto** (no etiquetas inventadas).
 
 | Página | Slot | Archivo | Vacío |
 |--------|------|---------|-------|
-| home | Hero mujer (único) | `inicio/hero-mujer-aeropuerto.jpg` | |
-| home | Edit mujer · hero | `producto/mujer/tote-cognac-editorial.jpg` | |
+| home | Hero mujer | `inicio/hero-mujer-aeropuerto.jpg` | |
+| home | Hero hombre | `inicio/hero-hombre-aeropuerto-duffel-negro.jpg` | |
+| home | Edit mujer · Bolso Dama | `producto/mujer/tote-cognac-editorial.jpg` | reemplaza tote-cognac-estudio (logo incorrecto) |
+| home | Edit hombre · Travel Bag II | `producto/hombre/travel-bag-negro-estudio.jpg` | |
 | home | Edit mujer · Travel Bag I | `producto/mujer/travel-bag-cognac-estudio.jpg` | |
 | home | Edit mujer · Travel Bag III | `producto/mujer/mochila-cognac-estudio-01.jpg` | |
 | home | Edit mujer · Bolso Dama mini | `lifestyle/mujer/tote-cognac-lifestyle.jpg` | |

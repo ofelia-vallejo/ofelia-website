@@ -114,21 +114,14 @@
 
     .reveal.is-in { opacity: 1; transform: translateY(0); }
 
-    /* GENDER HERO — single editorial column */
+    /* GENDER HERO */
     .gender {
       margin-top: 56px;
       min-height: calc(100vh - 56px);
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       position: relative;
       background: var(--marfil);
-      padding: 0 var(--pad-x);
-    }
-
-    .gender--solo {
-      min-height: auto;
-      padding-bottom: 24px;
     }
 
     .gender__index {
@@ -144,6 +137,17 @@
       color: rgba(11, 31, 58, 0.35);
     }
 
+    .gender__divider {
+      position: absolute;
+      top: 80px;
+      bottom: 80px;
+      left: 50%;
+      width: 1px;
+      background: rgba(11, 31, 58, 0.15);
+      z-index: 3;
+      pointer-events: none;
+    }
+
     .gender__panel {
       display: flex;
       flex-direction: column;
@@ -153,25 +157,6 @@
       position: relative;
       overflow: hidden;
       transition: background 0.6s var(--ease);
-      width: 100%;
-      max-width: 880px;
-    }
-
-    .gender__panel--solo {
-      text-align: center;
-      align-items: center;
-      padding: 72px 48px 80px;
-    }
-
-    .gender__panel--solo .gender__sub {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .gender__panel--solo .gender__big {
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
     }
 
     .gender__panel:hover {
@@ -249,16 +234,6 @@
       max-height: 520px;
       position: relative;
       overflow: hidden;
-      width: 100%;
-    }
-
-    .gender__panel--solo .gender__media {
-      margin-top: 40px;
-      min-height: 420px;
-      max-height: min(68vh, 640px);
-      max-width: 720px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .gender__photo {
@@ -272,6 +247,15 @@
 
     .gender__panel--mujer .gender__photo {
       object-position: 50% 58%;
+    }
+
+    .gender__panel--hombre .gender__media {
+      aspect-ratio: 4 / 5;
+    }
+
+    .gender__panel--hombre .gender__photo {
+      object-position: 58% 62%;
+      object-fit: cover;
     }
 
     .gender__panel:hover .gender__photo {
@@ -341,22 +325,6 @@
       grid-template-columns: 1fr 1fr;
       gap: 1px;
       background: rgba(11, 31, 58, 0.06);
-    }
-
-    .edit__grid--solo {
-      grid-template-columns: 1fr;
-      max-width: 720px;
-      margin: 0 auto;
-      background: transparent;
-      gap: 0;
-    }
-
-    .edit__side--solo .media {
-      aspect-ratio: 3 / 4;
-    }
-
-    .edit__side--solo .meta .name {
-      font-size: clamp(26px, 3vw, 38px);
     }
 
     .edit__side {
@@ -672,17 +640,23 @@
     @media (max-width: 900px) {
       :root { --pad-x: 20px; }
 
-      .gender { min-height: 0; padding: 0 20px; }
-
-      .gender__panel,
-      .gender__panel--solo { padding: 56px 20px 48px; }
-
-      .gender__panel--solo .gender__media {
-        min-height: 320px;
-        max-height: 420px;
+      .gender {
+        grid-template-columns: 1fr;
+        min-height: 0;
       }
 
-      .gender__big { top: 56px; }
+      .gender__panel { padding: 56px 24px 48px; }
+
+      .gender__divider {
+        left: 0;
+        right: 0;
+        top: 50%;
+        bottom: auto;
+        width: auto;
+        height: 1px;
+      }
+
+      .gender__big { top: 56px; right: 24px; }
       .gender__index { top: 16px; left: 24px; }
       .gender__media { max-height: 320px; min-height: 280px; }
 
@@ -734,9 +708,10 @@
   </nav>
 
   <main>
-  <section class="gender gender--solo" id="top">
+  <section class="gender" id="top">
     <p class="gender__index">— 01 / Casa</p>
-    <a href="coleccion.html#mujer" class="gender__panel gender__panel--mujer gender__panel--solo" id="mujer">
+    <div class="gender__divider" aria-hidden="true"></div>
+    <a href="coleccion.html#mujer" class="gender__panel gender__panel--mujer" id="mujer">
       <p class="gender__big">I</p>
       <p class="gender__label">Maison · Colección Guanábana</p>
       <h2 class="gender__title">Mujer</h2>
@@ -754,18 +729,35 @@
         <span class="caption">Mochila · Cognac</span>
       </div>
     </a>
+    <a href="coleccion.html#hombre" class="gender__panel gender__panel--hombre" id="hombre">
+      <p class="gender__big">II</p>
+      <p class="gender__label">Maison · Colección Borojó</p>
+      <h2 class="gender__title">Hombre</h2>
+      <p class="gender__sub">Maletines, portafolios, billeteras, cinturones y correas. Cuero pleno colombiano, herrajes de latón macizo, hecho a mano en Medellín.</p>
+      <span class="gender__cta">Entrar a la colección <span aria-hidden="true">→</span></span>
+      <div class="gender__media" data-dark>
+        <img
+          src="imagenes nuevas/inicio/hero-hombre-aeropuerto-duffel-negro.jpg"
+          alt="Hombre con maletín en cuero — colección Hombre"
+          class="gender__photo"
+          width="682"
+          height="1024"
+          loading="eager"
+          decoding="async">
+        <span class="caption">Duffel · Negro</span>
+      </div>
+    </a>
   </section>
 
   <section class="banner-statement reveal" id="historia">
     <div class="banner-statement__rule" aria-hidden="true"></div>
-    <h2 class="banner-statement__title"><a href="manifiesto.html">Nacida de una firma.</a></h2>
-    <div class="banner-statement__emblem">
-      <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo — firma completa" class="banner-statement__mark" width="160" height="auto">
-      <img src="assets/img/logo_sello.png" alt="" class="banner-statement__seal" width="56" height="auto" aria-hidden="true">
+    <div class="banner-statement__watermark" aria-hidden="true">
+      <img src="assets/img/logo_firma_completa.png" alt="" class="banner-statement__mark" width="280" height="auto">
     </div>
+    <h2 class="banner-statement__title"><a href="manifiesto.html">Nacida de una firma.</a></h2>
     <p class="banner-statement__body">
-      Una firma grabada en cuero.<br>
-      Patrimonio que permanece en cada pieza.
+      La firma de la casa, grabada en cuero pleno.<br>
+      Patrimonio que permanece — pieza a pieza, generación a generación.
     </p>
   </section>
 
@@ -774,9 +766,9 @@
       <span class="l">Frutos de Antioquia · Lulo</span>
       <a href="coleccion.html" class="r">Ver toda la colección →</a>
     </div>
-    <div class="edit__grid edit__grid--solo">
-      <div class="edit__side edit__side--mujer edit__side--solo">
-        <a href="coleccion.html#bolso-dama" class="media" data-dark>
+    <div class="edit__grid">
+      <div class="edit__side edit__side--mujer">
+        <a href="producto/bolso-dama.html" class="media" data-dark>
           <span class="roman">I</span>
           <span class="badge">Mujer</span>
           <div class="media__frame">
@@ -788,26 +780,62 @@
           </div>
         </a>
         <div class="strip">
-          <a href="coleccion.html#travel-bag-i">
+          <a href="producto/travel-bag-i.html">
             <div class="mini-img mini-img--travel" data-dark>
               <img src="imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg" alt="Travel Bag I — cuero cognac" loading="lazy" decoding="async">
             </div>
             <p class="mini-name">Travel Bag I</p>
             <p class="mini-det">Cuero cognac</p>
           </a>
-          <a href="coleccion.html#travel-bag-iii">
+          <a href="producto/travel-bag-iii.html">
             <div class="mini-img mini-img--mochila" data-dark>
               <img src="imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg" alt="Travel Bag III — mochila cognac" loading="lazy" decoding="async">
             </div>
             <p class="mini-name">Travel Bag III</p>
             <p class="mini-det">Cuero cognac</p>
           </a>
-          <a href="coleccion.html#mujer">
+          <a href="producto/bolso-dama.html">
             <div class="mini-img mini-img--tote" data-dark>
               <img src="imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg" alt="Bolso Dama — tote cognac" loading="lazy" decoding="async">
             </div>
             <p class="mini-name">Bolso Dama</p>
             <p class="mini-det">Cuero cognac</p>
+          </a>
+        </div>
+      </div>
+      <div class="edit__side edit__side--hombre">
+        <a href="producto/travel-bag-ii.html" class="media" data-dark>
+          <span class="roman">II</span>
+          <span class="badge">Hombre</span>
+          <div class="media__frame">
+            <img src="imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg" alt="Travel Bag II en cuero negro" class="media__photo" loading="lazy" decoding="async">
+          </div>
+          <div class="meta">
+            <p class="name">Travel Bag II</p>
+            <p class="det">Cuero negro · Borojó</p>
+          </div>
+        </a>
+        <div class="strip">
+          <a href="producto/travel-bag-ii.html">
+            <div class="mini-img mini-img--maletin" data-dark>
+              <img src="imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg" alt="Travel Bag II — cuero negro" loading="lazy" decoding="async">
+            </div>
+            <p class="mini-name">Travel Bag II</p>
+            <p class="mini-det">Cuero negro</p>
+          </a>
+          <a href="coleccion.html#bandolera-elite">
+            <div class="mini-img mini-img--portafolio" data-dark>
+              <!-- Sin foto congruente aún -->
+            </div>
+            <p class="mini-name">Bandolera Elite</p>
+            <p class="mini-det">—</p>
+          </a>
+          <a href="producto/morral-elite.html">
+            <div class="mini-img mini-img--detalle" data-dark>
+              <img src="imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg" alt="Morral Elite — cuero negro" loading="lazy" decoding="async">
+            </div>
+            <p class="mini-name">Morral Elite</p>
+            <p class="mini-det">Cuero negro</p>
           </a>
         </div>
       </div>

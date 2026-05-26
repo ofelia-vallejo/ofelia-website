@@ -1,0 +1,201 @@
+/* Product detail — editorial COS-inspired */
+.product-hero {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: calc(100vh - 56px);
+  background: var(--marfil);
+}
+
+.product-hero__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--espresso);
+}
+
+.product-hero__photo {
+  width: 100%;
+  height: 100%;
+  min-height: 70vh;
+  object-fit: cover;
+  display: block;
+}
+
+.product-hero__badge {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 2;
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: rgba(243, 238, 230, 0.85);
+  background: rgba(11, 31, 58, 0.35);
+  padding: 6px 12px;
+}
+
+.product-hero__body {
+  padding: 80px var(--pad-x) 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-hero__back {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-soft);
+  margin-bottom: 32px;
+  transition: color 0.35s var(--ease);
+}
+
+.product-hero__back:hover { color: var(--navy); }
+
+.product-hero__label {
+  font-family: Cinzel, serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--text-soft);
+  margin-bottom: 16px;
+}
+
+.product-hero__title {
+  font-family: Cinzel, serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 52px);
+  color: var(--navy);
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+.product-hero__color {
+  margin-top: 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-soft);
+}
+
+.product-hero__copy {
+  margin-top: 28px;
+  max-width: 380px;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(11, 31, 58, 0.6);
+  line-height: 1.85;
+}
+
+.product-hero__actions {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+}
+
+.product-hero__cta {
+  display: inline-block;
+  padding: 14px 36px;
+  border: 1px solid var(--navy);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--navy);
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
+}
+
+.product-hero__cta:hover {
+  background: var(--navy);
+  color: var(--marfil);
+}
+
+.product-hero__cta--ghost {
+  border-color: rgba(11, 31, 58, 0.25);
+  background: transparent;
+}
+
+.product-hero__cta--ghost:hover {
+  background: transparent;
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+.product-specs {
+  background: var(--beige-medio);
+  padding: 64px var(--pad-x);
+  border-top: 1px solid var(--rule);
+}
+
+.product-specs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 960px;
+}
+
+.product-specs__item h3 {
+  font-family: Cinzel, serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+.product-specs__item p {
+  font-size: 12px;
+  color: rgba(11, 31, 58, 0.65);
+  line-height: 1.75;
+}
+
+.product-bespoke {
+  background: var(--navy);
+  padding: 80px var(--pad-x);
+  text-align: center;
+  color: var(--marfil);
+}
+
+.product-bespoke__title {
+  font-family: Cinzel, serif;
+  font-size: clamp(22px, 3vw, 36px);
+  letter-spacing: 0.03em;
+}
+
+.product-bespoke__sub {
+  margin: 16px auto 0;
+  max-width: 420px;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(243, 238, 230, 0.55);
+  line-height: 1.8;
+}
+
+.product-bespoke__cta {
+  display: inline-block;
+  margin-top: 28px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--marfil);
+  border-bottom: 1px solid rgba(243, 238, 230, 0.35);
+  padding-bottom: 3px;
+}
+
+.product-bespoke__cta:hover {
+  border-color: var(--marfil);
+}
+
+@media (max-width: 900px) {
+  .product-hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .product-hero__photo { min-height: 56vh; }
+  .product-hero__body { padding: 48px 24px 64px; }
+  .product-specs__grid { grid-template-columns: 1fr; gap: 28px; }
+  .product-specs { padding: 48px 24px; }
+  .product-bespoke { padding: 64px 24px; }
+}

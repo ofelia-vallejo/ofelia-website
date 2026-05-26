@@ -253,6 +253,120 @@
       display: block;
     }
 
+    /* ZONAS DE GRABADO */
+    .engrave-zones {
+      background: var(--marfil);
+      padding: 80px var(--pad-x);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .engrave-zones__head {
+      max-width: 520px;
+      margin-bottom: 48px;
+    }
+
+    .engrave-zones__label {
+      font-family: Cinzel, serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+
+    .engrave-zones__title {
+      font-family: Cinzel, serif;
+      font-size: clamp(22px, 3vw, 32px);
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .engrave-zones__sub {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.75;
+    }
+
+    .engrave-zones__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .engrave-zones__visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .engrave-zones__visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 55%;
+      opacity: 0.92;
+    }
+
+    .engrave-zones__markers {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .engrave-marker {
+      padding: 20px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .engrave-marker:first-child { border-top: none; padding-top: 0; }
+
+    .engrave-marker__product {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .engrave-marker__zone {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.65;
+    }
+
+    .engrave-preview {
+      margin-top: 8px;
+      padding: 14px 16px;
+      background: var(--beige-medio);
+      border: 1px solid var(--rule);
+      font-family: Cinzel, serif;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      color: rgba(11, 31, 58, 0.35);
+      min-height: 48px;
+    }
+
+    .engrave-preview.is-filled {
+      color: var(--navy);
+    }
+
+    .engrave-preview__hint {
+      display: block;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 9px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
     /* FORM SECTION */
     .form-section {
       background: var(--marfil);
@@ -335,6 +449,9 @@
       .materials-grid { grid-template-columns: 1fr; margin-top: 40px; }
 
       .laser-feature { padding: 64px 24px; }
+
+      .engrave-zones { padding: 64px 24px; }
+      .engrave-zones__grid { grid-template-columns: 1fr; gap: 32px; }
     }
   </style>
 </head>
@@ -441,6 +558,50 @@
           <p class="material-card__props">Edición limitada · Origen Antioquia · Pátina verde oscuro</p>
         </div>
       </article>
+    </div>
+  </section>
+
+  <section class="engrave-zones reveal" id="zonas-grabado">
+    <div class="engrave-zones__head">
+      <p class="engrave-zones__label">Posición oficial</p>
+      <h2 class="engrave-zones__title">Dónde queda el grabado</h2>
+      <p class="engrave-zones__sub">
+        Cada pieza tiene una zona definida por la casa — sin placas ni vinilo.
+        El láser marca el cuero a ~0,4 mm; el trazo permanece con la piel.
+      </p>
+    </div>
+    <div class="engrave-zones__grid">
+      <figure class="engrave-zones__visual" data-dark>
+        <img
+          src="imagenes nuevas/detalle/firma-mochila-negro.jpg"
+          alt="Detalle de grabado láser OV en cuero negro"
+          width="1024"
+          height="768"
+          loading="lazy"
+          decoding="async">
+      </figure>
+      <div class="engrave-zones__markers">
+        <div class="engrave-marker">
+          <p class="engrave-marker__product">Travel Bag · Duffel</p>
+          <p class="engrave-marker__zone">Esquina inferior derecha del panel frontal · ~4 cm del borde.</p>
+        </div>
+        <div class="engrave-marker">
+          <p class="engrave-marker__product">Bolso Dama · Tote</p>
+          <p class="engrave-marker__zone">Centrado al frente · ~6 cm sobre la base.</p>
+        </div>
+        <div class="engrave-marker">
+          <p class="engrave-marker__product">Morral · Bandolera</p>
+          <p class="engrave-marker__zone">Passant superior o esquina inferior derecha del panel.</p>
+        </div>
+        <div class="engrave-marker">
+          <p class="engrave-marker__product">Cinturón</p>
+          <p class="engrave-marker__zone">Centrado en la punta · ~2 cm del extremo.</p>
+        </div>
+        <div class="engrave-preview" id="engrave-preview" aria-live="polite">
+          <span id="engrave-preview-text">ABC</span>
+          <span class="engrave-preview__hint">Vista previa tipográfica · boceto confirmado por el atelier</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -607,8 +768,27 @@
         if (opt) opt.selected = true;
       }
 
-      textoInput.addEventListener('input', () => {
+      const previewEl = document.getElementById('engrave-preview');
+      const previewText = document.getElementById('engrave-preview-text');
+
+      function syncPreview() {
+        const val = textoInput.value.trim();
         charCount.textContent = textoInput.value.length;
+        if (val) {
+          previewText.textContent = val.slice(0, 24);
+          previewEl.classList.add('is-filled');
+        } else {
+          previewText.textContent = 'ABC';
+          previewEl.classList.remove('is-filled');
+        }
+      }
+
+      textoInput.addEventListener('input', syncPreview);
+      form.tipo_grabado.addEventListener('change', () => {
+        if (form.tipo_grabado.value === 'iniciales' && !textoInput.value) {
+          previewText.textContent = 'OV';
+        }
+        syncPreview();
       });
 
       function showNotice(el, msg) {
