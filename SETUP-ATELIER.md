@@ -101,7 +101,7 @@ Respuesta incluye `products[]` con imágenes, variantes, `engrave`, precios.
 ## 7. Próximo paso (opcional)
 
 - Migrar a **Supabase/Postgres** si necesitáis pedidos, usuarios y stock en tiempo real multi-usuario
-- Colección dinámica 100 % desde API (hoy el HTML de `coleccion.html` es estático; los precios/stock pueden leerse del API en una fase siguiente)
+- Colección 100 % generada desde API (hoy las tarjetas son HTML estático; precios y stock se hidratan desde `/api/products` vía `coleccion-live.js`)
 - Pasarela de pago (Stripe) con total pieza + grabado
 
 ---

@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RECIPIENT = process.env.EMAIL_TO || 'atelierofelia.vallejo@gmail.com';
 
-const PRODUCTOS_VALIDOS = [
+const PRODUCTOS_FALLBACK = [
   'Travel Bag I',
   'Travel Bag II',
   'Travel Bag III',
@@ -18,6 +18,18 @@ const PRODUCTOS_VALIDOS = [
   'Bolso Dama',
   'Cinturón',
 ];
+
+async function getProductNames() {
+  try {
+    const { loadCatalog } = require('../lib/store');
+    const catalog = await loadCatalog();
+    const names = catalog.products.filter((p) => p.active).map((p) => p.name);
+    if (names.length) return names;
+  } catch {
+    /* fallback */
+  }
+  return PRODUCTOS_FALLBACK;
+}
 
 const TIPOS_GRABADO = ['iniciales', 'nombre', 'fecha', 'texto'];
 
@@ -69,7 +81,8 @@ module.exports = async (req, res) => {
     return res.status(400).json({ ok: false, error: 'El email no es válido.' });
   }
 
-  if (!PRODUCTOS_VALIDOS.includes(producto)) {
+  const productosValidos = await getProductNames();
+  if (!productosValidos.includes(producto)) {
     return res.status(400).json({ ok: false, error: 'Producto no reconocido.' });
   }
 
