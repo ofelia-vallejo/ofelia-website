@@ -710,18 +710,18 @@
     document.getElementById('coordsVal').textContent = formatCoord(-r[0], -r[1]);
   }
 
-  let stage = 0, busy = false;
+  let stage = 0, mapVisual = 0, busy = false;
 
-  /* Resaltado por etapa (no solo por escala — activa al iniciar cada aterrizaje) */
+  /* Map layers follow mapVisual, updated only after each zoom finishes (not at click). */
   function applyLayerState() {
-    lInked.classList.toggle('off', stage !== 2);
-    lDepts.classList.toggle('on', stage >= 3);
-    lRegion.classList.toggle('on', stage >= 3);
-    lDeco.classList.toggle('on', stage >= 5);
-    const showPin = stage === 4 && pinEl.dataset.placed === '1';
+    lInked.classList.toggle('off', mapVisual !== 2);
+    lDepts.classList.toggle('on', mapVisual >= 3);
+    lRegion.classList.toggle('on', mapVisual >= 3);
+    lDeco.classList.toggle('on', mapVisual >= 5);
+    const showPin = mapVisual === 4 && pinEl.dataset.placed === '1';
     pinEl.classList.toggle('on', showPin);
-    if (stage < 4) pinEl.classList.remove('on', 'deep');
-    if (stage !== 5) pinEl.classList.remove('deep');
+    if (mapVisual < 4) pinEl.classList.remove('on', 'deep');
+    if (mapVisual !== 5) pinEl.classList.remove('deep');
   }
 
   function setPinAt(lng, lat) {
@@ -734,6 +734,10 @@
   function setStage(n) {
     stage = n;
     stageEl.dataset.stage = String(n);
+  }
+
+  function revealMap(n) {
+    mapVisual = n;
     applyLayerState();
   }
 
@@ -916,6 +920,7 @@
     setStage(1);
     updatePanel(1);
     await animate({ rotTo:[74,-4,0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:2200 });
+    revealMap(1);
     busy = false;
   }
 
@@ -931,6 +936,7 @@
       tiltTo: 4,
       ms: 2200
     });
+    revealMap(2);
     busy = false;
   }
 
@@ -944,6 +950,7 @@
       tiltTo: 7,
       ms: 2200
     });
+    revealMap(3);
     busy = false;
   }
 
@@ -953,13 +960,14 @@
     coordAnimated = false;
     setStage(4);
     updatePanel(4);
-    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
       scaleTo: Math.min(W, H) * 12,
       tiltTo: 10,
       ms: 2200
     });
+    revealMap(4);
+    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
     busy = false;
   }
 
@@ -967,8 +975,9 @@
     if (busy) return; busy = true;
     setStage(5);
     updatePanel(5);
-    pinEl.classList.add('deep');
     await animate({ scaleTo: Math.min(W, H) * 28, tiltTo: 18, ms: 2400 });
+    revealMap(5);
+    pinEl.classList.add('deep');
     busy = false;
   }
 
@@ -983,17 +992,17 @@
     setStage(0);
     updatePanel(0);
     await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
+    revealMap(0);
     busy = false;
   }
 
   /* ─── Click handlers ─────────────────────────────── */
-  /* Guard against synthesized double-tap/click on mobile */
   let lastAdvanceAt = 0;
-  svgEl.addEventListener('click', () => {
+  svgEl.addEventListener('click', e => {
+    e.preventDefault();
     const now = Date.now();
-    if (now - lastAdvanceAt < 450) return;
+    if (busy || now - lastAdvanceAt < 800) return;
     lastAdvanceAt = now;
-    if (busy) return;
     if (stage === 0) toStage1();
     else if (stage === 1) toStage2();
     else if (stage === 2) toStage3();
