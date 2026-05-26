@@ -192,9 +192,16 @@
     position: absolute; inset: 0;
     transform: rotateX(0deg); transform-origin: 50% 60%;
     transition: transform 0s; will-change: transform;
-    overflow: hidden;
+    overflow: visible;
   }
-  .globe-svg { width: 100%; height: 100%; display: block; }
+  .globe-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .globe-ring {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1;
+    opacity: 0.42;
+    pointer-events: none;
+  }
   .grain {
     position: absolute; inset: 0;
     mix-blend-mode: multiply; opacity: 0.22; pointer-events: none; z-index: 2;
@@ -223,12 +230,7 @@
   .stage[data-flight="1"] .layer-decorative circle {
     transition: none !important;
   }
-  .layer-decorative path, .layer-decorative circle {
-    stroke: var(--ink); stroke-width: 0.5; fill: none;
-    opacity: 0; transition: opacity 0.8s var(--ease);
-  }
-  .layer-decorative.on path,
-  .layer-decorative.on circle { opacity: 0.45; }
+  .layer-decorative { display: none; }
 
   /* ─── Pin ────────────────────────────────────────── */
   .pin {
@@ -256,59 +258,57 @@
   }
   .stage[data-stage="5"] .vignette { opacity: 1; }
 
-  /* ─── Cartographic corners ───────────────────────── */
-  .corner { position: absolute; width: 28px; height: 28px; z-index: 5; pointer-events: none; }
-  .corner.tl { top: 68px; left: 24px; border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); opacity: 0.3; }
-  .corner.tr { top: 68px; right: 24px; border-top: 1px solid var(--ink); border-right: 1px solid var(--ink); opacity: 0.3; }
-  .corner.bl { bottom: 24px; left: 24px; border-bottom: 1px solid var(--ink); border-left: 1px solid var(--ink); opacity: 0.3; }
-  .corner.br { bottom: 24px; right: 24px; border-bottom: 1px solid var(--ink); border-right: 1px solid var(--ink); opacity: 0.3; }
-
-  /* ─── Side labels ────────────────────────────────── */
-  .side {
-    position: absolute; top: 50%; z-index: 5;
-    font-size: 8px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: rgba(11,31,58,0.20); white-space: nowrap; pointer-events: none;
-  }
-  .side--left  { left: 22px;  transform: translateY(-50%) rotate(-90deg); }
-  .side--right { right: 22px; transform: translateY(-50%) rotate(90deg); }
-  @media (max-width: 768px) { .side { display: none; } }
-
-  /* ─── Content panels ─────────────────────────────── */
+  /* ─── Content panels (editorial card) ──────────────── */
   .panels {
-    position: absolute; bottom: 116px; left: 50%;
-    transform: translateX(-50%);
-    text-align: center; width: min(520px, 78vw);
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: min(560px, 86vw);
     z-index: 6; pointer-events: none;
   }
   .panel {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    opacity: 0; transform: translateY(16px);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    position: absolute; inset: 0;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    display: flex; justify-content: center; align-items: center;
   }
   .panel.active { opacity: 1; transform: translateY(0); }
-  .panel__label { display: none; }
-  .panel.active .panel__title {
-    display: inline-block;
-    padding: 12px 22px;
-    background: rgba(243,238,230,0.96);
-    box-shadow: 0 0 0 1px rgba(11,31,58,0.06);
+  .panel__card {
+    width: 100%;
+    padding: 36px 40px 32px;
+    background: rgba(243, 238, 230, 0.97);
+    border: 1px solid rgba(11, 31, 58, 0.18);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 18px 48px rgba(11, 31, 58, 0.07),
+      0 4px 14px rgba(11, 31, 58, 0.04);
+    backdrop-filter: blur(6px);
   }
   .panel__title {
-    font-family: 'Cinzel', serif; font-size: clamp(24px, 3.2vw, 42px);
-    font-weight: 400; letter-spacing: 0.02em; line-height: 1.22;
-    color: var(--ink); margin: 0 auto 12px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    line-height: 1.28;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 18px;
     max-width: 100%;
   }
-  .panel.active .panel__body {
-    display: inline-block;
-    padding: 8px 18px;
-    background: rgba(243,238,230,0.9);
-    margin-top: 4px;
+  .panel__rule {
+    width: 48px; height: 1px;
+    margin: 0 auto 18px;
+    border: 0;
+    background: rgba(11, 31, 58, 0.22);
   }
   .panel__body {
-    font-size: 14px; letter-spacing: 0.06em;
-    color: rgba(11,31,58,0.88); line-height: 1.75;
-    margin: 0 auto;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: rgba(11, 31, 58, 0.72);
+    line-height: 1.75;
+    margin: 0;
+    font-style: italic;
   }
   .stage[data-stage="5"] .panels { display: none; }
   .stage[data-stage="5"] .click-hint,
@@ -316,15 +316,16 @@
 
   /* ─── Click hint ─────────────────────────────────── */
   .click-hint {
-    position: absolute; bottom: 80px; left: 50%;
+    position: absolute; bottom: 88px; left: 50%;
     transform: translateX(-50%);
     display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 9px;
-    letter-spacing: 0.32em; text-transform: uppercase;
-    color: var(--ink); z-index: 6; white-space: nowrap;
-    background: rgba(243,238,230,0.94);
-    padding: 10px 16px;
-    box-shadow: 0 0 0 1px rgba(11,31,58,0.08);
+    font-family: 'Helvetica Neue', sans-serif; font-size: 9px;
+    font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(11, 31, 58, 0.72); z-index: 6; white-space: nowrap;
+    background: rgba(243, 238, 230, 0.92);
+    padding: 10px 18px;
+    border: 1px solid rgba(11, 31, 58, 0.12);
+    box-shadow: 0 6px 20px rgba(11, 31, 58, 0.05);
   }
   .click-hint__dot {
     width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
@@ -347,35 +348,6 @@
     transition: background 0.4s, width 0.4s, border-radius 0.4s;
   }
   .nav-dot.active { background: var(--ink); width: 16px; border-radius: 3px; }
-
-  /* ─── Coordinates ────────────────────────────────── */
-  .coords {
-    position: absolute; bottom: 28px; left: 48px; z-index: 6; pointer-events: none;
-  }
-  .coords__meta {
-    font-family: 'JetBrains Mono', monospace; font-size: 7.5px;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(11,31,58,0.35); margin-bottom: 3px;
-  }
-  .coords__vals {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    letter-spacing: 0.14em; color: rgba(11,31,58,0.55);
-  }
-  .coords__place {
-    display: block; margin-top: 2px; font-size: 7.5px;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(11,31,58,0.25); transition: color 1s;
-  }
-  .coords__place.resolved { color: rgba(11,31,58,0.45); }
-  @media (max-width: 768px) { .coords { left: 20px; } }
-
-  /* ─── Brand label ────────────────────────────────── */
-  .brand-lbl {
-    position: absolute; bottom: 28px; right: 48px; z-index: 6;
-    font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.14em;
-    color: rgba(11,31,58,0.28); pointer-events: none;
-  }
-  @media (max-width: 768px) { .brand-lbl { right: 20px; } }
 
   /* ─── Controls (Volver / Saltar) ─────────────────── */
   .controls {
@@ -436,30 +408,26 @@
 
   /* ─── Mobile global ──────────────────────────────── */
   @media (max-width: 768px) {
-    /* Panels */
     .panels {
-      bottom: 128px;
-      width: calc(100vw - 48px);
+      width: calc(100vw - 40px);
+    }
+    .panel__card {
+      padding: 28px 24px 24px;
     }
     .panel__title {
-      font-size: clamp(20px, 7vw, 30px);
-    }
-    .panel__label {
-      font-size: 7px; margin-bottom: 8px;
+      font-size: clamp(18px, 5.5vw, 26px);
+      letter-spacing: 0.05em;
     }
     .panel__body {
       font-size: 12px;
     }
 
-    /* Click hint */
     .click-hint {
       bottom: 92px; font-size: 8px; letter-spacing: 0.24em;
     }
 
-    /* Nav dots */
     .nav-dots { bottom: 60px; }
 
-    /* Controls */
     .controls { bottom: 36px; right: 20px; }
 
     /* Card */
@@ -479,9 +447,6 @@
     }
     .card .info .name { font-size: 15px; }
     .stage[data-stage="5"] .card { bottom: 72px; }
-
-    /* Corners spacing */
-    .corner.tl, .corner.tr { top: 56px; }
   }
 </style>
 </head>
@@ -527,11 +492,6 @@
 <!-- ─── Escena del globo ─────────────────────────────── -->
 <div class="stage" id="stage" data-stage="0">
 
-  <span class="corner tl"></span>
-  <span class="corner tr"></span>
-  <span class="corner bl"></span>
-  <span class="corner br"></span>
-
   <div class="tilt-wrap" id="tiltWrap">
     <svg class="globe-svg" id="svg">
       <defs>
@@ -544,6 +504,7 @@
         </filter>
         <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100" /></clipPath>
       </defs>
+      <circle class="globe-ring" id="globeRing" cx="0" cy="0" r="100" />
       <g clip-path="url(#globe-clip)">
         <g class="layer-water"      id="lWater"><circle cx="0" cy="0" r="100" /></g>
         <g class="layer-graticule"  id="lGrat"></g>
@@ -568,36 +529,42 @@
 
   <div class="vignette"></div>
 
-  <!-- Etiquetas laterales -->
-  <div class="side side--left">Mundo · Latitudes · Longitudes</div>
-  <div class="side side--right">Cartografía · Atlas · Herencia</div>
-
   <!-- Paneles de contenido -->
   <div class="panels" id="panels">
     <div class="panel active" data-panel="0">
-      <p class="panel__label">Cartografía · 0001</p>
-      <h2 class="panel__title">El mundo de Ofelia Vallejo.</h2>
-      <p class="panel__body">Un proyecto que nace en algún lugar de la tierra.</p>
+      <div class="panel__card">
+        <h2 class="panel__title">El mundo de Ofelia Vallejo.</h2>
+        <hr class="panel__rule" aria-hidden="true">
+        <p class="panel__body">Un proyecto que nace en algún lugar de la tierra.</p>
+      </div>
     </div>
     <div class="panel" data-panel="1">
-      <p class="panel__label">Capítulo I · Latinoamérica</p>
-      <h2 class="panel__title">Donde la tradición<br>se transforma en arte.</h2>
-      <p class="panel__body">y se crea con paciencia y con amor.</p>
+      <div class="panel__card">
+        <h2 class="panel__title">Donde la tradición se transforma en arte.</h2>
+        <hr class="panel__rule" aria-hidden="true">
+        <p class="panel__body">y se crea con paciencia y con amor.</p>
+      </div>
     </div>
     <div class="panel" data-panel="2">
-      <p class="panel__label">Capítulo II · Colombia</p>
-      <h2 class="panel__title">Tierra de<br>talabarteros.</h2>
-      <p class="panel__body">Curtidores y artesanos firman cada pieza como una promesa heredada.</p>
+      <div class="panel__card">
+        <h2 class="panel__title">Tierra de talabarteros.</h2>
+        <hr class="panel__rule" aria-hidden="true">
+        <p class="panel__body">Curtidores y artesanos firman cada pieza como una promesa heredada.</p>
+      </div>
     </div>
     <div class="panel" data-panel="3">
-      <p class="panel__label">Capítulo III · Antioquia</p>
-      <h2 class="panel__title">El Eje<br>de la eterna primavera.</h2>
-      <p class="panel__body">Talleres entre montañas y valles —<br>donde el cuero toma forma.</p>
+      <div class="panel__card">
+        <h2 class="panel__title">El Eje de la eterna primavera.</h2>
+        <hr class="panel__rule" aria-hidden="true">
+        <p class="panel__body">Talleres entre montañas y valles — donde el cuero toma forma.</p>
+      </div>
     </div>
     <div class="panel" data-panel="4">
-      <p class="panel__label">Capítulo IV · Guatapé</p>
-      <h2 class="panel__title">Cuero hecho<br>para durar.</h2>
-      <p class="panel__body">Una promesa que nació en Guatapé<br>y viaja al mundo en cuero.</p>
+      <div class="panel__card">
+        <h2 class="panel__title">Cuero hecho para durar.</h2>
+        <hr class="panel__rule" aria-hidden="true">
+        <p class="panel__body">Una promesa que nació en Guatapé y viaja al mundo en cuero.</p>
+      </div>
     </div>
   </div>
 
@@ -616,16 +583,6 @@
     <span class="nav-dot" data-n="4"></span>
     <span class="nav-dot" data-n="5"></span>
   </div>
-
-  <!-- Coordenadas bottom-left -->
-  <div class="coords">
-    <div class="coords__meta">Coordenadas · Proyección</div>
-    <div class="coords__vals" id="coordsVal">00°00′N · 00°00′O</div>
-    <span class="coords__place" id="coordsPlace">Cargando atlas…</span>
-  </div>
-
-  <!-- Brand label bottom-right -->
-  <div class="brand-lbl">Ofelia Vallejo</div>
 
   <!-- Controles Volver / Saltar -->
   <div class="controls">
@@ -658,6 +615,7 @@
   const stageEl = document.getElementById('stage');
   const tiltEl  = document.getElementById('tiltWrap');
   const clipC   = document.getElementById('clipCircle');
+  const globeRing = document.getElementById('globeRing');
   const step0El = document.getElementById('step0');
   const pinEl   = document.getElementById('pin');
   const backBtn = document.getElementById('backBtn');
@@ -689,8 +647,14 @@
   function setClip(r) {
     currentClip = r;
     const [cx, cy] = proj.translate();
+    const ringR = proj.scale();
     clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy); clipC.setAttribute('r', r);
     waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy); waterCircle.setAttribute('r', r + 5);
+    if (globeRing) {
+      globeRing.setAttribute('cx', cx);
+      globeRing.setAttribute('cy', cy);
+      globeRing.setAttribute('r', ringR);
+    }
   }
   /* init clip & water at projection center */
   setClip(INIT_SCALE);
@@ -704,19 +668,6 @@
     };
   }
 
-  function formatCoord(lng, lat) {
-    const la = Math.abs(lat), lo = Math.abs(lng);
-    const latD = Math.floor(la), latM = Math.floor((la - latD) * 60);
-    const lonD = Math.floor(lo), lonM = Math.floor((lo - lonD) * 60);
-    return latD.toString().padStart(2,'0') + '°' + latM.toString().padStart(2,'0') + '′' + (lat >= 0 ? 'N' : 'S')
-         + ' · ' + lonD.toString().padStart(2,'0') + '°' + lonM.toString().padStart(2,'0') + '′' + (lng >= 0 ? 'E' : 'O');
-  }
-
-  function updateCoords() {
-    const r = proj.rotate();
-    document.getElementById('coordsVal').textContent = formatCoord(-r[0], -r[1]);
-  }
-
   let stage = 0, mapVisual = 0, busy = false;
 
   /* Map layers follow mapVisual, updated only after each zoom finishes (not at click). */
@@ -724,7 +675,7 @@
     lInked.classList.toggle('off', mapVisual !== 2);
     lDepts.classList.toggle('on', mapVisual >= 3);
     lRegion.classList.toggle('on', mapVisual >= 3);
-    lDeco.classList.toggle('on', mapVisual >= 5);
+    lDeco.classList.remove('on');
     const showPin = mapVisual === 4 && pinEl.dataset.placed === '1';
     pinEl.classList.toggle('on', showPin);
     if (mapVisual < 4) pinEl.classList.remove('on', 'deep');
@@ -768,7 +719,6 @@
       }
     }
     applyLayerState();
-    updateCoords();
   }
 
   /* ─── Load data ──────────────────────────────────── */
@@ -803,21 +753,6 @@
   $depts.selectAll('path').data(colombiaGeo.features).join('path').attr('d', path);
   if (antioquia) $region.append('path').datum(antioquia).attr('d', path);
 
-  /* Decorative river + ridges — removed (keep map clean) */
-
-  [{n:'Bello',lng:-75.5573,lat:6.3373},{n:'Envigado',lng:-75.5836,lat:6.1717},
-   {n:'Itagüí',lng:-75.5993,lat:6.1717},{n:'Sabaneta',lng:-75.6164,lat:6.1500},
-   {n:'Caldas',lng:-75.6353,lat:6.0917},{n:'Copacabana',lng:-75.5076,lat:6.3475},
-   {n:'La Estrella',lng:-75.6353,lat:6.1583}
-  ].forEach(t => {
-    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.classList.add('deco');
-    c.setAttribute('r','1.2');
-    c.setAttribute('data-lng', t.lng);
-    c.setAttribute('data-lat', t.lat);
-    lDeco.appendChild(c);
-  });
-
   pinEl.dataset.lng = guatapeCenter[0];
   pinEl.dataset.lat = guatapeCenter[1];
   pinEl.style.visibility = 'hidden';
@@ -830,29 +765,6 @@
   const step0Tag  = document.getElementById('step0Tag');
   const step0Load = document.getElementById('step0Loading');
   if (step0Load) step0Load.textContent = 'Atlas · listo';
-
-  let coordAnimated = false;
-  function animateCoordsTo(lng, lat, placeLabel) {
-    if (coordAnimated) return;
-    coordAnimated = true;
-    const valsEl = document.getElementById('coordsVal');
-    const placeEl = document.getElementById('coordsPlace');
-    const dur = 2800, t0 = performance.now();
-    const startLng = 0, startLat = 0;
-    function tick(now) {
-      const p = Math.min(1, (now - t0) / dur);
-      const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-      const curLng = startLng + (lng - startLng) * e;
-      const curLat = startLat + (lat - startLat) * e;
-      if (valsEl) valsEl.textContent = formatCoord(curLng, curLat);
-      if (p < 1) requestAnimationFrame(tick);
-      else if (placeEl) {
-        placeEl.textContent = placeLabel;
-        placeEl.classList.add('resolved');
-      }
-    }
-    requestAnimationFrame(tick);
-  }
 
   setTimeout(() => { if (step0Logo) step0Logo.classList.add('vis'); }, 300);
   setTimeout(() => step0Tag.classList.add('vis'),  900);
@@ -880,11 +792,11 @@
   /* ─── Panel + dots + hint sync ───────────────────── */
   const tap = ('ontouchstart' in window) ? 'Toque' : 'Haga clic';
   const hints = [
-    `${tap} en el atlas ●`,
-    `${tap} en Colombia ●`,
-    `${tap} en Antioquia ●`,
-    `${tap} en Guatapé ●`,
-    `${tap} para entrar ●`,
+    `${tap} en el atlas`,
+    tap === 'Toque' ? 'Toque Colombia' : 'Haga clic en Colombia',
+    `${tap} en Antioquia`,
+    `${tap} en Guatapé`,
+    `${tap} para entrar`,
     ''
   ];
 
@@ -967,7 +879,6 @@
 
   async function toStage4() {
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
-    coordAnimated = false;
     updatePanel(4);
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
@@ -977,7 +888,6 @@
     });
     setStage(4);
     revealMap(4);
-    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
   }
 
   async function toStage5() {
@@ -989,12 +899,7 @@
   }
 
   async function resetAll() {
-    coordAnimated = false;
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
-    const place = document.getElementById('coordsPlace');
-    const vals = document.getElementById('coordsVal');
-    if (place) { place.textContent = 'Cargando atlas…'; place.classList.remove('resolved'); }
-    if (vals) vals.textContent = formatCoord(0, 0);
     updatePanel(0);
     await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
     setStage(0);
@@ -1087,6 +992,7 @@
     clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy);
     waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy);
     waterCircle.setAttribute('r', currentClip + 2);
+    if (globeRing) globeRing.setAttribute('r', proj.scale());
     redraw();
   });
 
