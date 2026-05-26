@@ -113,10 +113,11 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   background: transparent;
 }
 
-.navbar__firma {
-  height: 52px;
+.navbar__sello,
+.navbar__firma--sello {
+  height: 44px;
   width: auto;
-  max-width: min(340px, 46vw);
+  max-width: 56px;
   display: block;
   object-fit: contain;
   object-position: center;
@@ -124,9 +125,29 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 
 .brand-logo,
-.banner-statement__mark,
+.banner-statement__emblem img,
 .signature-banner__img {
   background: transparent;
+}
+
+.banner-statement__emblem {
+  margin: 44px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.banner-statement__sello {
+  width: 72px;
+  height: auto;
+  display: block;
+}
+
+.banner-statement__firma {
+  width: min(300px, 78vw);
+  height: auto;
+  display: block;
 }
 
 .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
@@ -222,7 +243,8 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 
 @media (max-width: 768px) {
   .navbar { padding: 0 20px; }
-  .navbar__firma { height: 44px; max-width: min(260px, 72vw); }
+  .navbar__sello,
+  .navbar__firma--sello { height: 40px; max-width: 52px; }
   .navbar__right { gap: 18px; }
   .nav-link--desk { display: none; }
 }
