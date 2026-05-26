@@ -80,9 +80,9 @@
     .navbar__firma {
     display: block;
     width: auto; height: auto;
-    max-height: 42px; max-width: 100%;
+    max-height: 38px; max-width: 100%;
     object-fit: contain; object-position: center;
-    background: transparent;
+    mix-blend-mode: multiply;
   }
   .navbar__right { grid-column: 3; justify-self: end; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
   .nav-link {
@@ -208,7 +208,7 @@
   }
 
   /* ─── SVG layer styles ───────────────────────────── */
-  .layer-water circle { fill: var(--bg); }
+  .layer-water circle { fill: url(#waterGrad); }
   .layer-graticule path { fill: none; stroke: var(--ink); stroke-width: 0.4; opacity: 0.09; }
   .layer-world path { fill: none; stroke: var(--ink); stroke-width: 0.6; opacity: 0.70; }
   .layer-inked path {
@@ -456,7 +456,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="212" height="42">
+      <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -503,6 +503,11 @@
                                  0 0 0 0.5 0" />
         </filter>
         <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100" /></clipPath>
+        <radialGradient id="waterGrad" cx="40%" cy="33%" r="68%" gradientUnits="objectBoundingBox">
+          <stop offset="0%"   stop-color="#E8EFF5"/>
+          <stop offset="55%"  stop-color="#C9D9E6"/>
+          <stop offset="100%" stop-color="#B4C8D8"/>
+        </radialGradient>
       </defs>
       <circle class="globe-ring" id="globeRing" cx="0" cy="0" r="100" />
       <g clip-path="url(#globe-clip)">
@@ -775,7 +780,7 @@
   let spinTimer = d3.timer(() => {
     if (stage === 0 && !busy) {
       const r = proj.rotate();
-      proj.rotate([r[0] + 0.16, r[1], r[2]]);
+      proj.rotate([r[0] + 0.07, r[1], r[2]]);
       redraw();
     }
   });

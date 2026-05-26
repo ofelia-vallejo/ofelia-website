@@ -114,7 +114,7 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  background: transparent;
+  outline: none;
   overflow: visible;
   padding: 0 12px;
   max-width: min(460px, 90vw);
@@ -124,11 +124,11 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   display: block;
   width: auto;
   height: auto;
-  max-height: 42px;
+  max-height: 38px;
   max-width: 100%;
   object-fit: contain;
   object-position: center;
-  background: transparent;
+  mix-blend-mode: multiply;
 }
 
 .brand-logo,
