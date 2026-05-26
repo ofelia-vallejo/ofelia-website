@@ -134,12 +134,14 @@
     .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
     .navbar__logo {
       background: transparent;
+      overflow: visible;
+      padding: 0 10px;
     }
 
     .navbar__firma {
       height: 44px;
       width: auto;
-      max-width: min(240px, 52vw);
+      max-width: min(320px, 72vw);
       display: block;
       object-fit: contain;
       object-position: center;
@@ -238,7 +240,7 @@
 
     @media (max-width: 768px) {
       .navbar { padding: 0 20px; }
-      .navbar__firma { height: 40px; max-width: min(220px, 68vw); }
+      .navbar__firma { height: 40px; max-width: min(280px, 78vw); }
       .navbar__right { gap: 18px; }
     }
 
@@ -531,26 +533,30 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 28px;
-      margin: 44px auto 0;
+      gap: 18px;
+      margin: 32px auto 0;
     }
 
     .banner-statement__mark {
       display: block;
-      width: min(400px, 92vw);
+      width: min(160px, 42vw);
       height: auto;
       margin: 0;
       object-fit: contain;
+      opacity: 0.18;
+      mix-blend-mode: multiply;
       background: transparent;
     }
 
     .banner-statement__seal {
       display: block;
-      width: 56px;
+      width: 44px;
       height: auto;
       margin: 0;
       object-fit: contain;
       object-position: center center;
+      opacity: 0.22;
+      mix-blend-mode: multiply;
       background: transparent;
     }
 
@@ -972,8 +978,8 @@
       .gender__media { max-height: 320px; min-height: 280px; }
 
       .banner-statement { padding: 80px 24px; }
-      .banner-statement__mark { width: min(320px, 92vw); }
-      .banner-statement__seal { width: 48px; }
+      .banner-statement__mark { width: min(140px, 48vw); opacity: 0.18; }
+      .banner-statement__seal { width: 40px; opacity: 0.22; }
 
       .edit__head { padding: 32px 24px; }
       .edit__grid { grid-template-columns: 1fr; }
@@ -999,7 +1005,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="58">
+      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="320" height="58">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -1071,8 +1077,8 @@
     <div class="banner-statement__rule" aria-hidden="true"></div>
     <h2 class="banner-statement__title"><a href="manifiesto.html">Nacida de una firma.</a></h2>
     <div class="banner-statement__emblem">
-      <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo — firma completa" class="banner-statement__mark" width="400" height="auto">
-      <img src="assets/img/logo_sello.png" alt="" class="banner-statement__seal" width="56" height="auto" aria-hidden="true">
+      <img src="assets/img/logo_firma_completa.png" alt="" class="banner-statement__mark" width="160" height="auto" aria-hidden="true">
+      <img src="assets/img/logo_sello.png" alt="" class="banner-statement__seal" width="44" height="auto" aria-hidden="true">
     </div>
     <p class="banner-statement__body">
       La firma de mi abuela Ofelia no es un logo.<br>

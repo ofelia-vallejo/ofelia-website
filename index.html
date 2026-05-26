@@ -55,11 +55,9 @@
     background: var(--ink); border-radius: 50%;
     pointer-events: none; z-index: 9999;
     transform: translate3d(-200px,-200px,0);
-    opacity: 0; visibility: hidden;
-    transition: width .2s, height .2s, background .2s, border-color .2s, opacity .2s;
+    transition: width .2s, height .2s, background .2s, border-color .2s;
     border: 1px solid transparent;
   }
-  body.cursor-ready #ov-cursor { opacity: 1; visibility: visible; }
   #ov-cursor.hov { width: 18px; height: 18px; background: transparent; border-color: var(--ink); }
 
   /* ─── Navbar ─────────────────────────────────────── */
@@ -73,9 +71,9 @@
     padding: 0 48px;
   }
   .navbar__left  { flex: 1; display: flex; align-items: center; }
-  .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; outline: none; }
+  .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; outline: none; overflow: visible; padding: 0 10px; }
     .navbar__firma {
-    height: 44px; width: auto; max-width: min(240px, 52vw);
+    height: 44px; width: auto; max-width: min(320px, 72vw);
     display: block;
     object-fit: contain; object-position: center;
     background: transparent;
@@ -142,7 +140,7 @@
   .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
   @media (max-width: 768px) {
     .navbar { padding: 0 20px; }
-    .navbar__firma { height: 40px; max-width: min(220px, 58vw); width: auto; }
+    .navbar__firma { height: 40px; max-width: min(280px, 78vw); width: auto; }
     .navbar__right { gap: 18px; }
   }
 
@@ -189,8 +187,7 @@
     transition: transform 0s; will-change: transform;
     overflow: hidden;
   }
-  .globe-svg { width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .6s var(--ease); }
-  .globe-svg.is-ready { opacity: 1; }
+  .globe-svg { width: 100%; height: 100%; display: block; }
   .grain {
     position: absolute; inset: 0;
     mix-blend-mode: multiply; opacity: 0.22; pointer-events: none; z-index: 2;
@@ -234,7 +231,7 @@
   }
   .pin .halo--2 { animation-delay: 0.9s; }
   @keyframes pin-pulse { 0% { r: 4; opacity: 0.85; } 100% { r: 14; opacity: 0; } }
-  .stage[data-stage="3"] .pin { opacity: 0 !important; pointer-events: none; }
+  .stage[data-stage="4"] .pin { opacity: 0 !important; pointer-events: none; }
 
   /* ─── Vignette (stage 4) ─────────────────────────── */
   .vignette {
@@ -242,7 +239,7 @@
     background: radial-gradient(ellipse at center, transparent 30%, rgba(11,31,58,0.18) 80%, rgba(11,31,58,0.32) 100%);
     pointer-events: none; opacity: 0; transition: opacity 1.2s var(--ease);
   }
-  .stage[data-stage="3"] .vignette { opacity: 1; }
+  .stage[data-stage="4"] .vignette { opacity: 1; }
 
   /* ─── Cartographic corners ───────────────────────── */
   .corner { position: absolute; width: 28px; height: 28px; z-index: 5; pointer-events: none; }
@@ -298,9 +295,9 @@
     color: rgba(11,31,58,0.88); line-height: 1.75;
     margin: 0 auto;
   }
-  .stage[data-stage="3"] .panels { display: none; }
-  .stage[data-stage="3"] .click-hint,
-  .stage[data-stage="3"] .nav-dots { opacity: 0; pointer-events: none; }
+  .stage[data-stage="4"] .panels { display: none; }
+  .stage[data-stage="4"] .click-hint,
+  .stage[data-stage="4"] .nav-dots { opacity: 0; pointer-events: none; }
 
   /* ─── Click hint ─────────────────────────────────── */
   .click-hint {
@@ -363,12 +360,13 @@
     font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.14em;
     color: rgba(11,31,58,0.28); pointer-events: none;
   }
-  @media (max-width: 768px) { .brand-lbl { display: none; } }
+  @media (max-width: 768px) { .brand-lbl { right: 20px; } }
 
   /* ─── Controls (Volver / Saltar) ─────────────────── */
   .controls {
-    position: absolute; bottom: 28px; right: 48px;
+    position: absolute; bottom: 44px; right: 48px;
     z-index: 8; display: flex; gap: 10px; align-items: center;
+    /* hidden when nav-dots are also here — move to right side */
   }
   .controls button {
     background: transparent; border: 0;
@@ -392,7 +390,7 @@
     gap: 24px; align-items: center;
     transition: bottom 0.9s var(--ease);
   }
-  .stage[data-stage="3"] .card { bottom: 60px; }
+  .stage[data-stage="4"] .card { bottom: 60px; }
   .card__thumb {
     width: 64px; height: 64px;
     border: 1px solid rgba(11,31,58,0.12);
@@ -418,7 +416,7 @@
   @media (max-width: 600px) {
     .card { grid-template-columns: 1fr; text-align: center; }
     .card__thumb { margin: 0 auto; }
-    .stage[data-stage="3"] .card { bottom: 80px; }
+    .stage[data-stage="4"] .card { bottom: 80px; }
   }
 
   /* ─── Mobile global ──────────────────────────────── */
@@ -465,7 +463,7 @@
       width: 64px; height: 64px;
     }
     .card .info .name { font-size: 15px; }
-    .stage[data-stage="3"] .card { bottom: 72px; }
+    .stage[data-stage="4"] .card { bottom: 72px; }
 
     /* Corners spacing */
     .corner.tl, .corner.tr { top: 56px; }
@@ -478,7 +476,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="58">
+      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="320" height="58">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -589,12 +587,13 @@
     <span id="hintText">Haga clic en el globo</span>
   </div>
 
-  <!-- Dots de navegación (4 etapas) -->
+  <!-- Dots de navegación -->
   <div class="nav-dots" id="navDots">
     <span class="nav-dot active" data-n="0"></span>
     <span class="nav-dot" data-n="1"></span>
     <span class="nav-dot" data-n="2"></span>
     <span class="nav-dot" data-n="3"></span>
+    <span class="nav-dot" data-n="4"></span>
   </div>
 
   <!-- Coordenadas bottom-left -->
@@ -704,11 +703,11 @@
     lInked.classList.toggle('off', stage < 1 || stage >= 3);
     lDepts.classList.toggle('on', stage >= 2);
     lRegion.classList.toggle('on', stage >= 2);
-    lDeco.classList.toggle('on', stage >= 3);
-    const showPin = stage === 2 && pinEl.dataset.placed === '1';
+    lDeco.classList.toggle('on', stage >= 4);
+    const showPin = stage >= 2 && stage < 4 && pinEl.dataset.placed === '1';
     pinEl.classList.toggle('on', showPin);
     if (stage < 2) pinEl.classList.remove('on', 'deep');
-    if (stage !== 3) pinEl.classList.remove('deep');
+    if (stage !== 4) pinEl.classList.remove('deep');
   }
 
   function setPinAt(lng, lat) {
@@ -812,7 +811,6 @@
 
   /* ─── Initial draw + entrance ────────────────────── */
   redraw();
-  svgEl.classList.add('is-ready');
   pinEl.style.visibility = '';
 
   const step0Logo = document.getElementById('step0Logo');
@@ -871,15 +869,15 @@
   const hints = [
     `${tap} en el globo`,
     `${tap} en Colombia ●`,
+    `${tap} para continuar ●`,
     `${tap} en Guatapé ●`,
     ''
   ];
 
   function updatePanel(idx) {
-    const showPanel = idx < 3;
-    const panelIdx = idx === 2 ? 3 : idx;
+    const showPanel = idx < 4;
     document.querySelectorAll('.panel').forEach(p =>
-      p.classList.toggle('active', showPanel && +p.dataset.panel === panelIdx));
+      p.classList.toggle('active', showPanel && +p.dataset.panel === idx));
     document.querySelectorAll('.nav-dot').forEach(d =>
       d.classList.toggle('active', +d.dataset.n === idx));
     const hintEl   = document.getElementById('hintText');
@@ -887,7 +885,7 @@
     if (hintEl)   hintEl.textContent = hints[idx] || '';
     if (hintWrap) hintWrap.style.display = hints[idx] ? 'inline-flex' : 'none';
     backBtn.disabled = idx <= 0;
-    if (idx === 2 && !coordAnimated) {
+    if (idx >= 3 && idx < 4 && !coordAnimated) {
       animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
     }
   }
@@ -923,18 +921,28 @@
 
   async function toStage2() {
     if (busy) return; busy = true;
-    setPinAt(guatapeCenter[0], guatapeCenter[1]);
+    pinEl.dataset.placed = '0';
+    pinEl.classList.remove('on', 'deep');
     setStage(2);
     updatePanel(2);
-    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
-    await animate({ rotTo:[-guatapeCenter[0],-guatapeCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2400 });
+    await animate({ rotTo:[-colombiaCenter[0],-colombiaCenter[1],0], scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200 });
     busy = false;
   }
 
   async function toStage3() {
     if (busy) return; busy = true;
+    setPinAt(guatapeCenter[0], guatapeCenter[1]);
     setStage(3);
     updatePanel(3);
+    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
+    await animate({ rotTo:[-guatapeCenter[0],-guatapeCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
+    busy = false;
+  }
+
+  async function toStage4() {
+    if (busy) return; busy = true;
+    setStage(4);
+    updatePanel(4);
     pinEl.classList.add('deep');
     await animate({ scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
     busy = false;
@@ -960,11 +968,12 @@
     if (stage === 0) toStage1();
     else if (stage === 1) toStage2();
     else if (stage === 2) toStage3();
+    else if (stage === 3) toStage4();
   });
 
   pinEl.addEventListener('click', e => {
     e.stopPropagation();
-    if (!busy && stage === 2) toStage3();
+    if (!busy && stage === 3) toStage4();
   });
 
   backBtn.addEventListener('click', resetAll);
@@ -993,18 +1002,13 @@
 
   /* ─── Custom cursor ──────────────────────────────── */
   const cur = document.getElementById('ov-cursor');
-  if (cur && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.addEventListener('mousemove', e => {
-      document.body.classList.add('cursor-ready');
-      cur.style.transform = `translate3d(${e.clientX-3}px,${e.clientY-3}px,0)`;
-    }, { once: false });
-    document.querySelectorAll('a,button').forEach(el => {
-      el.addEventListener('mouseenter', () => cur.classList.add('hov'));
-      el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
-    });
-  } else if (cur) {
-    cur.remove();
-  }
+  document.addEventListener('mousemove', e => {
+    cur.style.transform = `translate3d(${e.clientX-3}px,${e.clientY-3}px,0)`;
+  });
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('hov'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
+  });
 
   /* ─── Resize ─────────────────────────────────────── */
   window.addEventListener('resize', () => {
