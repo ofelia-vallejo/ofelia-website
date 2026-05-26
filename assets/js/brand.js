@@ -46,7 +46,6 @@
   }
 
   document.addEventListener('mousemove', (e) => {
-    document.body.classList.add('cursor-ready');
     mx = e.clientX;
     my = e.clientY;
 
