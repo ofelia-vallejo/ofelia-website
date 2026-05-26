@@ -68,8 +68,22 @@
 
     .process__steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .process__steps--laser {
+      margin-top: 0;
+    }
+
+    .step__tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 8px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
     }
 
     .step__num {
@@ -431,11 +445,16 @@
     }
 
     /* RESPONSIVE */
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .process__steps { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 900px) {
       .page-hero { padding: 80px 24px 64px; }
 
       .process { padding: 64px 24px; }
       .process__steps { grid-template-columns: 1fr; gap: 36px; }
+      .process__steps--laser { grid-template-columns: 1fr; }
 
       .form-section {
         grid-template-columns: 1fr;
@@ -498,22 +517,31 @@
   </div>
 
   <section class="process reveal">
-    <p class="process__label">Cómo funciona</p>
-    <div class="process__steps">
+    <p class="process__label">Cómo funciona · Grabado láser CO₂</p>
+    <div class="process__steps process__steps--laser">
       <div class="step">
         <p class="step__num">— 01</p>
         <h2 class="step__title">Elige la pieza</h2>
-        <p class="step__body">Selecciona el producto del catálogo. Todas las piezas admiten grabado láser en la posición oficial de la casa.</p>
+        <p class="step__body">Travel Bag, Bolso Dama, morral o cinturón del catálogo. Cada modelo tiene zona de grabado definida por la casa.</p>
+        <span class="step__tag">Catálogo · Colección</span>
       </div>
       <div class="step">
         <p class="step__num">— 02</p>
-        <h2 class="step__title">Define el grabado</h2>
-        <p class="step__body">Iniciales (hasta 3 caracteres), nombre completo, fecha o texto libre. Máximo 60 caracteres. El atelier confirma el boceto antes de grabar.</p>
+        <h2 class="step__title">Escribe el texto</h2>
+        <p class="step__body">Iniciales (máx. 3), nombre, fecha o frase breve — hasta 60 caracteres. Sin placas ni vinilo: el láser marca el cuero directamente.</p>
+        <span class="step__tag">Formulario · Boceto</span>
       </div>
       <div class="step">
         <p class="step__num">— 03</p>
-        <h2 class="step__title">Producción y envío</h2>
-        <p class="step__body">Tiempo de producción: 5–10 días hábiles. Envío desde Medellín a toda Europa con seguimiento.</p>
+        <h2 class="step__title">Confirmación del atelier</h2>
+        <p class="step__body">En 24–48 h recibes confirmación, tipografía y posición del grabado. Nada se graba sin tu visto bueno.</p>
+        <span class="step__tag">Email · Aprobación</span>
+      </div>
+      <div class="step">
+        <p class="step__num">— 04</p>
+        <h2 class="step__title">Grabado y entrega</h2>
+        <p class="step__body">CO₂ a 0,3–0,4 mm de profundidad. Producción 5–10 días hábiles. Envío desde Medellín a Europa con seguimiento.</p>
+        <span class="step__tag">Atelier · Medellín</span>
       </div>
     </div>
   </section>

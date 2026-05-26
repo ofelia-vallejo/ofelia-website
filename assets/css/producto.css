@@ -187,7 +187,124 @@
   border-color: var(--marfil);
 }
 
+/* Travel Bag line — hub */
+.product-line-hero {
+  margin-top: 56px;
+  padding: 80px var(--pad-x) 48px;
+  background: var(--marfil);
+  border-bottom: 1px solid var(--rule);
+}
+
+.product-line-hero__back {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-soft);
+  display: inline-block;
+  margin-bottom: 28px;
+}
+
+.product-line-hero__label {
+  font-family: Cinzel, serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--text-soft);
+  margin-bottom: 16px;
+}
+
+.product-line-hero__title {
+  font-family: Cinzel, serif;
+  font-size: clamp(32px, 4vw, 52px);
+  color: var(--navy);
+  line-height: 1.05;
+}
+
+.product-line-hero__sub {
+  margin-top: 20px;
+  max-width: 480px;
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.85;
+}
+
+.product-line-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(11, 31, 58, 0.06);
+}
+
+.product-line-card {
+  background: var(--marfil);
+  display: block;
+}
+
+.product-line-card__img {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--espresso);
+}
+
+.product-line-card__badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(243, 238, 230, 0.85);
+  background: rgba(11, 31, 58, 0.3);
+  padding: 4px 10px;
+}
+
+.product-line-card__numeral {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  font-family: Cinzel, serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(243, 238, 230, 0.55);
+}
+
+.product-line-card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1s var(--ease);
+}
+
+.product-line-card:hover .product-line-card__photo {
+  transform: scale(1.04);
+}
+
+.product-line-card__info {
+  padding: 20px var(--pad-x) 40px;
+}
+
+.product-line-card__name {
+  font-family: Cinzel, serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--navy);
+}
+
+.product-line-card__detail {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
 @media (max-width: 900px) {
+  .product-line-grid { grid-template-columns: 1fr; }
+  .product-line-hero { padding: 64px 24px 40px; }
+
   .product-hero {
     grid-template-columns: 1fr;
     min-height: 0;
