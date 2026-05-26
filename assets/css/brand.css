@@ -124,31 +124,34 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 
 .brand-logo,
-.banner-statement__emblem img {
-  background: transparent;
-}
-
-.banner-statement__brand {
-  margin: 44px auto 0;
-  max-width: min(420px, 92vw);
+.banner-statement__emblem {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 28px;
+  margin: 44px auto 0;
 }
 
-.banner-statement__firma {
+.banner-statement__emblem img,
+.signature-banner__img {
+  background: transparent;
+}
+
+.banner-statement__mark {
   display: block;
-  width: 100%;
+  width: min(400px, 92vw);
   height: auto;
+  margin: 0;
   object-fit: contain;
 }
 
-.banner-statement__sello {
+.banner-statement__seal {
   display: block;
-  width: 72px;
+  width: 56px;
   height: auto;
+  margin: 0;
   object-fit: contain;
+  object-position: center center;
 }
 
 .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
@@ -347,22 +350,8 @@ footer {
 
 .foot__bottom a:hover { color: var(--marfil); }
 
-footer a:focus { outline: none; }
-footer a:focus-visible {
-  outline: 1px solid rgba(243, 238, 230, 0.45);
-  outline-offset: 3px;
-}
-
-.foot__col ul { list-style: none; padding: 0; margin: 0; }
-
-#cursor {
-  opacity: 0;
-  visibility: hidden;
-}
-body.cursor-ready #cursor {
-  opacity: 1;
-  visibility: visible;
-}
+/* SIGNATURE BANNER — mobile only */
+.signature-banner { display: none; }
 
 /* FORM SHARED STYLES */
 .form-field {
@@ -455,12 +444,32 @@ body.cursor-ready #cursor {
 @media (max-width: 900px) {
   :root { --pad-x: 20px; }
 
-  footer { padding: 48px 24px 32px; }
-  .foot__bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+  .signature-banner {
+    display: block;
+    background: var(--marfil);
+    padding: 80px 24px 64px;
+    text-align: center;
+    border-top: 1px solid var(--rule);
   }
+
+  .signature-banner__img {
+    width: 72px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  .signature-banner__caption {
+    margin-top: 18px;
+    font-family: Cinzel, serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-soft);
+  }
+
+  footer { padding: 48px 24px 32px; }
   .foot__cols { grid-template-columns: 1fr 1fr; }
   .foot__cols .foot__brand { grid-column: 1 / -1; }
 }

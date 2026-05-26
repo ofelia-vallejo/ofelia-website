@@ -5,8 +5,8 @@
 | Archivo | Uso |
 |---------|-----|
 | `logo_firma_nav.png` | Solo cursiva «Ofelia Vallejo» (sin eslogan) — **navbar** |
-| `logo_firma_completa.png` | Firma + línea + «Cuero hecho para durar» — bloque **«Nacida de una firma»** |
-| `logo_sello.png` | Sello O·tridente·V — debajo de la firma completa, footer, intro |
+| `logo_firma_completa.png` | Firma + tridente + «Cuero hecho para durar» — **Nacida de una firma** |
+| `logo_sello.png` | Sello O·V centrado — debajo de la firma completa, footer, intro |
 
 Fuente canónica: `06_Identidad_Marca/logos/logo_firma.png` (completa) y `logo_sello.png`.
 

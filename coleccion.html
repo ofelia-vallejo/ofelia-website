@@ -140,7 +140,16 @@
       transition: transform 1s var(--ease);
     }
 
-    .card__photo--lifestyle { object-position: 50% 40%; }
+    #bolso-dama .card__photo,
+    #travel-bag-i .card__photo,
+    #travel-bag-iii .card__photo { object-position: 50% 50%; }
+
+    #travel-bag-ii .card__photo { object-position: 50% 52%; }
+
+    #bandolera-elite .card__photo { object-position: 50% 40%; }
+
+    #morral-elite .card__photo,
+    #morral-clasico .card__photo { object-position: 50% 48%; }
 
     .card:hover .card__photo { transform: scale(1.04); }
 
@@ -395,7 +404,7 @@
 
       <a href="personalizar.html?producto=Bandolera+Moderna" class="card" id="bandolera-moderna">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/lifestyle/hombre/hombre-pasillo.jpg" alt="Bandolera Moderna — lifestyle pasillo" class="card__photo card__photo--lifestyle" loading="lazy" decoding="async">
+          <img src="assets/img/lifestyle/hombre/hombre-pasillo.jpg" alt="Bandolera Moderna — lifestyle pasillo" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Bandolera Moderna</p>
@@ -406,7 +415,7 @@
 
       <a href="personalizar.html?producto=Bandolera+Elite" class="card" id="bandolera-elite">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/lifestyle/hombre/hombre-arco.jpg" alt="Bandolera Elite — lifestyle arco" class="card__photo card__photo--lifestyle" loading="lazy" decoding="async">
+          <img src="assets/img/lifestyle/hombre/hombre-arco.jpg" alt="Bandolera Elite — lifestyle arco" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Bandolera Elite</p>
@@ -428,7 +437,7 @@
 
       <a href="personalizar.html?producto=Morral+Elite" class="card" id="morral-elite">
         <div class="card__img card__img--wide" data-dark>
-          <img src="assets/img/lifestyle/hombre/hombre-pasillo.jpg" alt="Morral Elite — lifestyle" class="card__photo card__photo--lifestyle" loading="lazy" decoding="async">
+          <img src="assets/img/lifestyle/hombre/hombre-pasillo.jpg" alt="Morral Elite — lifestyle" class="card__photo" loading="lazy" decoding="async">
         </div>
         <div class="card__info">
           <p class="card__name">Morral Elite</p>
@@ -485,6 +494,16 @@
     </div>
     <a href="personalizar.html" class="coleccion-cta__btn">Solicitar grabado →</a>
   </div>
+
+  <section class="signature-banner reveal" aria-label="Sello de la casa">
+    <img
+      src="assets/img/logo_sello.png"
+      alt="Ofelia Vallejo"
+      class="signature-banner__img"
+      width="80"
+      height="auto">
+    <p class="signature-banner__caption">Leather House · Medellín → Zürich</p>
+  </section>
 
   <footer data-dark id="contacto">
     <div class="foot__cols">
