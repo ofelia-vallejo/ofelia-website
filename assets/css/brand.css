@@ -132,13 +132,25 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 
 .brand-logo,
-/* Nacida de una firma */
+/* Nacida de una firma — título · firma · cuerpo (filas separadas) */
 .banner-statement {
-  position: relative;
-  overflow: hidden;
   background: var(--marfil);
   padding: 120px var(--pad-x);
   text-align: center;
+}
+
+.banner-statement__stack {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  justify-items: center;
+  gap: clamp(20px, 4vw, 40px);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.banner-statement__head {
+  width: 100%;
 }
 
 .banner-statement__rule {
@@ -149,8 +161,7 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 
 .banner-statement__title {
-  margin: 0 auto;
-  max-width: 720px;
+  margin: 0;
   font-family: Cinzel, serif;
   font-weight: 400;
   font-size: clamp(28px, 3.4vw, 48px);
@@ -166,40 +177,33 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 
 .banner-statement__title a:hover { opacity: 0.72; }
 
+/* Firma completa — fila central, sin solapar el titular */
+.banner-statement__watermark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: clamp(88px, 14vh, 140px);
+  margin: 0;
+  pointer-events: none;
+}
+
+.banner-statement__mark {
+  display: block;
+  width: min(240px, 62vw);
+  height: auto;
+  margin: 0;
+  object-fit: contain;
+  opacity: 0.1;
+}
+
 .banner-statement__body {
-  margin: 36px auto 0;
+  margin: 0;
   max-width: 480px;
   font-weight: 300;
   font-size: 13px;
   color: rgba(11, 31, 58, 0.6);
   line-height: 1.85;
-}
-
-/* Firma completa — watermark único (sin sello) */
-.banner-statement__watermark {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.banner-statement__mark {
-  display: block;
-  width: min(280px, 72vw);
-  height: auto;
-  margin: 0;
-  object-fit: contain;
-  opacity: 0.12;
-}
-
-.banner-statement__rule,
-.banner-statement__title,
-.banner-statement__body {
-  position: relative;
-  z-index: 1;
 }
 
 .navbar__right {
@@ -501,6 +505,12 @@ footer {
   :root { --pad-x: 20px; }
 
   .banner-statement { padding: 80px 24px; }
+
+  .banner-statement__stack { gap: 16px; }
+
+  .banner-statement__watermark { min-height: 72px; }
+
+  .banner-statement__mark { width: min(200px, 56vw); opacity: 0.09; }
 
   footer { padding: 48px 24px 32px; }
   .foot__cols { grid-template-columns: 1fr 1fr; }
