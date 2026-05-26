@@ -633,7 +633,7 @@
       <span class="name">Guatapé · Antioquia</span>
       <span class="coord-txt">06° 14′ N · 75° 09′ O · 1.880 m s.n.m.</span>
     </div>
-    <button class="enter" id="enterBtn">Entrar a la Casa →</button>
+    <button class="enter" id="enterBtn">Entrar al atelier →</button>
   </div>
 
 </div><!-- .stage -->
@@ -789,19 +789,7 @@
   $depts.selectAll('path').data(colombiaGeo.features).join('path').attr('d', path);
   if (antioquia) $region.append('path').datum(antioquia).attr('d', path);
 
-  /* Decorative river + ridges */
-  $deco.append('path').datum({ type:'LineString', coordinates:[
-    [-75.43,6.07],[-75.44,6.10],[-75.46,6.14],[-75.47,6.18],
-    [-75.49,6.21],[-75.52,6.25],[-75.54,6.30],[-75.55,6.36],
-    [-75.56,6.42],[-75.55,6.48],[-75.53,6.54],[-75.50,6.58]
-  ]}).attr('d', path);
-  $deco.append('path').datum({ type:'LineString', coordinates:[
-    [-75.30,5.90],[-75.28,6.00],[-75.27,6.10],[-75.25,6.22],
-    [-75.24,6.34],[-75.22,6.46],[-75.21,6.58],[-75.20,6.70]
-  ]}).attr('d', path);
-  $deco.append('path').datum({ type:'LineString', coordinates:[
-    [-75.75,5.90],[-75.74,6.05],[-75.72,6.20],[-75.70,6.35],[-75.68,6.50],[-75.66,6.65]
-  ]}).attr('d', path);
+  /* Decorative river + ridges — removed (keep map clean) */
 
   [{n:'Bello',lng:-75.5573,lat:6.3373},{n:'Envigado',lng:-75.5836,lat:6.1717},
    {n:'Itagüí',lng:-75.5993,lat:6.1717},{n:'Sabaneta',lng:-75.6164,lat:6.1500},

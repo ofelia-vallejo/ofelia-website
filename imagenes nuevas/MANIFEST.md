@@ -1,0 +1,31 @@
+# Imágenes nuevas (selección activa)
+
+- `detalle/firma-mochila-negro.jpg`
+- `detalle/firma-travel-bag-cognac.jpg`
+- `inicio/hero-hombre-aeropuerto-duffel-negro.jpg`
+- `inicio/hero-mujer-aeropuerto.jpg`
+- `lifestyle/hombre/duffel-cognac-lifestyle.jpg`
+- `lifestyle/hombre/mochila-chocolate-hotel-lifestyle.jpg`
+- `lifestyle/hombre/mochila-chocolate-lifestyle.jpg`
+- `lifestyle/hombre/mochila-cognac-hotel-lifestyle.jpg`
+- `lifestyle/hombre/mochila-cognac-lifestyle.jpg`
+- `lifestyle/hombre/mochila-negro-aeropuerto.jpg`
+- `lifestyle/hombre/mochila-negro-lifestyle-02.jpg`
+- `lifestyle/hombre/mochila-negro-lifestyle-03.jpg`
+- `lifestyle/hombre/mochila-negro-lifestyle.jpg`
+- `lifestyle/mujer/mochila-chocolate-lifestyle.jpg`
+- `lifestyle/mujer/mochila-cognac-lifestyle-02.jpg`
+- `lifestyle/mujer/mochila-cognac-lifestyle-03.jpg`
+- `lifestyle/mujer/mochila-cognac-lifestyle.jpg`
+- `lifestyle/mujer/mochila-negro-lifestyle.jpg`
+- `lifestyle/mujer/tote-cognac-lifestyle.jpg`
+- `producto/hombre/mochila-chocolate-estudio-02.jpg`
+- `producto/hombre/mochila-chocolate-estudio.jpg`
+- `producto/hombre/mochila-negro-estudio-02.jpg`
+- `producto/hombre/mochila-negro-estudio.jpg`
+- `producto/hombre/travel-bag-negro-estudio.jpg`
+- `producto/mujer/mochila-cognac-estudio-01.jpg`
+- `producto/mujer/mochila-cognac-estudio-02.jpg`
+- `producto/mujer/tote-cognac-editorial.jpg`
+- `producto/mujer/tote-cognac-estudio.jpg`
+- `producto/mujer/travel-bag-cognac-estudio.jpg`
