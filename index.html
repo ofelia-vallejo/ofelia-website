@@ -239,12 +239,12 @@
   }
 
   .layer-graticule path {
-    stroke-width: 0.32px;
-    opacity: 0.10;
+    stroke-width: 0.28px;
+    opacity: 0.07;
   }
   .layer-world path {
-    stroke-width: 0.52px;
-    opacity: 0.74;
+    stroke-width: 0.75px;
+    opacity: 0.88;
   }
   .layer-inked path {
     fill: var(--ink);
@@ -828,11 +828,8 @@
     .attr('class', 'globe-stroke')
     .attr('d', path);
 
-  const worldBorders = topojson.mesh(
-    world50,
-    world50.objects.countries,
-    (a, b) => a !== b
-  );
+  /* mesh sin filtro = costas + fronteras internas */
+  const worldBorders = topojson.mesh(world50, world50.objects.countries);
   $world.append('path')
     .datum(worldBorders)
     .attr('class', 'globe-stroke')
