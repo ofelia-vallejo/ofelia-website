@@ -73,6 +73,13 @@
     align-items: center;
     padding: 0 48px;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+  }
+  .navbar.is-visible {
+    opacity: 1;
+    pointer-events: auto;
   }
   .navbar__left  { grid-column: 1; }
   .navbar__logo  { grid-column: 2; justify-self: center; flex-shrink: 0; display: flex; align-items: center; outline: none; overflow: visible; padding: 0 12px; max-width: min(460px, 90vw); }
@@ -195,17 +202,18 @@
   /* ─── Stage ─────────────────────────────────────── */
   .stage {
     position: fixed; inset: 0;
+    background: var(--bg);
     perspective: 1400px; perspective-origin: 50% 65%;
     overflow: hidden;
   }
   .tilt-wrap {
     position: absolute; inset: 0;
+    background: var(--bg);
     transform: rotateX(0deg) translateZ(0);
     transform-origin: 50% 60%;
     transition: transform 0s;
     will-change: transform;
     overflow: hidden;
-    backface-visibility: hidden;
   }
   .globe-svg {
     width: 100%;
@@ -218,11 +226,6 @@
   .globe-svg path,
   .globe-svg circle {
     shape-rendering: geometricPrecision;
-  }
-  .grain {
-    position: absolute; inset: 0;
-    mix-blend-mode: multiply; opacity: 0.22; pointer-events: none; z-index: 2;
-    overflow: hidden;
   }
 
   /* ─── SVG layer styles ───────────────────────────── */
@@ -545,13 +548,6 @@
   <div class="tilt-wrap" id="tiltWrap">
     <svg class="globe-svg" id="svg">
       <defs>
-        <filter id="grain-filter" x="-30%" y="-30%" width="160%" height="160%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" result="noise" />
-          <feColorMatrix in="noise" values="0 0 0 0 0.04
-                                 0 0 0 0 0.12
-                                 0 0 0 0 0.23
-                                 0 0 0 0.5 0" />
-        </filter>
         <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100" /></clipPath>
       </defs>
       <g clip-path="url(#globe-clip)">
@@ -571,10 +567,6 @@
     </svg>
   </div>
 
-  <!-- Grain overlay -->
-  <svg class="grain" preserveAspectRatio="none">
-    <rect width="100%" height="100%" filter="url(#grain-filter)"/>
-  </svg>
 
   <div class="vignette"></div>
 
@@ -861,10 +853,16 @@
   const step0Load = document.getElementById('step0Loading');
   if (step0Load) step0Load.textContent = 'Atlas · listo';
 
+  const navbarEl = document.querySelector('.navbar');
+
   setTimeout(() => { if (step0Logo) step0Logo.classList.add('vis'); }, 300);
   setTimeout(() => step0Tag.classList.add('vis'),  900);
   setTimeout(() => step0El.classList.add('out'), 2200);
-  setTimeout(() => { step0El.remove(); updatePanel(0); }, 3800);
+  setTimeout(() => {
+    step0El.remove();
+    updatePanel(0);
+    if (navbarEl) navbarEl.classList.add('is-visible');
+  }, 3800);
 
   /* Free-spin (stage 0) · un frame, un redraw */
   function spinFrame() {
