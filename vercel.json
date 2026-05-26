@@ -2,21 +2,6 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/imagenes nuevas/logos/logo_firma_nav.png",
-      "destination": "/assets/img/logo_firma_nav.png",
-      "permanent": true
-    },
-    {
-      "source": "/imagenes nuevas/logos/logo_sello.png",
-      "destination": "/assets/img/logo_sello.png",
-      "permanent": true
-    },
-    {
-      "source": "/imagenes nuevas/logos/logo_firma_completa.png",
-      "destination": "/assets/img/logo_firma_completa.png",
-      "permanent": true
-    },
-    {
       "source": "/assets/img/logo_tarjetas_sello.png",
       "destination": "/assets/img/logo_sello.png",
       "permanent": true

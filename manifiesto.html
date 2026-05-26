@@ -113,6 +113,97 @@
       color: var(--navy);
     }
 
+    /* CARTA DE LA FUNDADORA */
+    .carta {
+      background: var(--beige-medio, #EDE5D8);
+      padding: 140px var(--pad-x);
+      border-top: 1px solid var(--rule);
+    }
+
+    .carta__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .carta__label {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--text-soft);
+      margin-bottom: 36px;
+    }
+
+    .carta__title {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: clamp(28px, 4vw, 48px);
+      color: var(--navy);
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+
+    .carta__body p {
+      font-size: 15px;
+      color: rgba(11, 31, 58, 0.72);
+      line-height: 1.95;
+      margin-bottom: 22px;
+      max-width: 620px;
+    }
+
+    .carta__body p:last-child { margin-bottom: 0; }
+
+    .carta__sign {
+      margin-top: 44px;
+      font-family: Cinzel, serif;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: var(--navy);
+    }
+
+    /* FICHA DE LA CASA */
+    .ficha {
+      background: var(--marfil);
+      padding: 100px var(--pad-x);
+      border-top: 1px solid var(--rule);
+    }
+
+    .ficha__label {
+      font-family: Cinzel, serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--text-soft);
+      margin-bottom: 56px;
+      text-align: center;
+    }
+
+    .ficha__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .ficha__col h3 {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .ficha__col p {
+      font-size: 13px;
+      color: rgba(11, 31, 58, 0.75);
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
     /* CLOSING */
     .closing {
       background: var(--navy);
@@ -162,6 +253,11 @@
 
       .pillar__title { max-width: none; }
       .closing { padding: 96px 24px; }
+
+      .carta { padding: 96px 24px; }
+      .ficha { padding: 80px 24px; }
+      .ficha__grid { grid-template-columns: 1fr; gap: 36px; }
+      .ficha__label { margin-bottom: 36px; }
     }
   </style>
 </head>
@@ -172,7 +268,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="imagenes nuevas/logos/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="212" height="42">
+      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="212" height="42">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -244,6 +340,7 @@
       <div class="pillar__body">
         <p>La firma de la abuela Ofelia no es un logo. Es patrimonio familiar. Es la historia que viaja en cada pieza.</p>
         <p>Cuero colombiano full-grain curtido a mano en Medellín. Hilo encerado. Herrajes macizos. Sin concesiones a la velocidad.</p>
+        <p>No hay temporadas. No hay colecciones cada tres meses. No hay rebajas. Solo cuero, oficio y tiempo — y cada pieza tarda lo que tiene que tardar.</p>
         <p><strong>Ofelia Vallejo honra el oficio como una forma de resistencia.</strong></p>
       </div>
     </article>
@@ -268,9 +365,42 @@
       <div class="pillar__body">
         <p>Ofelia Vallejo existe para recordar que el verdadero lujo no es abundancia sin sentido. Es conexión. Es identidad. Es coherencia.</p>
         <p>Es elegir piezas que hablen de quién eres. Es construir una estética que también sea una emoción. Es rodearte de belleza que te haga sentir más tú.</p>
+        <p><strong>Una pieza por persona. Un grabado por pieza. Una sola firma sobre el cuero — más de eso ya es ruido.</strong></p>
       </div>
     </article>
 
+  </section>
+
+  <section class="carta reveal" aria-labelledby="carta-title">
+    <div class="carta__inner">
+      <p class="carta__label">— De la fundadora</p>
+      <h2 class="carta__title" id="carta-title">Para mi abuela Ofelia.</h2>
+      <div class="carta__body">
+        <p>Esta casa nace de tres firmas: la tuya, la de Antioquia y la mía.</p>
+        <p>La tuya fue la primera. Caligrafía sin esfuerzo, hecha con la mano de alguien que no necesitaba demostrar nada. Esa firma es hoy el sello de cada pieza que sale del atelier.</p>
+        <p>Antioquia firma con sus manos — las del cortador, las del cosedor, las del grabador. Una pieza no es nuestra hasta que tres oficios la terminan.</p>
+        <p>Y la mía es la última. La de quien lleva esta herencia a una casa nueva, en Europa, sin perder el acento. Una pieza Ofelia Vallejo se hace en Medellín y se abre en Lausanne. Pero la firma sigue siendo una sola.</p>
+      </div>
+      <p class="carta__sign">— Ofelia</p>
+    </div>
+  </section>
+
+  <section class="ficha reveal" aria-labelledby="ficha-label">
+    <p class="ficha__label" id="ficha-label">Ficha de la casa</p>
+    <div class="ficha__grid">
+      <div class="ficha__col">
+        <h3>Origen</h3>
+        <p>Medellín · Antioquia<br>Cuero pleno colombiano<br>curtido tradicionalmente.</p>
+      </div>
+      <div class="ficha__col">
+        <h3>Método</h3>
+        <p>Corte a mano · hilo encerado<br>herrajes de latón macizo<br>grabado láser CO₂ a 0.4&nbsp;mm.</p>
+      </div>
+      <div class="ficha__col">
+        <h3>Destino</h3>
+        <p>Lausanne · Suiza<br>Distribución europea<br>desde 2026.</p>
+      </div>
+    </div>
   </section>
 
   <section class="closing reveal" data-dark>
@@ -283,8 +413,8 @@
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="imagenes nuevas/logos/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
-        <p class="foot__tag">Leather House · Medellín, Colombia</p>
+        <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
+        <p class="foot__tag">Leather House · Medellín → Lausanne</p>
       </div>
       <nav class="foot__col" aria-label="Casa">
         <h4>Casa</h4>
@@ -313,7 +443,7 @@
       </nav>
     </div>
     <div class="foot__bottom">
-      <span>© 2025 Ofelia Vallejo · Medellín, Colombia</span>
+      <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
       <span>
         <a href="#">Privacidad</a>
         ·
