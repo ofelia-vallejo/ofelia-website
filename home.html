@@ -527,11 +527,27 @@
 
     .banner-statement__title a:hover { opacity: 0.72; }
 
-    .banner-statement__mark {
-      display: block;
-      width: min(400px, 92vw);
-      height: auto;
+    .banner-statement__brand {
       margin: 44px auto 0;
+      max-width: min(420px, 92vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .banner-statement__firma {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    .banner-statement__sello {
+      display: block;
+      width: 72px;
+      height: auto;
       object-fit: contain;
       background: transparent;
     }
@@ -617,25 +633,19 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       display: block;
     }
 
-    .edit__side--mujer .media__photo { object-position: 50% 48%; }
-    .edit__side--hombre .media__photo { object-position: 50% 78%; }
+    .edit__side--hombre .media__photo--lifestyle { object-position: 50% 72%; }
 
     .edit__side .mini-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       display: block;
     }
-
-    .edit__side--mujer .mini-img--tote img { object-position: 50% 50%; }
-    .edit__side--mujer .mini-img--travel img { object-position: 50% 45%; }
-    .edit__side--mujer .mini-img--mochila img { object-position: 50% 40%; }
-    .edit__side--hombre .mini-img--maletin img { object-position: 50% 55%; }
-    .edit__side--hombre .mini-img--portafolio img { object-position: 50% 35%; }
-    .edit__side--hombre .mini-img--detalle img { object-position: 50% 50%; }
 
     .edit__side .media__frame::after {
       content: "";
@@ -954,7 +964,8 @@
       .gender__media { max-height: 320px; min-height: 280px; }
 
       .banner-statement { padding: 80px 24px; }
-      .banner-statement__mark { width: min(320px, 92vw); }
+      .banner-statement__brand { max-width: min(320px, 92vw); gap: 22px; }
+      .banner-statement__sello { width: 64px; }
 
       .edit__head { padding: 32px 24px; }
       .edit__grid { grid-template-columns: 1fr; }
@@ -1051,7 +1062,10 @@
   <section class="banner-statement reveal" id="historia">
     <div class="banner-statement__rule" aria-hidden="true"></div>
     <h2 class="banner-statement__title"><a href="manifiesto.html">Nacida de una firma.</a></h2>
-    <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo — firma de la casa" class="banner-statement__mark" width="400" height="auto">
+    <div class="banner-statement__brand" aria-label="Marca Ofelia Vallejo">
+      <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo — Cuero hecho para durar" class="banner-statement__firma" width="400" height="auto">
+      <img src="assets/img/logo_sello.png" alt="" class="banner-statement__sello" width="72" height="auto" aria-hidden="true">
+    </div>
     <p class="banner-statement__body">
       La firma de mi abuela Ofelia no es un logo.<br>
       Es la herencia que cruzó el océano con nosotras — el alma paisa de cada pieza que hoy nace en el atelier.
@@ -1105,7 +1119,7 @@
           <span class="roman">II</span>
           <span class="badge">Hombre</span>
           <div class="media__frame">
-            <img src="assets/img/lifestyle/hombre/hombre-duffel-arco.jpg" alt="Travel bag cognac — colección Hombre" class="media__photo" loading="lazy" decoding="async">
+            <img src="assets/img/lifestyle/hombre/hombre-duffel-arco.jpg" alt="Travel bag cognac — colección Hombre" class="media__photo media__photo--lifestyle" loading="lazy" decoding="async">
           </div>
           <div class="meta">
             <p class="name">Travel Bag · Arco</p>

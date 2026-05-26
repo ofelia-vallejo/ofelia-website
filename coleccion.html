@@ -135,9 +135,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       display: block;
       transition: transform 1s var(--ease);
     }
+
+    .card__photo--lifestyle { object-position: 50% 40%; }
 
     .card:hover .card__photo { transform: scale(1.04); }
 
