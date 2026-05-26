@@ -621,7 +621,7 @@
   <!-- Tarjeta final (stage 4) -->
   <div class="card" id="card">
     <div class="card__thumb">
-      <img src="assets/img/nuevas/producto/mujer/estudio-02.jpg" alt="Pieza en cuero cognac" width="64" height="64" loading="eager" decoding="async">
+      <img src="imagenes nuevas/producto/mujer/estudio-02.jpg" alt="Pieza en cuero cognac" width="64" height="64" loading="eager" decoding="async">
     </div>
     <div class="info">
       <span class="name">Guatapé · Antioquia</span>
@@ -873,9 +873,9 @@
   const tap = ('ontouchstart' in window) ? 'Toque' : 'Haga clic';
   const hints = [
     `${tap} en el globo`,
-    `${tap} en Colombia ●`,
     `${tap} para continuar ●`,
     `${tap} en Guatapé ●`,
+    '',
     ''
   ];
 
@@ -890,9 +890,6 @@
     if (hintEl)   hintEl.textContent = hints[idx] || '';
     if (hintWrap) hintWrap.style.display = hints[idx] ? 'inline-flex' : 'none';
     backBtn.disabled = idx <= 0;
-    if (idx >= 3 && idx < 4 && !coordAnimated) {
-      animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
-    }
   }
 
   /* ─── Animate helper ─────────────────────────────── */
@@ -924,24 +921,22 @@
     busy = false;
   }
 
+  /* Una sola transición a Colombia: LatAm → Guatapé (sin zoom intermedio al país) */
   async function toStage2() {
     if (busy) return; busy = true;
     pinEl.dataset.placed = '0';
     pinEl.classList.remove('on', 'deep');
-    setStage(2);
-    updatePanel(2);
-    await animate({ rotTo:[-colombiaCenter[0],-colombiaCenter[1],0], scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200 });
+    setPinAt(guatapeCenter[0], guatapeCenter[1]);
+    coordAnimated = false;
+    setStage(3);
+    updatePanel(3);
+    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
+    await animate({ rotTo:[-guatapeCenter[0], -guatapeCenter[1], 0], scaleTo: Math.min(W, H) * 12, tiltTo: 10, ms: 2200 });
     busy = false;
   }
 
   async function toStage3() {
-    if (busy) return; busy = true;
-    setPinAt(guatapeCenter[0], guatapeCenter[1]);
-    setStage(3);
-    updatePanel(3);
-    animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
-    await animate({ rotTo:[-guatapeCenter[0],-guatapeCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
-    busy = false;
+    return toStage4();
   }
 
   async function toStage4() {
@@ -972,7 +967,6 @@
     if (busy) return;
     if (stage === 0) toStage1();
     else if (stage === 1) toStage2();
-    else if (stage === 2) toStage3();
     else if (stage === 3) toStage4();
   });
 

@@ -1,21 +1,16 @@
 # Assets visuales — Ofelia Vallejo
 
-## Logos
+## Logos (aquí)
 
 | Archivo | Uso |
 |---------|-----|
-| `logo_firma_nav.png` | Solo cursiva «Ofelia Vallejo» (sin eslogan) — **navbar** |
-| `logo_firma_completa.png` | Firma + tridente + «Cuero hecho para durar» — **Nacida de una firma** |
-| `logo_sello.png` | Sello O·V — footer, intro globo |
-
-Fuente canónica: `06_Identidad_Marca/logos/`.
+| `logo_firma_nav.png` | Navbar |
+| `logo_firma_completa.png` | Nacida de una firma |
+| `logo_sello.png` | Footer, intro globo |
 
 ## Fotos del sitio
 
-**Solo `nuevas/`** — ver `nuevas/README.md` para el mapa completo.
+**Carpeta Git:** [`imagenes nuevas/`](../../imagenes%20nuevas/) en la raíz del repo.  
+El HTML usa `imagenes nuevas/...` — no enlazar `inicio/`, `producto/`, `nuevas/` bajo `assets/img/`.
 
-Las carpetas `inicio/`, `producto/`, `lifestyle/hombre/`, `cuero/` son legacy (no enlazar en HTML). `imagenes base/` en la raíz del repo es archivo bruto, no web.
-
-**Regla:** una imagen = un producto o una variante de color. No reutilizar la misma foto para piezas distintas en la colección.
-
-Deploy: **Vercel** → `ofeliavallejo.com`.
+`imagenes base/` = archivo bruto antiguo (excluido del deploy).

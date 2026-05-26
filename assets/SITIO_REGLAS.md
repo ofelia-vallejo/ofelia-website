@@ -27,14 +27,14 @@ No duplicar sello entre sección y footer con banners extra.
 
 ## Fotos
 
-- **Fotos:** solo `assets/img/nuevas/` en HTML (no `inicio/`, `producto/`, `lifestyle/` legacy ni `imagenes base/`)
-- Heroes: `nuevas/inicio/mujer-nueva-02.jpg` · `hombre-nueva-03.jpg`
-- Productos: `nuevas/producto/mujer/estudio-*.jpg` · `hombre/estudio-01.jpg`
+- **Fotos:** solo `imagenes nuevas/` en HTML (Git). No `imagenes base/` ni `assets/img/nuevas/` legacy.
+- Heroes: `imagenes nuevas/inicio/mujer-nueva-02.jpg` · `hombre-nueva-03.jpg`
+- `.vercelignore` excluye `imagenes base/` y copias viejas en `assets/img/`
 - **Colecciones:** sin estaciones (otoño, etc.). Nombres = frutos colombianos · ver `05_Copy_y_Voz/colecciones_frutos_antioquia.md` (Lulo madre, Guanábana mujer, Borojó hombre, Uchuva bandoleras, Chontaduro morrales, Curuba accesorios)
 
 ## Globo (`index.html`)
 
-- Sin doble zoom a Antioquia: Colombia → Guatapé directo
+- Globo: una sola transición LatAm → Guatapé (sin zoom intermedio solo a Colombia)
 
 ## CSS compartido
 
