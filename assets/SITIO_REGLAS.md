@@ -34,7 +34,7 @@ No duplicar sello entre sección y footer con banners extra.
 
 ## Globo (`index.html`)
 
-- Globo: una sola transición LatAm → Guatapé (sin zoom intermedio solo a Colombia)
+- Globo: 4 clics — atlas → Colombia → Antioquia → Guatapé (una animación por etapa; tarjeta final en el 5.º)
 
 ## CSS compartido
 
