@@ -20,7 +20,7 @@
 | colorKey | Color · Acabado | Archivos asignados (contenido real) |
 |----------|-----------------|-------------------------------------|
 | `negro-liso` | Negro · Liso | `cognac-liso-plano.jpg`, `cognac-liso-detalle.jpg` |
-| `negro-granulado` | Negro · Granulado | *(sin foto — placeholder en colección)* |
+| `negro-granulado` | Negro · Granulado | `negro-granulado-plano.jpg` |
 | `navy-granulado` | Navy · Granulado | `navy-granulado-estudio.jpg`, `navy-granulado-detalle.jpg`, `espresso-granulado-detalle.jpg` |
 | `espresso-liso` | Espresso · Liso | `negro-granulado-estudio.jpg`, `cognac-liso-estudio.jpg` |
 | `espresso-granulado` | Espresso · Granulado | `espresso-granulado-estudio.jpg`, `espresso-liso-plano.jpg` |

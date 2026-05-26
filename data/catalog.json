@@ -840,8 +840,12 @@
             "#141414",
             "#0a0a0a"
           ],
-          "images": [],
-          "alts": []
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-plano.jpg"
+          ],
+          "alts": [
+            "Cinturón — negro granulado · plano editorial"
+          ]
         },
         "navy-granulado": {
           "label": "Navy · Granulado",

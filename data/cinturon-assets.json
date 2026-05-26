@@ -22,9 +22,13 @@
     "texture": "granulado",
     "brand_hex": "#141414",
     "leather": ["#2c3443", "#141414", "#0a0a0a"],
-    "files": [],
-    "images": [],
-    "alts": []
+    "files": ["negro-granulado-plano.jpg"],
+    "images": [
+      "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-plano.jpg"
+    ],
+    "alts": [
+      "Cinturón — negro granulado · plano editorial"
+    ]
   },
   "navy-granulado": {
     "label": "Navy · Granulado",

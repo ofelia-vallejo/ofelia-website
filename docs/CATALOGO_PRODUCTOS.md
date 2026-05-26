@@ -47,7 +47,6 @@ Los códigos viven en `products.meta.productCode` (JSONB en Postgres).
 |----------|----------|--------|
 | travel-bag-i | espresso | Sin estudio TB espresso aún |
 | bandolera-moderna / elite | carbon | Sin assets |
-| cinturón | negro-granulado | Reservado |
 
 Fotos en `imagePool` del registry están clasificadas por color pero **sin** producto hasta nueva variante.
 
