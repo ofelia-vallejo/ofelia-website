@@ -1,8 +1,3 @@
-# Hero editorial — inicio
+# Legacy — no usar en el sitio
 
-| Archivo | Uso | Encuadre |
-|---------|-----|----------|
-| `mujer.jpg` | Home · panel Mujer | Pieza visible (espalda / bolso) |
-| `hombre.jpg` | Home · panel Hombre | Anclar al maletín (`object-position: 50% 100%`) |
-
-No usar fotos de producto de estudio aquí; reservar `producto/mujer/` y `producto/hombre/` para ficha y colección.
+Las fotos activas están en `../nuevas/inicio/`. Esta carpeta no debe enlazarse en HTML.

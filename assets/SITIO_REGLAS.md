@@ -27,9 +27,9 @@ No duplicar sello entre sección y footer con banners extra.
 
 ## Fotos
 
-- Heroes `inicio/mujer.jpg` · `inicio/hombre.jpg` — lifestyle
-- Productos `producto/` — estudio, `object-position: center` por pieza
-- Hombre colección home: `travel-bag-negro.jpg` (Maletín Antioquia)
+- **Fotos:** solo `assets/img/nuevas/` en HTML (no `inicio/`, `producto/`, `lifestyle/` legacy ni `imagenes base/`)
+- Heroes: `nuevas/inicio/mujer-nueva-02.jpg` · `hombre-nueva-03.jpg`
+- Productos: `nuevas/producto/mujer/estudio-*.jpg` · `hombre/estudio-01.jpg`
 - **Colecciones:** sin estaciones (otoño, etc.). Nombres = frutos colombianos · ver `05_Copy_y_Voz/colecciones_frutos_antioquia.md` (Lulo madre, Guanábana mujer, Borojó hombre, Uchuva bandoleras, Chontaduro morrales, Curuba accesorios)
 
 ## Globo (`index.html`)

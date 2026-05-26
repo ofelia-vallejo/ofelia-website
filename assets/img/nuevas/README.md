@@ -1,26 +1,29 @@
-# Fotos nuevas — curadas para web
+# Fotos nuevas — única fuente para el sitio
 
-Carpeta separada de `imagenes base/` (archivo bruto con UUID) y de las fotos ya publicadas en `inicio/`, `producto/`, etc.
+**Regla:** el sitio web solo enlaza fotos desde esta carpeta. No usar copias en `inicio/`, `producto/`, `lifestyle/` ni archivos de `imagenes base/`.
 
 ## Estructura
 
 | Carpeta | Contenido |
 |---------|-----------|
-| `inicio/` | Candidatas hero Mujer / Hombre (`mujer-nueva-*.jpg`, `hombre-nueva-*.jpg`) |
-| `producto/mujer/` | Estudio fondo claro · `estudio-01` … `estudio-08` |
-| `producto/hombre/` | Estudio fondo claro · `estudio-01` … `estudio-04` |
+| `inicio/` | Hero Mujer / Hombre (`mujer-nueva-*.jpg`, `hombre-nueva-*.jpg`) |
+| `producto/mujer/` | Estudio · `estudio-01` … `estudio-08` |
+| `producto/hombre/` | Estudio · `estudio-01` … `estudio-04` |
 | `lifestyle/mujer/` | Editorial lifestyle |
 
-## Publicadas en el sitio (última pasada)
+## Mapa en producción (HTML)
 
-| Destino live | Origen en `nuevas/` |
-|--------------|---------------------|
-| `inicio/mujer.jpg` | `inicio/mujer-nueva-02.jpg` |
-| `producto/mujer/bolso-tote-cognac.jpg` | `producto/mujer/estudio-01.jpg` |
-| `producto/mujer/travel-bag-cognac.jpg` | `producto/mujer/estudio-02.jpg` |
-| `producto/mujer/mochila-cognac-ii.jpg` | `producto/mujer/estudio-03.jpg` |
-| `producto/hombre/travel-bag-negro.jpg` | `producto/hombre/estudio-01.jpg` |
+| Uso en sitio | Archivo en `nuevas/` |
+|--------------|----------------------|
+| Hero mujer | `inicio/mujer-nueva-02.jpg` |
+| Hero hombre | `inicio/hombre-nueva-03.jpg` |
+| Bolso Estación / Bolso Dama | `producto/mujer/estudio-01.jpg` |
+| Travel Bag I | `producto/mujer/estudio-02.jpg` |
+| Travel Bag III / Morral | `producto/mujer/estudio-03.jpg` |
+| Maletín / Travel Bag II hombre | `producto/hombre/estudio-01.jpg` |
+| Bandoleras lifestyle | `inicio/hombre-nueva-04.jpg`, `hombre-nueva-02.jpg` |
+| Banner cuero (home) | `lifestyle/mujer/lifestyle-01.jpg` |
+| Detalle cinturón | `producto/mujer/estudio-05.jpg` |
+| Globo intro (card) | `producto/mujer/estudio-02.jpg` |
 
-Revisar candidatas en `inicio/` antes de sustituir `hombre.jpg` (lifestyle).
-
-Fuente original: `imagenes base/` en la raíz del repo.
+Redirects legacy: `vercel.json` → mismas rutas bajo `/assets/img/nuevas/`.

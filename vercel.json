@@ -13,32 +13,82 @@
     },
     {
       "source": "/assets/img/producto/bolso-tote-cognac.jpg",
-      "destination": "/assets/img/producto/mujer/bolso-tote-cognac.jpg",
+      "destination": "/assets/img/nuevas/producto/mujer/estudio-01.jpg",
       "permanent": true
     },
     {
       "source": "/assets/img/producto/travel-bag-cognac.jpg",
-      "destination": "/assets/img/producto/mujer/travel-bag-cognac.jpg",
+      "destination": "/assets/img/nuevas/producto/mujer/estudio-02.jpg",
       "permanent": true
     },
     {
       "source": "/assets/img/producto/mochila-cognac-ii.jpg",
-      "destination": "/assets/img/producto/mujer/mochila-cognac-ii.jpg",
+      "destination": "/assets/img/nuevas/producto/mujer/estudio-03.jpg",
       "permanent": true
     },
     {
       "source": "/assets/img/producto/travel-bag-negro.jpg",
-      "destination": "/assets/img/producto/hombre/travel-bag-negro.jpg",
+      "destination": "/assets/img/nuevas/producto/hombre/estudio-01.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/mujer/bolso-tote-cognac.jpg",
+      "destination": "/assets/img/nuevas/producto/mujer/estudio-01.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/mujer/travel-bag-cognac.jpg",
+      "destination": "/assets/img/nuevas/producto/mujer/estudio-02.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/mujer/mochila-cognac-ii.jpg",
+      "destination": "/assets/img/nuevas/producto/mujer/estudio-03.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/producto/hombre/travel-bag-negro.jpg",
+      "destination": "/assets/img/nuevas/producto/hombre/estudio-01.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/inicio/mujer.jpg",
+      "destination": "/assets/img/nuevas/inicio/mujer-nueva-02.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/inicio/hombre.jpg",
+      "destination": "/assets/img/nuevas/inicio/hombre-nueva-03.jpg",
       "permanent": true
     },
     {
       "source": "/assets/img/lifestyle/hombre-arco.jpg",
-      "destination": "/assets/img/lifestyle/hombre/hombre-arco.jpg",
+      "destination": "/assets/img/nuevas/inicio/hombre-nueva-04.jpg",
       "permanent": true
     },
     {
       "source": "/assets/img/lifestyle/hombre-pasillo.jpg",
-      "destination": "/assets/img/lifestyle/hombre/hombre-pasillo.jpg",
+      "destination": "/assets/img/nuevas/inicio/hombre-nueva-02.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/lifestyle/hombre/hombre-arco.jpg",
+      "destination": "/assets/img/nuevas/inicio/hombre-nueva-04.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/lifestyle/hombre/hombre-pasillo.jpg",
+      "destination": "/assets/img/nuevas/inicio/hombre-nueva-02.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/cuero/banner-atelier.jpg",
+      "destination": "/assets/img/nuevas/lifestyle/mujer/lifestyle-01.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/assets/img/cuero/detalle-grabado.jpg",
+      "destination": "/assets/img/nuevas/producto/mujer/estudio-05.jpg",
       "permanent": true
     }
   ],
