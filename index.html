@@ -301,7 +301,7 @@
   }
   .pin .halo--2 { animation-delay: 0.9s; }
   @keyframes pin-pulse { 0% { r: 4; opacity: 0.85; } 100% { r: 14; opacity: 0; } }
-  .stage[data-stage="5"] .pin { opacity: 0 !important; pointer-events: none; }
+  .stage[data-stage="3"] .pin { opacity: 0 !important; pointer-events: none; }
 
   /* ─── Vignette (stage 5 · entrada final) ───────────── */
   .vignette {
@@ -309,7 +309,7 @@
     background: radial-gradient(ellipse at center, transparent 30%, rgba(11,31,58,0.18) 80%, rgba(11,31,58,0.32) 100%);
     pointer-events: none; opacity: 0; transition: opacity 1.2s var(--ease);
   }
-  .stage[data-stage="5"] .vignette { opacity: 1; }
+  .stage[data-stage="3"] .vignette { opacity: 1; }
 
   /* ─── Content panels (editorial card) ──────────────── */
   .panels {
@@ -361,9 +361,9 @@
     margin: 0;
     font-style: italic;
   }
-  .stage[data-stage="5"] .panels { display: none; }
-  .stage[data-stage="5"] .click-hint,
-  .stage[data-stage="5"] .nav-dots { opacity: 0; pointer-events: none; }
+  .stage[data-stage="3"] .panels { display: none; }
+  .stage[data-stage="3"] .click-hint,
+  .stage[data-stage="3"] .nav-dots { opacity: 0; pointer-events: none; }
 
   /* ─── Click hint ─────────────────────────────────── */
   .click-hint {
@@ -428,7 +428,7 @@
     gap: 24px; align-items: center;
     transition: bottom 0.9s var(--ease);
   }
-  .stage[data-stage="5"] .card { bottom: 60px; }
+  .stage[data-stage="3"] .card { bottom: 60px; }
   .card__thumb {
     width: 64px; height: 64px;
     border: 1px solid rgba(11,31,58,0.12);
@@ -454,7 +454,7 @@
   @media (max-width: 600px) {
     .card { grid-template-columns: 1fr; text-align: center; }
     .card__thumb { margin: 0 auto; }
-    .stage[data-stage="5"] .card { bottom: 80px; }
+    .stage[data-stage="3"] .card { bottom: 80px; }
   }
 
   /* ─── Mobile global ──────────────────────────────── */
@@ -498,7 +498,7 @@
       width: 64px; height: 64px;
     }
     .card .info .name { font-size: 15px; }
-    .stage[data-stage="5"] .card { bottom: 72px; }
+    .stage[data-stage="3"] .card { bottom: 72px; }
   }
 </style>
 </head>
@@ -600,13 +600,6 @@
         <p class="panel__body">Piedra, agua y atelier. La firma de la abuela permanece en el cuero.</p>
       </div>
     </div>
-    <div class="panel" data-panel="4">
-      <div class="panel__card">
-        <h2 class="panel__title">Entra a la casa.</h2>
-        <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Elegancia que permanece — hecha a mano en Medellín.</p>
-      </div>
-    </div>
   </div>
 
   <!-- Indicador de clic -->
@@ -620,9 +613,6 @@
     <span class="nav-dot active" data-n="0"></span>
     <span class="nav-dot" data-n="1"></span>
     <span class="nav-dot" data-n="2"></span>
-    <span class="nav-dot" data-n="3"></span>
-    <span class="nav-dot" data-n="4"></span>
-    <span class="nav-dot" data-n="5"></span>
   </div>
 
   <!-- Controles Volver / Saltar -->
@@ -884,20 +874,18 @@
   /* ─── Panel + dots + hint sync ───────────────────── */
   const tap = ('ontouchstart' in window) ? 'Toque' : 'Clic';
   const hints = [
-    `${tap} en el mundo`,
     `${tap} en Colombia`,
     `${tap} en Antioquia`,
     `${tap} en Guatapé`,
-    `${tap} para entrar`,
     ''
   ];
 
   function updatePanel(idx) {
-    const showPanel = idx < 5;
+    const showPanel = idx < 3;
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', showPanel && +p.dataset.panel === idx));
     document.querySelectorAll('.nav-dot').forEach(d =>
-      d.classList.toggle('active', +d.dataset.n === idx));
+      d.classList.toggle('active', idx < 3 && +d.dataset.n === idx));
     const hintEl   = document.getElementById('hintText');
     const hintWrap = document.getElementById('clickHint');
     if (hintEl)   hintEl.textContent = hints[idx] || '';
@@ -975,35 +963,23 @@
 
   async function toStage3() {
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
-    updatePanel(3);
+    document.querySelectorAll('.panel').forEach(p =>
+      p.classList.toggle('active', +p.dataset.panel === 3));
+    const hintEl = document.getElementById('hintText');
+    const hintWrap = document.getElementById('clickHint');
+    if (hintEl) hintEl.textContent = '';
+    if (hintWrap) hintWrap.style.display = 'none';
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
-      scaleTo: Math.min(W, H) * 9,
-      tiltTo: 9,
-      ms: 1700
+      scaleTo: Math.min(W, H) * 8,
+      tiltTo: 8,
+      ms: 1600
     });
-    setStage(3);
     revealMap(3);
-  }
-
-  async function toStage4() {
-    updatePanel(4);
-    await animate({
-      rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
-      scaleTo: Math.min(W, H) * 14,
-      tiltTo: 12,
-      ms: 1500
-    });
-    setStage(4);
+    await animate({ scaleTo: Math.min(W, H) * 22, tiltTo: 14, ms: 1700 });
+    setStage(3);
     revealMap(4);
-  }
-
-  async function toStage5() {
-    updatePanel(5);
-    await animate({ scaleTo: Math.min(W, H) * 26, tiltTo: 16, ms: 1800 });
-    setStage(5);
-    revealMap(5);
-    pinEl.classList.add('deep');
+    updatePanel(3);
   }
 
   async function resetAll() {
@@ -1031,11 +1007,10 @@
     const now = Date.now();
     if (busy || now - lastAdvanceAt < 900) return;
     lastAdvanceAt = now;
+    if (stage >= 3) return;
     if (stage === 0) runStage(toStage1);
     else if (stage === 1) runStage(toStage2);
     else if (stage === 2) runStage(toStage3);
-    else if (stage === 3) runStage(toStage4);
-    else if (stage === 4) runStage(toStage5);
   });
 
   async function stepBack() {
@@ -1055,6 +1030,7 @@
         revealMap(1);
       } else if (stage === 3) {
         updatePanel(2);
+        pinEl.classList.remove('on', 'deep');
         await animate({
           rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
           scaleTo: Math.min(W, H) * 5.5,
@@ -1063,28 +1039,6 @@
         });
         setStage(2);
         revealMap(2);
-        pinEl.classList.remove('on', 'deep');
-      } else if (stage === 4) {
-        updatePanel(3);
-        await animate({
-          rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
-          scaleTo: Math.min(W, H) * 9,
-          tiltTo: 9,
-          ms: 1400
-        });
-        setStage(3);
-        revealMap(3);
-      } else if (stage === 5) {
-        updatePanel(4);
-        pinEl.classList.remove('deep');
-        await animate({
-          rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
-          scaleTo: Math.min(W, H) * 14,
-          tiltTo: 12,
-          ms: 1400
-        });
-        setStage(4);
-        revealMap(4);
       }
     } finally {
       endFlight();
