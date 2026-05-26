@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto — Ofelia Vallejo</title>
+  <meta name="description" content="Marroquinería en cuero colombiano · Ofelia Vallejo Leather House">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <meta name="theme-color" content="#0B1F3A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/producto.css">
+  <link rel="stylesheet" href="/assets/css/account.css">
+  <link rel="stylesheet" href="/assets/css/pdp-layout.css">
+  <style>
+    .pdp__price-sub { font-size: 12px; color: rgba(11,31,58,0.5); margin-top: 6px; }
+    .pdp__cta-pay { margin-top: 12px; }
+    .pdp__cta-pay:disabled { opacity: 0.45; pointer-events: none; }
+    .pdp__stock { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px; }
+    .pdp__stock--out { color: var(--vino); }
+    .pdp__loading { padding: 120px var(--pad-x); text-align: center; color: var(--text-soft); }
+    .pdp__err { padding: 120px 24px; text-align: center; }
+    .pdp__swatch { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div id="cursor" aria-hidden="true"></div>
+  <header class="navbar" role="banner">
+    <div class="navbar__left" aria-hidden="true"></div>
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+      <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    </a>
+    <div class="navbar__right">
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <button type="button" class="pdp-back" id="pdpBack" aria-label="Volver">← Volver</button>
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <div class="nav-panel__links">
+      <p class="nav-panel__group">Casa</p>
+      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
+  </nav>
+
+  <div id="pdpLoading" class="pdp__loading">Cargando pieza…</div>
+  <div id="pdpError" class="pdp__err" hidden>
+    <p>Pieza no encontrada.</p>
+    <a href="/coleccion.html">Ver colección →</a>
+  </div>
+  <main class="pdp" id="pdp" hidden></main>
+
+  <footer data-dark id="pdpFooter" hidden>
+    <div class="foot__cols">
+      <div class="foot__brand">
+        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
+        <p class="foot__tag">Leather House · Medellín → Lausanne</p>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
+    </div>
+  </footer>
+
+  <script src="/assets/js/brand.js"></script>
+  <script src="/assets/js/catalog.js" defer></script>
+  <script src="/assets/js/account.js" defer></script>
+  <script src="/assets/js/pdp.js" defer></script>
+</body>
+</html>

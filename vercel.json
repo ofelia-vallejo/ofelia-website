@@ -1,6 +1,15 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/producto/:slug", "destination": "/producto/index.html?slug=:slug" }
+  ],
   "redirects": [
+    { "source": "/producto/travel-bag-i.html", "destination": "/producto/travel-bag-i", "permanent": true },
+    { "source": "/producto/travel-bag-ii.html", "destination": "/producto/travel-bag-ii", "permanent": true },
+    { "source": "/producto/travel-bag-iii.html", "destination": "/producto/travel-bag-iii", "permanent": true },
+    { "source": "/producto/bolso-dama.html", "destination": "/producto/bolso-dama", "permanent": true },
+    { "source": "/producto/morral-elite.html", "destination": "/producto/morral-elite", "permanent": true },
+    { "source": "/producto/maletin.html", "destination": "/producto/travel-bag-ii", "permanent": true },
     {
       "source": "/assets/img/logo_tarjetas_sello.png",
       "destination": "/assets/img/logo_sello.png",

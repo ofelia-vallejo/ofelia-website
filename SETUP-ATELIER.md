@@ -1,108 +1,113 @@
-# Atelier — Catálogo, inventario y panel admin
+# Atelier — Catálogo, PDP, pagos e inventario
 
-Sistema para gestionar **productos, fotos, precios, grabado adicional e inventario** sin editar código.
+Sistema completo: **PostgreSQL**, panel admin, **PDP dinámico**, **Stripe**, inventario.
 
 ---
 
 ## Arquitectura
 
-| Capa | Qué hace |
-|------|----------|
-| `data/catalog.json` | Catálogo base (siempre en el repo, lectura por defecto) |
-| **Vercel Blob** | Catálogo activo + fotos subidas desde el admin (producción) |
-| `/api/products` | API pública — web y configurador |
-| `/api/admin/*` | API privada — panel admin |
-| `/admin/` | Interfaz visual (login, productos, inventario, fotos) |
-| **Estudio** | `personalizar.html` — tipografía, tamaño, diseño, precios |
+| Capa | URL / ruta | Función |
+|------|------------|---------|
+| **PostgreSQL** | `DATABASE_URL` | Fuente de verdad: productos, stock, pedidos |
+| **Vercel Blob** | fallback | Fotos + catálogo si no hay Postgres |
+| `data/catalog.json` | repo | Seed inicial + fallback lectura |
+| `/api/products` | API | Catálogo público |
+| `/api/admin/*` | API | Panel admin |
+| `/api/checkout/create` | API | Sesión Stripe Checkout |
+| `/api/checkout/webhook` | API | Pago confirmado → stock |
+| `/producto/:slug` | Web | PDP dinámico (`producto/index.html`) |
+| `/admin/` | Web | Gestión sin código |
+| `/gracias` | Web | Post-pago |
+
+**Prioridad de lectura del catálogo:** Postgres → Blob → `data/catalog.json`
 
 ---
 
-## 1. Variables en Vercel
+## 1. PostgreSQL (Neon / Vercel Postgres / Supabase)
 
-En el proyecto Vercel → **Settings → Environment Variables**:
-
-| Variable | Obligatorio | Descripción |
-|----------|-------------|-------------|
-| `ADMIN_PASSWORD` | Sí | Contraseña del panel `/admin/` |
-| `ADMIN_SECRET` | Recomendado | Firma de sesión (string largo aleatorio) |
-| `BLOB_READ_WRITE_TOKEN` | Sí (prod) | [Vercel Blob](https://vercel.com/docs/storage/vercel-blob) — guardar catálogo y fotos |
-| `SMTP_*` / `EMAIL_TO` | Opcional | Emails de solicitudes (ya existente) |
-
-**Desarrollo local** (guardar en archivo sin subir a git):
+1. Crear base Postgres y copiar `DATABASE_URL`
+2. En Vercel → Environment Variables → `DATABASE_URL`
+3. Migrar y sembrar desde tu máquina:
 
 ```bash
-# .env.local
-ADMIN_PASSWORD=tu-clave-segura
-ADMIN_SECRET=string-aleatorio-largo
-STORE_MODE=file
+cp .env.example .env.local
+# Editar DATABASE_URL
+npm install
+npm run db:migrate
 ```
 
-Con `STORE_MODE=file` los cambios del admin se escriben en `data/catalog.json` en tu máquina.
+Esto aplica `database/schema.sql` e importa `data/catalog.json` + datos PDP (galería por color).
 
 ---
 
-## 2. Crear Blob en Vercel
+## 2. Stripe
 
-1. Dashboard del proyecto → **Storage** → **Create Database** → **Blob**
-2. Conectar al proyecto → se crea `BLOB_READ_WRITE_TOKEN` automáticamente
-3. Redeploy
+1. [dashboard.stripe.com](https://dashboard.stripe.com) → claves de prueba
+2. Variables en Vercel:
 
-La primera vez que guardes un producto en producción, el catálogo se copia a `ofelia/catalog.json` en Blob.
+| Variable | Uso |
+|----------|-----|
+| `STRIPE_SECRET_KEY` | `sk_test_...` / `sk_live_...` |
+| `STRIPE_PUBLISHABLE_KEY` | `pk_test_...` (futuro Elements) |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_...` del endpoint webhook |
+| `SITE_URL` | `https://ofeliavallejo.com` |
 
----
+3. Webhook en Stripe → URL: `https://tu-dominio.com/api/checkout/webhook`  
+   Eventos: `checkout.session.completed`, `checkout.session.expired`
 
-## 3. Panel admin
-
-URL: **`https://tu-dominio.com/admin/`**
-
-- **Productos** — nombre, descripciones, precios CHF, grabado adicional, categoría, activo/inactivo
-- **Fotos** — arrastrar JPG/PNG/WebP (máx. 4 MB) por producto
-- **Variantes** — color, SKU, stock por color
-- **Inventario** — vista rápida y ajuste de unidades
-
-Contraseña: la de `ADMIN_PASSWORD`.
+4. En el PDP, **Comprar** crea sesión Checkout (CHF) con pieza + grabado opcional.
 
 ---
 
-## 4. Precios y grabado
+## 3. Admin (`/admin/`)
 
-Cada producto en el catálogo tiene:
+| Variable | Obligatorio |
+|----------|-------------|
+| `ADMIN_PASSWORD` | Sí |
+| `ADMIN_SECRET` | Recomendado |
+| `DATABASE_URL` | Recomendado (prod) |
+| `BLOB_READ_WRITE_TOKEN` | Fotos si no están en URLs externas |
 
-- `basePrice` — precio de la pieza (CHF)
-- `engravePrice` — **suplemento** por grabado láser (CHF), según tipo de producto
-
-El **configurador** en Personalizar suma ambos cuando hay texto de grabado.
-
-Edita estos valores en el admin; la web los lee desde `/api/products`.
-
----
-
-## 5. Inventario
-
-- **Stock total** — campo `inventory` si no hay variantes
-- **Por color** — variantes con `inventory` cada una
-- Alerta **stock bajo** cuando unidades ≤ `lowStockAt` (por defecto 2)
-
-El admin muestra badges: OK · Bajo · Agotado.
+Local: `STORE_MODE=file npm run dev`
 
 ---
 
-## 6. API pública (referencia)
+## 4. PDP dinámico
+
+- URL: `/producto/travel-bag-i` (y cualquier `slug` del catálogo)
+- Los HTML estáticos antiguos están en `producto/_archive/`
+- Redirecciones 301 desde `*.html` antiguos
+
+Datos por producto en Postgres / catálogo:
+- `basePrice`, `engravePrice`, `images`, `variants`, `colorData`, `accordion`
+
+---
+
+## 5. Precios
+
+- **Pieza** → `basePrice` (CHF)
+- **Grabado** → `engravePrice` adicional si el cliente escribe texto en PDP o estudio
+- Total en Checkout = suma automática
+
+---
+
+## 6. Inventario
+
+- Stock en producto o por variante (color)
+- Al pagar (webhook Stripe) se decrementa 1 unidad
+- Admin → pestaña **Inventario**
+
+---
+
+## 7. APIs
 
 ```http
-GET /api/products
-GET /api/products?slug=travel-bag-i
+GET  /api/products
+GET  /api/products?slug=travel-bag-i
+POST /api/checkout/create
+POST /api/checkout/webhook
+GET  /api/stripe/config
 ```
-
-Respuesta incluye `products[]` con imágenes, variantes, `engrave`, precios.
-
----
-
-## 7. Próximo paso (opcional)
-
-- Migrar a **Supabase/Postgres** si necesitáis pedidos, usuarios y stock en tiempo real multi-usuario
-- Colección 100 % generada desde API (hoy las tarjetas son HTML estático; precios y stock se hidratan desde `/api/products` vía `coleccion-live.js`)
-- Pasarela de pago (Stripe) con total pieza + grabado
 
 ---
 

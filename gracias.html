@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Gracias — Ofelia Vallejo</title>
+  <link rel="stylesheet" href="assets/css/brand.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <style>
+    .thanks {
+      margin-top: 56px;
+      min-height: calc(100vh - 56px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      text-align: center;
+      background: var(--marfil);
+    }
+    .thanks h1 {
+      font-family: Cinzel, serif;
+      font-size: clamp(28px, 4vw, 40px);
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .thanks p {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(11, 31, 58, 0.6);
+      max-width: 420px;
+      margin: 0 auto 28px;
+      line-height: 1.75;
+    }
+    .thanks a {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid var(--navy);
+      font-family: Cinzel, serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .thanks a:hover { background: var(--navy); color: var(--marfil); }
+  </style>
+</head>
+<body>
+  <div class="thanks">
+    <div>
+      <h1>Elegancia que permanece.</h1>
+      <p id="thanksMsg">Tu pago fue recibido. El atelier confirmará el grabado y el envío por correo en las próximas horas.</p>
+      <a href="/coleccion.html">Volver a la colección</a>
+    </div>
+  </div>
+  <script>
+    const sid = new URLSearchParams(location.search).get('session_id');
+    if (sid) {
+      document.getElementById('thanksMsg').textContent +=
+        ' Referencia de sesión registrada.';
+    }
+  </script>
+</body>
+</html>
