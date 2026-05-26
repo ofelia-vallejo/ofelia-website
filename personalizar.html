@@ -7,16 +7,27 @@
   <meta name="description" content="Personaliza tu pieza en cuero · grabado láser · Ofelia Vallejo Atelier.">
   <link rel="canonical" href="https://ofeliavallejo.com/personalizar">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
-  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo_sello_badge.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
   <meta name="theme-color" content="#0B1F3A">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ofelia Vallejo">
+  <meta property="og:locale" content="es_CO">
   <meta property="og:title" content="Personalizar — Ofelia Vallejo">
+  <meta property="og:description" content="Tu nombre. En cuero. Grabado láser personalizado en piezas de marroquinería colombiana.">
   <meta property="og:url" content="https://ofeliavallejo.com/personalizar">
   <meta property="og:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Personalizar — Ofelia Vallejo">
+  <meta name="twitter:description" content="Estudio de grabado · solicitud bespoke · atelier Medellín.">
+  <meta name="twitter:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/brand.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
   <link rel="stylesheet" href="assets/css/account.css">
   <link rel="stylesheet" href="assets/css/engrave-studio.css">
   <style>
@@ -417,6 +428,24 @@
       line-height: 1.8;
     }
 
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 320px;
+    }
+
+    .form-submit--wa {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid rgba(11, 31, 58, 0.35);
+    }
+
+    .form-submit--wa:hover {
+      border-color: var(--navy);
+      background: rgba(11, 31, 58, 0.04);
+    }
+
     .form-section__note {
       margin-top: 32px;
       padding-top: 24px;
@@ -476,14 +505,14 @@
     }
   </style>
 </head>
-<body data-ov-popup="personalizar">
+<body data-ov-popup="">
 
   <div id="cursor" aria-hidden="true"></div>
 
     <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="/assets/img/logo_sello_badge.png" alt="Ofelia Vallejo" class="navbar__badge" width="40" height="40">
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -497,8 +526,8 @@
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="/home.html" class="nav-panel__link">Inicio</a>
-      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/coleccion.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion.html#hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
       <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
       <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
@@ -510,6 +539,7 @@
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
 
+  <main id="main-content">
   <div class="page-hero" data-dark>
     <p class="page-hero__label">Bespoke · Grabado láser</p>
     <h1 class="page-hero__title">Tu nombre.<br>En cuero.</h1>
@@ -603,8 +633,8 @@
         </div>
 
         <div class="engrave-studio__actions">
-          <button type="button" class="engrave-studio__cta" id="studioApplyForm">Continuar a solicitud</button>
-          <button type="button" class="engrave-studio__cta engrave-studio__cta--ghost" id="studioSaveDraft">Guardar boceto</button>
+          <button type="button" class="engrave-studio__cta" id="studioApplyForm">Enviar estilo por WhatsApp</button>
+          <button type="button" class="engrave-studio__cta engrave-studio__cta--ghost" id="studioSaveDraft">Compartir boceto · WhatsApp</button>
         </div>
         <p class="engrave-studio__note">Vista previa orientativa. El atelier confirma tipografía y posición antes de grabar. El grabado es un servicio adicional al precio de la pieza.</p>
       </div>
@@ -756,6 +786,7 @@
       <p class="form-section__body">
         Completa el formulario y el atelier te responde en 24–48 h con
         confirmación de disponibilidad, boceto del grabado y condiciones de pago.
+        También puedes enviar la solicitud directamente por WhatsApp con el mensaje ya redactado.
       </p>
       <div class="form-section__note">
         <p>Grabado CO₂ · 0.3–0.4 mm profundidad</p>
@@ -815,11 +846,13 @@
         <textarea id="mensaje" name="mensaje" rows="4"></textarea>
       </div>
 
-      <div>
-        <button type="submit" class="form-submit">Enviar solicitud</button>
-        <button type="button" class="atelier-btn" id="atelierSaveDraft" style="margin-top:16px;width:100%;max-width:320px;">
+      <div class="form-actions">
+        <button type="submit" class="form-submit form-submit--wa" id="btnWhatsApp">Enviar solicitud por WhatsApp</button>
+        <button type="button" class="atelier-btn" id="atelierSaveDraft" style="width:100%;">
           Guardar boceto
         </button>
+      </div>
+      <div>
         <p
           class="form-notice form-notice--success"
           id="notice-success"
@@ -834,17 +867,19 @@
     </form>
   </section>
 
+  </main>
+
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
+        <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
         <p class="foot__tag">Leather House · Medellín → Lausanne</p>
       </div>
       <nav class="foot__col" aria-label="Casa">
         <h4>Casa</h4>
         <ul>
-          <li><a href="/home.html#mujer">Mujer</a></li>
-          <li><a href="/home.html#hombre">Hombre</a></li>
+          <li><a href="/coleccion.html#mujer">Mujer</a></li>
+          <li><a href="/coleccion.html#hombre">Hombre</a></li>
           <li><a href="/coleccion.html">Cuero</a></li>
           <li><a href="/manifiesto.html">Historia</a></li>
         </ul>
@@ -877,131 +912,10 @@
   </footer>
 
   <script src="assets/js/brand.js"></script>
+  <script src="assets/js/whatsapp.js"></script>
   <script src="assets/js/catalog.js" defer></script>
   <script src="assets/js/account.js" defer></script>
   <script src="assets/js/engrave-studio.js" defer></script>
-  <script>
-    (function () {
-      const form = document.getElementById('form-personalizar');
-      const btnSubmit = form.querySelector('.form-submit');
-      const noticeOk = document.getElementById('notice-success');
-      const noticeErr = document.getElementById('notice-error');
-      const textoInput = document.getElementById('texto_grabado');
-      const charCount = document.getElementById('char-count');
-
-      const previewEl = document.getElementById('engrave-preview');
-      const previewText = document.getElementById('engrave-preview-text');
-
-      function syncPreview() {
-        const val = textoInput.value.trim();
-        charCount.textContent = textoInput.value.length;
-        if (val) {
-          previewText.textContent = val.slice(0, 24);
-          previewEl.classList.add('is-filled');
-        } else {
-          previewText.textContent = 'ABC';
-          previewEl.classList.remove('is-filled');
-        }
-      }
-
-      // Pre-fill from query string (PDP → personalizar)
-      const params = new URLSearchParams(location.search);
-      const productoParam = params.get('producto');
-      if (productoParam) {
-        const opt = form.querySelector(`option[value="${productoParam}"]`);
-        if (opt) opt.selected = true;
-      }
-      const textoParam = params.get('texto_grabado');
-      if (textoParam) {
-        textoInput.value = textoParam.slice(0, 60);
-        syncPreview();
-      }
-      const tipoParam = params.get('tipo_grabado');
-      if (tipoParam && form.tipo_grabado.querySelector(`option[value="${tipoParam}"]`)) {
-        form.tipo_grabado.value = tipoParam;
-      }
-      const colorParam = params.get('color');
-      const mensajeField = document.getElementById('mensaje');
-      if (colorParam && mensajeField) {
-        const colorNote = 'Color seleccionado en PDP: ' + colorParam;
-        if (!mensajeField.value.includes(colorNote)) {
-          mensajeField.value = mensajeField.value
-            ? mensajeField.value.trim() + '\n' + colorNote
-            : colorNote;
-        }
-      }
-
-      textoInput.addEventListener('input', syncPreview);
-      form.tipo_grabado.addEventListener('change', () => {
-        if (form.tipo_grabado.value === 'iniciales' && !textoInput.value) {
-          previewText.textContent = 'OV';
-        }
-        syncPreview();
-      });
-
-      function showNotice(el, msg) {
-        noticeOk.classList.remove('is-visible');
-        noticeErr.classList.remove('is-visible');
-        el.textContent = msg;
-        el.classList.add('is-visible');
-      }
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const data = {
-          nombre:        form.nombre.value.trim(),
-          email:         form.email.value.trim(),
-          producto:      form.producto.value,
-          tipo_grabado:  form.tipo_grabado.value,
-          texto_grabado: form.texto_grabado.value.trim(),
-          mensaje:       form.mensaje.value.trim(),
-        };
-
-        const studioTotal = document.getElementById('studioTotalPrice');
-        const studioEngrave = document.getElementById('studioEngravePrice');
-        const studioBase = document.getElementById('studioBasePrice');
-        if (studioTotal && studioTotal.textContent.includes('CHF')) {
-          data.total_estimated = studioTotal.textContent.replace(/[^\d]/g, '');
-          data.base_price = studioBase ? studioBase.textContent.replace(/[^\d]/g, '') : '';
-          data.engrave_price = studioEngrave && studioEngrave.textContent.includes('+')
-            ? studioEngrave.textContent.replace(/[^\d]/g, '')
-            : '0';
-        }
-
-        if (!data.nombre || !data.email || !data.producto || !data.tipo_grabado || !data.texto_grabado) {
-          showNotice(noticeErr, 'Por favor completa todos los campos obligatorios.');
-          return;
-        }
-
-        btnSubmit.disabled = true;
-        btnSubmit.textContent = 'Enviando…';
-
-        try {
-          const res = await fetch('/api/personalizar', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          });
-
-          const json = await res.json();
-
-          if (json.ok) {
-            showNotice(noticeOk, json.message);
-            form.reset();
-            charCount.textContent = '0';
-          } else {
-            showNotice(noticeErr, json.error || 'Error al enviar. Intenta de nuevo.');
-            btnSubmit.disabled = false;
-            btnSubmit.textContent = 'Enviar solicitud';
-          }
-        } catch {
-          showNotice(noticeErr, 'Error de conexión. Intenta de nuevo.');
-          btnSubmit.disabled = false;
-          btnSubmit.textContent = 'Enviar solicitud';
-        }
-      });
-    })();
-  </script>
+  <script src="assets/js/personalizar-form.js" defer></script>
 </body>
 </html>

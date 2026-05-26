@@ -1,8 +1,18 @@
 /* Ofelia Vallejo — Cuenta · popup · atelier (MVP local) */
 
 (function () {
+  /* Desactivado hasta pasarela de pago · código conservado para reactivar */
+  const ACCOUNTS_ENABLED = false;
+
+  if (!ACCOUNTS_ENABLED) {
+    document.documentElement.setAttribute('data-accounts', 'off');
+  } else {
+    document.documentElement.setAttribute('data-accounts', 'on');
+  }
+
   const KEY_ACCOUNTS = 'ov_accounts';
   const KEY_SESSION = 'ov_session';
+  const KEY_TOKEN = 'ov_token';
   const KEY_POPUP = 'ov_popup_dismissed';
   const KEY_DRAFTS = 'ov_atelier_drafts';
 
@@ -50,7 +60,7 @@
     document.dispatchEvent(new CustomEvent('ov:session', { detail: user }));
   }
 
-  function register({ nombre, email, password }) {
+  function registerLocal({ nombre, email, password }) {
     const accounts = getAccounts();
     const norm = email.trim().toLowerCase();
     if (accounts.some((a) => a.email === norm)) {
@@ -66,10 +76,10 @@
     accounts.push(user);
     saveAccounts(accounts);
     setSession({ id: user.id, nombre: user.nombre, email: user.email });
-    return { ok: true };
+    return { ok: true, local: true };
   }
 
-  function login(email, password) {
+  function loginLocal(email, password) {
     const norm = email.trim().toLowerCase();
     const accounts = getAccounts();
     const found = accounts.find(
@@ -79,11 +89,74 @@
       return { ok: false, message: 'Correo o contraseña incorrectos.' };
     }
     setSession({ id: found.id, nombre: found.nombre, email: found.email });
-    return { ok: true };
+    return { ok: true, local: true };
+  }
+
+  async function register({ nombre, email, password }) {
+    try {
+      const res = await fetch('/api/account/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, email, password }),
+      });
+      const json = await res.json();
+      if (json.ok && json.token) {
+        localStorage.setItem(KEY_TOKEN, json.token);
+        setSession(json.user);
+        return { ok: true };
+      }
+      if (json.code === 'NO_DATABASE' || res.status === 503) {
+        return registerLocal({ nombre, email, password });
+      }
+      return { ok: false, message: json.error || 'No se pudo crear la cuenta.' };
+    } catch {
+      return registerLocal({ nombre, email, password });
+    }
+  }
+
+  async function login(email, password) {
+    try {
+      const res = await fetch('/api/account/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const json = await res.json();
+      if (json.ok && json.token) {
+        localStorage.setItem(KEY_TOKEN, json.token);
+        setSession(json.user);
+        return { ok: true };
+      }
+      if (json.code === 'NO_DATABASE' || res.status === 503) {
+        return loginLocal(email, password);
+      }
+      return { ok: false, message: json.error || 'Correo o contraseña incorrectos.' };
+    } catch {
+      return loginLocal(email, password);
+    }
   }
 
   function logout() {
+    localStorage.removeItem(KEY_TOKEN);
     setSession(null);
+  }
+
+  async function restoreSession() {
+    const token = localStorage.getItem(KEY_TOKEN);
+    if (!token) return;
+    try {
+      const res = await fetch('/api/account/me', {
+        headers: { Authorization: 'Bearer ' + token },
+      });
+      const json = await res.json();
+      if (json.ok && json.user) {
+        setSession(json.user);
+        return;
+      }
+    } catch {
+      /* sin servidor */
+    }
+    localStorage.removeItem(KEY_TOKEN);
   }
 
   function isLoggedIn() {
@@ -252,7 +325,7 @@
     n.className = 'ov-modal__notice ' + (ok ? 'is-ok' : 'is-err');
   }
 
-  function onRegisterSubmit(e) {
+  async function onRegisterSubmit(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
     const nombre = fd.get('nombre');
@@ -266,12 +339,16 @@
       showNotice('La contraseña debe tener al menos 6 caracteres.', false);
       return;
     }
-    const res = register({ nombre, email, password });
+    showNotice('Creando cuenta…', true);
+    const res = await register({ nombre, email, password });
     if (!res.ok) {
       showNotice(res.message, false);
       return;
     }
-    showNotice('Cuenta creada. Bienvenida al atelier.', true);
+    const msg = res.local
+      ? 'Cuenta creada (modo local). Bienvenida al atelier.'
+      : 'Cuenta creada. Bienvenida al atelier.';
+    showNotice(msg, true);
     setTimeout(() => {
       closeModal();
       if (window.location.pathname.includes('personalizar')) {
@@ -283,15 +360,16 @@
     }, 700);
   }
 
-  function onLoginSubmit(e) {
+  async function onLoginSubmit(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
-    const res = login(fd.get('email'), fd.get('password'));
+    showNotice('Entrando…', true);
+    const res = await login(fd.get('email'), fd.get('password'));
     if (!res.ok) {
       showNotice(res.message, false);
       return;
     }
-    showNotice('Sesión iniciada.', true);
+    showNotice(res.local ? 'Sesión iniciada (modo local).' : 'Sesión iniciada.', true);
     setTimeout(() => {
       closeModal();
       syncAtelier();
@@ -300,6 +378,7 @@
   }
 
   function openModal(tab) {
+    if (!ACCOUNTS_ENABLED) return;
     buildModal();
     if (tab) setModalTab(tab);
     modalEl.classList.add('is-open');
@@ -315,6 +394,7 @@
   }
 
   function maybeAutoPopup() {
+    if (!ACCOUNTS_ENABLED) return;
     if (isLoggedIn()) return;
     const page = document.body.getAttribute('data-ov-popup');
     if (!page) return;
@@ -324,6 +404,11 @@
   }
 
   function syncNav() {
+    if (!ACCOUNTS_ENABLED) {
+      const link = document.getElementById('navAccountLink');
+      if (link) link.remove();
+      return;
+    }
     const right = document.querySelector('.navbar__right');
     if (!right) return;
     let link = document.getElementById('navAccountLink');
@@ -515,25 +600,27 @@
       notice.className = 'ov-modal__notice ' + (ok ? 'is-ok' : 'is-err');
     }
 
-    document.getElementById('cuentaFormRegister')?.addEventListener('submit', (e) => {
+    document.getElementById('cuentaFormRegister')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
-      const res = register({
+      showPageNotice('Creando cuenta…', true);
+      const res = await register({
         nombre: fd.get('nombre'),
         email: fd.get('email'),
         password: fd.get('password')
       });
       if (!res.ok) showPageNotice(res.message, false);
       else {
-        showPageNotice('Cuenta creada.', true);
+        showPageNotice(res.local ? 'Cuenta creada (modo local).' : 'Cuenta creada.', true);
         setTimeout(() => { window.location.href = personalizarHref() + '#atelier'; }, 800);
       }
     });
 
-    document.getElementById('cuentaFormLogin')?.addEventListener('submit', (e) => {
+    document.getElementById('cuentaFormLogin')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
-      const res = login(fd.get('email'), fd.get('password'));
+      showPageNotice('Entrando…', true);
+      const res = await login(fd.get('email'), fd.get('password'));
       if (!res.ok) showPageNotice(res.message, false);
       else {
         showPageNotice('Sesión iniciada.', true);
@@ -559,8 +646,13 @@
     if (window.location.hash === '#register') activatePageTab('register');
   }
 
-  function init() {
+  async function init() {
+    if (!ACCOUNTS_ENABLED) {
+      syncNav();
+      return;
+    }
     buildModal();
+    await restoreSession();
     syncNav();
     syncAtelier();
     bindAtelierUI();
@@ -572,7 +664,7 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => { init(); });
   } else {
     init();
   }

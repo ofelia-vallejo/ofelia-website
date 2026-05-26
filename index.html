@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-accounts="off">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,12 +7,12 @@
 <meta name="description" content="Marroquinería hecha a mano en Medellín. Herencia, cuero pleno y artesanía paisa.">
 <link rel="canonical" href="https://ofeliavallejo.com/">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
-<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo_sello_badge.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/logo_sello_badge.png">
+<link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0B1F3A">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ofelia Vallejo">
 <meta property="og:locale" content="es_CO">
@@ -44,7 +44,8 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 300; font-size: 13px;
     -webkit-font-smoothing: antialiased;
-    overflow: hidden; height: 100%;
+    min-height: 100%;
+    min-height: 100dvh;
   }
   @media (hover: hover) and (pointer: fine) { html, body, a, button { cursor: none; } }
 
@@ -72,7 +73,7 @@
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     padding: 0 48px;
-    overflow: hidden;
+    overflow: visible;
     opacity: 0;
     transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     pointer-events: none;
@@ -83,14 +84,14 @@
   }
   .navbar__left  { grid-column: 1; }
   .navbar__logo  { grid-column: 2; justify-self: center; flex-shrink: 0; display: flex; align-items: center; outline: none; overflow: visible; padding: 0 12px; max-width: min(460px, 90vw); }
-  .navbar__badge {
+  .navbar__firma {
     display: block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    box-shadow: 0 1px 6px rgba(11, 31, 58, 0.08);
+    width: auto;
+    height: auto;
+    max-height: 42px;
+    max-width: min(280px, 88vw);
+    object-fit: contain;
+    object-position: center;
   }
   .navbar__right { grid-column: 3; justify-self: end; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
   .nav-link {
@@ -101,14 +102,17 @@
   }
   .nav-link:hover { opacity: 1; }
   .menu-btn {
-    background: none; border: none; padding: 0;
-    width: 26px; height: 16px;
-    display: flex; flex-direction: column; justify-content: space-between;
+    background: none; border: none;
+    padding: 14px;
+    min-width: 44px; min-height: 44px;
+    display: inline-flex; flex-direction: column;
+    align-items: flex-end; justify-content: center; gap: 5px;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .menu-btn span {
     display: block;
-    width: 100%;
+    width: 26px;
     height: 1px;
     background: var(--ink);
     transition: transform .34s var(--ease), opacity .34s var(--ease), width .34s var(--ease);
@@ -122,13 +126,13 @@
     width: 100%;
     margin-left: 0;
   }
-  .menu-btn.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .menu-btn.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
   .menu-btn.is-open span:nth-child(2) { opacity: 0; }
-  .menu-btn.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+  .menu-btn.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
   .nav-panel {
     position: fixed; top: 0; right: 0;
-    width: min(300px, 82vw); height: 100vh;
-    background: var(--ink); z-index: 200;
+    width: min(300px, 82vw); height: 100vh; height: 100dvh;
+    background: var(--ink); z-index: 1101;
     transform: translateX(100%);
     transition: transform .52s cubic-bezier(0.25,0.46,0.45,0.94);
     display: flex; flex-direction: column; justify-content: center;
@@ -159,14 +163,14 @@
     color: rgba(243,238,230,.22);
   }
   .nav-overlay {
-    position: fixed; inset: 0; z-index: 199;
+    position: fixed; inset: 0; z-index: 1100;
     background: transparent; pointer-events: none; transition: background .4s;
   }
   .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
   @media (max-width: 768px) {
     .navbar { padding: 0 20px; }
     .navbar__logo { max-width: min(360px, 92vw); padding: 0 12px; }
-    .navbar__badge { width: 36px; height: 36px; }
+    .navbar__firma { max-height: 38px; max-width: min(260px, 92vw); }
     .navbar__right { gap: 18px; }
   }
 
@@ -202,11 +206,14 @@
   }
 
   /* ─── Stage ─────────────────────────────────────── */
+  body.intro-active { overflow: hidden; touch-action: none; }
+
   .stage {
     position: fixed; inset: 0;
     background: var(--bg);
     perspective: 1400px; perspective-origin: 50% 65%;
     overflow: hidden;
+    touch-action: manipulation;
   }
   .tilt-wrap {
     position: absolute; inset: 0;
@@ -247,6 +254,12 @@
     stroke-width: 0.28px;
     opacity: 0.07;
   }
+  .layer-graticule.is-hidden,
+  .layer-world.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.55s var(--ease);
+  }
   .layer-world path {
     stroke-width: 0.75px;
     opacity: 0.88;
@@ -282,7 +295,9 @@
   .stage[data-flight="1"] .layer-depts path,
   .stage[data-flight="1"] .layer-region path,
   .stage[data-flight="1"] .layer-decorative path,
-  .stage[data-flight="1"] .layer-decorative circle {
+  .stage[data-flight="1"] .layer-decorative circle,
+  .stage[data-flight="1"] .layer-graticule,
+  .stage[data-flight="1"] .layer-world {
     transition: none !important;
   }
   .layer-decorative { display: none; }
@@ -462,8 +477,8 @@
   /* ─── Mobile global ──────────────────────────────── */
   @media (max-width: 768px) {
     .panels {
-      width: calc(100vw - 40px);
-      bottom: 120px;
+      width: min(calc(100% - 40px), 560px);
+      bottom: max(120px, env(safe-area-inset-bottom, 0px) + 100px);
     }
     .panel__card {
       padding: 20px 20px 18px;
@@ -486,7 +501,7 @@
 
     /* Card */
     .card {
-      width: calc(100vw - 32px);
+      width: min(calc(100% - 32px), 520px);
       padding: 20px 20px;
       grid-template-columns: 48px 1fr;
       gap: 16px;
@@ -504,13 +519,13 @@
   }
 </style>
 </head>
-<body>
+<body class="intro-active">
 <div id="ov-cursor"></div>
 
     <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="/assets/img/logo_sello_badge.png" alt="Ofelia Vallejo" class="navbar__badge" width="40" height="40">
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -524,14 +539,13 @@
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="/home.html" class="nav-panel__link">Inicio</a>
-      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/coleccion.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion.html#hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
       <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
       <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
           <p class="nav-panel__group">Atelier</p>
     <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
-    <a href="/cuenta.html" class="nav-panel__link">Cuenta</a>
     <a href="/contacto.html" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
@@ -645,6 +659,7 @@
 
 </div><!-- .stage -->
 
+<script src="/assets/js/brand.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
@@ -735,14 +750,18 @@
 
   /* Map layers follow mapVisual, updated only after each zoom finishes (not at click). */
   function applyLayerState() {
+    const showGlobe = mapVisual === 0;
+    lGrat.classList.toggle('is-hidden', !showGlobe);
+    lWorld.classList.toggle('is-hidden', !showGlobe);
+
     lInked.classList.toggle('off', mapVisual < 1);
     lDepts.classList.toggle('on', mapVisual >= 2);
     lRegion.classList.toggle('on', mapVisual >= 3);
     lDeco.classList.remove('on');
-    const showPin = mapVisual >= 3 && mapVisual < 5 && pinEl.dataset.placed === '1';
+
+    const showPin = mapVisual === 3 && pinEl.dataset.placed === '1';
     pinEl.classList.toggle('on', showPin);
-    if (mapVisual < 3) pinEl.classList.remove('on', 'deep');
-    if (mapVisual !== 5) pinEl.classList.remove('deep');
+    if (!showPin) pinEl.classList.remove('deep');
   }
 
   function setPinAt(lng, lat) {
@@ -883,8 +902,7 @@
   /* ─── Panel + dots + hint sync ───────────────────── */
   const tap = ('ontouchstart' in window) ? 'Toque' : 'Clic';
   const hints = [
-    `${tap} en el globo`,
-    tap === 'Toque' ? 'Toque Colombia' : 'Haga clic en Colombia',
+    `${tap} en el globo · Colombia`,
     `${tap} en Antioquia`,
     `${tap} en Guatapé`,
     ''
@@ -948,41 +966,65 @@
     stageEl.dataset.flight = '0';
   }
 
-  /* Mundo → Colombia → Antioquia → Guatapé → casa (sin repetir zoom) */
+  /* Mundo → Colombia → Antioquia → Guatapé → casa */
   async function toStage1() {
     if (spinTimer) spinTimer.stop();
     pinEl.dataset.placed = '0';
     pinEl.classList.remove('on', 'deep');
+    revealMap(2);
     await animate({
       rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 2.8,
       tiltTo: 2,
-      ms: 1600
+      ms: 1400
     });
     setStage(1);
-    revealMap(1);
     syncUI();
   }
 
   async function toStage2() {
+    revealMap(3);
     await animate({
       rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 5.5,
       tiltTo: 6,
-      ms: 1600
+      ms: 1400
     });
     setStage(2);
+    syncUI();
+  }
+
+  /* Un solo clic desde el globo: Colombia + departamentos + Antioquia */
+  async function fromGlobeToAntioquia() {
+    if (spinTimer) spinTimer.stop();
+    pinEl.dataset.placed = '0';
+    pinEl.classList.remove('on', 'deep');
     revealMap(2);
+    await animate({
+      rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
+      scaleTo: Math.min(W, H) * 2.8,
+      tiltTo: 2,
+      ms: 1300
+    });
+    setStage(1);
+    syncUI();
+    revealMap(3);
+    await animate({
+      rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
+      scaleTo: Math.min(W, H) * 5.5,
+      tiltTo: 6,
+      ms: 1300
+    });
+    setStage(2);
     syncUI();
   }
 
   async function toStage3() {
+    revealMap(3);
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', +p.dataset.panel === 3));
-    const hintEl = document.getElementById('hintText');
     const hintWrap = document.getElementById('clickHint');
-    if (hintEl) hintEl.textContent = '';
     if (hintWrap) hintWrap.style.display = 'none';
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
@@ -993,9 +1035,9 @@
     revealMap(3);
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', +p.dataset.panel === 4));
+    revealMap(4);
     await animate({ scaleTo: Math.min(W, H) * 22, tiltTo: 14, ms: 1700 });
     setStage(3);
-    revealMap(4);
     syncUI();
   }
 
@@ -1022,10 +1064,10 @@
     e.preventDefault();
     e.stopPropagation();
     const now = Date.now();
-    if (busy || now - lastAdvanceAt < 900) return;
+    if (busy || now - lastAdvanceAt < 700) return;
     lastAdvanceAt = now;
     if (stage >= 3) return;
-    if (stage === 0) runStage(toStage1);
+    if (stage === 0) runStage(fromGlobeToAntioquia);
     else if (stage === 1) runStage(toStage2);
     else if (stage === 2) runStage(toStage3);
   });
@@ -1036,6 +1078,7 @@
     try {
       if (stage === 1) await resetAll();
       else if (stage === 2) {
+        revealMap(2);
         await animate({
           rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
           scaleTo: Math.min(W, H) * 2.8,
@@ -1043,10 +1086,10 @@
           ms: 1400
         });
         setStage(1);
-        revealMap(1);
         syncUI();
       } else if (stage === 3) {
         pinEl.classList.remove('on', 'deep');
+        revealMap(3);
         await animate({
           rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
           scaleTo: Math.min(W, H) * 5.5,
@@ -1054,7 +1097,6 @@
           ms: 1400
         });
         setStage(2);
-        revealMap(2);
         syncUI();
       }
     } finally {
@@ -1082,8 +1124,20 @@
     const btn     = document.getElementById('menuBtn');
     const panel   = document.getElementById('navPanel');
     const overlay = document.getElementById('navOverlay');
-    const open  = () => { panel.classList.add('is-open'); overlay.classList.add('is-active'); btn.classList.add('is-open'); btn.setAttribute('aria-expanded','true'); panel.setAttribute('aria-hidden','false'); document.documentElement.setAttribute('data-nav-open','true'); };
-    const close = () => { panel.classList.remove('is-open'); overlay.classList.remove('is-active'); btn.classList.remove('is-open'); btn.setAttribute('aria-expanded','false'); panel.setAttribute('aria-hidden','true'); document.documentElement.removeAttribute('data-nav-open'); };
+    panel.setAttribute('aria-hidden', 'true');
+    const open  = () => {
+      panel.classList.add('is-open'); overlay.classList.add('is-active'); btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true'); panel.setAttribute('aria-hidden','false');
+      document.documentElement.setAttribute('data-nav-open','true');
+      document.body.classList.add('intro-active');
+    };
+    const close = () => {
+      panel.classList.remove('is-open'); overlay.classList.remove('is-active'); btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false'); panel.setAttribute('aria-hidden','true');
+      document.documentElement.removeAttribute('data-nav-open');
+      document.body.classList.add('intro-active');
+      btn.focus();
+    };
     btn.addEventListener('click', () => panel.classList.contains('is-open') ? close() : open());
     overlay.addEventListener('click', close);
     document.addEventListener('keydown', e => e.key === 'Escape' && close());

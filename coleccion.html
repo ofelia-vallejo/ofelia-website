@@ -7,16 +7,27 @@
   <meta name="description" content="Colección Frutos de Antioquia — marroquinería en cuero pleno · Lulo, Guanábana, Borojó · Ofelia Vallejo.">
   <link rel="canonical" href="https://ofeliavallejo.com/coleccion">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
-  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo_sello_badge.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
   <meta name="theme-color" content="#0B1F3A">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ofelia Vallejo">
+  <meta property="og:locale" content="es_CO">
   <meta property="og:title" content="Colección — Ofelia Vallejo">
+  <meta property="og:description" content="Colección Frutos de Antioquia — marroquinería en cuero pleno hecha a mano en Medellín.">
   <meta property="og:url" content="https://ofeliavallejo.com/coleccion">
   <meta property="og:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Colección — Ofelia Vallejo">
+  <meta name="twitter:description" content="Travel bags, morrales, bandoleras y cinturones en cuero colombiano.">
+  <meta name="twitter:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/brand.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
   <link rel="stylesheet" href="assets/css/account.css">
   <style>
     /* PAGE HERO */
@@ -58,6 +69,7 @@
     /* CATEGORY */
     .category {
       background: var(--marfil);
+      scroll-margin-top: 72px;
     }
 
     .category__header {
@@ -267,6 +279,31 @@
       color: var(--marfil);
     }
 
+    .coleccion-loading {
+      padding: 80px var(--pad-x);
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+    }
+
+    .card__price {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-soft);
+      margin-top: 6px;
+    }
+
+    .card__stock {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .card__stock--out { color: var(--vino); }
+    .card__stock--low { color: var(--navy); opacity: 0.7; }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .page-hero {
@@ -276,6 +313,13 @@
       }
 
       .page-hero__sub { text-align: left; max-width: none; }
+
+      .category__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 40px 24px 24px;
+      }
 
       .grid--3 { grid-template-columns: 1fr; }
       .grid--2 { grid-template-columns: 1fr; }
@@ -299,8 +343,8 @@
 
     <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="/assets/img/logo_sello_badge.png" alt="Ofelia Vallejo" class="navbar__badge" width="40" height="40">
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -314,19 +358,19 @@
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="/home.html" class="nav-panel__link">Inicio</a>
-      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/coleccion.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion.html#hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
       <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
       <a href="/coleccion.html" class="nav-panel__link" aria-current="page">Cuero</a>
           <p class="nav-panel__group">Atelier</p>
     <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
-    <a href="/cuenta.html" class="nav-panel__link">Cuenta</a>
     <a href="/contacto.html" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
 
+  <main id="main-content">
   <div class="page-hero">
     <div>
       <p class="page-hero__label">Frutos de Antioquia · Colección Lulo</p>
@@ -337,269 +381,7 @@
     </p>
   </div>
 
-  <!-- MUJER -->
-  <section class="category" id="mujer">
-    <div class="category__header">
-      <span class="category__label">Mujer · Colección Guanábana</span>
-      <span class="category__count"><a href="/producto/travel-bag.html" style="color:inherit;border-bottom:1px solid rgba(11,31,58,0.2);">Travel Bag I–III</a> · 3 piezas</span>
-    </div>
-    <div class="grid grid--3">
-
-      <a href="/producto/travel-bag-i" class="card" id="travel-bag-i">
-        <div class="card__img" data-dark>
-          <span class="card__numeral">I</span>
-          <span class="card__badge">Cognac</span>
-          <img src="imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg" alt="Travel Bag I — cuero cognac" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Travel Bag I</p>
-          <p class="card__detail">Cuero pleno · Cognac · Grabado a láser</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/travel-bag-iii" class="card" id="travel-bag-iii">
-        <div class="card__img" data-dark>
-          <span class="card__numeral">III</span>
-          <span class="card__badge">Cognac</span>
-          <img src="imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg" alt="Travel Bag III — mochila cognac" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Travel Bag III</p>
-          <p class="card__detail">Cuero pleno · Cognac · Grabado a láser</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/bolso-dama" class="card" id="bolso-dama">
-        <div class="card__img" data-dark>
-          <span class="card__numeral">—</span>
-          <span class="card__badge">Cognac</span>
-          <img src="imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg" alt="Bolso Dama — tote cognac" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Bolso Dama</p>
-          <p class="card__detail">Cuero pleno · Cognac · Tote estructurado</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- HOMBRE -->
-  <section class="category reveal" id="hombre">
-    <div class="category__header">
-      <span class="category__label">Hombre · Colección Borojó</span>
-      <span class="category__count">1 pieza · estudio</span>
-    </div>
-    <div class="grid grid--3">
-
-      <a href="/producto/travel-bag-ii" class="card" id="travel-bag-ii">
-        <div class="card__img" data-dark>
-          <span class="card__numeral">II</span>
-          <span class="card__badge">Negro</span>
-          <img src="imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg" alt="Travel Bag II — maletín cuero negro" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Travel Bag II · Maletín Antioquia</p>
-          <p class="card__detail">Cuero pleno · Negro · Grabado a láser</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- BANDOLERAS -->
-  <section class="category reveal">
-    <div class="category__header">
-      <span class="category__label">Hombre · Colección Uchuva</span>
-      <span class="category__count">2 piezas · lifestyle</span>
-    </div>
-    <div class="grid grid--2">
-
-      <a href="/producto/bandolera-moderna" class="card" id="bandolera-moderna">
-        <div class="card__img card__img--wide" data-dark>
-          <span class="card__badge">Carbón</span>
-          <div class="card__gradient card__gradient--carbon" aria-hidden="true"></div>
-        </div>
-        <div class="card__info">
-          <p class="card__name">Bandolera Moderna</p>
-          <p class="card__detail">Cuero pleno · (foto en proceso)</p>
-          <span class="card__cta">Solicitar →</span>
-        </div>
-      </a>
-
-      <a href="/producto/bandolera-elite" class="card" id="bandolera-elite">
-        <div class="card__img card__img--wide" data-dark>
-          <span class="card__badge">Carbón</span>
-          <div class="card__gradient card__gradient--carbon" aria-hidden="true"></div>
-        </div>
-        <div class="card__info">
-          <p class="card__name">Bandolera Elite</p>
-          <p class="card__detail">Cuero pleno · (foto en proceso)</p>
-          <span class="card__cta">Solicitar →</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- MORRALES -->
-  <section class="category reveal">
-    <div class="category__header">
-      <span class="category__label">Colección Chontaduro</span>
-      <span class="category__count">2 piezas</span>
-    </div>
-    <div class="grid grid--2">
-
-      <a href="/producto/morral-elite" class="card" id="morral-elite">
-        <div class="card__img card__img--wide" data-dark>
-          <span class="card__numeral">—</span>
-          <span class="card__badge">Negro</span>
-          <img src="imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg" alt="Morral Elite — mochila negro" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Morral Elite</p>
-          <p class="card__detail">Cuero pleno · Negro · Compartimentos estructurados</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/morral-clasico" class="card" id="morral-clasico">
-        <div class="card__img card__img--wide" data-dark>
-          <span class="card__numeral">—</span>
-          <span class="card__badge">Cognac</span>
-          <div class="card__gradient card__gradient--rustico" aria-hidden="true"></div>
-        </div>
-        <div class="card__info">
-          <p class="card__name">Morral Clásico</p>
-          <p class="card__detail">Cuero pleno · Cognac · (foto en proceso)</p>
-          <span class="card__cta">Solicitar →</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- CINTURONES · CORREAS -->
-  <section class="category reveal" id="cinturones">
-    <div class="category__header">
-      <span class="category__label">Accesorios · Colección Curuba</span>
-      <span class="category__count"><a href="/producto/cinturon" style="color:inherit;border-bottom:1px solid rgba(11,31,58,0.2);">Cinturón</a> · 6 acabados · grabado en punta</span>
-    </div>
-    <div class="grid grid--3">
-
-      <a href="/producto/cinturon#negro-liso" class="card" id="cinturon-negro-liso">
-        <div class="card__img" data-dark>
-          <span class="card__badge">Negro</span>
-          <img src="imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg" alt="Cinturón — negro liso" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Negro · Liso</p>
-          <p class="card__detail">Cuero liso · hebilla gunmetal · grabado OV</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/cinturon#negro-granulado" class="card" id="cinturon-negro-granulado">
-        <div class="card__img" data-dark>
-          <span class="card__badge">Negro</span>
-          <img src="imagenes nuevas/producto/accesorios/cinturon/negro-granulado-plano.jpg" alt="Cinturón — negro granulado" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Negro · Granulado</p>
-          <p class="card__detail">Grano natural · hebilla gunmetal · grabado OV</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/cinturon#navy-granulado" class="card" id="cinturon-navy-granulado">
-        <div class="card__img" data-dark>
-          <span class="card__badge">Navy</span>
-          <img src="imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg" alt="Cinturón — navy granulado" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Navy · Granulado</p>
-          <p class="card__detail">Cuero granulado · forro natural</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/cinturon#espresso-liso" class="card" id="cinturon-espresso-liso">
-        <div class="card__img" data-dark>
-          <span class="card__badge">Espresso</span>
-          <img src="imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg" alt="Cinturón — espresso liso" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Espresso · Liso</p>
-          <p class="card__detail">Chocolate oscuro · superficie uniforme</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/cinturon#espresso-granulado" class="card" id="cinturon-espresso-granulado">
-        <div class="card__img" data-dark>
-          <span class="card__badge">Espresso</span>
-          <img src="imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg" alt="Cinturón — espresso granulado" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Espresso · Granulado</p>
-          <p class="card__detail">Costura tabaco · grano visible</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-      <a href="/producto/cinturon#cognac-liso" class="card" id="cinturon-cognac-liso">
-        <div class="card__img" data-dark>
-          <span class="card__badge">Cognac</span>
-          <img src="imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg" alt="Cinturón — cognac liso" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Cognac · Liso</p>
-          <p class="card__detail">Cuero cálido · monograma en punta</p>
-          <span class="card__cta">Conocer más →</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ACCESORIOS -->
-  <section class="category reveal" id="accesorios">
-    <div class="category__header">
-      <span class="category__label">Accesorios · Bajo pedido</span>
-      <span class="category__count">Billeteras · personalización</span>
-    </div>
-    <div class="grid grid--2">
-
-      <a href="/personalizar.html?producto=Billetera" class="card" id="billeteras">
-        <div class="card__img" data-dark>
-          <span class="card__numeral">—</span>
-          <div class="card__gradient card__gradient--navy" aria-hidden="true"></div>
-        </div>
-        <div class="card__info">
-          <p class="card__name">Billeteras</p>
-          <p class="card__detail">Cuero pleno · estudio de grabado</p>
-          <span class="card__cta">Solicitar →</span>
-        </div>
-      </a>
-
-      <a href="/personalizar.html" class="card" id="cinturon-bespoke">
-        <div class="card__img card__img--wide" data-dark>
-          <span class="card__badge">Bespoke</span>
-          <img src="imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg" alt="Grabado láser en punta de cinturón" class="card__photo" loading="lazy" decoding="async">
-        </div>
-        <div class="card__info">
-          <p class="card__name">Tu nombre. En la punta.</p>
-          <p class="card__detail">Iniciales o monograma OV · antes del envío</p>
-          <span class="card__cta">Personalizar →</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
+  <div id="coleccionCatalog" aria-live="polite"></div>
 
   <!-- CTA PERSONALIZACIÓN -->
   <div class="coleccion-cta reveal">
@@ -614,6 +396,8 @@
     <a href="/personalizar.html" class="coleccion-cta__btn">Solicitar grabado →</a>
   </div>
 
+  </main>
+
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
@@ -623,8 +407,8 @@
       <nav class="foot__col" aria-label="Casa">
         <h4>Casa</h4>
         <ul>
-          <li><a href="/home.html#mujer">Mujer</a></li>
-          <li><a href="/home.html#hombre">Hombre</a></li>
+          <li><a href="/coleccion.html#mujer">Mujer</a></li>
+          <li><a href="/coleccion.html#hombre">Hombre</a></li>
           <li><a href="/coleccion.html">Cuero</a></li>
           <li><a href="/manifiesto.html">Historia</a></li>
         </ul>
@@ -634,7 +418,6 @@
         <ul>
           <li><a href="/personalizar.html">Personalizar</a></li>
           <li><a href="/coleccion.html">Colección</a></li>
-          <li><a href="/cuenta.html">Cuenta</a></li>
           <li><a href="/contacto.html">Contacto</a></li>
         </ul>
       </nav>
@@ -658,7 +441,7 @@
 
   <script src="assets/js/brand.js"></script>
   <script src="assets/js/catalog.js" defer></script>
-  <script src="assets/js/coleccion-live.js" defer></script>
+  <script src="assets/js/coleccion-render.js" defer></script>
   <script src="assets/js/account.js" defer></script>
 </body>
 </html>

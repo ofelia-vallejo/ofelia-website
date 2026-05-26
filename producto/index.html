@@ -4,14 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Producto — Ofelia Vallejo</title>
-  <meta name="description" content="Marroquinería en cuero colombiano · Ofelia Vallejo Leather House">
+  <meta name="description" content="Marroquinería en cuero colombiano full-grain · hecha a mano en Medellín · Ofelia Vallejo Leather House.">
+  <link rel="canonical" href="https://ofeliavallejo.com/producto">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo_sello_badge.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
   <meta name="theme-color" content="#0B1F3A">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ofelia Vallejo">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Producto — Ofelia Vallejo">
+  <meta property="og:description" content="Cuero pleno colombiano · grabado láser · Leather House.">
+  <meta property="og:url" content="https://ofeliavallejo.com/producto">
+  <meta property="og:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ofelia Vallejo · Cuero">
+  <meta name="twitter:description" content="Marroquinería hecha a mano en Medellín.">
+  <meta name="twitter:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/mobile.css">
   <link rel="stylesheet" href="/assets/css/producto.css">
   <link rel="stylesheet" href="/assets/css/account.css">
   <link rel="stylesheet" href="/assets/css/pdp-layout.css">
@@ -30,8 +46,8 @@
   <div id="cursor" aria-hidden="true"></div>
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="/assets/img/logo_sello_badge.png" alt="Ofelia Vallejo" class="navbar__badge" width="40" height="40">
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -45,8 +61,8 @@
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="/home.html" class="nav-panel__link">Inicio</a>
-      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/coleccion.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion.html#hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
       <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
       <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
@@ -58,17 +74,19 @@
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
 
-  <div id="pdpLoading" class="pdp__loading">Cargando pieza…</div>
-  <div id="pdpError" class="pdp__err" hidden>
-    <p>Pieza no encontrada.</p>
-    <a href="/coleccion.html">Ver colección →</a>
-  </div>
-  <main class="pdp" id="pdp" hidden></main>
+  <main id="main-content">
+    <div id="pdpLoading" class="pdp__loading">Cargando pieza…</div>
+    <div id="pdpError" class="pdp__err" hidden>
+      <p>Pieza no encontrada.</p>
+      <a href="/coleccion.html">Ver colección →</a>
+    </div>
+    <article class="pdp" id="pdp" hidden></article>
+  </main>
 
   <footer data-dark id="pdpFooter" hidden>
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
+        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
         <p class="foot__tag">Leather House · Medellín → Lausanne</p>
       </div>
     </div>
@@ -78,7 +96,9 @@
   </footer>
 
   <script src="/assets/js/brand.js"></script>
+  <script src="/assets/js/whatsapp.js"></script>
   <script src="/assets/js/media.js"></script>
+  <script src="/assets/js/seo-meta.js"></script>
   <script src="/assets/js/catalog.js" defer></script>
   <script src="/assets/js/account.js" defer></script>
   <script src="/assets/js/pdp.js" defer></script>

@@ -23,6 +23,12 @@
 
 html { scroll-behavior: smooth; }
 
+.category,
+[id='mujer'],
+[id='hombre'] {
+  scroll-margin-top: 72px;
+}
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -120,25 +126,22 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   max-width: min(460px, 90vw);
 }
 
-.navbar__badge {
-  display: block;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  box-shadow: 0 1px 6px rgba(11, 31, 58, 0.08);
-}
-
-.navbar__firma {
+.navbar__firma,
+.navbar__logo img {
   display: block;
   width: auto;
   height: auto;
-  max-height: 34px;
-  max-width: 220px;
+  max-height: 44px;
+  max-width: min(300px, 90vw);
   object-fit: contain;
   object-position: center;
-  mix-blend-mode: multiply;
+}
+
+/* Sello circular · solo favicon / Google — nunca en navbar */
+.navbar__logo .navbar__badge,
+.navbar__logo img[src*='logo_sello_badge'],
+.navbar__logo img[src*='logo_sello.png'] {
+  display: none !important;
 }
 
 .brand-logo,
@@ -263,14 +266,22 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 
 .menu-btn {
-  background: none; border: none; padding: 0;
-  width: 26px; height: 16px;
-  display: flex; flex-direction: column; justify-content: space-between;
+  background: none;
+  border: none;
+  padding: 14px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
   flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 .menu-btn span {
   display: block;
-  width: 100%;
+  width: 26px;
   height: 1px;
   background: var(--navy);
   transition: transform .34s var(--ease), opacity .34s var(--ease), width .34s var(--ease);
@@ -287,45 +298,67 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   width: 100%;
   margin-left: 0;
 }
-.menu-btn.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.menu-btn.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .menu-btn.is-open span:nth-child(2) { opacity: 0; }
-.menu-btn.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+.menu-btn.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 .nav-panel {
-  position: fixed; top: 0; right: 0;
-  width: min(300px, 82vw); height: 100vh;
-  background: var(--navy); z-index: 200;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(300px, 82vw);
+  height: 100vh;
+  height: 100dvh;
+  background: var(--navy);
+  z-index: 1101;
   transform: translateX(100%);
   transition: transform .52s cubic-bezier(0.25,0.46,0.45,0.94);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 44px; pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 44px;
+  padding-top: max(80px, calc(56px + env(safe-area-inset-top)));
+  pointer-events: none;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .nav-panel.is-open { transform: translateX(0); pointer-events: auto; }
 .nav-panel__links { display: flex; flex-direction: column; }
 .nav-panel__group {
   margin: 0 0 6px;
   padding-top: 18px;
-  font-size: 7.5px;
+  font-size: 10px;
   letter-spacing: .28em;
   text-transform: uppercase;
   color: rgba(243,238,230,.28);
 }
 .nav-panel__group:first-child { padding-top: 0; }
 .nav-panel__link {
-  font-family: 'Cinzel', serif; font-size: 17px; letter-spacing: .07em;
-  color: rgba(243,238,230,.70); text-decoration: none;
-  padding: 14px 0; border-bottom: 1px solid rgba(243,238,230,.07);
+  font-family: 'Cinzel', serif;
+  font-size: 17px;
+  letter-spacing: .07em;
+  color: rgba(243,238,230,.70);
+  text-decoration: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(243,238,230,.07);
   transition: color .3s;
 }
 .nav-panel__link:last-child { border-bottom: none; }
 .nav-panel__link:hover { color: var(--marfil); }
 .nav-panel__foot {
-  position: absolute; bottom: 36px; left: 44px;
-  font-size: 7.5px; letter-spacing: .24em; text-transform: uppercase;
+  position: absolute;
+  bottom: max(36px, env(safe-area-inset-bottom));
+  left: 44px;
+  font-size: 10px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
   color: rgba(243,238,230,.22);
 }
 .nav-overlay {
-  position: fixed; inset: 0; z-index: 199;
+  position: fixed; inset: 0; z-index: 1100;
   background: transparent; pointer-events: none; transition: background .4s;
 }
 .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
@@ -333,8 +366,8 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 @media (max-width: 768px) {
   .navbar { padding: 0 20px; }
   .navbar__logo { max-width: min(360px, 92vw); padding: 0 12px; }
-  .navbar__badge { width: 36px; height: 36px; }
-  .navbar__firma { max-height: 38px; }
+  .navbar__firma,
+  .navbar__logo img { max-height: 38px; max-width: min(260px, 92vw); }
   .foot__logo { width: 56px; }
   .navbar__right { gap: 18px; }
 }
@@ -540,4 +573,37 @@ footer {
   footer { padding: 48px 24px 32px; }
   .foot__cols { grid-template-columns: 1fr 1fr; }
   .foot__cols .foot__brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .foot__cols { grid-template-columns: 1fr; gap: 32px; }
+  .foot__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* Accesibilidad — saltar al contenido */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  padding: 12px 20px;
+  background: var(--navy);
+  color: var(--marfil);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: translateY(-120%);
+  transition: transform 0.25s var(--ease);
+}
+
+html[data-accounts='off'] a[href*='cuenta.html'],
+html[data-accounts='off'] #navAccountLink,
+.nav-account {
+  display: none !important;
 }
