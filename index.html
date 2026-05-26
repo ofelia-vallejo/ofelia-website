@@ -59,8 +59,9 @@
     display: block;
     object-fit: contain; object-position: center;
   }
-  .navbar__firma--sello {
+  .navbar__sello {
     height: 44px; max-width: 56px; width: auto;
+    background: transparent;
   }
   .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
   .nav-link {
@@ -124,7 +125,7 @@
   .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
   @media (max-width: 768px) {
     .navbar { padding: 0 20px; }
-    .navbar__firma { height: 40px; max-width: 52px; width: auto; }
+    .navbar__sello { height: 40px; max-width: 52px; width: auto; }
     .navbar__right { gap: 18px; }
   }
 
@@ -461,7 +462,7 @@
 <header class="navbar">
   <div class="navbar__left"></div>
   <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
-    <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="navbar__firma navbar__firma--sello" width="56" height="44">
+    <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="navbar__sello" width="56" height="44">
   </a>
   <div class="navbar__right">
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Menú">
@@ -473,6 +474,7 @@
 <div class="nav-panel" id="navPanel" aria-hidden="true">
   <div class="nav-panel__links">
     <p class="nav-panel__group">Casa</p>
+    <a href="home.html" class="nav-panel__link">Inicio</a>
     <a href="home.html#mujer" class="nav-panel__link">Mujer</a>
     <a href="home.html#hombre" class="nav-panel__link">Hombre</a>
     <p class="nav-panel__group">Maison</p>

@@ -125,10 +125,10 @@
       background: transparent;
     }
 
-    .navbar__firma {
-      height: 52px;
+    .navbar__sello {
+      height: 44px;
       width: auto;
-      max-width: min(340px, 46vw);
+      max-width: 56px;
       display: block;
       object-fit: contain;
       object-position: center;
@@ -227,7 +227,7 @@
 
     @media (max-width: 768px) {
       .navbar { padding: 0 20px; }
-      .navbar__firma { height: 44px; max-width: min(260px, 72vw); }
+      .navbar__sello { height: 40px; max-width: 52px; }
       .navbar__right { gap: 18px; }
     }
 
@@ -430,8 +430,8 @@
     .gender__media {
       margin-top: 48px;
       flex: 1;
-      min-height: 320px;
-      max-height: 460px;
+      min-height: 360px;
+      max-height: 520px;
       position: relative;
       overflow: hidden;
     }
@@ -446,7 +446,7 @@
     }
 
     .gender__panel--mujer .gender__photo {
-      object-position: 50% 32%;
+      object-position: 50% 42%;
     }
 
     .gender__panel--hombre .gender__media {
@@ -454,7 +454,7 @@
     }
 
     .gender__panel--hombre .gender__photo {
-      object-position: 50% 88%;
+      object-position: 50% 78%;
       object-fit: cover;
     }
 
@@ -516,13 +516,26 @@
 
     .banner-statement__title a:hover { opacity: 0.72; }
 
-    .banner-statement__mark {
-      display: block;
-      width: 180px;
+    .banner-statement__emblem {
+      margin: 44px auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .banner-statement__sello {
+      width: 72px;
       height: auto;
+      display: block;
       background: transparent;
-      opacity: 0.18;
-      margin: 40px auto 0;
+    }
+
+    .banner-statement__firma {
+      width: min(300px, 78vw);
+      height: auto;
+      display: block;
+      background: transparent;
     }
 
     .banner-statement__body {
@@ -942,7 +955,8 @@
       .gender__media { max-height: 320px; min-height: 280px; }
 
       .banner-statement { padding: 80px 24px; }
-      .banner-statement__mark { width: 96px; }
+      .banner-statement__sello { width: 56px; }
+      .banner-statement__firma { width: min(240px, 85vw); }
 
       .edit__head { padding: 32px 24px; }
       .edit__grid { grid-template-columns: 1fr; }
@@ -973,7 +987,7 @@
       <a href="manifiesto.html" class="nav-link nav-link--desk">Historia</a>
     </div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma" width="320" height="56">
+      <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="navbar__sello" width="56" height="44">
     </a>
     <div class="navbar__right">
       <a href="coleccion.html" class="nav-link nav-link--desk">Cuero</a>
@@ -989,6 +1003,7 @@
   <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
+      <a href="home.html" class="nav-panel__link">Inicio</a>
       <a href="#mujer" class="nav-panel__link">Mujer</a>
       <a href="#hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
@@ -1046,7 +1061,10 @@
   <section class="banner-statement reveal" id="historia">
     <div class="banner-statement__rule" aria-hidden="true"></div>
     <h2 class="banner-statement__title"><a href="manifiesto.html">Nacida de una firma.</a></h2>
-    <img src="assets/img/logo_firma.png" alt="" class="banner-statement__mark" width="132" height="auto" aria-hidden="true">
+    <div class="banner-statement__emblem" aria-hidden="true">
+      <img src="assets/img/logo_sello.png" alt="" class="banner-statement__sello" width="72" height="48">
+      <img src="assets/img/logo_firma.png" alt="" class="banner-statement__firma" width="300" height="auto">
+    </div>
     <p class="banner-statement__body">
       La firma de mi abuela Ofelia no es un logo.<br>
       Es la herencia que cruzó el océano con nosotras — el alma paisa de cada pieza que hoy nace en el atelier.
