@@ -1,13 +1,14 @@
 # Assets visuales — Ofelia Vallejo
 
-## Logos (solo 2 archivos)
+## Logos
 
 | Archivo | Uso |
 |---------|-----|
-| `logo_firma.png` | Firma cursiva sola (sin tagline) — navbar en todas las páginas, statement, banners |
+| `logo_firma_nav.png` | Firma cursiva sola (sin «Cuero hecho para durar») — **navbar** en todas las páginas |
+| `logo_firma_completa.png` | Firma + tridente + tagline — sección **«Nacida de una firma»** |
 | `logo_sello.png` | Sello O·V·tridente — footer, intro oscura, cajón Guatapé |
 
-Fuente canónica: `06_Identidad_Marca/logos/`.
+Fuente canónica: `06_Identidad_Marca/logos/logo_firma.png` (completa) y `logo_sello.png`.
 
 ## Fotos por categoría
 

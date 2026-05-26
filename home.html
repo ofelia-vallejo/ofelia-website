@@ -4,7 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ofelia Vallejo · Leather House · Medellín</title>
-  <meta name="description" content="Ofelia Vallejo · Leather House · Medellín, Colombia.">
+  <meta name="description" content="Ofelia Vallejo · Leather House · Medellín, Colombia. Cuero hecho a mano.">
+  <link rel="canonical" href="https://ofeliavallejo.com/home">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0B1F3A">
+  <meta property="og:title" content="Ofelia Vallejo · Leather House">
+  <meta property="og:description" content="Marroquinería hecha a mano en Medellín, Antioquia.">
+  <meta property="og:url" content="https://ofeliavallejo.com/home">
+  <meta property="og:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
@@ -126,9 +137,9 @@
     }
 
     .navbar__firma {
-      height: 48px;
+      height: 44px;
       width: auto;
-      max-width: min(280px, 42vw);
+      max-width: min(240px, 52vw);
       display: block;
       object-fit: contain;
       object-position: center;
@@ -516,25 +527,12 @@
 
     .banner-statement__title a:hover { opacity: 0.72; }
 
-    .banner-statement__emblem {
+    .banner-statement__mark {
+      display: block;
+      width: min(400px, 92vw);
+      height: auto;
       margin: 44px auto 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 22px;
-    }
-
-    .banner-statement__sello {
-      width: 72px;
-      height: auto;
-      display: block;
-      background: transparent;
-    }
-
-    .banner-statement__firma {
-      width: min(300px, 78vw);
-      height: auto;
-      display: block;
+      object-fit: contain;
       background: transparent;
     }
 
@@ -919,10 +917,11 @@
       }
 
       .signature-banner__img {
-        width: clamp(220px, 70vw, 320px);
+        width: 72px;
         height: auto;
         display: block;
         margin: 0 auto;
+        object-fit: contain;
       }
 
       .signature-banner__caption {
@@ -955,8 +954,7 @@
       .gender__media { max-height: 320px; min-height: 280px; }
 
       .banner-statement { padding: 80px 24px; }
-      .banner-statement__sello { width: 56px; }
-      .banner-statement__firma { width: min(240px, 85vw); }
+      .banner-statement__mark { width: min(320px, 92vw); }
 
       .edit__head { padding: 32px 24px; }
       .edit__grid { grid-template-columns: 1fr; }
@@ -971,7 +969,6 @@
       footer { padding: 48px 24px 32px; }
       .foot__cols { grid-template-columns: 1fr 1fr; }
       .foot__cols .foot__brand { grid-column: 1 / -1; }
-      .nav-link--desk { display: none; }
     }
 
   </style>
@@ -981,18 +978,11 @@
   <div id="cursor" aria-hidden="true"></div>
 
   <header class="navbar" role="banner">
-    <div class="navbar__left">
-      <a href="#mujer" class="nav-link nav-link--desk">Mujer</a>
-      <a href="#hombre" class="nav-link nav-link--desk">Hombre</a>
-      <a href="manifiesto.html" class="nav-link nav-link--desk">Historia</a>
-    </div>
+    <div class="navbar__left" aria-hidden="true"></div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="48">
+      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="58">
     </a>
     <div class="navbar__right">
-      <a href="coleccion.html" class="nav-link nav-link--desk">Cuero</a>
-      <a href="personalizar.html" class="nav-link nav-link--desk">Personalizar</a>
-      <a href="contacto.html" class="nav-link nav-link--desk">Contacto</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
@@ -1061,10 +1051,7 @@
   <section class="banner-statement reveal" id="historia">
     <div class="banner-statement__rule" aria-hidden="true"></div>
     <h2 class="banner-statement__title"><a href="manifiesto.html">Nacida de una firma.</a></h2>
-    <div class="banner-statement__emblem" aria-hidden="true">
-      <img src="assets/img/logo_sello.png" alt="" class="banner-statement__sello" width="72" height="48">
-      <img src="assets/img/logo_firma.png" alt="" class="banner-statement__firma" width="300" height="auto">
-    </div>
+    <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo — firma de la casa" class="banner-statement__mark" width="400" height="auto">
     <p class="banner-statement__body">
       La firma de mi abuela Ofelia no es un logo.<br>
       Es la herencia que cruzó el océano con nosotras — el alma paisa de cada pieza que hoy nace en el atelier.
@@ -1177,7 +1164,7 @@
   </main>
 
   <section class="signature-banner reveal" aria-label="Firma de la casa">
-    <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="signature-banner__img" width="320" height="auto">
+    <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="signature-banner__img" width="80" height="auto">
     <p class="signature-banner__caption">Leather House · Medellín → Zürich</p>
   </section>
 

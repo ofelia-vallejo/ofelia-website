@@ -1,0 +1,22 @@
+{
+  "name": "Ofelia Vallejo · Leather House",
+  "short_name": "Ofelia Vallejo",
+  "description": "Marroquinería hecha a mano en Medellín, Antioquia.",
+  "start_url": "/home",
+  "display": "standalone",
+  "background_color": "#F3EEE6",
+  "theme_color": "#0B1F3A",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

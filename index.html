@@ -4,6 +4,24 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ofelia Vallejo · Leather House · Medellín</title>
+<meta name="description" content="Marroquinería hecha a mano en Medellín. Herencia, cuero pleno y artesanía paisa.">
+<link rel="canonical" href="https://ofeliavallejo.com/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B1F3A">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ofelia Vallejo">
+<meta property="og:locale" content="es_CO">
+<meta property="og:title" content="Ofelia Vallejo · Leather House">
+<meta property="og:description" content="Marroquinería hecha a mano en Medellín, Antioquia.">
+<meta property="og:url" content="https://ofeliavallejo.com/">
+<meta property="og:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,7 +73,7 @@
   .navbar__left  { flex: 1; display: flex; align-items: center; }
   .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; outline: none; }
     .navbar__firma {
-    height: 48px; width: auto; max-width: min(280px, 42vw);
+    height: 44px; width: auto; max-width: min(240px, 52vw);
     display: block;
     object-fit: contain; object-position: center;
     background: transparent;
@@ -122,7 +140,7 @@
   .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
   @media (max-width: 768px) {
     .navbar { padding: 0 20px; }
-    .navbar__firma { height: 40px; max-width: min(220px, 68vw); width: auto; }
+    .navbar__firma { height: 40px; max-width: min(220px, 58vw); width: auto; }
     .navbar__right { gap: 18px; }
   }
 
@@ -455,35 +473,34 @@
 <body>
 <div id="ov-cursor"></div>
 
-<!-- ─── Navbar: ← | Logo OV | ☰ ──────────── -->
-<header class="navbar">
-  <div class="navbar__left"></div>
-  <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
-    <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="48">
-  </a>
-  <div class="navbar__right">
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+  <header class="navbar" role="banner">
+    <div class="navbar__left" aria-hidden="true"></div>
+    <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="58">
+    </a>
+    <div class="navbar__right">
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-<div class="nav-panel" id="navPanel" aria-hidden="true">
-  <div class="nav-panel__links">
-    <p class="nav-panel__group">Casa</p>
-    <a href="home.html" class="nav-panel__link">Inicio</a>
-    <a href="home.html#mujer" class="nav-panel__link">Mujer</a>
-    <a href="home.html#hombre" class="nav-panel__link">Hombre</a>
-    <p class="nav-panel__group">Maison</p>
-    <a href="manifiesto.html" class="nav-panel__link">Historia</a>
-    <a href="coleccion.html" class="nav-panel__link">Cuero</a>
-    <p class="nav-panel__group">Atelier</p>
-    <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
-    <a href="contacto.html" class="nav-panel__link">Contacto</a>
-  </div>
-  <span class="nav-panel__foot">Leather House · Medellín → Zürich</span>
-</div>
-<div class="nav-overlay" id="navOverlay"></div>
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
+    <div class="nav-panel__links">
+      <p class="nav-panel__group">Casa</p>
+      <a href="home.html" class="nav-panel__link">Inicio</a>
+      <a href="home.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="home.html#hombre" class="nav-panel__link">Hombre</a>
+      <p class="nav-panel__group">Maison</p>
+      <a href="manifiesto.html" class="nav-panel__link">Historia</a>
+      <a href="coleccion.html" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="contacto.html" class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín → Zürich</span>
+  </nav>
 
 <!-- ─── Pantalla oscura de entrada ──────────────────── -->
 <div class="step0" id="step0">
@@ -852,7 +869,7 @@
   const hints = [
     `${tap} en el globo`,
     `${tap} en Colombia ●`,
-    `${tap} en Antioquia ●`,
+    `${tap} para continuar ●`,
     `${tap} en Guatapé ●`,
     ''
   ];
@@ -904,7 +921,8 @@
 
   async function toStage2() {
     if (busy) return; busy = true;
-    setPinAt(antioquiaCenter[0], antioquiaCenter[1]);
+    pinEl.dataset.placed = '0';
+    pinEl.classList.remove('on', 'deep');
     setStage(2);
     updatePanel(2);
     await animate({ rotTo:[-colombiaCenter[0],-colombiaCenter[1],0], scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200 });
@@ -917,7 +935,7 @@
     setStage(3);
     updatePanel(3);
     animateCoordsTo(guatapeCenter[0], guatapeCenter[1], 'Guatapé, Antioquia · Colombia');
-    await animate({ rotTo:[-antioquiaCenter[0],-antioquiaCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
+    await animate({ rotTo:[-guatapeCenter[0],-guatapeCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
     busy = false;
   }
 
@@ -926,7 +944,7 @@
     setStage(4);
     updatePanel(4);
     pinEl.classList.add('deep');
-    await animate({ rotTo:[-guatapeCenter[0],-guatapeCenter[1],0], scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
+    await animate({ scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
     busy = false;
   }
 

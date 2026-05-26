@@ -106,7 +106,7 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   justify-content: space-between;
 }
 
-.navbar__left  { flex: 1; display: flex; align-items: center; gap: 28px; }
+.navbar__left  { flex: 1; display: flex; align-items: center; }
 .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
 
 .navbar__logo {
@@ -114,9 +114,9 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
 }
 
 .navbar__firma {
-  height: 48px;
+  height: 44px;
   width: auto;
-  max-width: min(280px, 42vw);
+  max-width: min(240px, 52vw);
   display: block;
   object-fit: contain;
   object-position: center;
@@ -129,27 +129,17 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   background: transparent;
 }
 
-.banner-statement__emblem {
+.banner-statement__mark {
+  display: block;
+  width: min(400px, 92vw);
+  height: auto;
   margin: 44px auto 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 22px;
-}
-
-.banner-statement__sello {
-  width: 72px;
-  height: auto;
-  display: block;
-}
-
-.banner-statement__firma {
-  width: min(300px, 78vw);
-  height: auto;
-  display: block;
+  object-fit: contain;
 }
 
 .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
+
+.nav-link--desk { display: none !important; }
 
 .nav-link {
   position: relative;
@@ -245,7 +235,6 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   .navbar__firma { height: 40px; max-width: min(220px, 68vw); }
   .foot__logo { width: 56px; }
   .navbar__right { gap: 18px; }
-  .nav-link--desk { display: none; }
 }
 
 .category,
@@ -268,11 +257,21 @@ footer {
   gap: 48px;
 }
 
+.foot__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .foot__logo {
   width: 72px;
   max-width: 100%;
   height: auto;
+  display: block;
+  margin: 0 auto;
   object-fit: contain;
+  object-position: center center;
   background: transparent;
   filter: brightness(0) invert(1);
   opacity: 0.92;
@@ -437,10 +436,11 @@ footer {
   }
 
   .signature-banner__img {
-    width: clamp(220px, 70vw, 320px);
+    width: 72px;
     height: auto;
     display: block;
     margin: 0 auto;
+    object-fit: contain;
   }
 
   .signature-banner__caption {
