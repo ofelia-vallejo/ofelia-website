@@ -50,7 +50,8 @@
     my = e.clientY;
 
     const el = document.elementFromPoint(e.clientX, e.clientY);
-    const onDark = !!(el && el.closest('[data-dark]'));
+    const navOpen = document.documentElement.hasAttribute('data-nav-open');
+    const onDark = navOpen || !!(el && el.closest('[data-dark]'));
     cursor.setAttribute('data-on-dark', onDark ? 'true' : 'false');
     cursor.classList.toggle('is-hover', !!(el && el.closest('a, button')));
   });
@@ -63,18 +64,22 @@
   const panel   = document.getElementById('navPanel');
   const overlay = document.getElementById('navOverlay');
   if (!btn || !panel) return;
+  const cursor = document.getElementById('cursor');
 
   function open()  {
     panel.classList.add('is-open');
     overlay.classList.add('is-active');
     btn.classList.add('is-open');
     btn.setAttribute('aria-expanded', 'true');
+    document.documentElement.setAttribute('data-nav-open', 'true');
+    if (cursor) cursor.setAttribute('data-on-dark', 'true');
   }
   function close() {
     panel.classList.remove('is-open');
     overlay.classList.remove('is-active');
     btn.classList.remove('is-open');
     btn.setAttribute('aria-expanded', 'false');
+    document.documentElement.removeAttribute('data-nav-open');
   }
 
   btn.addEventListener('click', () => panel.classList.contains('is-open') ? close() : open());

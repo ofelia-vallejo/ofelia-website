@@ -59,6 +59,8 @@
     border: 1px solid transparent;
   }
   #ov-cursor.hov { width: 18px; height: 18px; background: transparent; border-color: var(--ink); }
+  #ov-cursor[data-on-dark="true"] { background: var(--bg); }
+  #ov-cursor[data-on-dark="true"].hov { border-color: var(--bg); }
 
   /* ─── Navbar ─────────────────────────────────────── */
   .navbar {
@@ -481,7 +483,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="212" height="42">
+      <img src="imagenes nuevas/logos/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="212" height="42">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -491,7 +493,7 @@
   </header>
 
   <div class="nav-overlay" id="navOverlay"></div>
-  <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="home.html" class="nav-panel__link">Inicio</a>
@@ -509,7 +511,7 @@
 
 <!-- ─── Pantalla oscura de entrada ──────────────────── -->
 <div class="step0" id="step0">
-  <img src="assets/img/logo_sello.png" alt="" class="step0__logo" id="step0Logo" aria-hidden="true" width="120" height="80">
+  <img src="imagenes nuevas/logos/logo_sello.png" alt="" class="step0__logo" id="step0Logo" aria-hidden="true" width="120" height="80">
   <p class="step0__tag" id="step0Tag">Leather House · Medellín, Colombia</p>
   <span class="step0__loading" id="step0Loading">Cartografía · cargando atlas</span>
 </div>
@@ -627,7 +629,7 @@
   <!-- Tarjeta final (stage 4) -->
   <div class="card" id="card">
     <div class="card__thumb">
-      <img src="imagenes nuevas/producto/mujer/estudio-02.jpg" alt="Pieza en cuero cognac" width="64" height="64" loading="eager" decoding="async">
+      <img src="imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg" alt="Pieza en cuero cognac" width="64" height="64" loading="eager" decoding="async">
     </div>
     <div class="info">
       <span class="name">Guatapé · Antioquia</span>
@@ -1015,8 +1017,8 @@
     const btn     = document.getElementById('menuBtn');
     const panel   = document.getElementById('navPanel');
     const overlay = document.getElementById('navOverlay');
-    const open  = () => { panel.classList.add('is-open'); overlay.classList.add('is-active'); btn.classList.add('is-open'); btn.setAttribute('aria-expanded','true'); panel.setAttribute('aria-hidden','false'); };
-    const close = () => { panel.classList.remove('is-open'); overlay.classList.remove('is-active'); btn.classList.remove('is-open'); btn.setAttribute('aria-expanded','false'); panel.setAttribute('aria-hidden','true'); };
+    const open  = () => { panel.classList.add('is-open'); overlay.classList.add('is-active'); btn.classList.add('is-open'); btn.setAttribute('aria-expanded','true'); panel.setAttribute('aria-hidden','false'); document.documentElement.setAttribute('data-nav-open','true'); };
+    const close = () => { panel.classList.remove('is-open'); overlay.classList.remove('is-active'); btn.classList.remove('is-open'); btn.setAttribute('aria-expanded','false'); panel.setAttribute('aria-hidden','true'); document.documentElement.removeAttribute('data-nav-open'); };
     btn.addEventListener('click', () => panel.classList.contains('is-open') ? close() : open());
     overlay.addEventListener('click', close);
     document.addEventListener('keydown', e => e.key === 'Escape' && close());
@@ -1026,6 +1028,11 @@
   const cur = document.getElementById('ov-cursor');
   document.addEventListener('mousemove', e => {
     cur.style.transform = `translate3d(${e.clientX-3}px,${e.clientY-3}px,0)`;
+
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const navOpen = document.documentElement.hasAttribute('data-nav-open');
+    const onDark = navOpen || !!(el && el.closest('[data-dark]'));
+    cur.setAttribute('data-on-dark', onDark ? 'true' : 'false');
   });
   document.querySelectorAll('a,button').forEach(el => {
     el.addEventListener('mouseenter', () => cur.classList.add('hov'));
