@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Atelier Admin — Ofelia Vallejo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <div id="viewLogin" class="view view--login">
+    <div class="login-card">
+      <p class="login-eyebrow">Ofelia Vallejo · Leather House</p>
+      <h1>Atelier Admin</h1>
+      <p class="login-sub">Gestión de productos, fotos e inventario — sin tocar código.</p>
+      <form id="loginForm">
+        <input type="password" id="loginPassword" placeholder="Contraseña de administración" autocomplete="current-password" required>
+        <button type="submit">Entrar</button>
+      </form>
+      <p class="login-notice" id="loginNotice" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div id="viewApp" class="view view--app" hidden>
+    <aside class="sidebar">
+      <p class="sidebar__brand">Atelier Admin</p>
+      <nav class="sidebar__nav">
+        <button type="button" class="sidebar__link is-active" data-view="products">Productos</button>
+        <button type="button" class="sidebar__link" data-view="inventory">Inventario</button>
+        <button type="button" class="sidebar__link" data-view="edit" hidden id="navEdit">Editar pieza</button>
+      </nav>
+      <button type="button" class="sidebar__logout" id="btnLogout">Cerrar sesión</button>
+    </aside>
+
+    <main class="main">
+      <header class="main__head">
+        <h2 id="mainTitle">Productos</h2>
+        <div class="main__actions" id="mainActions"></div>
+      </header>
+
+      <section id="panelProducts" class="panel">
+        <div class="stats" id="statsRow"></div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Pieza</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Grabado +</th>
+                <th>Stock</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="productsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="panelInventory" class="panel" hidden>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>SKU / Color</th>
+                <th>Pieza</th>
+                <th>Unidades</th>
+                <th>Estado</th>
+                <th>Ajuste</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="panelEdit" class="panel" hidden>
+        <form id="productForm" class="edit-form">
+          <input type="hidden" id="fieldId">
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Nombre</span>
+              <input type="text" id="fieldName" required>
+            </label>
+            <label class="field">
+              <span>Slug (URL)</span>
+              <input type="text" id="fieldSlug" required>
+            </label>
+            <label class="field">
+              <span>Categoría</span>
+              <select id="fieldCategory"></select>
+            </label>
+            <label class="field">
+              <span>Línea / familia</span>
+              <input type="text" id="fieldLine" placeholder="travel-bag, morral…">
+            </label>
+            <label class="field">
+              <span>Numeral (I, II…)</span>
+              <input type="text" id="fieldNumeral">
+            </label>
+            <label class="field">
+              <span>Ruta PDP</span>
+              <input type="text" id="fieldPdpPath" placeholder="/producto/...">
+            </label>
+            <label class="field field--full">
+              <span>Descripción corta</span>
+              <input type="text" id="fieldShortDesc">
+            </label>
+            <label class="field field--full">
+              <span>Descripción larga</span>
+              <textarea id="fieldDesc" rows="4"></textarea>
+            </label>
+            <label class="field">
+              <span>Precio base (CHF)</span>
+              <input type="number" id="fieldBasePrice" min="0" step="1">
+            </label>
+            <label class="field">
+              <span>Grabado adicional (CHF)</span>
+              <input type="number" id="fieldEngravePrice" min="0" step="1">
+            </label>
+            <label class="field">
+              <span>Stock total (sin variantes)</span>
+              <input type="number" id="fieldInventory" min="0" step="1">
+            </label>
+            <label class="field">
+              <span>Alerta stock bajo</span>
+              <input type="number" id="fieldLowStock" min="0" step="1">
+            </label>
+            <label class="field field--check">
+              <input type="checkbox" id="fieldActive" checked>
+              <span>Activo en web</span>
+            </label>
+            <label class="field field--check">
+              <input type="checkbox" id="fieldPersonalizable" checked>
+              <span>Personalizable (grabado)</span>
+            </label>
+          </div>
+
+          <div class="section-block">
+            <h3>Variantes de color</h3>
+            <p class="hint">Cada variante puede tener su propio inventario.</p>
+            <div id="variantsList"></div>
+            <button type="button" class="btn btn--ghost" id="btnAddVariant">+ Añadir variante</button>
+          </div>
+
+          <div class="section-block">
+            <h3>Fotos del producto</h3>
+            <p class="hint">Arrastra imágenes o selecciona archivos (JPG, PNG, WebP · máx. 4 MB).</p>
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple hidden>
+              <p>Soltar fotos aquí o <button type="button" class="link-btn" id="btnPickFiles">elegir archivos</button></p>
+            </div>
+            <div class="images-grid" id="imagesGrid"></div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn--ghost" id="btnBackList">← Volver</button>
+            <button type="submit" class="btn btn--primary">Guardar producto</button>
+            <button type="button" class="btn btn--danger" id="btnDeleteProduct" hidden>Eliminar</button>
+          </div>
+          <p class="form-notice" id="formNotice" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

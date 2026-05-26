@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuenta — Ofelia Vallejo</title>
+  <meta name="description" content="Accede a tu atelier Ofelia Vallejo · guarda bocetos de grabado y solicitudes en cuero.">
+  <link rel="canonical" href="https://ofeliavallejo.com/cuenta">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#0B1F3A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/brand.css">
+  <link rel="stylesheet" href="assets/css/account.css">
+</head>
+<body>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar" role="banner">
+    <div class="navbar__left" aria-hidden="true"></div>
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+      <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    </a>
+    <div class="navbar__right">
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <div class="nav-panel__links">
+      <p class="nav-panel__group">Casa</p>
+      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
+      <p class="nav-panel__group">Maison</p>
+      <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
+      <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
+  </nav>
+
+  <main class="cuenta-page" id="cuentaPage">
+    <div class="cuenta-page__media">
+      <img
+        src="assets/img/nuevas/detalle/firma-travel-bag-cognac.jpg"
+        alt="Travel bag en cuero cognac con firma Ofelia Vallejo grabada a láser"
+        width="960"
+        height="1200"
+        loading="eager">
+      <div class="cuenta-page__media-copy">
+        <h2>Elegancia que permanece.</h2>
+        <p>Tu cuenta guarda bocetos de grabado y el hilo de cada solicitud — como un cuaderno de atelier, no un club de descuentos.</p>
+      </div>
+    </div>
+
+    <div class="cuenta-page__panel">
+      <a href="/home.html" class="cuenta-page__back">← Volver a la casa</a>
+
+      <p class="ov-modal__eyebrow">Atelier Ofelia Vallejo</p>
+      <h1 class="ov-modal__title">Tu espacio en la casa.</h1>
+      <p class="ov-modal__sub" style="margin-bottom:32px;">
+        Crea una cuenta para guardar textos de grabado, retomar solicitudes y seguir el trabajo del atelier desde Medellín.
+      </p>
+
+      <div class="ov-modal__tabs" role="tablist">
+        <button type="button" class="ov-modal__tab is-active" data-tab="register" role="tab">Crear cuenta</button>
+        <button type="button" class="ov-modal__tab" data-tab="login" role="tab">Iniciar sesión</button>
+      </div>
+
+      <div class="ov-modal__panel is-active" data-panel="register">
+        <form class="ov-modal__form" id="cuentaFormRegister" novalidate>
+          <div class="ov-modal__field">
+            <input type="text" name="nombre" placeholder="Nombre" autocomplete="name" required>
+          </div>
+          <div class="ov-modal__field">
+            <input type="email" name="email" placeholder="Correo" autocomplete="email" required>
+          </div>
+          <div class="ov-modal__field">
+            <input type="password" name="password" placeholder="Contraseña" minlength="6" autocomplete="new-password" required>
+          </div>
+          <button type="submit" class="ov-modal__submit">Crear cuenta</button>
+        </form>
+      </div>
+
+      <div class="ov-modal__panel" data-panel="login">
+        <form class="ov-modal__form" id="cuentaFormLogin" novalidate>
+          <div class="ov-modal__field">
+            <input type="email" name="email" placeholder="Correo" autocomplete="email" required>
+          </div>
+          <div class="ov-modal__field">
+            <input type="password" name="password" placeholder="Contraseña" autocomplete="current-password" required>
+          </div>
+          <button type="submit" class="ov-modal__submit">Entrar al atelier</button>
+        </form>
+      </div>
+
+      <p class="ov-modal__notice" id="cuentaNotice" aria-live="polite"></p>
+
+      <p class="ov-modal__legal" style="margin-top:24px;">
+        Al registrarte aceptas nuestra <a href="/contacto.html">política de privacidad</a>.
+        Los datos se usan solo para atender solicitudes de la casa.
+      </p>
+    </div>
+  </main>
+
+  <script src="assets/js/brand.js"></script>
+  <script src="assets/js/account.js" defer></script>
+</body>
+</html>

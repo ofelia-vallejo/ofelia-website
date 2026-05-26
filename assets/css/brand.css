@@ -259,9 +259,23 @@ h1, h2, h3 { font-family: Cinzel, serif; font-weight: 400; }
   flex-shrink: 0;
 }
 .menu-btn span {
-  display: block; height: 1px; background: var(--navy);
-  transition: transform .34s var(--ease), opacity .34s var(--ease);
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--navy);
+  transition: transform .34s var(--ease), opacity .34s var(--ease), width .34s var(--ease);
   transform-origin: center;
+}
+
+/* Editorial · línea central más corta, alineada a la derecha */
+.menu-btn span:nth-child(2) {
+  width: 62%;
+  margin-left: auto;
+}
+
+.menu-btn.is-open span:nth-child(2) {
+  width: 100%;
+  margin-left: 0;
 }
 .menu-btn.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
 .menu-btn.is-open span:nth-child(2) { opacity: 0; }

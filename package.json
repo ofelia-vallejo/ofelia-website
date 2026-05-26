@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@vercel/blob": "^0.27.3",
     "nodemailer": "^8.0.7"
   },
   "devDependencies": {
     "netlify-cli": "^26.0.2"
+  },
+  "scripts": {
+    "dev": "STORE_MODE=file npx vercel dev",
+    "seed:catalog": "node scripts/seed-catalog.js"
   }
 }

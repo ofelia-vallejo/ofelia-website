@@ -17,6 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/brand.css">
+  <link rel="stylesheet" href="assets/css/account.css">
+  <link rel="stylesheet" href="assets/css/engrave-studio.css">
   <style>
     /* PAGE HERO — navy */
     .page-hero {
@@ -474,14 +476,14 @@
     }
   </style>
 </head>
-<body>
+<body data-ov-popup="personalizar">
 
   <div id="cursor" aria-hidden="true"></div>
 
-  <header class="navbar" role="banner">
+    <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+      <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -491,18 +493,18 @@
   </header>
 
   <div class="nav-overlay" id="navOverlay"></div>
-  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="home.html" class="nav-panel__link">Inicio</a>
-      <a href="home.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="home.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
-      <a href="manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="coleccion.html" class="nav-panel__link">Cuero</a>
+      <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
+      <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
       <p class="nav-panel__group">Atelier</p>
-      <a href="personalizar.html" class="nav-panel__link" aria-current="page">Personalizar</a>
-      <a href="contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -515,6 +517,98 @@
       sin placas, sin vinil. La marca queda dentro de la piel.
     </p>
   </div>
+
+  <section class="atelier-gate" id="atelierGate" aria-label="Acceso al atelier">
+    <div class="atelier-gate__inner">
+      <p class="atelier-gate__text">
+        Inicia sesión para guardar bocetos de grabado y retomar solicitudes desde tu atelier —
+        el cuero avanza; tu texto no se pierde.
+      </p>
+      <div class="atelier-gate__actions">
+        <button type="button" class="atelier-btn atelier-btn--fill" id="atelierOpenRegister">Crear cuenta</button>
+        <button type="button" class="atelier-btn" id="atelierOpenLogin">Iniciar sesión</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="atelier-desk" id="atelierDesk" data-dark hidden aria-labelledby="atelier-title">
+    <div class="atelier-desk__grid" id="atelier">
+      <div>
+        <p class="atelier-desk__label">Mi atelier</p>
+        <h2 class="atelier-desk__title" id="atelier-title">Bienvenida, <span id="atelierUserName">—</span></h2>
+        <p class="atelier-desk__sub">
+          Aquí viven tus bocetos de grabado y el registro de cada solicitud enviada al taller en Medellín.
+        </p>
+        <button type="button" class="atelier-desk__logout" id="atelierLogout">Cerrar sesión</button>
+      </div>
+      <div class="atelier-desk__card">
+        <h3>Bocetos guardados</h3>
+        <div id="atelierDraftList"></div>
+        <p id="atelierSaveNote" class="atelier-draft__meta" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="engrave-studio" id="engraveStudio">
+    <div class="engrave-studio__grid">
+      <div class="engrave-studio__preview" data-dark>
+        <img id="studioPreviewImg" src="assets/img/nuevas/producto/mujer/travel-bag-cognac-estudio.jpg" alt="Vista previa del grabado en cuero" width="800" height="1000">
+        <div class="engrave-studio__overlay">
+          <div class="engrave-studio__mark" id="studioMark" data-font="romana" data-size="M">—</div>
+        </div>
+      </div>
+      <div class="engrave-studio__panel">
+        <p class="engrave-studio__label">Atelier · Configurador</p>
+        <h2 class="engrave-studio__title">Diseña tu grabado.</h2>
+
+        <label class="engrave-studio__group">
+          <span>Pieza</span>
+          <select class="engrave-studio__product-select" id="studioProduct"></select>
+        </label>
+
+        <div class="engrave-studio__controls">
+          <div class="engrave-studio__group">
+            <label>Tipografía</label>
+            <div class="engrave-studio__chips" id="studioFontChips"></div>
+          </div>
+          <div class="engrave-studio__group">
+            <label>Tamaño</label>
+            <div class="engrave-studio__chips" id="studioSizeChips"></div>
+          </div>
+          <div class="engrave-studio__group">
+            <label>Diseño</label>
+            <div class="engrave-studio__chips" id="studioLayoutChips"></div>
+          </div>
+          <div class="engrave-studio__group">
+            <label>Texto a grabar</label>
+            <input type="text" class="engrave-studio__text" id="studioText" placeholder="Iniciales, nombre o frase" maxlength="60" autocomplete="off">
+            <p class="engrave-studio__char" id="studioChar">0 / 60</p>
+          </div>
+        </div>
+
+        <div class="engrave-studio__pricing">
+          <div class="engrave-studio__price-row">
+            <span>Pieza</span>
+            <strong id="studioBasePrice">CHF —</strong>
+          </div>
+          <div class="engrave-studio__price-row">
+            <span>Grabado láser (adicional)</span>
+            <strong id="studioEngravePrice">—</strong>
+          </div>
+          <div class="engrave-studio__price-total">
+            <span>Total estimado</span>
+            <span id="studioTotalPrice">CHF —</span>
+          </div>
+        </div>
+
+        <div class="engrave-studio__actions">
+          <button type="button" class="engrave-studio__cta" id="studioApplyForm">Continuar a solicitud</button>
+          <button type="button" class="engrave-studio__cta engrave-studio__cta--ghost" id="studioSaveDraft">Guardar boceto</button>
+        </div>
+        <p class="engrave-studio__note">Vista previa orientativa. El atelier confirma tipografía y posición antes de grabar. El grabado es un servicio adicional al precio de la pieza.</p>
+      </div>
+    </div>
+  </section>
 
   <section class="process reveal">
     <p class="process__label">Cómo funciona · Grabado láser CO₂</p>
@@ -722,6 +816,9 @@
 
       <div>
         <button type="submit" class="form-submit">Enviar solicitud</button>
+        <button type="button" class="atelier-btn" id="atelierSaveDraft" style="margin-top:16px;width:100%;max-width:320px;">
+          Guardar boceto
+        </button>
         <p
           class="form-notice form-notice--success"
           id="notice-success"
@@ -755,6 +852,7 @@
         <h4>Atelier</h4>
         <ul>
           <li><a href="personalizar.html">Personalizar</a></li>
+          <li><a href="cuenta.html">Cuenta</a></li>
           <li><a href="coleccion.html">Cuidado del cuero</a></li>
           <li><a href="contacto.html">Reparación</a></li>
         </ul>
@@ -779,6 +877,9 @@
   </footer>
 
   <script src="assets/js/brand.js"></script>
+  <script src="assets/js/catalog.js" defer></script>
+  <script src="assets/js/account.js" defer></script>
+  <script src="assets/js/engrave-studio.js" defer></script>
   <script>
     (function () {
       const form = document.getElementById('form-personalizar');
@@ -856,6 +957,17 @@
           texto_grabado: form.texto_grabado.value.trim(),
           mensaje:       form.mensaje.value.trim(),
         };
+
+        const studioTotal = document.getElementById('studioTotalPrice');
+        const studioEngrave = document.getElementById('studioEngravePrice');
+        const studioBase = document.getElementById('studioBasePrice');
+        if (studioTotal && studioTotal.textContent.includes('CHF')) {
+          data.total_estimated = studioTotal.textContent.replace(/[^\d]/g, '');
+          data.base_price = studioBase ? studioBase.textContent.replace(/[^\d]/g, '') : '';
+          data.engrave_price = studioEngrave && studioEngrave.textContent.includes('+')
+            ? studioEngrave.textContent.replace(/[^\d]/g, '')
+            : '0';
+        }
 
         if (!data.nombre || !data.email || !data.producto || !data.tipo_grabado || !data.texto_grabado) {
           showNotice(noticeErr, 'Por favor completa todos los campos obligatorios.');

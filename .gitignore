@@ -4,6 +4,7 @@ node_modules/
 .env.local
 .DS_Store
 .vercel
+public/uploads/
 
 # Local Netlify folder
 .netlify

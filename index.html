@@ -65,21 +65,23 @@
   /* ─── Navbar ─────────────────────────────────────── */
   .navbar {
     position: fixed; top: 0; left: 0; right: 0;
-    height: 56px; z-index: 50;
-    background: rgba(243,238,230,0.97);
-    border-bottom: 1px solid rgba(11,31,58,0.09);
+    height: 56px; z-index: 1000;
+    background: rgba(243, 238, 230, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(11, 31, 58, 0.10);
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     padding: 0 48px;
-    overflow: hidden;
+    overflow: visible;
   }
   .navbar__left  { grid-column: 1; }
   .navbar__logo  { grid-column: 2; justify-self: center; flex-shrink: 0; display: flex; align-items: center; outline: none; overflow: visible; padding: 0 12px; max-width: min(460px, 90vw); }
   .navbar__firma {
     display: block;
     width: auto; height: auto;
-    max-height: 44px; max-width: 200px;
+    max-height: 34px; max-width: 220px;
     object-fit: contain; object-position: center;
     mix-blend-mode: multiply;
   }
@@ -98,9 +100,20 @@
     flex-shrink: 0;
   }
   .menu-btn span {
-    display: block; height: 1px; background: var(--ink);
-    transition: transform .34s var(--ease), opacity .34s var(--ease);
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--ink);
+    transition: transform .34s var(--ease), opacity .34s var(--ease), width .34s var(--ease);
     transform-origin: center;
+  }
+  .menu-btn span:nth-child(2) {
+    width: 62%;
+    margin-left: auto;
+  }
+  .menu-btn.is-open span:nth-child(2) {
+    width: 100%;
+    margin-left: 0;
   }
   .menu-btn.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
   .menu-btn.is-open span:nth-child(2) { opacity: 0; }
@@ -189,30 +202,77 @@
   }
   .tilt-wrap {
     position: absolute; inset: 0;
-    transform: rotateX(0deg); transform-origin: 50% 60%;
-    transition: transform 0s; will-change: transform;
-    overflow: visible;
+    transform: rotateX(0deg) translateZ(0);
+    transform-origin: 50% 60%;
+    transition: transform 0s;
+    will-change: transform;
+    overflow: hidden;
+    backface-visibility: hidden;
   }
-  .globe-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .globe-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+    shape-rendering: geometricPrecision;
+    text-rendering: optimizeLegibility;
+  }
+  .globe-svg path,
+  .globe-svg circle {
+    shape-rendering: geometricPrecision;
+  }
   .grain {
     position: absolute; inset: 0;
     mix-blend-mode: multiply; opacity: 0.22; pointer-events: none; z-index: 2;
+    overflow: hidden;
   }
 
   /* ─── SVG layer styles ───────────────────────────── */
   .layer-water circle { fill: var(--bg); }
-  .layer-graticule path { fill: none; stroke: var(--ink); stroke-width: 0.4; opacity: 0.09; }
-  .layer-world path { fill: none; stroke: var(--ink); stroke-width: 0.6; opacity: 0.70; }
+  .stage:not(.is-atlas-ready) .layer-water { opacity: 0; }
+
+  .globe-stroke {
+    fill: none;
+    stroke: var(--ink);
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    paint-order: stroke fill;
+  }
+
+  .layer-graticule path {
+    stroke-width: 0.32px;
+    opacity: 0.10;
+  }
+  .layer-world path {
+    stroke-width: 0.52px;
+    opacity: 0.74;
+  }
   .layer-inked path {
-    fill: var(--ink); fill-opacity: 0.92; stroke: var(--ink); stroke-width: 0.8;
-    transition: fill-opacity 0.6s var(--ease), stroke-opacity 0.6s var(--ease);
+    fill: var(--ink);
+    fill-opacity: 0.92;
+    stroke: var(--ink);
+    stroke-width: 0.65px;
+    vector-effect: non-scaling-stroke;
+    stroke-linejoin: round;
+    transition: fill-opacity 0.65s var(--ease), stroke-opacity 0.65s var(--ease);
   }
   .layer-inked.off path { fill-opacity: 0; stroke-opacity: 0; }
-  .layer-depts path { fill: none; stroke: var(--ink); stroke-width: 0.55; opacity: 0; transition: opacity 0.8s var(--ease); }
-  .layer-depts.on path { opacity: 0.70; }
+  .layer-depts path {
+    stroke-width: 0.48px;
+    opacity: 0;
+    transition: opacity 0.75s var(--ease);
+  }
+  .layer-depts.on path { opacity: 0.68; }
   .layer-region path {
-    fill: var(--ink); fill-opacity: 0; stroke: var(--ink); stroke-width: 0.9;
-    opacity: 0; transition: opacity 0.8s var(--ease), fill-opacity 0.8s var(--ease);
+    fill: var(--ink);
+    fill-opacity: 0;
+    stroke: var(--ink);
+    stroke-width: 0.7px;
+    vector-effect: non-scaling-stroke;
+    stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity 0.75s var(--ease), fill-opacity 0.75s var(--ease);
   }
   .layer-region.on path { opacity: 1; fill-opacity: 0.72; }
   .stage[data-flight="1"] .layer-inked path,
@@ -444,10 +504,10 @@
 <body>
 <div id="ov-cursor"></div>
 
-  <header class="navbar" role="banner">
+    <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+      <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -457,18 +517,18 @@
   </header>
 
   <div class="nav-overlay" id="navOverlay"></div>
-  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="home.html" class="nav-panel__link">Inicio</a>
-      <a href="home.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="home.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
-      <a href="manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="coleccion.html" class="nav-panel__link">Cuero</a>
+      <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
+      <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
       <p class="nav-panel__group">Atelier</p>
-      <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
-      <a href="contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -486,9 +546,9 @@
   <div class="tilt-wrap" id="tiltWrap">
     <svg class="globe-svg" id="svg">
       <defs>
-        <filter id="grain-filter">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" />
-          <feColorMatrix values="0 0 0 0 0.04
+        <filter id="grain-filter" x="-30%" y="-30%" width="160%" height="160%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" result="noise" />
+          <feColorMatrix in="noise" values="0 0 0 0 0.04
                                  0 0 0 0 0.12
                                  0 0 0 0 0.23
                                  0 0 0 0.5 0" />
@@ -496,7 +556,7 @@
         <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100" /></clipPath>
       </defs>
       <g clip-path="url(#globe-clip)">
-        <g class="layer-water"      id="lWater"><circle cx="0" cy="0" r="100" /></g>
+        <g class="layer-water" id="lWater"><circle id="waterCircle" cx="0" cy="0" r="0" visibility="hidden" /></g>
         <g class="layer-graticule"  id="lGrat"></g>
         <g class="layer-world"      id="lWorld"></g>
         <g class="layer-inked"      id="lInked"></g>
@@ -627,29 +687,58 @@
   /* ─── Projection ─────────────────────────────────── */
   let W = window.innerWidth, H = window.innerHeight;
   const INIT_SCALE = Math.min(W, H) * 0.36;
-  const proj = d3.geoOrthographic().scale(INIT_SCALE).translate([W/2, H/2]).clipAngle(90);
-  const path = d3.geoPath(proj);
-  let currentClip = INIT_SCALE, currentTilt = 0;
+  const proj = d3.geoOrthographic()
+    .scale(INIT_SCALE)
+    .translate([W / 2, H / 2])
+    .clipAngle(90)
+    .precision(0.1);
+  const path = d3.geoPath(proj).pointRadius(1.35);
+  let currentClip = INIT_SCALE;
+  let currentTilt = 0;
+  let redrawQueued = false;
 
   const waterCircle = lWater.querySelector('circle');
 
-  function setClip(r) {
-    currentClip = r;
+  function syncGlobeMask() {
     const [cx, cy] = proj.translate();
-    const ringR = proj.scale();
-    clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy); clipC.setAttribute('r', r);
-    waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy); waterCircle.setAttribute('r', r + 5);
+    const r = proj.scale();
+    currentClip = r;
+    clipC.setAttribute('cx', cx);
+    clipC.setAttribute('cy', cy);
+    clipC.setAttribute('r', r);
+    waterCircle.setAttribute('cx', cx);
+    waterCircle.setAttribute('cy', cy);
+    waterCircle.setAttribute('r', r + 2);
+    waterCircle.removeAttribute('visibility');
+    stageEl.classList.add('is-atlas-ready');
   }
-  /* init clip & water at projection center */
-  setClip(INIT_SCALE);
-  function setTilt(deg) { currentTilt = deg; tiltEl.style.transform = 'rotateX(' + deg + 'deg)'; }
 
-  function strokeFor(scale) {
-    return {
-      land:   Math.min(0.75, 0.3 + scale/9000),
-      dept:   Math.min(0.9,  0.3 + scale/6000),
-      region: Math.min(1.8,  0.5 + scale/2200)
-    };
+  syncGlobeMask();
+
+  function setTilt(deg) {
+    currentTilt = deg;
+    tiltEl.style.transform = 'rotateX(' + deg + 'deg) translateZ(0)';
+  }
+
+  function lerpLon(from, to, t) {
+    let delta = to - from;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    return from + delta * t;
+  }
+
+  function scheduleRedraw(immediate) {
+    if (immediate) {
+      redrawQueued = false;
+      redraw();
+      return;
+    }
+    if (redrawQueued) return;
+    redrawQueued = true;
+    requestAnimationFrame(() => {
+      redrawQueued = false;
+      redraw();
+    });
   }
 
   let stage = 0, mapVisual = 0, busy = false;
@@ -684,22 +773,27 @@
   }
 
   function redraw() {
-    const sw = strokeFor(proj.scale());
-    $world.selectAll('path').attr('d', path).attr('stroke-width', sw.land);
+    syncGlobeMask();
+    $grat.selectAll('path').attr('d', path);
+    $world.selectAll('path').attr('d', path);
     $inked.selectAll('path').attr('d', path);
-    $depts.selectAll('path').attr('d', path).attr('stroke-width', sw.dept);
-    $region.selectAll('path').attr('d', path).attr('stroke-width', sw.region);
+    $depts.selectAll('path').attr('d', path);
+    $region.selectAll('path').attr('d', path);
     $deco.selectAll('path').attr('d', path);
     $deco.selectAll('circle.deco').each(function() {
       const pt = proj([+this.getAttribute('data-lng'), +this.getAttribute('data-lat')]);
-      if (pt) { this.setAttribute('cx', pt[0]); this.setAttribute('cy', pt[1]); }
+      if (pt) {
+        this.setAttribute('cx', pt[0]);
+        this.setAttribute('cy', pt[1]);
+      }
     });
-    $grat.selectAll('path').attr('d', path);
     if (pinEl.dataset.lng) {
       const pt = proj([+pinEl.dataset.lng, +pinEl.dataset.lat]);
       if (pt) {
         pinEl.setAttribute('transform', 'translate(' + pt[0] + ',' + pt[1] + ')');
         pinEl.dataset.placed = '1';
+      } else {
+        pinEl.dataset.placed = '0';
       }
     }
     applyLayerState();
@@ -730,12 +824,33 @@
   const guatapeCenter   = [-75.1489, 6.2303];
 
   /* ─── Draw layers ────────────────────────────────── */
-  const graticule = d3.geoGraticule().step([15, 15]);
-  $grat.append('path').datum(graticule()).attr('d', path);
-  $world.selectAll('path').data(countries.features).join('path').attr('d', path);
-  if (colombia)  $inked.append('path').datum(colombia).attr('d', path);
-  $depts.selectAll('path').data(colombiaGeo.features).join('path').attr('d', path);
-  if (antioquia) $region.append('path').datum(antioquia).attr('d', path);
+  const graticule = d3.geoGraticule().step([10, 10]);
+  $grat.append('path')
+    .datum(graticule())
+    .attr('class', 'globe-stroke')
+    .attr('d', path);
+
+  const worldBorders = topojson.mesh(
+    world50,
+    world50.objects.countries,
+    (a, b) => a !== b
+  );
+  $world.append('path')
+    .datum(worldBorders)
+    .attr('class', 'globe-stroke')
+    .attr('d', path);
+
+  if (colombia) {
+    $inked.append('path').datum(colombia).attr('d', path);
+  }
+  $depts.selectAll('path')
+    .data(colombiaGeo.features)
+    .join('path')
+    .attr('class', 'globe-stroke')
+    .attr('d', path);
+  if (antioquia) {
+    $region.append('path').datum(antioquia).attr('d', path);
+  }
 
   pinEl.dataset.lng = guatapeCenter[0];
   pinEl.dataset.lat = guatapeCenter[1];
@@ -755,21 +870,20 @@
   setTimeout(() => step0El.classList.add('out'), 2200);
   setTimeout(() => { step0El.remove(); updatePanel(0); }, 3800);
 
-  /* Free-spin (stage 0) */
-  let spinTimer = d3.timer(() => {
+  /* Free-spin (stage 0) · un frame, un redraw */
+  function spinFrame() {
     if (stage === 0 && !busy) {
       const r = proj.rotate();
-      proj.rotate([r[0] + 0.07, r[1], r[2]]);
-      redraw();
+      proj.rotate([r[0] + 0.045, r[1], r[2]]);
+      scheduleRedraw();
     }
-  });
+  }
+  let spinTimer = d3.timer(spinFrame);
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) spinTimer.stop();
     else if (stage === 0 && !busy) {
-      spinTimer = d3.timer(() => {
-        if (stage === 0 && !busy) { const r = proj.rotate(); proj.rotate([r[0]+0.07,r[1],r[2]]); redraw(); }
-      });
+      spinTimer = d3.timer(spinFrame);
     }
   });
 
@@ -798,20 +912,29 @@
   }
 
   /* ─── Animate helper ─────────────────────────────── */
-  const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+  const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-  function animate({rotTo, scaleTo, clipTo, tiltTo, ms = 1800}) {
+  function animate({ rotTo, scaleTo, tiltTo, ms = 1600 }) {
     return new Promise(resolve => {
-      const r0 = proj.rotate().slice(), s0 = proj.scale(), c0 = currentClip, t0val = currentTilt;
+      const r0 = proj.rotate().slice();
+      const s0 = proj.scale();
+      const t0val = currentTilt;
       const t0 = performance.now();
-      function frame(t) {
-        const k = ease(Math.min(1, (t - t0) / ms));
-        if (rotTo)   proj.rotate([r0[0]+(rotTo[0]-r0[0])*k, r0[1]+(rotTo[1]-r0[1])*k, r0[2]]);
+
+      function frame(now) {
+        const k = ease(Math.min(1, (now - t0) / ms));
+        if (rotTo) {
+          proj.rotate([
+            lerpLon(r0[0], rotTo[0], k),
+            r0[1] + (rotTo[1] - r0[1]) * k,
+            (r0[2] || 0) + ((rotTo[2] || 0) - (r0[2] || 0)) * k
+          ]);
+        }
         if (scaleTo !== undefined) proj.scale(s0 + (scaleTo - s0) * k);
-        if (clipTo  !== undefined) { currentClip = c0 + (clipTo - c0) * k; setClip(currentClip); }
-        if (tiltTo  !== undefined) setTilt(t0val + (tiltTo - t0val) * k);
-        redraw();
-        if (k < 1) requestAnimationFrame(frame); else resolve();
+        if (tiltTo !== undefined) setTilt(t0val + (tiltTo - t0val) * k);
+        scheduleRedraw(true);
+        if (k < 1) requestAnimationFrame(frame);
+        else resolve();
       }
       requestAnimationFrame(frame);
     });
@@ -830,7 +953,7 @@
 
   async function toStage1() {
     updatePanel(1);
-    await animate({ rotTo:[74,-4,0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:1400 });
+    await animate({ rotTo: [74, -4, 0], scaleTo: Math.min(W, H) * 0.62, tiltTo: 0, ms: 1500 });
     setStage(1);
     revealMap(1);
   }
@@ -843,7 +966,7 @@
       rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 3.6,
       tiltTo: 4,
-      ms: 1400
+      ms: 1500
     });
     setStage(2);
     revealMap(2);
@@ -855,7 +978,7 @@
       rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 7.5,
       tiltTo: 7,
-      ms: 1400
+      ms: 1500
     });
     setStage(3);
     revealMap(3);
@@ -868,7 +991,7 @@
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
       scaleTo: Math.min(W, H) * 12,
       tiltTo: 10,
-      ms: 1400
+      ms: 1500
     });
     setStage(4);
     revealMap(4);
@@ -876,7 +999,7 @@
 
   async function toStage5() {
     updatePanel(5);
-    await animate({ scaleTo: Math.min(W, H) * 28, tiltTo: 18, ms: 1600 });
+    await animate({ scaleTo: Math.min(W, H) * 28, tiltTo: 18, ms: 1700 });
     setStage(5);
     revealMap(5);
     pinEl.classList.add('deep');
@@ -885,7 +1008,8 @@
   async function resetAll() {
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
     updatePanel(0);
-    await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
+    const resetScale = Math.min(window.innerWidth, window.innerHeight) * 0.36;
+    await animate({ rotTo: [20, -10, 0], scaleTo: resetScale, tiltTo: 0, ms: 1600 });
     setStage(0);
     revealMap(0);
   }
@@ -964,19 +1088,17 @@
   });
 
   /* ─── Resize ─────────────────────────────────────── */
+  let resizeTimer;
   window.addEventListener('resize', () => {
-    W = window.innerWidth; H = window.innerHeight;
-    const newInit = Math.min(W, H) * 0.36;
-    if (stage === 0) {
-      proj.scale(newInit);
-      setClip(newInit);
-    }
-    proj.translate([W/2, H/2]);
-    const [cx, cy] = proj.translate();
-    clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy);
-    waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy);
-    waterCircle.setAttribute('r', currentClip + 2);
-    redraw();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      const newInit = Math.min(W, H) * 0.36;
+      proj.translate([W / 2, H / 2]);
+      if (stage === 0) proj.scale(newInit);
+      scheduleRedraw(true);
+    }, 120);
   });
 
 })();

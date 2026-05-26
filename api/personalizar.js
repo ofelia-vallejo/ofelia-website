@@ -43,8 +43,20 @@ module.exports = async (req, res) => {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
-  const { nombre, email, producto, tipo_grabado, texto_grabado, mensaje } =
-    req.body || {};
+  const {
+    nombre,
+    email,
+    producto,
+    tipo_grabado,
+    texto_grabado,
+    mensaje,
+    font,
+    size,
+    layout,
+    base_price,
+    engrave_price,
+    total_estimated,
+  } = req.body || {};
 
   if (!nombre || !email || !producto || !tipo_grabado || !texto_grabado) {
     return res.status(400).json({
@@ -99,7 +111,13 @@ module.exports = async (req, res) => {
           `Tipo de grabado: ${tipo_grabado}`,
           `Texto: ${texto_grabado}`,
           `Notas: ${mensaje || '—'}`,
-        ].join('\n'),
+          font ? `Fuente estudio: ${font}` : '',
+          size ? `Tamaño estudio: ${size}` : '',
+          layout ? `Diseño estudio: ${layout}` : '',
+          base_price != null ? `Precio pieza (CHF): ${base_price}` : '',
+          engrave_price != null ? `Grabado adicional (CHF): ${engrave_price}` : '',
+          total_estimated != null ? `Total estimado (CHF): ${total_estimated}` : '',
+        ].filter(Boolean).join('\n'),
       });
     } catch (err) {
       console.error('SMTP error:', err.message);

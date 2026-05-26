@@ -1,0 +1,236 @@
+/* Atelier Studio — configurador de grabado */
+
+.engrave-studio {
+  background: var(--marfil);
+  border-bottom: 1px solid var(--rule);
+}
+
+.engrave-studio__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: 520px;
+}
+
+.engrave-studio__preview {
+  position: relative;
+  background: var(--espresso);
+  overflow: hidden;
+}
+
+.engrave-studio__preview img {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.engrave-studio__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 8%;
+  pointer-events: none;
+}
+
+.engrave-studio__mark {
+  font-family: Cinzel, serif;
+  color: rgba(243, 238, 230, 0.15);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  text-align: right;
+  line-height: 1.1;
+  max-width: 42%;
+  word-break: break-word;
+  transition: font-size 0.3s var(--ease), letter-spacing 0.3s var(--ease);
+}
+
+.engrave-studio__mark[data-font="romana"] {
+  font-family: Cinzel, serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.engrave-studio__mark[data-font="clasica"] {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.engrave-studio__mark[data-font="firma"] {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.engrave-studio__mark[data-size="S"] { font-size: clamp(14px, 2.2vw, 22px); }
+.engrave-studio__mark[data-size="M"] { font-size: clamp(12px, 1.8vw, 18px); }
+.engrave-studio__mark[data-size="L"] { font-size: clamp(10px, 1.4vw, 14px); }
+
+.engrave-studio__panel {
+  padding: 48px clamp(24px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--beige-medio);
+}
+
+.engrave-studio__label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.engrave-studio__title {
+  font-family: Cinzel, serif;
+  font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--navy);
+  line-height: 1.15;
+}
+
+.engrave-studio__product-select {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid var(--rule-strong);
+  background: transparent;
+  font: inherit;
+  color: var(--navy);
+}
+
+.engrave-studio__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.engrave-studio__group label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.engrave-studio__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.engrave-studio__chip {
+  padding: 8px 14px;
+  border: 1px solid var(--rule-strong);
+  background: transparent;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  transition: all 0.35s var(--ease);
+}
+
+.engrave-studio__chip.is-active {
+  border-color: var(--navy);
+  color: var(--navy);
+  background: var(--marfil);
+}
+
+.engrave-studio__text {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid var(--rule-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  color: var(--navy);
+}
+
+.engrave-studio__char {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 4px;
+}
+
+.engrave-studio__pricing {
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.engrave-studio__price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+}
+
+.engrave-studio__price-row strong {
+  font-family: Cinzel, serif;
+  color: var(--navy);
+  font-weight: 400;
+}
+
+.engrave-studio__price-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.engrave-studio__price-total span:last-child {
+  font-family: Cinzel, serif;
+  font-size: 18px;
+  color: var(--navy);
+}
+
+.engrave-studio__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.engrave-studio__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border: none;
+  background: var(--navy);
+  color: var(--marfil);
+  font-family: Cinzel, serif;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  transition: background 0.4s var(--ease);
+}
+
+.engrave-studio__cta:hover { background: var(--vino); }
+
+.engrave-studio__cta--ghost {
+  background: transparent;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+}
+
+.engrave-studio__note {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .engrave-studio__grid { grid-template-columns: 1fr; }
+  .engrave-studio__preview img { min-height: 280px; }
+}

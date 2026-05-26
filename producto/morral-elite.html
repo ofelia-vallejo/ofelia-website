@@ -14,14 +14,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/brand.css">
+  <link rel="stylesheet" href="../assets/css/account.css">
   <link rel="stylesheet" href="../assets/css/producto.css">
 </head>
 <body>
   <div id="cursor" aria-hidden="true"></div>
-  <header class="navbar" role="banner">
+    <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="../home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="../assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+      <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -30,14 +31,18 @@
     </div>
   </header>
   <div class="nav-overlay" id="navOverlay"></div>
-  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="../home.html" class="nav-panel__link">Inicio</a>
-      <a href="../coleccion.html" class="nav-panel__link">Cuero</a>
+      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
+      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
+      <p class="nav-panel__group">Maison</p>
+      <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
+      <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
       <p class="nav-panel__group">Atelier</p>
-      <a href="../personalizar.html?producto=Morral+Elite" class="nav-panel__link">Personalizar</a>
-      <a href="../contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -121,5 +126,6 @@
     </div>
   </footer>
   <script src="../assets/js/brand.js"></script>
+  <script src="../assets/js/account.js" defer></script>
 </body>
 </html>

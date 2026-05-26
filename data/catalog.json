@@ -1,0 +1,287 @@
+{
+  "version": 1,
+  "currency": "CHF",
+  "updatedAt": "2026-05-26T00:00:00.000Z",
+  "categories": [
+    { "id": "mujer", "label": "Mujer · Colección Guanábana", "sort": 1 },
+    { "id": "hombre", "label": "Hombre · Colección Borojó", "sort": 2 },
+    { "id": "bandoleras", "label": "Hombre · Colección Uchuva", "sort": 3 },
+    { "id": "morrales", "label": "Colección Chontaduro", "sort": 4 }
+  ],
+  "products": [
+    {
+      "id": "travel-bag-i",
+      "slug": "travel-bag-i",
+      "name": "Travel Bag I",
+      "shortDescription": "Cuero pleno · Cognac · Grabado a láser",
+      "description": "Weekender en cuero colombiano full-grain. Hecho a mano en Medellín.",
+      "category": "mujer",
+      "line": "travel-bag",
+      "numeral": "I",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 385,
+      "engravePrice": 45,
+      "inventory": 5,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/travel-bag-i.html",
+      "images": [
+        {
+          "url": "/assets/img/nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
+          "alt": "Travel Bag I — cuero cognac",
+          "kind": "hero",
+          "sort": 0
+        }
+      ],
+      "variants": [
+        { "id": "v-cognac", "sku": "TB-I-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 3, "sort": 0 },
+        { "id": "v-espresso", "sku": "TB-I-ESP", "colorName": "Espresso", "colorHex": "#3B2B26", "inventory": 2, "sort": 1 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica", "firma"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" }, "L": { "maxChars": 60, "label": "Frase breve" } },
+        "layouts": ["texto", "monograma-ov", "texto-monograma"],
+        "zone": { "x": 0.72, "y": 0.78, "width": 0.22, "height": 0.1 }
+      }
+    },
+    {
+      "id": "travel-bag-ii",
+      "slug": "travel-bag-ii",
+      "name": "Travel Bag II · Maletín Antioquia",
+      "shortDescription": "Cuero pleno · Negro · Grabado a láser",
+      "description": "Maletín estructurado en cuero negro full-grain.",
+      "category": "hombre",
+      "line": "travel-bag",
+      "numeral": "II",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 395,
+      "engravePrice": 45,
+      "inventory": 4,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/maletin.html",
+      "images": [
+        {
+          "url": "/assets/img/nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
+          "alt": "Travel Bag II — cuero negro",
+          "kind": "hero",
+          "sort": 0
+        }
+      ],
+      "variants": [
+        { "id": "v-negro", "sku": "TB-II-NEG", "colorName": "Negro", "colorHex": "#141414", "inventory": 4, "sort": 0 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica", "firma"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" }, "L": { "maxChars": 60, "label": "Frase breve" } },
+        "layouts": ["texto", "monograma-ov"],
+        "zone": { "x": 0.72, "y": 0.78, "width": 0.22, "height": 0.1 }
+      }
+    },
+    {
+      "id": "travel-bag-iii",
+      "slug": "travel-bag-iii",
+      "name": "Travel Bag III",
+      "shortDescription": "Cuero pleno · Cognac · Grabado a láser",
+      "description": "Mochila weekender en cuero cognac.",
+      "category": "mujer",
+      "line": "travel-bag",
+      "numeral": "III",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 365,
+      "engravePrice": 40,
+      "inventory": 3,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/travel-bag-iii.html",
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg",
+          "alt": "Travel Bag III — cognac",
+          "kind": "hero",
+          "sort": 0
+        }
+      ],
+      "variants": [
+        { "id": "v-cognac", "sku": "TB-III-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 3, "sort": 0 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" }, "L": { "maxChars": 50, "label": "Frase breve" } },
+        "layouts": ["texto", "monograma-ov"],
+        "zone": { "x": 0.7, "y": 0.75, "width": 0.24, "height": 0.1 }
+      }
+    },
+    {
+      "id": "bolso-dama",
+      "slug": "bolso-dama",
+      "name": "Bolso Dama",
+      "shortDescription": "Cuero pleno · Cognac · Tote estructurado",
+      "description": "Tote en cuero full-grain con estructura discreta.",
+      "category": "mujer",
+      "line": "tote",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 320,
+      "engravePrice": 35,
+      "inventory": 6,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/bolso-dama.html",
+      "images": [
+        {
+          "url": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
+          "alt": "Bolso Dama — tote cognac",
+          "kind": "hero",
+          "sort": 0
+        }
+      ],
+      "variants": [
+        { "id": "v-cognac", "sku": "BD-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 6, "sort": 0 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica", "firma"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 10, "label": "Nombre" }, "L": { "maxChars": 40, "label": "Frase breve" } },
+        "layouts": ["texto", "monograma-ov"],
+        "zone": { "x": 0.5, "y": 0.82, "width": 0.35, "height": 0.08 }
+      }
+    },
+    {
+      "id": "morral-elite",
+      "slug": "morral-elite",
+      "name": "Morral Elite",
+      "shortDescription": "Cuero pleno · Negro · Compartimentos estructurados",
+      "description": "Morral en cuero negro con compartimentos internos.",
+      "category": "morrales",
+      "line": "morral",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 340,
+      "engravePrice": 38,
+      "inventory": 4,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/morral-elite.html",
+      "images": [
+        {
+          "url": "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
+          "alt": "Morral Elite — negro",
+          "kind": "hero",
+          "sort": 0
+        }
+      ],
+      "variants": [
+        { "id": "v-negro", "sku": "ME-NEG", "colorName": "Negro", "colorHex": "#141414", "inventory": 4, "sort": 0 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" } },
+        "layouts": ["texto", "monograma-ov"],
+        "zone": { "x": 0.68, "y": 0.72, "width": 0.2, "height": 0.1 }
+      }
+    },
+    {
+      "id": "morral-clasico",
+      "slug": "morral-clasico",
+      "name": "Morral Clásico",
+      "shortDescription": "Cuero pleno · Cognac",
+      "description": "Morral clásico en cuero cognac.",
+      "category": "morrales",
+      "line": "morral",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 310,
+      "engravePrice": 35,
+      "inventory": 0,
+      "lowStockAt": 2,
+      "pdpPath": "/personalizar.html?producto=Morral+Clásico",
+      "images": [],
+      "variants": [
+        { "id": "v-cognac", "sku": "MC-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 0, "sort": 0 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 12, "label": "Nombre" } },
+        "layouts": ["texto"],
+        "zone": { "x": 0.68, "y": 0.72, "width": 0.2, "height": 0.1 }
+      }
+    },
+    {
+      "id": "bandolera-moderna",
+      "slug": "bandolera-moderna",
+      "name": "Bandolera Moderna",
+      "shortDescription": "Cuero pleno · Carbón",
+      "description": "Bandolera crossbody en cuero carbón.",
+      "category": "bandoleras",
+      "line": "bandolera",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 280,
+      "engravePrice": 30,
+      "inventory": 2,
+      "lowStockAt": 2,
+      "pdpPath": "/personalizar.html?producto=Bandolera+Moderna",
+      "images": [],
+      "variants": [
+        { "id": "v-carbon", "sku": "BM-CAR", "colorName": "Carbón", "colorHex": "#141414", "inventory": 2, "sort": 0 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 8, "label": "Nombre" } },
+        "layouts": ["texto"],
+        "zone": { "x": 0.75, "y": 0.8, "width": 0.18, "height": 0.08 }
+      }
+    },
+    {
+      "id": "bandolera-elite",
+      "slug": "bandolera-elite",
+      "name": "Bandolera Elite",
+      "shortDescription": "Cuero pleno · Carbón",
+      "description": "Bandolera elite en cuero carbón.",
+      "category": "bandoleras",
+      "line": "bandolera",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 295,
+      "engravePrice": 30,
+      "inventory": 2,
+      "lowStockAt": 2,
+      "pdpPath": "/personalizar.html?producto=Bandolera+Elite",
+      "images": [],
+      "variants": [
+        { "id": "v-carbon", "sku": "BE-CAR", "colorName": "Carbón", "colorHex": "#141414", "inventory": 2, "sort": 0 }
+      ],
+      "engrave": {
+        "fonts": ["romana", "clasica"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" }, "M": { "maxChars": 8, "label": "Nombre" } },
+        "layouts": ["texto"],
+        "zone": { "x": 0.75, "y": 0.8, "width": 0.18, "height": 0.08 }
+      }
+    },
+    {
+      "id": "cinturon",
+      "slug": "cinturon",
+      "name": "Cinturón",
+      "shortDescription": "Cuero pleno · Unisex",
+      "description": "Cinturón en cuero full-grain con hebilla latón antiguo.",
+      "category": "hombre",
+      "line": "cinturon",
+      "active": true,
+      "personalizable": true,
+      "basePrice": 120,
+      "engravePrice": 18,
+      "inventory": 10,
+      "lowStockAt": 3,
+      "pdpPath": "/personalizar.html?producto=Cinturón",
+      "images": [],
+      "variants": [
+        { "id": "v-negro", "sku": "CIN-NEG", "colorName": "Negro", "colorHex": "#141414", "inventory": 5, "sort": 0 },
+        { "id": "v-rustico", "sku": "CIN-RUS", "colorName": "Rústico", "colorHex": "#8B5E3C", "inventory": 5, "sort": 1 }
+      ],
+      "engrave": {
+        "fonts": ["clasica", "romana"],
+        "sizes": { "S": { "maxChars": 3, "label": "Iniciales" } },
+        "layouts": ["texto"],
+        "zone": { "x": 0.5, "y": 0.15, "width": 0.3, "height": 0.06 }
+      }
+    }
+  ]
+}
