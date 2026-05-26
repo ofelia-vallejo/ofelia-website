@@ -72,6 +72,16 @@ Esto aplica `database/schema.sql` e importa `data/catalog.json` + datos PDP (gal
 
 Local: `STORE_MODE=file npm run dev`
 
+### Gestión para el cliente (sin código)
+
+| Pestaña | Qué controla |
+|---------|----------------|
+| **Productos** | Nombre, precio, grabado, fotos, colores/variantes, categoría, orden en sección |
+| **Secciones** | Títulos y orden de bloques en `/coleccion` (Mujer, Hombre, Morrales…) y columnas 2 o 3 |
+| **Inventario** | Unidades por color/SKU |
+
+La página **Colección** se genera sola desde el catálogo: al guardar en admin, la web refleja precios, stock y piezas activas.
+
 ---
 
 ## 4. PDP dinámico
@@ -109,7 +119,56 @@ GET  /api/products?slug=travel-bag-i
 POST /api/checkout/create
 POST /api/checkout/webhook
 GET  /api/stripe/config
+POST /api/account/register
+POST /api/account/login
+GET  /api/account/me
+POST /api/personalizar
 ```
+
+---
+
+## 8. Cuentas de clientes
+
+Tablas: `customers`, `personalization_requests` (en `database/schema.sql`).
+
+| Variable | Uso |
+|----------|-----|
+| `DATABASE_URL` | Obligatorio para registro en servidor |
+| `CUSTOMER_SECRET` | Firma de tokens de sesión (recomendado en prod) |
+
+Tras actualizar schema:
+
+```bash
+npm run db:migrate
+```
+
+- **Registro / login:** `/cuenta.html` o modal en `personalizar.html`
+- Si no hay Postgres, el sitio usa **modo local** (localStorage) como respaldo
+- Las solicitudes de personalización quedan en `personalization_requests` con referencia `OV-…`
+
+---
+
+## 9. WhatsApp · personalización
+
+| Variable | Uso |
+|----------|-----|
+| `WHATSAPP_NUMBER` | Número del atelier **solo dígitos** con código país (ej. `573001234567`, `41791234567`) |
+
+En `/personalizar.html` → **Enviar por WhatsApp**:
+1. Guarda la solicitud en Postgres (si hay `DATABASE_URL`)
+2. Abre WhatsApp con mensaje ya redactado:
+
+```
+Hola equipo Ofelia Vallejo,
+
+Quiero personalizar la siguiente pieza:
+Pieza: …
+Texto a grabar: «…»
+…
+Referencia: OV-…
+```
+
+Configura `WHATSAPP_NUMBER` en Vercel y vuelve a desplegar.
 
 ---
 

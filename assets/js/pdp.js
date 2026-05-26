@@ -141,9 +141,13 @@
     const editorial = p.editorialImage ? imgUrl(p.editorialImage) : '';
     const showEditorial = Boolean(editorial);
 
-    document.title = p.name + ' · Ofelia Vallejo';
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.content = (p.shortDescription || p.description || '').slice(0, 160);
+    if (window.OVSeo && window.OVSeo.applyProduct) {
+      window.OVSeo.applyProduct(p);
+    } else {
+      document.title = p.name + ' · Ofelia Vallejo';
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.content = (p.shortDescription || p.description || '').slice(0, 160);
+    }
 
     const pdp = document.getElementById('pdp');
     pdp.hidden = false;
@@ -192,8 +196,8 @@
               '<p class="pdp__engrave-note">Confirmación del atelier · 24–48 h</p>' +
             '</section>'
           ) : '') +
-          '<button type="button" class="pdp__cta-primary pdp__cta-pay" id="pdpBuy"' + (stock <= 0 ? ' disabled' : '') + '>Comprar · ' + formatCHF(p.basePrice) + '</button>' +
-          '<a href="#" class="pdp__cta-primary" id="pdpCtaPersonalizar" style="margin-top:12px;background:transparent;border:1px solid var(--navy);color:var(--navy)">Personalizar en el atelier</a>' +
+          '<button type="button" class="pdp__cta-primary pdp__cta-pay" id="pdpBuy"' + (stock <= 0 ? ' disabled' : '') + '>Consultar por WhatsApp</button>' +
+          '<a href="#" class="pdp__cta-primary" id="pdpCtaPersonalizar" style="margin-top:12px;background:transparent;border:1px solid var(--navy);color:var(--navy)">Personalizar · estudio</a>' +
           '<p class="pdp__cta-secondary" id="pdpPayNote" style="margin-top:10px;font-size:10px;opacity:0.5"></p>' +
         '</div>' +
       '</div>' +
@@ -372,41 +376,35 @@
       if (!buyBtn || stock <= 0) return;
       const t = engraveInput && engraveInput.value.trim();
       const total = Number(product.basePrice) + (t ? engraveExtra : 0);
-      buyBtn.textContent = 'Comprar · ' + formatCHF(total);
+      buyBtn.textContent = 'Consultar por WhatsApp · ' + formatCHF(total);
     }
 
     if (buyBtn && stock > 0) {
       buyBtn.addEventListener('click', async function () {
-        buyBtn.disabled = true;
-        buyBtn.textContent = 'Redirigiendo…';
-        const texto = engraveInput ? engraveInput.value.trim() : '';
-        try {
-          const res = await fetch('/api/checkout/create', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              slug: product.slug,
-              engraveText: texto,
-              engraveEnabled: Boolean(texto),
-            }),
-          });
-          const json = await res.json();
-          if (json.ok && json.url) {
-            location.href = json.url;
-            return;
-          }
-          if (payNote) payNote.textContent = json.error || 'Pago no disponible.';
-        } catch {
-          if (payNote) payNote.textContent = 'Error de conexión.';
+        if (!window.OVWhatsApp) {
+          if (payNote) payNote.textContent = 'WhatsApp no disponible — usa Personalizar.';
+          return;
         }
+        buyBtn.disabled = true;
+        buyBtn.textContent = 'Abriendo WhatsApp…';
+        const texto = engraveInput ? engraveInput.value.trim() : '';
+        const total = Number(product.basePrice) + (texto ? engraveExtra : 0);
+        const res = await window.OVWhatsApp.open({
+          nombre: 'Consulta web',
+          email: '',
+          producto: product.name,
+          tipo_grabado: texto && texto.length <= 3 ? 'iniciales' : 'nombre',
+          texto_grabado: texto || 'Sin grabado',
+          mensaje: 'Color: ' + currentColor + '\nConsulta de compra desde la ficha de producto.',
+          total_estimated: String(total),
+        });
+        if (!res.ok && payNote) payNote.textContent = res.error;
         buyBtn.disabled = false;
         updateBuyLabel();
       });
     }
 
-    fetch('/api/stripe/config').then(function (r) { return r.json(); }).then(function (c) {
-      if (!c.enabled && payNote) payNote.textContent = 'Pasarela en configuración — usa Personalizar para solicitud.';
-    });
+    if (payNote) payNote.textContent = 'Compra por WhatsApp · confirmación del atelier.';
 
     const backBtn = document.getElementById('pdpBack');
     if (backBtn) {

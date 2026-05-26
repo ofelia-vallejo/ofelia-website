@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera favicons y badge navbar: sello OV sobre círculo marfil (#F3EEE6)."""
+"""Genera favicons / PWA: sello OV circular (logo_sello_badge). No toca logo_firma_nav (navbar)."""
 from __future__ import annotations
 
 from pathlib import Path

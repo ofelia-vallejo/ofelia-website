@@ -6,27 +6,37 @@
     {
       "id": "mujer",
       "label": "Mujer · Colección Guanábana",
-      "sort": 1
+      "sort": 1,
+      "gridCols": 3,
+      "active": true
     },
     {
       "id": "hombre",
       "label": "Hombre · Colección Borojó",
-      "sort": 2
+      "sort": 2,
+      "gridCols": 3,
+      "active": true
     },
     {
       "id": "bandoleras",
       "label": "Hombre · Colección Uchuva",
-      "sort": 3
+      "sort": 3,
+      "gridCols": 2,
+      "active": true
     },
     {
       "id": "morrales",
       "label": "Colección Chontaduro",
-      "sort": 4
+      "sort": 4,
+      "gridCols": 2,
+      "active": true
     },
     {
       "id": "accesorios",
       "label": "Accesorios · Colección Curuba",
-      "sort": 5
+      "sort": 5,
+      "gridCols": 3,
+      "active": true
     }
   ],
   "products": [
@@ -430,6 +440,7 @@
     {
       "id": "morral-elite",
       "slug": "morral-elite",
+      "collectionWide": true,
       "name": "Morral Elite",
       "shortDescription": "Cuero pleno · Negro · Compartimentos estructurados",
       "description": "Morral en cuero negro con compartimentos internos.",
@@ -521,6 +532,7 @@
     {
       "id": "morral-clasico",
       "slug": "morral-clasico",
+      "collectionWide": true,
       "name": "Morral Clásico",
       "shortDescription": "Cuero pleno · Cognac",
       "description": "Morral clásico en cuero cognac.",
@@ -602,6 +614,7 @@
     {
       "id": "bandolera-moderna",
       "slug": "bandolera-moderna",
+      "collectionWide": true,
       "name": "Bandolera Moderna",
       "shortDescription": "Cuero pleno · Carbón",
       "description": "Bandolera crossbody en cuero carbón.",
@@ -671,6 +684,7 @@
     {
       "id": "bandolera-elite",
       "slug": "bandolera-elite",
+      "collectionWide": true,
       "name": "Bandolera Elite",
       "shortDescription": "Cuero pleno · Carbón",
       "description": "Bandolera elite en cuero carbón.",
@@ -745,6 +759,8 @@
       "description": "Cinturón unisex en cuero colombiano full-grain. Hebilla gunmetal cepillada. Monograma OV grabado a láser en la punta — ~2 cm del extremo. Hecho a mano en Medellín.",
       "category": "accesorios",
       "line": "cinturon",
+      "collectionDisplay": "variants",
+      "sort": 1,
       "active": true,
       "personalizable": true,
       "basePrice": 120,

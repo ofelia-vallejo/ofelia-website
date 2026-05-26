@@ -160,26 +160,44 @@
         ' · total estimado ' + els.totalPrice.textContent;
       if (!msg.value.includes('Estudio:')) msg.value = note;
     }
-    document.getElementById('solicitud-formulario')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  async function sendStudioWhatsApp() {
+    if (!window.OVWhatsApp) return;
+    applyToForm();
+    const form = document.getElementById('form-personalizar');
+    const p = getProduct();
+    const nombre = form && form.nombre ? form.nombre.value.trim() : '';
+    const email = form && form.email ? form.email.value.trim() : '';
+
+    if (!nombre) {
+      document.getElementById('solicitud-formulario')?.scrollIntoView({ behavior: 'smooth' });
+      if (form && form.nombre) form.nombre.focus();
+      return;
+    }
+
+    const data = {
+      nombre: nombre,
+      email: email,
+      producto: p ? p.name : '',
+      tipo_grabado:
+        state.size === 'S' ? 'iniciales' : state.size === 'L' ? 'texto' : 'nombre',
+      texto_grabado: state.text || '—',
+      mensaje:
+        'Estudio: fuente ' + state.font +
+        ' · tamaño ' + state.size +
+        ' · diseño ' + state.layout,
+      font: state.font,
+      size: state.size,
+      layout: state.layout,
+      total_estimated: els.totalPrice.textContent.replace(/[^\d]/g, ''),
+    };
+
+    await window.OVWhatsApp.open(data);
   }
 
   function saveDraft() {
-    if (!window.OVAccount) return;
-    if (!window.OVAccount.isLoggedIn()) {
-      window.OVAccount.openModal('register');
-      return;
-    }
-    const p = getProduct();
-    window.OVAccount.saveDraft({
-      pieza: p ? p.name : '',
-      texto: state.text,
-      producto: JSON.stringify({
-        font: state.font,
-        size: state.size,
-        layout: state.layout,
-        productId: state.productId,
-      }),
-    });
+    sendStudioWhatsApp();
   }
 
   async function init() {
@@ -204,8 +222,8 @@
         updatePreview();
       });
 
-      els.applyBtn.addEventListener('click', applyToForm);
-      if (els.saveBtn) els.saveBtn.addEventListener('click', saveDraft);
+      els.applyBtn.addEventListener('click', sendStudioWhatsApp);
+      if (els.saveBtn) els.saveBtn.addEventListener('click', sendStudioWhatsApp);
 
       updatePreview();
     } catch (err) {
@@ -213,6 +231,10 @@
       console.warn('[engrave-studio]', err.message);
     }
   }
+
+  window.OVEngraveStudio = {
+    getState: () => ({ ...state }),
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

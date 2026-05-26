@@ -30,6 +30,7 @@
       <p class="sidebar__brand">Atelier Admin</p>
       <nav class="sidebar__nav">
         <button type="button" class="sidebar__link is-active" data-view="products">Productos</button>
+        <button type="button" class="sidebar__link" data-view="categories">Secciones</button>
         <button type="button" class="sidebar__link" data-view="inventory">Inventario</button>
         <button type="button" class="sidebar__link" data-view="edit" hidden id="navEdit">Editar pieza</button>
       </nav>
@@ -59,6 +60,30 @@
             <tbody id="productsTable"></tbody>
           </table>
         </div>
+      </section>
+
+      <section id="panelCategories" class="panel" hidden>
+        <p class="hint" style="margin-bottom:24px">
+          Orden y título de cada bloque en <strong>/coleccion</strong>. Los productos se asignan por categoría al editar cada pieza.
+        </p>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID (no cambiar)</th>
+                <th>Título en web</th>
+                <th>Orden</th>
+                <th>Columnas</th>
+                <th>Visible</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesTable"></tbody>
+          </table>
+        </div>
+        <div class="form-actions" style="margin-top:24px">
+          <button type="button" class="btn btn--primary" id="btnSaveCategories">Guardar secciones</button>
+        </div>
+        <p class="form-notice" id="categoriesNotice" aria-live="polite"></p>
       </section>
 
       <section id="panelInventory" class="panel" hidden>
@@ -138,6 +163,21 @@
             <label class="field field--check">
               <input type="checkbox" id="fieldPersonalizable" checked>
               <span>Personalizable (grabado)</span>
+            </label>
+            <label class="field">
+              <span>Orden en sección</span>
+              <input type="number" id="fieldSort" min="0" step="1" value="10">
+            </label>
+            <label class="field">
+              <span>Vista en colección</span>
+              <select id="fieldCollectionDisplay">
+                <option value="product">Una tarjeta por pieza</option>
+                <option value="variants">Una tarjeta por color (ej. cinturón)</option>
+              </select>
+            </label>
+            <label class="field field--check">
+              <input type="checkbox" id="fieldCollectionWide">
+              <span>Tarjeta ancha (2 columnas)</span>
             </label>
           </div>
 

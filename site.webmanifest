@@ -9,12 +9,12 @@
   "lang": "es",
   "icons": [
     {
-      "src": "/assets/icons/icon-192.png",
+      "src": "/assets/img/logo_sello_badge.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/assets/icons/icon-512.png",
+      "src": "/assets/img/logo_sello_badge.png",
       "sizes": "512x512",
       "type": "image/png"
     }

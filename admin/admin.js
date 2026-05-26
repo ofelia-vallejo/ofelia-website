@@ -11,7 +11,9 @@
   const loginForm = $('#loginForm');
   const loginNotice = $('#loginNotice');
   const productsTable = $('#productsTable');
+  const categoriesTable = $('#categoriesTable');
   const inventoryTable = $('#inventoryTable');
+  const categoriesNotice = $('#categoriesNotice');
   const statsRow = $('#statsRow');
   const mainTitle = $('#mainTitle');
   const mainActions = $('#mainActions');
@@ -49,6 +51,7 @@
 
   function showView(name) {
     $('#panelProducts').hidden = name !== 'products';
+    $('#panelCategories').hidden = name !== 'categories';
     $('#panelInventory').hidden = name !== 'inventory';
     $('#panelEdit').hidden = name !== 'edit';
   }
@@ -184,6 +187,58 @@
     }).join('');
   }
 
+  function renderCategoriesTable() {
+    const rows = (catalog.categories || [])
+      .slice()
+      .sort((a, b) => (Number(a.sort) || 99) - (Number(b.sort) || 99));
+
+    categoriesTable.innerHTML = rows.map((c) => {
+      return (
+        '<tr data-cat="' + esc(c.id) + '">' +
+          '<td><code>' + esc(c.id) + '</code></td>' +
+          '<td><input type="text" class="cat-label" value="' + esc(c.label) + '"></td>' +
+          '<td><input type="number" class="cat-sort" min="1" step="1" value="' + (c.sort || 1) + '"></td>' +
+          '<td><select class="cat-cols"><option value="3"' + (c.gridCols !== 2 ? ' selected' : '') + '>3</option><option value="2"' + (c.gridCols === 2 ? ' selected' : '') + '>2</option></select></td>' +
+          '<td><input type="checkbox" class="cat-active"' + (c.active !== false ? ' checked' : '') + '></td>' +
+        '</tr>'
+      );
+    }).join('');
+  }
+
+  function collectCategoriesFromTable() {
+    return Array.from(categoriesTable.querySelectorAll('tr[data-cat]')).map((row) => ({
+      id: row.getAttribute('data-cat'),
+      label: row.querySelector('.cat-label').value.trim(),
+      sort: Number(row.querySelector('.cat-sort').value) || 1,
+      gridCols: Number(row.querySelector('.cat-cols').value) === 2 ? 2 : 3,
+      active: row.querySelector('.cat-active').checked,
+    }));
+  }
+
+  async function saveCategories() {
+    try {
+      const categories = collectCategoriesFromTable();
+      await api('/admin/categories', {
+        method: 'PUT',
+        body: JSON.stringify({ categories }),
+      });
+      await loadCatalog();
+      showNotice(categoriesNotice, 'Secciones guardadas. La colección web se actualiza al instante.', true);
+      renderCategoriesTable();
+      fillCategories();
+    } catch (err) {
+      showNotice(categoriesNotice, err.message, false);
+    }
+  }
+
+  function goCategories() {
+    mainTitle.textContent = 'Secciones de colección';
+    mainActions.innerHTML = '';
+    setNav('categories');
+    showView('categories');
+    renderCategoriesTable();
+  }
+
   function renderVariants(variants) {
     variantsList.innerHTML = (variants || []).map((v, i) => variantRowHtml(v, i)).join('');
     bindVariantRows();
@@ -314,6 +369,9 @@
     $('#fieldLowStock').value = p.lowStockAt || 2;
     $('#fieldActive').checked = p.active !== false;
     $('#fieldPersonalizable').checked = p.personalizable !== false;
+    $('#fieldSort').value = p.sort != null ? p.sort : 10;
+    $('#fieldCollectionDisplay').value = p.collectionDisplay === 'variants' ? 'variants' : 'product';
+    $('#fieldCollectionWide').checked = p.collectionWide === true;
     $('#btnDeleteProduct').hidden = id === 'new';
 
     renderVariants(formProduct.variants);
@@ -351,6 +409,9 @@
       lowStockAt: Number($('#fieldLowStock').value),
       active: $('#fieldActive').checked,
       personalizable: $('#fieldPersonalizable').checked,
+      sort: Number($('#fieldSort').value) || 10,
+      collectionDisplay: $('#fieldCollectionDisplay').value,
+      collectionWide: $('#fieldCollectionWide').checked,
       variants: collectVariants(),
       images: getFormProduct().images,
     };
@@ -445,6 +506,7 @@
     btn.addEventListener('click', () => {
       const v = btn.getAttribute('data-view');
       if (v === 'products') goProducts();
+      if (v === 'categories') goCategories();
       if (v === 'inventory') {
         mainTitle.textContent = 'Inventario';
         mainActions.innerHTML = '';
@@ -458,6 +520,7 @@
 
   $('#btnBackList').addEventListener('click', goProducts);
   productForm.addEventListener('submit', saveProduct);
+  $('#btnSaveCategories').addEventListener('click', saveCategories);
 
   $('#btnDeleteProduct').addEventListener('click', async () => {
     if (!confirm('¿Eliminar este producto del catálogo?')) return;

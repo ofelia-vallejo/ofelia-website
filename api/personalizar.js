@@ -1,8 +1,15 @@
 // POST /api/personalizar
-// Body: { nombre, email, producto, tipo_grabado, texto_grabado, mensaje }
-// Returns: { ok, ref, message } | { ok: false, error }
+// Body: { nombre, email, producto, tipo_grabado, texto_grabado, mensaje, channel?, font?, size?, layout? }
+// Returns: { ok, ref, message, whatsapp_url? }
 
 const nodemailer = require('nodemailer');
+const { corsJson } = require('../lib/auth');
+const { hasCustomersDb, savePersonalizationRequest } = require('../lib/customers');
+const { verifyCustomerToken, getCustomerBearer } = require('../lib/customer-auth');
+const {
+  buildPersonalizationMessage,
+  buildWhatsAppUrl,
+} = require('../lib/personalizar-message');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RECIPIENT = process.env.EMAIL_TO || 'atelierofelia.vallejo@gmail.com';
@@ -33,12 +40,6 @@ async function getProductNames() {
 
 const TIPOS_GRABADO = ['iniciales', 'nombre', 'fecha', 'texto'];
 
-function cors(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
-
 function generateRef() {
   const ts = Date.now().toString(36).toUpperCase();
   const rand = Math.random().toString(36).slice(2, 5).toUpperCase();
@@ -46,8 +47,7 @@ function generateRef() {
 }
 
 module.exports = async (req, res) => {
-  cors(res);
-  res.setHeader('Content-Type', 'application/json');
+  corsJson(res);
 
   if (req.method === 'OPTIONS') return res.status(204).end();
 
@@ -68,16 +68,36 @@ module.exports = async (req, res) => {
     base_price,
     engrave_price,
     total_estimated,
+    channel,
   } = req.body || {};
 
-  if (!nombre || !email || !producto || !tipo_grabado || !texto_grabado) {
+  const sendChannel = channel === 'whatsapp' ? 'whatsapp' : 'email';
+  const isWhatsApp = sendChannel === 'whatsapp';
+
+  if (!producto) {
+    return res.status(400).json({
+      ok: false,
+      error: 'Indica la pieza que deseas personalizar.',
+    });
+  }
+
+  if (isWhatsApp) {
+    if (!nombre) {
+      return res.status(400).json({ ok: false, error: 'Indica tu nombre.' });
+    }
+  } else if (!nombre || !email || !tipo_grabado || !texto_grabado) {
     return res.status(400).json({
       ok: false,
       error: 'Los campos nombre, email, producto, tipo_grabado y texto_grabado son requeridos.',
     });
   }
 
-  if (!EMAIL_RE.test(email)) {
+  const safeNombre = String(nombre || '').trim() || 'Consulta web';
+  const safeEmail = String(email || '').trim() || 'no-indicado@ofeliavallejo.com';
+  const safeTipo = tipo_grabado || 'texto';
+  const safeTexto = String(texto_grabado || '').trim() || '—';
+
+  if (!isWhatsApp && !EMAIL_RE.test(safeEmail)) {
     return res.status(400).json({ ok: false, error: 'El email no es válido.' });
   }
 
@@ -86,11 +106,11 @@ module.exports = async (req, res) => {
     return res.status(400).json({ ok: false, error: 'Producto no reconocido.' });
   }
 
-  if (!TIPOS_GRABADO.includes(tipo_grabado)) {
+  if (!TIPOS_GRABADO.includes(safeTipo)) {
     return res.status(400).json({ ok: false, error: 'Tipo de grabado no válido.' });
   }
 
-  if (texto_grabado.length > 60) {
+  if (safeTexto.length > 60) {
     return res.status(400).json({
       ok: false,
       error: 'El texto de grabado no puede superar 60 caracteres.',
@@ -98,13 +118,54 @@ module.exports = async (req, res) => {
   }
 
   const ref = generateRef();
+  const payload = {
+    ref,
+    nombre: safeNombre,
+    email: safeEmail,
+    producto,
+    tipo_grabado: safeTipo,
+    texto_grabado: safeTexto,
+    mensaje: mensaje || '',
+    font: font || '',
+    size: size || '',
+    layout: layout || '',
+    base_price,
+    engrave_price,
+    total_estimated,
+    channel: sendChannel,
+  };
+
+  const token = getCustomerBearer(req);
+  const session = verifyCustomerToken(token);
+  if (session) {
+    payload.customerId = session.id;
+  }
+
+  if (hasCustomersDb()) {
+    try {
+      await savePersonalizationRequest(payload);
+    } catch (err) {
+      console.error('[personalizar] DB:', err.message);
+    }
+  }
+
+  const waMessage = buildPersonalizationMessage(payload);
+  const whatsapp_url = buildWhatsAppUrl(waMessage);
+
+  if (sendChannel === 'whatsapp' && !whatsapp_url) {
+    return res.status(503).json({
+      ok: false,
+      error: 'WhatsApp del atelier no configurado. Usa «Enviar solicitud» por correo.',
+      code: 'NO_WHATSAPP',
+    });
+  }
 
   const smtpConfigured =
     process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS;
 
-  if (smtpConfigured) {
+  if (sendChannel === 'email' && smtpConfigured) {
     try {
-      const transporter = nodemailer.createTransporter({
+      const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT) || 587,
         secure: false,
@@ -116,21 +177,7 @@ module.exports = async (req, res) => {
         to: RECIPIENT,
         replyTo: email,
         subject: `[Personalización OV] ${ref} — ${producto}`,
-        text: [
-          `Referencia: ${ref}`,
-          `Nombre: ${nombre}`,
-          `Email: ${email}`,
-          `Producto: ${producto}`,
-          `Tipo de grabado: ${tipo_grabado}`,
-          `Texto: ${texto_grabado}`,
-          `Notas: ${mensaje || '—'}`,
-          font ? `Fuente estudio: ${font}` : '',
-          size ? `Tamaño estudio: ${size}` : '',
-          layout ? `Diseño estudio: ${layout}` : '',
-          base_price != null ? `Precio pieza (CHF): ${base_price}` : '',
-          engrave_price != null ? `Grabado adicional (CHF): ${engrave_price}` : '',
-          total_estimated != null ? `Total estimado (CHF): ${total_estimated}` : '',
-        ].filter(Boolean).join('\n'),
+        text: waMessage,
       });
     } catch (err) {
       console.error('SMTP error:', err.message);
@@ -139,20 +186,24 @@ module.exports = async (req, res) => {
         error: 'No se pudo enviar la solicitud. Intenta más tarde.',
       });
     }
-  } else {
-    console.log('[personalizar] DEV MODE — SMTP no configurado:', {
-      ref,
-      nombre,
-      email,
-      producto,
-      tipo_grabado,
-      texto_grabado,
-    });
+  } else if (sendChannel === 'email') {
+    console.log('[personalizar] DEV MODE — SMTP no configurado:', { ref, nombre, email, producto });
   }
 
-  return res.status(200).json({
+  const response = {
     ok: true,
     ref,
-    message: `Solicitud recibida. Tu referencia es ${ref}. Te contactaremos en 24–48 h.`,
-  });
+    channel: sendChannel,
+    message:
+      sendChannel === 'whatsapp'
+        ? `Referencia ${ref}. Se abrirá WhatsApp con tu solicitud lista para enviar.`
+        : `Solicitud recibida. Tu referencia es ${ref}. Te contactaremos en 24–48 h.`,
+  };
+
+  if (whatsapp_url) {
+    response.whatsapp_url = whatsapp_url;
+    response.whatsapp_message = waMessage;
+  }
+
+  return res.status(200).json(response);
 };

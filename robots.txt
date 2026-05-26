@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /cuenta
 
 Sitemap: https://ofeliavallejo.com/sitemap.xml

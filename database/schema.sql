@@ -86,3 +86,39 @@ CREATE INDEX IF NOT EXISTS idx_variants_product ON product_variants(product_id);
 CREATE INDEX IF NOT EXISTS idx_images_product ON product_images(product_id);
 CREATE INDEX IF NOT EXISTS idx_orders_stripe ON orders(stripe_session_id);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+
+-- Clientes registrados (cuenta / atelier)
+CREATE TABLE IF NOT EXISTS customers (
+  id TEXT PRIMARY KEY,
+  nombre TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  phone TEXT DEFAULT '',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS personalization_requests (
+  id TEXT PRIMARY KEY,
+  ref TEXT NOT NULL UNIQUE,
+  customer_id TEXT REFERENCES customers(id) ON DELETE SET NULL,
+  nombre TEXT NOT NULL,
+  email TEXT NOT NULL,
+  producto TEXT NOT NULL,
+  tipo_grabado TEXT NOT NULL,
+  texto_grabado TEXT NOT NULL,
+  mensaje TEXT DEFAULT '',
+  font TEXT DEFAULT '',
+  size TEXT DEFAULT '',
+  layout TEXT DEFAULT '',
+  base_price_chf INT,
+  engrave_price_chf INT,
+  total_estimated_chf INT,
+  channel TEXT NOT NULL DEFAULT 'email',
+  status TEXT NOT NULL DEFAULT 'pending',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_customers_email ON customers(email);
+CREATE INDEX IF NOT EXISTS idx_personalization_ref ON personalization_requests(ref);
+CREATE INDEX IF NOT EXISTS idx_personalization_customer ON personalization_requests(customer_id);

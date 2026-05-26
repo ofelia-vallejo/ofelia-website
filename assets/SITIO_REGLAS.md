@@ -6,9 +6,10 @@ Referencia única para mantener consistencia.
 
 | Archivo | Dónde |
 |---------|--------|
-| `logo_firma_nav.png` | **Navbar** — solo cursiva «Ofelia Vallejo» (sin eslogan) |
-| `logo_firma_completa.png` | **Nacida de una firma** — firma + tridente + «Cuero hecho para durar», estampado 18% |
-| `logo_sello.png` | **Nacida de una firma** (debajo, 20%) + **footer** (sólido, centrado) + intro globo |
+| `logo_firma_nav.png` | **Navbar** — solo firma cursiva «Ofelia Vallejo» (sin sello encima) |
+| `logo_firma_completa.png` | **Nacida de una firma** — watermark / statement (no navbar) |
+| `logo_sello.png` | **Intro globo** + **footer** (sello horizontal) |
+| `logo_sello_badge.png` | **Solo favicon / Google / PWA** — monograma circular OV |
 
 No duplicar sello entre sección y footer con banners extra.
 
