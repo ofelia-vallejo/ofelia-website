@@ -194,13 +194,6 @@
     overflow: visible;
   }
   .globe-svg { width: 100%; height: 100%; display: block; overflow: visible; }
-  .globe-ring {
-    fill: none;
-    stroke: var(--ink);
-    stroke-width: 1;
-    opacity: 0.42;
-    pointer-events: none;
-  }
   .grain {
     position: absolute; inset: 0;
     mix-blend-mode: multiply; opacity: 0.22; pointer-events: none; z-index: 2;
@@ -454,7 +447,7 @@
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_firma_completa.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+      <img src="assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -501,13 +494,7 @@
                                  0 0 0 0.5 0" />
         </filter>
         <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100" /></clipPath>
-        <radialGradient id="waterGrad" cx="40%" cy="33%" r="68%" gradientUnits="objectBoundingBox">
-          <stop offset="0%"   stop-color="#E8EFF5"/>
-          <stop offset="55%"  stop-color="#C9D9E6"/>
-          <stop offset="100%" stop-color="#B4C8D8"/>
-        </radialGradient>
       </defs>
-      <circle class="globe-ring" id="globeRing" cx="0" cy="0" r="100" />
       <g clip-path="url(#globe-clip)">
         <g class="layer-water"      id="lWater"><circle cx="0" cy="0" r="100" /></g>
         <g class="layer-graticule"  id="lGrat"></g>
@@ -597,7 +584,7 @@
   <!-- Tarjeta final (stage 4) -->
   <div class="card" id="card">
     <div class="card__thumb">
-      <img src="imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg" alt="Pieza en cuero cognac" width="64" height="64" loading="eager" decoding="async">
+      <img src="assets/img/nuevas/producto/mujer/estudio-01.jpg" alt="Pieza en cuero cognac" width="64" height="64" loading="eager" decoding="async">
     </div>
     <div class="info">
       <span class="name">Guatapé · Antioquia</span>
@@ -618,7 +605,6 @@
   const stageEl = document.getElementById('stage');
   const tiltEl  = document.getElementById('tiltWrap');
   const clipC   = document.getElementById('clipCircle');
-  const globeRing = document.getElementById('globeRing');
   const step0El = document.getElementById('step0');
   const pinEl   = document.getElementById('pin');
   const backBtn = document.getElementById('backBtn');
@@ -653,11 +639,6 @@
     const ringR = proj.scale();
     clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy); clipC.setAttribute('r', r);
     waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy); waterCircle.setAttribute('r', r + 5);
-    if (globeRing) {
-      globeRing.setAttribute('cx', cx);
-      globeRing.setAttribute('cy', cy);
-      globeRing.setAttribute('r', ringR);
-    }
   }
   /* init clip & water at projection center */
   setClip(INIT_SCALE);
@@ -675,8 +656,8 @@
 
   /* Map layers follow mapVisual, updated only after each zoom finishes (not at click). */
   function applyLayerState() {
-    lInked.classList.toggle('off', mapVisual !== 2);
-    lDepts.classList.toggle('on', mapVisual >= 3);
+    lInked.classList.toggle('off', mapVisual < 1 || mapVisual > 2);
+    lDepts.classList.toggle('on', mapVisual >= 2);
     lRegion.classList.toggle('on', mapVisual >= 3);
     lDeco.classList.remove('on');
     const showPin = mapVisual === 4 && pinEl.dataset.placed === '1';
@@ -787,7 +768,7 @@
     if (document.hidden) spinTimer.stop();
     else if (stage === 0 && !busy) {
       spinTimer = d3.timer(() => {
-        if (stage === 0 && !busy) { const r = proj.rotate(); proj.rotate([r[0]+0.16,r[1],r[2]]); redraw(); }
+        if (stage === 0 && !busy) { const r = proj.rotate(); proj.rotate([r[0]+0.07,r[1],r[2]]); redraw(); }
       });
     }
   });
@@ -795,7 +776,7 @@
   /* ─── Panel + dots + hint sync ───────────────────── */
   const tap = ('ontouchstart' in window) ? 'Toque' : 'Haga clic';
   const hints = [
-    `${tap} en el atlas`,
+    `${tap} en el globo`,
     tap === 'Toque' ? 'Toque Colombia' : 'Haga clic en Colombia',
     `${tap} en Antioquia`,
     `${tap} en Guatapé`,
@@ -995,7 +976,6 @@
     clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy);
     waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy);
     waterCircle.setAttribute('r', currentClip + 2);
-    if (globeRing) globeRing.setAttribute('r', proj.scale());
     redraw();
   });
 
