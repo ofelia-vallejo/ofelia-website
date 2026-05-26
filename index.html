@@ -227,8 +227,9 @@
   .pin {
     opacity: 0; transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
     transform-origin: center; transform-box: fill-box;
+    pointer-events: none;
   }
-  .pin.on { opacity: 1; }
+  .pin.on { opacity: 1; pointer-events: auto; }
   .pin.deep { transform: scale(1.6); }
   .pin .core { fill: var(--accent); }
   .pin .halo {
