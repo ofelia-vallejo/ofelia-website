@@ -14,7 +14,7 @@ No duplicar sello entre sección y footer con banners extra.
 
 ## Navbar (todas las páginas)
 
-- Firma nav centrada, ancho hasta 320px
+- Firma nav centrada (`logo_firma_nav.png`), `max-height: 42px`, ancho hasta 88vw — sin recortar la «a»
 - Sin links en barra — solo menú hamburguesa
 - Menú: Inicio · Mujer · Hombre · Historia · Cuero · Personalizar · Contacto
 - Estilos en `assets/css/brand.css` · JS en `assets/js/brand.js`

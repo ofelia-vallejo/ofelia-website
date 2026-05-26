@@ -10,7 +10,11 @@
 
 Fuente canónica: `06_Identidad_Marca/logos/logo_firma.png` (completa) y `logo_sello.png`.
 
-## Fotos por categoría
+## Fotos nuevas (curadas)
+
+`nuevas/` — selección lista para web, separada de `imagenes base/`. Ver `nuevas/README.md`.
+
+## Fotos por categoría (live)
 
 | Carpeta | Contenido |
 |---------|-----------|
