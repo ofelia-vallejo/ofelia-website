@@ -4,8 +4,8 @@
 
 | Archivo | Uso |
 |---------|-----|
-| `logo_firma.png` | Firma completa — navbar desktop, statement, signature banner, footer |
-| `logo_sello.png` | Sello OV — navbar móvil, intro globo, cajón Guatapé |
+| `logo_firma.png` | Firma cursiva sola (sin tagline) — navbar en todas las páginas, statement, banners |
+| `logo_sello.png` | Sello O·V·tridente — footer, intro oscura, cajón Guatapé |
 
 Fuente canónica: `06_Identidad_Marca/logos/`.
 

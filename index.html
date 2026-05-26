@@ -55,12 +55,9 @@
   .navbar__left  { flex: 1; display: flex; align-items: center; }
   .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; outline: none; }
     .navbar__firma {
-    height: 40px; width: auto; max-width: 200px;
+    height: 48px; width: auto; max-width: min(280px, 42vw);
     display: block;
     object-fit: contain; object-position: center;
-  }
-  .navbar__sello {
-    height: 44px; max-width: 56px; width: auto;
     background: transparent;
   }
   .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
@@ -125,7 +122,7 @@
   .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
   @media (max-width: 768px) {
     .navbar { padding: 0 20px; }
-    .navbar__sello { height: 40px; max-width: 52px; width: auto; }
+    .navbar__firma { height: 40px; max-width: min(220px, 68vw); width: auto; }
     .navbar__right { gap: 18px; }
   }
 
@@ -462,7 +459,7 @@
 <header class="navbar">
   <div class="navbar__left"></div>
   <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
-    <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="navbar__sello" width="56" height="44">
+    <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="48">
   </a>
   <div class="navbar__right">
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Menú">

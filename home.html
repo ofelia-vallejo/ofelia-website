@@ -125,10 +125,10 @@
       background: transparent;
     }
 
-    .navbar__sello {
-      height: 44px;
+    .navbar__firma {
+      height: 48px;
       width: auto;
-      max-width: 56px;
+      max-width: min(280px, 42vw);
       display: block;
       object-fit: contain;
       object-position: center;
@@ -227,7 +227,7 @@
 
     @media (max-width: 768px) {
       .navbar { padding: 0 20px; }
-      .navbar__sello { height: 40px; max-width: 52px; }
+      .navbar__firma { height: 40px; max-width: min(220px, 68vw); }
       .navbar__right { gap: 18px; }
     }
 
@@ -245,11 +245,11 @@
     }
 
     .foot__logo {
-      width: 140px;
+      width: 72px;
       height: auto;
       background: transparent;
       filter: brightness(0) invert(1);
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     .signature-banner__img {
@@ -987,7 +987,7 @@
       <a href="manifiesto.html" class="nav-link nav-link--desk">Historia</a>
     </div>
     <a href="home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="navbar__sello" width="56" height="44">
+      <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="navbar__firma" width="240" height="48">
     </a>
     <div class="navbar__right">
       <a href="coleccion.html" class="nav-link nav-link--desk">Cuero</a>
@@ -1184,7 +1184,7 @@
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="assets/img/logo_firma.png" alt="Ofelia Vallejo" class="foot__logo" width="112" height="auto">
+        <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
         <p class="foot__tag">Leather House · Medellín → Zürich</p>
       </div>
       <nav class="foot__col" aria-label="Casa">
