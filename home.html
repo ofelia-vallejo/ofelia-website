@@ -82,9 +82,16 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate3d(-100px, -100px, 0);
+      opacity: 0;
+      visibility: hidden;
       transition: width 0.25s ease, height 0.25s ease,
-                  background 0.25s ease, border-color 0.25s ease;
+                  background 0.25s ease, border-color 0.25s ease, opacity 0.2s ease;
       border: 1px solid transparent;
+    }
+
+    body.cursor-ready #cursor {
+      opacity: 1;
+      visibility: visible;
     }
 
     #cursor.is-hover {
@@ -263,10 +270,6 @@
       opacity: 0.92;
     }
 
-    .signature-banner__img {
-      background: transparent;
-    }
-
     .foot__tag {
       margin: 12px 0 0;
       font-weight: 300;
@@ -310,6 +313,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
+      max-width: 100%;
       font-weight: 300;
       font-size: 10px;
       color: rgba(243, 238, 230, 0.25);
@@ -323,7 +327,13 @@
 
     .foot__bottom a:hover { color: var(--marfil); }
 
-    .signature-banner { display: none; }
+    footer a:focus { outline: none; }
+    footer a:focus-visible {
+      outline: 1px solid rgba(243, 238, 230, 0.45);
+      outline-offset: 3px;
+    }
+
+    .foot__col ul { list-style: none; padding: 0; margin: 0; }
 
     /* GENDER HERO */
     .gender {
@@ -918,29 +928,10 @@
     @media (max-width: 900px) {
       :root { --pad-x: 20px; }
 
-      .signature-banner {
-        display: block;
-        background: var(--marfil);
-        padding: 80px 24px 64px;
-        text-align: center;
-        border-top: 1px solid var(--rule);
-      }
-
-      .signature-banner__img {
-        width: 72px;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-        object-fit: contain;
-      }
-
-      .signature-banner__caption {
-        margin-top: 18px;
-        font-family: Cinzel, serif;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.3em;
-        color: var(--text-soft);
+      .foot__bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
       }
 
       .gender {
@@ -1177,11 +1168,6 @@
 
   </main>
 
-  <section class="signature-banner reveal" aria-label="Firma de la casa">
-    <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo" class="signature-banner__img" width="80" height="auto">
-    <p class="signature-banner__caption">Leather House · Medellín → Zürich</p>
-  </section>
-
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
@@ -1271,6 +1257,7 @@
       }
 
       document.addEventListener('mousemove', (e) => {
+        document.body.classList.add('cursor-ready');
         mx = e.clientX;
         my = e.clientY;
 
