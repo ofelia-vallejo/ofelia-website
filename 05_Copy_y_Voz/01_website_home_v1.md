@@ -33,10 +33,10 @@
 
 ### Eyebrow / Label
 - **Actual:** `Leather House · Medellín, Colombia`
-- **Propuesta:** `Leather House · Medellín → Zürich`
+- **Propuesta:** `Leather House · Medellín → Lausanne`
 - **Alternativa más sobria:** `Atelier de cuero · Medellín`
 
-> El "→ Zürich" cuenta la historia entera en cuatro palabras: cuero colombiano, presencia europea. Si todavía no quieren marcar la operación en Suiza públicamente, usar la alternativa.
+> El "→ Lausanne" cuenta la historia entera en cuatro palabras: cuero colombiano, presencia europea. Si todavía no quieren marcar la operación en Suiza públicamente, usar la alternativa.
 
 ### Título principal
 - **Actual:** `Elegancia que permanece.`
@@ -180,8 +180,8 @@
 
 ### Tag bajo el logo
 - **Actual:** `Leather House · Medellín, Colombia`
-- **Propuesta:** `Leather House · Medellín → Zürich`
-- **Alternativa:** `Atelier de cuero · Medellín · Zürich`
+- **Propuesta:** `Leather House · Medellín → Lausanne`
+- **Alternativa:** `Atelier de cuero · Medellín · Lausanne`
 
 ### Bottom (copyright)
 - **Actual:** `© 2025 Ofelia Vallejo`
@@ -192,7 +192,7 @@
 
 ## Resumen de cambios recomendados (v1)
 
-1. **Hero label** → `Leather House · Medellín → Zürich`
+1. **Hero label** → `Leather House · Medellín → Lausanne`
 2. **Hero caption** → `Travel Bag · N° I`
 3. **Statement body** → versión con "cruzó el océano con nosotras"
 4. **Productos header (L)** → `Colección 01 — Travel`
@@ -203,7 +203,7 @@
 9. **Split caption** → `Cuero pleno · Medellín`
 10. **Custom label** → `Bespoke · Bajo pedido`
 11. **Custom subtítulo** → versión "Iniciales, nombre o fecha…"
-12. **Footer tag** → `Leather House · Medellín → Zürich`
+12. **Footer tag** → `Leather House · Medellín → Lausanne`
 13. **Footer copyright** → `© 2026 Ofelia Vallejo · Hecho a mano en Medellín`
 
 ---

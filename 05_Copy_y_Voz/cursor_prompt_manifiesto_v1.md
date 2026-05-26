@@ -49,7 +49,7 @@ Crea el archivo `manifiesto.html` en la raíz del proyecto. La página debe:
   IV. Nuestro lenguaje es visual, emocional y eterno.
   V. Menos ruido. Más intención.
 - Tener una sección de cierre sobre fondo navy con el texto "Esto es Ofelia Vallejo." + las dos líneas finales.
-- Footer idéntico al index.html (con tag "Leather House · Medellín → Zürich" y copyright 2026).
+- Footer idéntico al index.html (con tag "Leather House · Medellín → Lausanne" y copyright 2026).
 
 El texto completo de cada pilar está en `05_Copy_y_Voz/02_manifiesto_v1.md` — úsalo como fuente de verdad.
 
@@ -73,7 +73,7 @@ Después de aplicar (cualquiera de las dos opciones):
    - [ ] 5 pilares con numeración romana (— I a — V)
    - [ ] Cada pilar tiene su título Cinzel + cuerpo Helvetica light
    - [ ] Sección final "Esto es Ofelia Vallejo." sobre fondo navy
-   - [ ] Footer con copyright 2026 + Medellín → Zürich
+   - [ ] Footer con copyright 2026 + Medellín → Lausanne
    - [ ] Cursor custom de 6px funciona en desktop
    - [ ] Reveal-on-scroll funciona suavemente
 3. Click logo arriba izquierda → regresa al `index.html` ✓

@@ -50,7 +50,7 @@ Heritage paisa artesanal
 - La marca lleva el **nombre de la abuela** de la fundadora: Ofelia Vallejo.
 - Su **firma cursiva manuscrita en navy** es el logo oficial — patrimonio familiar, no diseño de logo.
 - La producción artesanal está en **Medellín, Antioquia**.
-- La operación comercial actual está en **Suiza**, sirviendo al mercado europeo.
+- La operación comercial actual está en **Lausanne, Suiza**, sirviendo al mercado europeo.
 - Promesa de marca: una pieza que se hereda. No temporada. Vida.
 
 ---
@@ -58,7 +58,7 @@ Heritage paisa artesanal
 ## 3. Audiencia Objetivo
 
 ### Mercado Geográfico
-- **Primario:** Europa occidental — Suiza (base actual), Italia, Francia, Alemania, UK, España.
+- **Primario:** Europa occidental — Lausanne / Suiza (base actual), Italia, Francia, Alemania, UK, España.
 - **Secundario:** Colombia (Bogotá, Medellín) para nicho que valora exportación premium.
 - **Aspiracional futuro:** Estados Unidos (NY, LA, SF) y Japón.
 

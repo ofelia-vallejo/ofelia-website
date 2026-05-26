@@ -15,7 +15,7 @@ NAVBAR
 - No cambies los links (Colección, Historia, Personalizar, Contacto).
 
 HERO
-1. Cambia `Leather House · Medellín, Colombia` por `Leather House · Medellín → Zürich`
+1. Cambia `Leather House · Medellín, Colombia` por `Leather House · Medellín → Lausanne`
 2. Mantén `Elegancia que permanece.`
 3. Mantén `Ver colección →`
 4. Cambia el caption `Travel Bag` por `Travel Bag · N° I`
@@ -62,7 +62,7 @@ CUSTOM
 18. Mantén el CTA `Solicitar pieza`.
 
 FOOTER
-19. Cambia el `footer__tag` de `Leather House · Medellín, Colombia` por `Leather House · Medellín → Zürich`
+19. Cambia el `footer__tag` de `Leather House · Medellín, Colombia` por `Leather House · Medellín → Lausanne`
 20. Cambia el `footer__bottom` de `© 2025 Ofelia Vallejo` por `© 2026 Ofelia Vallejo · Hecho a mano en Medellín`
 
 Reglas estrictas:
@@ -86,12 +86,12 @@ Reglas estrictas:
 ## Verificación posterior
 
 Después de aplicar, abre el sitio y revisa:
-- [ ] Hero: label nueva con "→ Zürich" y caption "Travel Bag · N° I"
+- [ ] Hero: label nueva con "→ Lausanne" y caption "Travel Bag · N° I"
 - [ ] Statement: párrafo de tres líneas con "cruzó el océano con nosotras"
 - [ ] Productos: header dice "Colección 01 — Travel", cada card tiene su color
 - [ ] Split: label "Atelier · Medellín", cuerpo nuevo con materiales, CTA "Conocer el atelier"
 - [ ] Custom: label "Bespoke · Bajo pedido", subtítulo largo nuevo
-- [ ] Footer: tag con "→ Zürich", copyright 2026 + "Hecho a mano en Medellín"
+- [ ] Footer: tag con "→ Lausanne", copyright 2026 + "Hecho a mano en Medellín"
 
 Si algo no quedó bien, dime cuál sección y lo iteramos.
 

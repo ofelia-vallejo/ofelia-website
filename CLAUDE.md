@@ -25,7 +25,7 @@
 
 - La marca lleva el nombre de la **abuela** de la fundadora. Su firma cursiva es la firma oficial de la casa.
 - Se diseña y produce en **Medellín, Antioquia, Colombia** con cuero colombiano full-grain curtido tradicionalmente.
-- La operación comercial actualmente está basada en **Suiza** para servir al mercado europeo.
+- La operación comercial actualmente está basada en **Lausanne, Suiza** para servir al mercado europeo.
 - La promesa es una pieza que se hereda — no temporada, vida.
 - Cada pieza puede ser personalizada con grabado láser (nombre, iniciales, firma) sobre el cuero.
 
@@ -239,7 +239,7 @@ La marca **NO tiene un avatar Pixar**. Tiene **modelos de campaña editorial**.
 
 ## Mercado y posicionamiento comercial
 
-- **Mercado actual:** Suiza (base operativa europea)
+- **Mercado actual:** Lausanne, Suiza (base operativa europea)
 - **Mercado objetivo:** Europa occidental (Suiza, Italia, Francia, Alemania, UK, España)
 - **Mercado de origen:** Colombia (Medellín, Antioquia)
 - **Estatus:** lujo accesible heritage — competidores indirectos: Cuyana, Bellroy, Saddleback (USA), Hermès petit-h (techo), Loewe craft (techo).
