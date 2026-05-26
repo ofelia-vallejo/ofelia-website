@@ -3,9 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Bag — Ofelia Vallejo</title>
-  <meta name="description" content="Travel Bag I · II · III — weekender y mochila en cuero colombiano · Ofelia Vallejo Leather House.">
+  <title>Travel Bag · Cuero Colombiano · Ofelia Vallejo</title>
+  <meta name="description" content="Travel Bag I, II y III — weekender, maletín y mochila en cuero colombiano · grabado láser OV · Ofelia Vallejo Leather House.">
   <link rel="canonical" href="https://ofeliavallejo.com/producto/travel-bag">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ofelia Vallejo">
+  <meta property="og:title" content="Travel Bag · Cuero Colombiano · Ofelia Vallejo">
+  <meta property="og:description" content="Tres siluetas de viaje en cuero pleno colombiano — hechas a mano en Medellín.">
+  <meta property="og:url" content="https://ofeliavallejo.com/producto/travel-bag">
+  <meta property="og:image" content="https://ofeliavallejo.com/assets/img/producto/mujer/travel-bag-cognac.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://ofeliavallejo.com/assets/img/producto/mujer/travel-bag-cognac.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Travel Bag — Ofelia Vallejo",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "url": "https://ofeliavallejo.com/producto/travel-bag-i",
+        "name": "Travel Bag I"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "url": "https://ofeliavallejo.com/producto/maletin",
+        "name": "Travel Bag II · Maletín"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "url": "https://ofeliavallejo.com/producto/travel-bag-iii",
+        "name": "Travel Bag III"
+      }
+    ]
+  }
+  </script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
@@ -29,6 +64,7 @@
       </button>
     </div>
   </header>
+  <button type="button" class="pdp-back" id="pdpBack" aria-label="Volver a la página anterior">← Volver</button>
   <div class="nav-overlay" id="navOverlay"></div>
   <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
@@ -44,6 +80,13 @@
 
   <main>
     <header class="product-line-hero reveal">
+      <nav class="pdp-breadcrumb" aria-label="Migas de pan">
+        <a href="../home.html">Inicio</a>
+        <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
+        <a href="../home.html#mujer">Mujer</a>
+        <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
+        <span aria-current="page">Travel Bag</span>
+      </nav>
       <a href="../coleccion.html" class="product-line-hero__back">← Colección</a>
       <p class="product-line-hero__label">Línea de viaje · Frutos de Antioquia</p>
       <h1 class="product-line-hero__title">Travel Bag</h1>
@@ -54,7 +97,11 @@
     </header>
 
     <div class="product-line-grid reveal">
-      <a href="travel-bag-i.html" class="product-line-card">
+      <a
+        href="travel-bag-i.html"
+        class="product-line-card product-card"
+        data-category="mujer"
+        style="--img-hover: url('../assets/img/nuevas/producto/mujer/estudio-01.jpg')">
         <div class="product-line-card__img" data-dark>
           <span class="product-line-card__numeral">I</span>
           <span class="product-line-card__badge">Cognac</span>
@@ -72,7 +119,11 @@
         </div>
       </a>
 
-      <a href="maletin.html" class="product-line-card">
+      <a
+        href="maletin.html"
+        class="product-line-card product-card"
+        data-category="hombre"
+        style="--img-hover: url('../imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg')">
         <div class="product-line-card__img" data-dark>
           <span class="product-line-card__numeral">II</span>
           <span class="product-line-card__badge">Negro</span>
@@ -90,7 +141,11 @@
         </div>
       </a>
 
-      <a href="travel-bag-iii.html" class="product-line-card">
+      <a
+        href="travel-bag-iii.html"
+        class="product-line-card product-card"
+        data-category="mujer"
+        style="--img-hover: url('../imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg')">
         <div class="product-line-card__img" data-dark>
           <span class="product-line-card__numeral">III</span>
           <span class="product-line-card__badge">Cognac</span>
@@ -142,5 +197,23 @@
     </div>
   </footer>
   <script src="../assets/js/brand.js"></script>
+  <script>
+    (function () {
+      var backBtn = document.getElementById('pdpBack');
+      if (!backBtn) return;
+      function syncBack() {
+        backBtn.classList.toggle('is-visible', window.scrollY > 100);
+      }
+      syncBack();
+      window.addEventListener('scroll', syncBack, { passive: true });
+      backBtn.addEventListener('click', function () {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = '../home.html';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

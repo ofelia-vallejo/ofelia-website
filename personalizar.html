@@ -788,14 +788,6 @@
       const textoInput = document.getElementById('texto_grabado');
       const charCount = document.getElementById('char-count');
 
-      // Pre-fill producto from query string
-      const params = new URLSearchParams(location.search);
-      const productoParam = params.get('producto');
-      if (productoParam) {
-        const opt = form.querySelector(`option[value="${productoParam}"]`);
-        if (opt) opt.selected = true;
-      }
-
       const previewEl = document.getElementById('engrave-preview');
       const previewText = document.getElementById('engrave-preview-text');
 
@@ -808,6 +800,33 @@
         } else {
           previewText.textContent = 'ABC';
           previewEl.classList.remove('is-filled');
+        }
+      }
+
+      // Pre-fill from query string (PDP → personalizar)
+      const params = new URLSearchParams(location.search);
+      const productoParam = params.get('producto');
+      if (productoParam) {
+        const opt = form.querySelector(`option[value="${productoParam}"]`);
+        if (opt) opt.selected = true;
+      }
+      const textoParam = params.get('texto_grabado');
+      if (textoParam) {
+        textoInput.value = textoParam.slice(0, 60);
+        syncPreview();
+      }
+      const tipoParam = params.get('tipo_grabado');
+      if (tipoParam && form.tipo_grabado.querySelector(`option[value="${tipoParam}"]`)) {
+        form.tipo_grabado.value = tipoParam;
+      }
+      const colorParam = params.get('color');
+      const mensajeField = document.getElementById('mensaje');
+      if (colorParam && mensajeField) {
+        const colorNote = 'Color seleccionado en PDP: ' + colorParam;
+        if (!mensajeField.value.includes(colorNote)) {
+          mensajeField.value = mensajeField.value
+            ? mensajeField.value.trim() + '\n' + colorNote
+            : colorNote;
         }
       }
 

@@ -1,3 +1,68 @@
+/* Breadcrumb + volver · PDP y líneas de producto */
+.pdp-breadcrumb {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(11, 31, 58, 0.35);
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 6px;
+}
+
+.pdp-breadcrumb a {
+  color: rgba(11, 31, 58, 0.35);
+  transition: color 0.35s var(--ease);
+}
+
+.pdp-breadcrumb a:hover {
+  color: var(--navy);
+}
+
+.pdp-breadcrumb [aria-current="page"] {
+  color: rgba(11, 31, 58, 0.55);
+}
+
+.pdp-breadcrumb__sep {
+  user-select: none;
+}
+
+.pdp-back {
+  position: fixed;
+  top: 68px;
+  left: var(--pad-x);
+  z-index: 900;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(11, 31, 58, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease), visibility 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.pdp-back.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.pdp-back:hover {
+  color: var(--navy);
+}
+
+@media (max-width: 900px) {
+  .pdp-back { left: 24px; top: 64px; }
+}
+
 /* Product detail — editorial COS-inspired */
 .product-hero {
   margin-top: 56px;
@@ -195,6 +260,10 @@
   border-bottom: 1px solid var(--rule);
 }
 
+.product-line-hero .pdp-breadcrumb {
+  margin-bottom: 28px;
+}
+
 .product-line-hero__back {
   font-size: 10px;
   text-transform: uppercase;
@@ -245,6 +314,28 @@
   aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--espresso);
+}
+
+.product-line-card.product-card .product-line-card__img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--img-hover);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.55s var(--ease);
+  pointer-events: none;
+}
+
+.product-line-card.product-card:hover .product-line-card__img::before {
+  opacity: 1;
+}
+
+.product-line-card.product-card .product-line-card__photo {
+  position: relative;
+  z-index: 0;
 }
 
 .product-line-card__badge {

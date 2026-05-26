@@ -378,12 +378,51 @@
     .edit__side--hombre .mini-img--maletin img { object-position: 50% 52%; }
     .edit__side--hombre .mini-img--detalle img { object-position: 42% 55%; }
 
+    .edit__side .product-card .media__frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image: var(--img-hover);
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.55s var(--ease);
+      pointer-events: none;
+    }
+
+    .edit__side .product-card:hover .media__frame::before {
+      opacity: 1;
+    }
+
     .edit__side .media__frame::after {
       content: "";
       position: absolute;
       inset: 0;
+      z-index: 2;
       background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(11, 31, 58, 0.45) 100%);
       pointer-events: none;
+    }
+
+    .edit__side .product-card .mini-img {
+      position: relative;
+    }
+
+    .edit__side .product-card .mini-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image: var(--img-hover);
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.55s var(--ease);
+      pointer-events: none;
+    }
+
+    .edit__side .product-card:hover .mini-img::after {
+      opacity: 1;
     }
 
     .edit__side .roman {
@@ -789,7 +828,12 @@
     </div>
     <div class="edit__grid">
       <div class="edit__side edit__side--mujer">
-        <a href="producto/bolso-dama.html" class="media" data-dark>
+        <a
+          href="producto/bolso-dama.html"
+          class="media product-card"
+          data-category="mujer"
+          data-dark
+          style="--img-hover: url('imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg')">
           <span class="roman">I</span>
           <span class="badge">Mujer</span>
           <span class="badge badge--color">Cognac</span>
@@ -802,21 +846,33 @@
           </div>
         </a>
         <div class="strip">
-          <a href="producto/travel-bag.html">
+          <a
+            href="producto/travel-bag-i.html"
+            class="product-card"
+            data-category="mujer"
+            style="--img-hover: url('assets/img/nuevas/producto/mujer/estudio-01.jpg')">
             <div class="mini-img mini-img--travel" data-dark>
               <img src="imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg" alt="Travel Bag I — cuero cognac" loading="lazy" decoding="async">
             </div>
             <p class="mini-name">Travel Bag I</p>
             <p class="mini-det">Cuero cognac</p>
           </a>
-          <a href="producto/travel-bag-iii.html">
+          <a
+            href="producto/travel-bag-iii.html"
+            class="product-card"
+            data-category="mujer"
+            style="--img-hover: url('imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg')">
             <div class="mini-img mini-img--mochila" data-dark>
               <img src="imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg" alt="Travel Bag III — mochila cognac" loading="lazy" decoding="async">
             </div>
             <p class="mini-name">Travel Bag III</p>
             <p class="mini-det">Cuero cognac</p>
           </a>
-          <a href="producto/bolso-dama.html">
+          <a
+            href="producto/bolso-dama.html"
+            class="product-card"
+            data-category="mujer"
+            style="--img-hover: url('imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg')">
             <div class="mini-img mini-img--tote" data-dark>
               <img src="imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg" alt="Bolso Dama — tote cognac" loading="lazy" decoding="async">
             </div>
@@ -826,7 +882,12 @@
         </div>
       </div>
       <div class="edit__side edit__side--hombre">
-        <a href="producto/maletin.html" class="media" data-dark>
+        <a
+          href="producto/maletin.html"
+          class="media product-card"
+          data-category="hombre"
+          data-dark
+          style="--img-hover: url('imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg')">
           <span class="roman">II</span>
           <span class="badge">Hombre</span>
           <span class="badge badge--color">Negro</span>
@@ -839,21 +900,29 @@
           </div>
         </a>
         <div class="strip">
-          <a href="producto/maletin.html">
+          <a
+            href="producto/maletin.html"
+            class="product-card"
+            data-category="hombre"
+            style="--img-hover: url('imagenes nuevas/producto/hombre/mochila-negro-estudio-02.jpg')">
             <div class="mini-img mini-img--maletin" data-dark>
               <img src="imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg" alt="Travel Bag II — cuero negro" loading="lazy" decoding="async">
             </div>
             <p class="mini-name">Travel Bag II</p>
             <p class="mini-det">Cuero negro</p>
           </a>
-          <a href="coleccion.html#bandolera-elite">
+          <a href="coleccion.html#bandolera-elite" data-category="hombre">
             <div class="mini-img mini-img--portafolio" data-dark>
               <!-- Sin foto congruente aún -->
             </div>
             <p class="mini-name">Bandolera Elite</p>
             <p class="mini-det">—</p>
           </a>
-          <a href="producto/morral-elite.html">
+          <a
+            href="producto/morral-elite.html"
+            class="product-card"
+            data-category="hombre"
+            style="--img-hover: url('imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle-02.jpg')">
             <div class="mini-img mini-img--detalle" data-dark>
               <img src="imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg" alt="Morral Elite — cuero negro" loading="lazy" decoding="async">
             </div>
