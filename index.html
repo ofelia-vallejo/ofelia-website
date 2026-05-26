@@ -574,37 +574,37 @@
   <div class="panels" id="panels">
     <div class="panel active" data-panel="0">
       <div class="panel__card">
-        <h2 class="panel__title">El mundo de Ofelia Vallejo.</h2>
+        <h2 class="panel__title">El mundo.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Un proyecto que nace en algún lugar de la tierra.</p>
+        <p class="panel__body">Ofelia Vallejo nace en un punto del planeta — y se abre al que sabe mirar.</p>
       </div>
     </div>
     <div class="panel" data-panel="1">
       <div class="panel__card">
-        <h2 class="panel__title">Donde la tradición se transforma en arte.</h2>
+        <h2 class="panel__title">Colombia.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">y se crea con paciencia y con amor.</p>
+        <p class="panel__body">Cordillera, curtido vegetal y oficio heredado. Aquí empieza el cuero.</p>
       </div>
     </div>
     <div class="panel" data-panel="2">
       <div class="panel__card">
-        <h2 class="panel__title">Tierra de talabarteros.</h2>
+        <h2 class="panel__title">Antioquia.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Curtidores y artesanos firman cada pieza como una promesa heredada.</p>
+        <p class="panel__body">Talabartería paisa. Manos que cortan, cosen y graban — pieza a pieza.</p>
       </div>
     </div>
     <div class="panel" data-panel="3">
       <div class="panel__card">
-        <h2 class="panel__title">El Eje de la eterna primavera.</h2>
+        <h2 class="panel__title">Guatapé.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Talleres entre montañas y valles — donde el cuero toma forma.</p>
+        <p class="panel__body">Piedra, agua y atelier. La firma de la abuela permanece en el cuero.</p>
       </div>
     </div>
     <div class="panel" data-panel="4">
       <div class="panel__card">
-        <h2 class="panel__title">Cuero hecho para durar.</h2>
+        <h2 class="panel__title">Entra a la casa.</h2>
         <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Una promesa que nació en Guatapé y viaja al mundo en cuero.</p>
+        <p class="panel__body">Elegancia que permanece — hecha a mano en Medellín.</p>
       </div>
     </div>
   </div>
@@ -635,13 +635,13 @@
   <!-- Tarjeta final (stage 4) -->
   <div class="card" id="card">
     <div class="card__thumb">
-      <img src="assets/img/nuevas/producto/mujer/estudio-01.jpg" alt="Pieza en cuero cognac" width="64" height="64" loading="eager" decoding="async">
+      <img src="imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg" alt="Atelier en Guatapé — cuero Ofelia Vallejo" width="64" height="64" loading="eager" decoding="async">
     </div>
     <div class="info">
       <span class="name">Guatapé · Antioquia</span>
       <span class="coord-txt">06° 14′ N · 75° 09′ O · 1.880 m s.n.m.</span>
     </div>
-    <button class="enter" id="enterBtn">Entrar al atelier →</button>
+    <button class="enter" id="enterBtn">Entrar a la casa →</button>
   </div>
 
 </div><!-- .stage -->
@@ -736,13 +736,13 @@
 
   /* Map layers follow mapVisual, updated only after each zoom finishes (not at click). */
   function applyLayerState() {
-    lInked.classList.toggle('off', mapVisual < 1 || mapVisual > 2);
+    lInked.classList.toggle('off', mapVisual < 1);
     lDepts.classList.toggle('on', mapVisual >= 2);
     lRegion.classList.toggle('on', mapVisual >= 3);
     lDeco.classList.remove('on');
-    const showPin = mapVisual === 4 && pinEl.dataset.placed === '1';
+    const showPin = mapVisual >= 3 && mapVisual < 5 && pinEl.dataset.placed === '1';
     pinEl.classList.toggle('on', showPin);
-    if (mapVisual < 4) pinEl.classList.remove('on', 'deep');
+    if (mapVisual < 3) pinEl.classList.remove('on', 'deep');
     if (mapVisual !== 5) pinEl.classList.remove('deep');
   }
 
@@ -882,10 +882,10 @@
   });
 
   /* ─── Panel + dots + hint sync ───────────────────── */
-  const tap = ('ontouchstart' in window) ? 'Toque' : 'Haga clic';
+  const tap = ('ontouchstart' in window) ? 'Toque' : 'Clic';
   const hints = [
-    `${tap} en el globo`,
-    tap === 'Toque' ? 'Toque Colombia' : 'Haga clic en Colombia',
+    `${tap} en el mundo`,
+    `${tap} en Colombia`,
     `${tap} en Antioquia`,
     `${tap} en Guatapé`,
     `${tap} para entrar`,
@@ -945,46 +945,53 @@
     stageEl.dataset.flight = '0';
   }
 
+  /* Mundo → Colombia → Antioquia → Guatapé → casa (sin repetir zoom) */
   async function toStage1() {
+    if (spinTimer) spinTimer.stop();
+    pinEl.dataset.placed = '0';
+    pinEl.classList.remove('on', 'deep');
     updatePanel(1);
-    await animate({ rotTo: [74, -4, 0], scaleTo: Math.min(W, H) * 0.62, tiltTo: 0, ms: 1500 });
+    await animate({
+      rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
+      scaleTo: Math.min(W, H) * 2.8,
+      tiltTo: 2,
+      ms: 1600
+    });
     setStage(1);
     revealMap(1);
   }
 
   async function toStage2() {
-    pinEl.dataset.placed = '0';
-    pinEl.classList.remove('on', 'deep');
     updatePanel(2);
     await animate({
-      rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
-      scaleTo: Math.min(W, H) * 3.6,
-      tiltTo: 4,
-      ms: 1500
+      rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
+      scaleTo: Math.min(W, H) * 5.5,
+      tiltTo: 6,
+      ms: 1600
     });
     setStage(2);
     revealMap(2);
   }
 
   async function toStage3() {
+    setPinAt(guatapeCenter[0], guatapeCenter[1]);
     updatePanel(3);
     await animate({
-      rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
-      scaleTo: Math.min(W, H) * 7.5,
-      tiltTo: 7,
-      ms: 1500
+      rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
+      scaleTo: Math.min(W, H) * 9,
+      tiltTo: 9,
+      ms: 1700
     });
     setStage(3);
     revealMap(3);
   }
 
   async function toStage4() {
-    setPinAt(guatapeCenter[0], guatapeCenter[1]);
     updatePanel(4);
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
-      scaleTo: Math.min(W, H) * 12,
-      tiltTo: 10,
+      scaleTo: Math.min(W, H) * 14,
+      tiltTo: 12,
       ms: 1500
     });
     setStage(4);
@@ -993,7 +1000,7 @@
 
   async function toStage5() {
     updatePanel(5);
-    await animate({ scaleTo: Math.min(W, H) * 28, tiltTo: 18, ms: 1700 });
+    await animate({ scaleTo: Math.min(W, H) * 26, tiltTo: 16, ms: 1800 });
     setStage(5);
     revealMap(5);
     pinEl.classList.add('deep');
@@ -1001,11 +1008,13 @@
 
   async function resetAll() {
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
+    pinEl.classList.remove('on', 'deep');
     updatePanel(0);
     const resetScale = Math.min(window.innerWidth, window.innerHeight) * 0.36;
     await animate({ rotTo: [20, -10, 0], scaleTo: resetScale, tiltTo: 0, ms: 1600 });
     setStage(0);
     revealMap(0);
+    if (!spinTimer) spinTimer = d3.timer(spinFrame);
   }
 
   async function runStage(fn) {
@@ -1029,19 +1038,62 @@
     else if (stage === 4) runStage(toStage5);
   });
 
-  pinEl.addEventListener('click', e => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (busy || stage !== 4) return;
-    const now = Date.now();
-    if (now - lastAdvanceAt < 900) return;
-    lastAdvanceAt = now;
-    runStage(toStage5);
-  });
+  async function stepBack() {
+    if (stage <= 0 || busy) return;
+    beginFlight();
+    try {
+      if (stage === 1) await resetAll();
+      else if (stage === 2) {
+        updatePanel(1);
+        await animate({
+          rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
+          scaleTo: Math.min(W, H) * 2.8,
+          tiltTo: 2,
+          ms: 1400
+        });
+        setStage(1);
+        revealMap(1);
+      } else if (stage === 3) {
+        updatePanel(2);
+        await animate({
+          rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
+          scaleTo: Math.min(W, H) * 5.5,
+          tiltTo: 6,
+          ms: 1400
+        });
+        setStage(2);
+        revealMap(2);
+        pinEl.classList.remove('on', 'deep');
+      } else if (stage === 4) {
+        updatePanel(3);
+        await animate({
+          rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
+          scaleTo: Math.min(W, H) * 9,
+          tiltTo: 9,
+          ms: 1400
+        });
+        setStage(3);
+        revealMap(3);
+      } else if (stage === 5) {
+        updatePanel(4);
+        pinEl.classList.remove('deep');
+        await animate({
+          rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
+          scaleTo: Math.min(W, H) * 14,
+          tiltTo: 12,
+          ms: 1400
+        });
+        setStage(4);
+        revealMap(4);
+      }
+    } finally {
+      endFlight();
+    }
+  }
 
   backBtn.addEventListener('click', () => {
     if (busy) return;
-    runStage(resetAll);
+    stepBack();
   });
 
   document.getElementById('skipBtn').addEventListener('click', () => {
