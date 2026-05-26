@@ -987,7 +987,12 @@
   }
 
   /* ─── Click handlers ─────────────────────────────── */
+  /* Guard against synthesized double-tap/click on mobile */
+  let lastAdvanceAt = 0;
   svgEl.addEventListener('click', () => {
+    const now = Date.now();
+    if (now - lastAdvanceAt < 450) return;
+    lastAdvanceAt = now;
     if (busy) return;
     if (stage === 0) toStage1();
     else if (stage === 1) toStage2();
