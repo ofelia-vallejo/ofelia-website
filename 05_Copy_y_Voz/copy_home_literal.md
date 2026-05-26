@@ -13,7 +13,8 @@
 |----------|------|
 | Index | — 01 / Casa |
 | Big roman | I (Mujer) · II (Hombre) |
-| Label | Maison · Otoño MMXXVI |
+| Label Mujer | Maison · Colección Guanábana |
+| Label Hombre | Maison · Colección Borojó |
 | Títulos | Mujer · Hombre |
 | Sub mujer | Carteras, bolsos y travel pieces en cuero colombiano. |
 | Sub hombre | Maletines, billeteras y travel bags en cuero colombiano. |
@@ -29,12 +30,12 @@
 
 | Elemento | Copy |
 |----------|------|
-| Header L | Colección · MMXXVI |
+| Header L | Frutos de Antioquia · Lulo |
 | Header R | Ver toda la colección → |
 | Roman | I (Mujer) · II (Hombre) |
 | Badge | Mujer / Hombre |
-| Featured Mujer | Bolso Estación — Cuero vino · MMXXVI |
-| Featured Hombre | Maletín Antioquia — Cuero navy · MMXXVI |
+| Featured Mujer | Bolso Estación — Cuero vino · Guanábana |
+| Featured Hombre | Maletín Antioquia — Cuero navy · Borojó |
 | Strip Mujer | Cartera Carrera 70 / Cuero vino · Bolso Antioquia / Cuero espresso · Cartera Páramo / Cuero verde |
 | Strip Hombre | Travel · Comuna / Cuero navy · Portafolio Ofelia / Cuero espresso · Billetera Carrera / Cuero carbón |
 
