@@ -87,12 +87,16 @@
       '<div class="stat"><div class="stat__val">' + out + '</div><div class="stat__label">Agotadas</div></div>';
   }
 
+  function productCode(p) {
+    return (p.meta && p.meta.productCode) || '—';
+  }
+
   function renderProductsTable() {
     renderStats();
     productsTable.innerHTML = (catalog.products || []).map((p) => {
       return (
         '<tr>' +
-          '<td><strong>' + esc(p.name) + '</strong><br><small>' + esc(p.slug) + '</small></td>' +
+          '<td><code>' + esc(productCode(p)) + '</code><br><strong>' + esc(p.name) + '</strong><br><small>' + esc(p.slug) + '</small></td>' +
           '<td>' + esc(p.category) + '</td>' +
           '<td>CHF ' + p.basePrice + '</td>' +
           '<td>+ CHF ' + (p.engravePrice || 0) + '</td>' +
@@ -122,13 +126,16 @@
     inventoryTable.innerHTML = rows.map(({ product, variant }) => {
       const sku = variant ? variant.sku : '—';
       const color = variant ? variant.colorName : 'Único';
+      const colorKey = variant && variant.colorKey ? variant.colorKey : '';
       const inv = variant ? variant.inventory : product.inventory;
       const id = product.id;
       const vid = variant ? variant.id : '';
       const low = Number(inv) <= (product.lowStockAt || 2);
+      const code = productCode(product);
       return (
         '<tr data-pid="' + esc(id) + '" data-vid="' + esc(vid) + '">' +
-          '<td>' + esc(sku) + '<br><small>' + esc(color) + '</small></td>' +
+          '<td><code>' + esc(code) + '</code><br>' + esc(sku) +
+            (colorKey ? '<br><small>' + esc(colorKey) + ' · ' + esc(color) + '</small>' : '<br><small>' + esc(color) + '</small>') + '</td>' +
           '<td>' + esc(product.name) + '</td>' +
           '<td><input type="number" class="inv-input" value="' + inv + '" min="0" style="width:72px;padding:6px"></td>' +
           '<td>' + (Number(inv) <= 0 ? '<span class="badge badge--out">Agotado</span>' : low ? '<span class="badge badge--low">Bajo</span>' : '<span class="badge badge--ok">OK</span>') + '</td>' +
@@ -185,7 +192,9 @@
   function variantRowHtml(v, i) {
     return (
       '<div class="variant-row" data-i="' + i + '">' +
+        '<input type="hidden" value="' + esc(v.id || '') + '" data-f="id">' +
         '<input type="text" placeholder="SKU" value="' + esc(v.sku || '') + '" data-f="sku">' +
+        '<input type="text" placeholder="colorKey" value="' + esc(v.colorKey || '') + '" data-f="colorKey" title="Token cuero (cuentagotas)">' +
         '<input type="text" placeholder="Color" value="' + esc(v.colorName || '') + '" data-f="colorName">' +
         '<input type="text" placeholder="#hex" value="' + esc(v.colorHex || '') + '" data-f="colorHex">' +
         '<input type="number" placeholder="Stock" value="' + (v.inventory != null ? v.inventory : 0) + '" data-f="inventory" min="0">' +
@@ -203,14 +212,18 @@
   }
 
   function collectVariants() {
-    return Array.from(variantsList.querySelectorAll('.variant-row')).map((row, i) => ({
-      id: 'v_' + i,
-      sku: row.querySelector('[data-f="sku"]').value.trim(),
-      colorName: row.querySelector('[data-f="colorName"]').value.trim(),
-      colorHex: row.querySelector('[data-f="colorHex"]').value.trim(),
-      inventory: Number(row.querySelector('[data-f="inventory"]').value) || 0,
-      sort: i,
-    }));
+    return Array.from(variantsList.querySelectorAll('.variant-row')).map((row, i) => {
+      const idVal = row.querySelector('[data-f="id"]').value.trim();
+      return {
+        id: idVal || 'v_' + i,
+        sku: row.querySelector('[data-f="sku"]').value.trim(),
+        colorKey: row.querySelector('[data-f="colorKey"]').value.trim(),
+        colorName: row.querySelector('[data-f="colorName"]').value.trim(),
+        colorHex: row.querySelector('[data-f="colorHex"]').value.trim(),
+        inventory: Number(row.querySelector('[data-f="inventory"]').value) || 0,
+        sort: i,
+      };
+    });
   }
 
   function renderImages(images) {

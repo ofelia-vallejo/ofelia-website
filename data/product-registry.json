@@ -1,0 +1,232 @@
+{
+  "_note": "Fuente de verdad: código OV + color real (cuentagotas/CATALOGO.md) + fotos asignadas. Sincronizar: python3 scripts/sync-product-registry.py",
+  "products": {
+    "travel-bag-i": {
+      "productCode": "OV-TB-I",
+      "collectionCode": "GUANABANA",
+      "variants": {
+        "cognac": {
+          "variantId": "v-cognac",
+          "sku": "TB-I-COG",
+          "colorKey": "cognac",
+          "colorFamily": "cognac",
+          "inventory": 3,
+          "images": [
+            {
+              "file": "imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
+              "kind": "hero",
+              "alt": "Travel Bag I — cuero cognac · estudio"
+            }
+          ],
+          "gallery": [
+            {
+              "file": "imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg",
+              "alt": "Travel Bag I — cognac · lifestyle"
+            }
+          ]
+        },
+        "espresso": {
+          "variantId": "v-espresso",
+          "sku": "TB-I-ESP",
+          "colorKey": "espresso",
+          "colorFamily": "espresso",
+          "inventory": 2,
+          "images": [],
+          "gallery": []
+        }
+      }
+    },
+    "travel-bag-ii": {
+      "productCode": "OV-TB-II",
+      "collectionCode": "BOROJO",
+      "variants": {
+        "negro": {
+          "variantId": "v-negro",
+          "sku": "TB-II-NEG",
+          "colorKey": "negro",
+          "colorFamily": "negro",
+          "inventory": 4,
+          "images": [
+            {
+              "file": "imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
+              "kind": "hero",
+              "alt": "Travel Bag II — cuero negro · estudio"
+            }
+          ],
+          "gallery": [
+            {
+              "file": "imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg",
+              "alt": "Travel Bag II — negro · Guatapé"
+            }
+          ]
+        }
+      }
+    },
+    "travel-bag-iii": {
+      "productCode": "OV-TB-III",
+      "collectionCode": "GUANABANA",
+      "variants": {
+        "cognac": {
+          "variantId": "v-cognac",
+          "sku": "TB-III-COG",
+          "colorKey": "cognac",
+          "colorFamily": "cognac",
+          "inventory": 3,
+          "images": [
+            {
+              "file": "imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg",
+              "kind": "hero",
+              "alt": "Travel Bag III — cognac · estudio"
+            }
+          ],
+          "gallery": []
+        }
+      }
+    },
+    "bolso-dama": {
+      "productCode": "OV-BD",
+      "collectionCode": "GUANABANA",
+      "variants": {
+        "cognac": {
+          "variantId": "v-cognac",
+          "sku": "BD-COG",
+          "colorKey": "cognac",
+          "colorFamily": "cognac",
+          "inventory": 6,
+          "images": [
+            {
+              "file": "imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg",
+              "kind": "hero",
+              "alt": "Bolso Dama — tote cognac · editorial"
+            }
+          ],
+          "gallery": [
+            {
+              "file": "imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
+              "alt": "Bolso Dama — tote cognac · lifestyle"
+            }
+          ]
+        }
+      }
+    },
+    "morral-elite": {
+      "productCode": "OV-ME",
+      "collectionCode": "CHONTADURO",
+      "variants": {
+        "negro": {
+          "variantId": "v-negro",
+          "sku": "ME-NEG",
+          "colorKey": "negro",
+          "colorFamily": "negro",
+          "inventory": 4,
+          "images": [
+            {
+              "file": "imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
+              "kind": "hero",
+              "alt": "Morral Elite — negro · lifestyle"
+            }
+          ],
+          "gallery": [
+            {
+              "file": "imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg",
+              "alt": "Morral Elite — negro · estudio"
+            }
+          ]
+        }
+      }
+    },
+    "morral-clasico": {
+      "productCode": "OV-MC",
+      "collectionCode": "CHONTADURO",
+      "variants": {
+        "cognac": {
+          "variantId": "v-cognac",
+          "sku": "MC-COG",
+          "colorKey": "cognac",
+          "colorFamily": "cognac",
+          "inventory": 0,
+          "images": [
+            {
+              "file": "imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg",
+              "kind": "hero",
+              "alt": "Morral Clásico — cognac · estudio"
+            }
+          ],
+          "gallery": []
+        }
+      }
+    },
+    "bandolera-moderna": {
+      "productCode": "OV-BM",
+      "collectionCode": "UCHUVA",
+      "variants": {
+        "carbon": {
+          "variantId": "v-carbon",
+          "sku": "BM-CAR",
+          "colorKey": "carbon",
+          "colorFamily": "carbon",
+          "inventory": 2,
+          "images": [],
+          "gallery": []
+        }
+      }
+    },
+    "bandolera-elite": {
+      "productCode": "OV-BE",
+      "collectionCode": "UCHUVA",
+      "variants": {
+        "carbon": {
+          "variantId": "v-carbon",
+          "sku": "BE-CAR",
+          "colorKey": "carbon",
+          "colorFamily": "carbon",
+          "inventory": 2,
+          "images": [],
+          "gallery": []
+        }
+      }
+    },
+    "cinturon": {
+      "productCode": "OV-CIN",
+      "collectionCode": "CURUBA",
+      "useCinturonAssets": true
+    }
+  },
+  "imagePool": {
+    "_note": "Fotos sin ficha de producto aún · color verificado en CATALOGO.md",
+    "imagenes nuevas/producto/hombre/mochila-chocolate-estudio.jpg": {
+      "colorFamily": "chocolate",
+      "colorKey": "chocolate",
+      "suggestedProduct": null,
+      "note": "Reserva · futura variante chocolate / morral"
+    },
+    "imagenes nuevas/producto/hombre/mochila-chocolate-estudio-02.jpg": {
+      "colorFamily": "chocolate",
+      "colorKey": "chocolate",
+      "suggestedProduct": null
+    },
+    "imagenes nuevas/producto/hombre/mochila-negro-estudio-02.jpg": {
+      "colorFamily": "negro",
+      "colorKey": "negro",
+      "suggestedProduct": "morral-elite"
+    },
+    "imagenes nuevas/lifestyle/hombre/mochila-chocolate-lifestyle.jpg": {
+      "colorFamily": "chocolate",
+      "colorKey": "chocolate"
+    },
+    "imagenes nuevas/lifestyle/mujer/mochila-chocolate-lifestyle.jpg": {
+      "colorFamily": "chocolate",
+      "colorKey": "chocolate"
+    },
+    "imagenes nuevas/detalle/firma-travel-bag-cognac.jpg": {
+      "colorFamily": "cognac",
+      "colorKey": "cognac",
+      "slot": "personalizar-detalle"
+    },
+    "imagenes nuevas/detalle/firma-mochila-negro.jpg": {
+      "colorFamily": "negro",
+      "colorKey": "negro",
+      "slot": "personalizar-detalle-alt"
+    }
+  }
+}

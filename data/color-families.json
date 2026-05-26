@@ -1,0 +1,51 @@
+{
+  "_note": "Tokens de cuero Ofelia Vallejo · cuentagotas en estudio + paleta marca (CLAUDE.md)",
+  "negro": {
+    "colorKey": "negro",
+    "label": "Negro",
+    "brandHex": "#141414",
+    "leather": ["#2c3443", "#141414", "#0a0a0a"]
+  },
+  "carbon": {
+    "colorKey": "carbon",
+    "label": "Carbón",
+    "brandHex": "#141414",
+    "leather": ["#2c3443", "#141414", "#0a0a0a"]
+  },
+  "navy": {
+    "colorKey": "navy",
+    "label": "Navy",
+    "brandHex": "#0B1F3A",
+    "leather": ["#152a45", "#0B1F3A", "#081628"]
+  },
+  "espresso": {
+    "colorKey": "espresso",
+    "label": "Espresso",
+    "brandHex": "#3B2B26",
+    "leather": ["#4a362e", "#3B2B26", "#2e211c"]
+  },
+  "chocolate": {
+    "colorKey": "chocolate",
+    "label": "Chocolate",
+    "brandHex": "#3B2B26",
+    "leather": ["#5a4030", "#3B2B26", "#2a1f18"]
+  },
+  "cognac": {
+    "colorKey": "cognac",
+    "label": "Cognac",
+    "brandHex": "#8B5E3C",
+    "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"]
+  },
+  "verde": {
+    "colorKey": "verde",
+    "label": "Verde profundo",
+    "brandHex": "#1F3527",
+    "leather": ["#2a4535", "#1F3527", "#152a1f"]
+  },
+  "vino": {
+    "colorKey": "vino",
+    "label": "Vino",
+    "brandHex": "#5B1E24",
+    "leather": ["#6b2830", "#5B1E24", "#3d1218"]
+  }
+}

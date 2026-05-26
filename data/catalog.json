@@ -1,7 +1,7 @@
 {
   "version": 1,
   "currency": "CHF",
-  "updatedAt": "2026-05-26T18:30:00.000Z",
+  "updatedAt": "2026-05-26T21:33:30.000Z",
   "categories": [
     {
       "id": "mujer",
@@ -49,9 +49,17 @@
       "images": [
         {
           "url": "/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
-          "alt": "Travel Bag I — cuero cognac",
+          "alt": "Travel Bag I — cuero cognac · estudio",
           "kind": "hero",
-          "sort": 0
+          "sort": 0,
+          "variantId": "v-cognac"
+        },
+        {
+          "url": "/imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg",
+          "alt": "Travel Bag I — cognac · lifestyle",
+          "kind": "gallery",
+          "sort": 1,
+          "variantId": "v-cognac"
         }
       ],
       "variants": [
@@ -61,7 +69,8 @@
           "colorName": "Cognac",
           "colorHex": "#8B5E3C",
           "inventory": 3,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "cognac"
         },
         {
           "id": "v-espresso",
@@ -69,7 +78,8 @@
           "colorName": "Espresso",
           "colorHex": "#3B2B26",
           "inventory": 2,
-          "sort": 1
+          "sort": 1,
+          "colorKey": "espresso"
         }
       ],
       "engrave": {
@@ -103,6 +113,38 @@
           "width": 0.22,
           "height": 0.1
         }
+      },
+      "meta": {
+        "productCode": "OV-TB-I",
+        "collectionCode": "GUANABANA"
+      },
+      "colorData": {
+        "cognac": {
+          "label": "Cognac",
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
+          "images": [
+            "/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
+            "/imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg"
+          ],
+          "alts": [
+            "Travel Bag I — cuero cognac · estudio",
+            "Travel Bag I — cognac · lifestyle"
+          ]
+        },
+        "espresso": {
+          "label": "Espresso",
+          "leather": [
+            "#4a362e",
+            "#3B2B26",
+            "#2e211c"
+          ],
+          "images": [],
+          "alts": []
+        }
       }
     },
     {
@@ -124,9 +166,17 @@
       "images": [
         {
           "url": "/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
-          "alt": "Travel Bag II — cuero negro",
+          "alt": "Travel Bag II — cuero negro · estudio",
           "kind": "hero",
-          "sort": 0
+          "sort": 0,
+          "variantId": "v-negro"
+        },
+        {
+          "url": "/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg",
+          "alt": "Travel Bag II — negro · Guatapé",
+          "kind": "gallery",
+          "sort": 1,
+          "variantId": "v-negro"
         }
       ],
       "variants": [
@@ -136,7 +186,8 @@
           "colorName": "Negro",
           "colorHex": "#141414",
           "inventory": 4,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "negro"
         }
       ],
       "engrave": {
@@ -169,6 +220,28 @@
           "width": 0.22,
           "height": 0.1
         }
+      },
+      "meta": {
+        "productCode": "OV-TB-II",
+        "collectionCode": "BOROJO"
+      },
+      "colorData": {
+        "negro": {
+          "label": "Negro",
+          "leather": [
+            "#2c3443",
+            "#141414",
+            "#0a0a0a"
+          ],
+          "images": [
+            "/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
+            "/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg"
+          ],
+          "alts": [
+            "Travel Bag II — cuero negro · estudio",
+            "Travel Bag II — negro · Guatapé"
+          ]
+        }
       }
     },
     {
@@ -190,9 +263,10 @@
       "images": [
         {
           "url": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg",
-          "alt": "Travel Bag III — cognac",
+          "alt": "Travel Bag III — cognac · estudio",
           "kind": "hero",
-          "sort": 0
+          "sort": 0,
+          "variantId": "v-cognac"
         }
       ],
       "variants": [
@@ -202,7 +276,8 @@
           "colorName": "Cognac",
           "colorHex": "#8B5E3C",
           "inventory": 3,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "cognac"
         }
       ],
       "engrave": {
@@ -234,6 +309,26 @@
           "width": 0.24,
           "height": 0.1
         }
+      },
+      "meta": {
+        "productCode": "OV-TB-III",
+        "collectionCode": "GUANABANA"
+      },
+      "colorData": {
+        "cognac": {
+          "label": "Cognac",
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
+          "images": [
+            "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg"
+          ],
+          "alts": [
+            "Travel Bag III — cognac · estudio"
+          ]
+        }
       }
     },
     {
@@ -253,10 +348,18 @@
       "pdpPath": "/producto/bolso-dama",
       "images": [
         {
-          "url": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
-          "alt": "Bolso Dama — tote cognac",
+          "url": "/imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg",
+          "alt": "Bolso Dama — tote cognac · editorial",
           "kind": "hero",
-          "sort": 0
+          "sort": 0,
+          "variantId": "v-cognac"
+        },
+        {
+          "url": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
+          "alt": "Bolso Dama — tote cognac · lifestyle",
+          "kind": "gallery",
+          "sort": 1,
+          "variantId": "v-cognac"
         }
       ],
       "variants": [
@@ -266,7 +369,8 @@
           "colorName": "Cognac",
           "colorHex": "#8B5E3C",
           "inventory": 6,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "cognac"
         }
       ],
       "engrave": {
@@ -299,6 +403,28 @@
           "width": 0.35,
           "height": 0.08
         }
+      },
+      "meta": {
+        "productCode": "OV-BD",
+        "collectionCode": "GUANABANA"
+      },
+      "colorData": {
+        "cognac": {
+          "label": "Cognac",
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
+          "images": [
+            "/imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg",
+            "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg"
+          ],
+          "alts": [
+            "Bolso Dama — tote cognac · editorial",
+            "Bolso Dama — tote cognac · lifestyle"
+          ]
+        }
       }
     },
     {
@@ -319,9 +445,17 @@
       "images": [
         {
           "url": "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
-          "alt": "Morral Elite — negro",
+          "alt": "Morral Elite — negro · lifestyle",
           "kind": "hero",
-          "sort": 0
+          "sort": 0,
+          "variantId": "v-negro"
+        },
+        {
+          "url": "/imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg",
+          "alt": "Morral Elite — negro · estudio",
+          "kind": "gallery",
+          "sort": 1,
+          "variantId": "v-negro"
         }
       ],
       "variants": [
@@ -331,7 +465,8 @@
           "colorName": "Negro",
           "colorHex": "#141414",
           "inventory": 4,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "negro"
         }
       ],
       "engrave": {
@@ -359,6 +494,28 @@
           "width": 0.2,
           "height": 0.1
         }
+      },
+      "meta": {
+        "productCode": "OV-ME",
+        "collectionCode": "CHONTADURO"
+      },
+      "colorData": {
+        "negro": {
+          "label": "Negro",
+          "leather": [
+            "#2c3443",
+            "#141414",
+            "#0a0a0a"
+          ],
+          "images": [
+            "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
+            "/imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg"
+          ],
+          "alts": [
+            "Morral Elite — negro · lifestyle",
+            "Morral Elite — negro · estudio"
+          ]
+        }
       }
     },
     {
@@ -376,7 +533,15 @@
       "inventory": 0,
       "lowStockAt": 2,
       "pdpPath": "/producto/morral-clasico",
-      "images": [],
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg",
+          "alt": "Morral Clásico — cognac · estudio",
+          "kind": "hero",
+          "sort": 0,
+          "variantId": "v-cognac"
+        }
+      ],
       "variants": [
         {
           "id": "v-cognac",
@@ -384,7 +549,8 @@
           "colorName": "Cognac",
           "colorHex": "#8B5E3C",
           "inventory": 0,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "cognac"
         }
       ],
       "engrave": {
@@ -411,6 +577,26 @@
           "width": 0.2,
           "height": 0.1
         }
+      },
+      "meta": {
+        "productCode": "OV-MC",
+        "collectionCode": "CHONTADURO"
+      },
+      "colorData": {
+        "cognac": {
+          "label": "Cognac",
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
+          "images": [
+            "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg"
+          ],
+          "alts": [
+            "Morral Clásico — cognac · estudio"
+          ]
+        }
       }
     },
     {
@@ -436,7 +622,8 @@
           "colorName": "Carbón",
           "colorHex": "#141414",
           "inventory": 2,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "carbon"
         }
       ],
       "engrave": {
@@ -462,6 +649,22 @@
           "y": 0.8,
           "width": 0.18,
           "height": 0.08
+        }
+      },
+      "meta": {
+        "productCode": "OV-BM",
+        "collectionCode": "UCHUVA"
+      },
+      "colorData": {
+        "carbon": {
+          "label": "Carbón",
+          "leather": [
+            "#2c3443",
+            "#141414",
+            "#0a0a0a"
+          ],
+          "images": [],
+          "alts": []
         }
       }
     },
@@ -488,7 +691,8 @@
           "colorName": "Carbón",
           "colorHex": "#141414",
           "inventory": 2,
-          "sort": 0
+          "sort": 0,
+          "colorKey": "carbon"
         }
       ],
       "engrave": {
@@ -514,6 +718,22 @@
           "y": 0.8,
           "width": 0.18,
           "height": 0.08
+        }
+      },
+      "meta": {
+        "productCode": "OV-BE",
+        "collectionCode": "UCHUVA"
+      },
+      "colorData": {
+        "carbon": {
+          "label": "Carbón",
+          "leather": [
+            "#2c3443",
+            "#141414",
+            "#0a0a0a"
+          ],
+          "images": [],
+          "alts": []
         }
       }
     },
@@ -730,7 +950,11 @@
         }
       },
       "editorialImage": "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg",
-      "editorialCaption": "Seis acabados. Una firma en cuero."
+      "editorialCaption": "Seis acabados. Una firma en cuero.",
+      "meta": {
+        "productCode": "OV-CIN",
+        "collectionCode": "CURUBA"
+      }
     }
   ]
 }
