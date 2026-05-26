@@ -11,14 +11,18 @@
 | `logo_sello.png` | Monograma **O · tridente · V** (sello horizontal) | Navbar móvil, intro oscura (`index.html` step0), sello del cajón Guatapé |
 | `logo_firma.png` | **Firma cursiva** "Ofelia Vallejo" + línea + "Cuero hecho para durar" | Navbar desktop, watermark statement, banner firma, footer |
 
-Copia web activa: `assets/img/logo_sello.png` y `assets/img/logo_firma.png`.
+Copias web (derivadas, mismo patrimonio):
+- `assets/img/logo_sello.png` ← sello
+- `assets/img/logo_firma_nav.png` ← firma (navbar)
+- `assets/img/logo_firma_completa.png` ← firma (watermark / statement)
 
 ---
 
 ## Reglas
 
 - ❌ No crear variantes, SVG alternativos, ni `logo-firma.png` en la raíz.
-- ❌ No usar `logo_sello_laser`, `logo_tarjetas_sello`, `logo_firma_completa` — **eliminados**.
+- ❌ No crear `logo_sello_laser`, `logo_tarjetas_sello` ni rutas sueltas `logo-firma.png` en la raíz.
+- ✅ `logo_firma_completa.png` en `assets/img/` es solo copia web de la firma fuente (watermark).
 - ✅ Solo reescalar manteniendo proporción.
 
 ---

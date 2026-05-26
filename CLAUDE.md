@@ -187,18 +187,27 @@ La marca **NO tiene un avatar Pixar**. Tiene **modelos de campaña editorial**.
 >
 > Único trabajo permitido: **eliminar fondo** para dejarlos transparentes y reescalar manteniendo proporción y nitidez.
 
-**Tres versiones del logo (archivos canónicos en `/06_Identidad_Marca/logos/`):**
+**Dos archivos fuente (patrimonio en `/06_Identidad_Marca/logos/`):**
 
-| # | Archivo | Descripción | Uso exclusivo |
-|---|---|---|---|
-| 1 | `logo_sello_laser.png` | Monograma **OV** con tridente — versión sólida alto contraste | Grabado láser CO₂ sobre cuero (todos los productos) |
-| 2 | `logo_tarjetas_sello.png` | Monograma **OV** sobre pincelada navy — versión sello compacto | Tarjetas pequeñas, sellos físicos, RRSS avatar, watermark pequeño |
-| 3 | `logo_firma_completa.png` | **Firma cursiva completa** "Ofelia Vallejo" + tagline "Cuero hecho para durar" | Web (header desktop + banner inferior móvil), footer, presentaciones, packaging, papelería grande |
+| Archivo fuente | Descripción |
+|---|---|
+| `logo_sello.png` | Monograma **O · tridente · V** (sello horizontal) |
+| `logo_firma.png` | Firma cursiva **Ofelia Vallejo** + tagline *Cuero hecho para durar* |
+
+**Copias web activas (`assets/img/`) — solo reescalar, nunca redibujar:**
+
+| Archivo web | Derivado de | Uso |
+|---|---|---|
+| `logo_sello.png` | sello fuente | Navbar móvil, intro `index.html`, footer |
+| `logo_firma_nav.png` | firma fuente | Navbar desktop (todas las páginas) |
+| `logo_firma_completa.png` | firma fuente | Watermark «Nacida de una firma», banners |
 
 **Placement web (definitivo):**
-- **Desktop:** firma completa (`logo_firma_completa.png`) en esquina superior izquierda del navbar.
-- **Mobile:** monograma OV (`logo_tarjetas_sello.png`) en navbar superior + firma completa (`logo_firma_completa.png`) en banner inferior de cierre antes del footer.
-- En cualquier tamaño: fondo transparente, sin caja, sin sombra, sin borde.
+- **Desktop navbar:** `logo_firma_nav.png` (esquina superior izquierda).
+- **Mobile / intro oscura:** `logo_sello.png`.
+- **Statement / watermark:** `logo_firma_completa.png`.
+- Fondo transparente, sin caja, sin sombra, sin borde.
+- Redirects legacy en `vercel.json` (`logo_tarjetas_sello` → `logo_sello`, `logo-firma` → `logo_firma_completa`).
 
 **Grabado láser sobre cuero (siempre):**
 - Real CO₂ laser engraving, ~0.3–0.4 mm de profundidad
@@ -272,11 +281,13 @@ ofelia vallejo/
 ├── CLAUDE.md                          ← este archivo (referencia maestra bloqueada)
 ├── README.md
 ├── VERSION
-├── index.html                         ← mockup activo (Home v4 estático para Vercel)
+├── index.html                         ← intro globo D3 → entrada al sitio
+├── home.html                          ← home editorial (producción)
 ├── vercel.json
-├── logo-firma.png                     ← firma OV caligráfica (tridente); ver 04_Prompts_Visuales/logo_firma_ov.md
+├── SETUP-ATELIER.md                   ← Postgres, Stripe, admin
+├── docs/VERCEL_CHECKLIST.md           ← checklist deploy
 ├── assets/
-│   └── img/                           ← imágenes finales generadas para el sitio
+│   └── img/                           ← logos web + fotos (logo_sello, logo_firma_nav, logo_firma_completa)
 ├── 01_Contabilidad/                   ← finanzas, ingresos, egresos, facturación
 ├── 02_Publicaciones/                  ← calendario editorial, contenido RRSS
 ├── 03_Productos/                      ← catálogo del ecosistema de cuero
@@ -286,11 +297,11 @@ ofelia vallejo/
 │   ├── brand_discovery.md             ← descubrimiento completo de marca
 │   ├── paleta_tipografia.md           ← sistema de color y tipografía exacto
 │   ├── avatar_prompts.md              ← prompts del modelo de campaña editorial
-│   └── (pendiente) logos/             ← 3 versiones del logo
+│   └── logos/                         ← logo_sello.png + logo_firma.png (fuente bloqueada)
 ├── imagenes base/                     ← 172 imágenes de referencia (kit GitHub)
 └── videos base/                       ← 5 videos de referencia
 ```
 
 ---
 
-*Última actualización: 2026-05-22 — Reescritura completa: pivote de "wellness/lavanda/Pixar" (versión obsoleta de proyecto anterior) a "Leather House Medellín → Europa" (identidad real validada con mockup activo, productos, logo y narrativa).*
+*Última actualización: 2026-05-26 — Logos alineados (2 fuente + 3 web), PDP dinámico, enlaces unificados, checklist Vercel.*

@@ -1,31 +1,49 @@
 # Ofelia Vallejo — Leather House
 
-**Versión:** `inicial-mock` (Home v4 — placeholders, sin fotos reales)
+Sitio editorial + catálogo + PDP dinámico + atelier de grabado + admin + pagos Stripe.  
+Deploy en **Vercel** desde `ofelia-vallejo/ofelia-website`.
 
-Sitio estático v4. Abrir `index.html` en el navegador o desplegar en Vercel.
+## Entrada al sitio
 
-## Estructura
+| URL | Página |
+|-----|--------|
+| `/` | Intro globo D3 (`index.html`) → casa |
+| `/home.html` | Home editorial (Mujer / Hombre) |
+| `/coleccion.html` | Catálogo |
+| `/producto/:slug` | Ficha de producto (dinámica) |
+| `/personalizar.html` | Estudio de grabado láser |
+| `/manifiesto.html` | Historia de la casa |
+| `/contacto.html` | Contacto |
+| `/cuenta.html` | Registro / sesión |
+| `/admin/` | Panel atelier (sin código) |
 
+## Stack
+
+- HTML/CSS/JS estático + APIs en `/api` (Vercel serverless)
+- Catálogo: **PostgreSQL** → fallback Blob → `data/catalog.json`
+- Pagos: **Stripe Checkout** (CHF)
+- Guía operativa: [`SETUP-ATELIER.md`](SETUP-ATELIER.md)
+- Checklist deploy: [`docs/VERCEL_CHECKLIST.md`](docs/VERCEL_CHECKLIST.md)
+
+## Logos (inmutables)
+
+Fuente: `06_Identidad_Marca/logos/` — ver [`06_Identidad_Marca/logos/README.md`](06_Identidad_Marca/logos/README.md)
+
+| Archivo web | Uso |
+|-------------|-----|
+| `assets/img/logo_sello.png` | Navbar móvil, intro, footer |
+| `assets/img/logo_firma_nav.png` | Navbar desktop |
+| `assets/img/logo_firma_completa.png` | Watermark «Nacida de una firma» |
+
+## Desarrollo local
+
+```bash
+cp .env.example .env.local
+npm install
+STORE_MODE=file npm run dev   # catálogo desde data/catalog.json
+npm run db:migrate           # requiere DATABASE_URL
 ```
-ofelia-vallejo/
-├── index.html              ← Home deploy (fuente activa)
-├── banner-intro.html       ← intro globo D3 (5 etapas → index.html)
-├── Home v6.html            ← ground truth / referencia del mockup
-├── assets/img/logo_firma.png   ← firma oficial (única)
-├── assets/img/logo_sello.png   ← sello OV oficial (única)
-└── assets/
-    └── img/
-        ├── inicio/         ← hero Mujer / Hombre (home.html)
-        └── …               ← logos, producto, lifestyle (futuro)
-```
 
-## Archivos
+## Referencia de marca
 
-- `index.html` — Home (única versión activa en producción)
-- `banner-intro.html` — Intro cartográfica D3 + TopoJSON; Saltar / Entrar → `index.html`
-- `assets/img/logo_firma.png` — Firma completa · `assets/img/logo_sello.png` — Sello OV. Ver `06_Identidad_Marca/logos/README.md`
-- `assets/img/` — Fotos de producto y lifestyle (añadir aquí: `hero.jpg`, `bag-01.jpg`, etc.)
-
-## Deploy (Vercel)
-
-Proyecto estático en la raíz. Conectar repo `ofelia-vallejo/ofelia-website` y desplegar **sin framework** (solo archivos estáticos).
+Toda IA o diseñador debe leer [`CLAUDE.md`](CLAUDE.md) antes de producir deliverables.

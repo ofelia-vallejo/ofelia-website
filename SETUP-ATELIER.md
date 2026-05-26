@@ -2,6 +2,8 @@
 
 Sistema completo: **PostgreSQL**, panel admin, **PDP dinámico**, **Stripe**, inventario.
 
+**Checklist paso a paso en Vercel:** [`docs/VERCEL_CHECKLIST.md`](docs/VERCEL_CHECKLIST.md)
+
 ---
 
 ## Arquitectura

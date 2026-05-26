@@ -46,9 +46,9 @@
       "permanent": true
     },
     {
-      "source": "/producto/travel-bag-ii",
-      "destination": "/producto/maletin",
-      "permanent": false
+      "source": "/producto/maletin",
+      "destination": "/producto/travel-bag-ii",
+      "permanent": true
     }
   ],
   "headers": [

@@ -10,6 +10,7 @@ Rutas internas siempre **absolutas** desde la raíz (`/…`).
 | Personalizar / grabado / bespoke / «Tu nombre. En cuero.» | `/personalizar.html` (opcional `?producto=` + `?color=`) |
 | Ficha de producto (catálogo) | `/producto/{slug}` |
 | Línea Travel Bag (hub) | `/producto/travel-bag.html` |
+| Legacy `maletin` / `maletin.html` | Redirige 301 → `/producto/travel-bag-ii` |
 | Cuenta | `/cuenta.html` |
 | Contacto / reparación / privacidad | `/contacto.html` |
 | Checkout confirmado | `/gracias.html` |

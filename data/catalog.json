@@ -24,7 +24,7 @@
       "engravePrice": 45,
       "inventory": 5,
       "lowStockAt": 2,
-      "pdpPath": "/producto/travel-bag-i.html",
+      "pdpPath": "/producto/travel-bag-i",
       "images": [
         {
           "url": "/assets/img/nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
@@ -59,7 +59,7 @@
       "engravePrice": 45,
       "inventory": 4,
       "lowStockAt": 2,
-      "pdpPath": "/producto/maletin.html",
+      "pdpPath": "/producto/travel-bag-ii",
       "images": [
         {
           "url": "/assets/img/nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
@@ -93,7 +93,7 @@
       "engravePrice": 40,
       "inventory": 3,
       "lowStockAt": 2,
-      "pdpPath": "/producto/travel-bag-iii.html",
+      "pdpPath": "/producto/travel-bag-iii",
       "images": [
         {
           "url": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg",
@@ -126,7 +126,7 @@
       "engravePrice": 35,
       "inventory": 6,
       "lowStockAt": 2,
-      "pdpPath": "/producto/bolso-dama.html",
+      "pdpPath": "/producto/bolso-dama",
       "images": [
         {
           "url": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
@@ -159,7 +159,7 @@
       "engravePrice": 38,
       "inventory": 4,
       "lowStockAt": 2,
-      "pdpPath": "/producto/morral-elite.html",
+      "pdpPath": "/producto/morral-elite",
       "images": [
         {
           "url": "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
@@ -192,7 +192,7 @@
       "engravePrice": 35,
       "inventory": 0,
       "lowStockAt": 2,
-      "pdpPath": "/personalizar.html?producto=Morral+Clásico",
+      "pdpPath": "/producto/morral-clasico",
       "images": [],
       "variants": [
         { "id": "v-cognac", "sku": "MC-COG", "colorName": "Cognac", "colorHex": "#8B5E3C", "inventory": 0, "sort": 0 }
@@ -218,7 +218,7 @@
       "engravePrice": 30,
       "inventory": 2,
       "lowStockAt": 2,
-      "pdpPath": "/personalizar.html?producto=Bandolera+Moderna",
+      "pdpPath": "/producto/bandolera-moderna",
       "images": [],
       "variants": [
         { "id": "v-carbon", "sku": "BM-CAR", "colorName": "Carbón", "colorHex": "#141414", "inventory": 2, "sort": 0 }
@@ -244,7 +244,7 @@
       "engravePrice": 30,
       "inventory": 2,
       "lowStockAt": 2,
-      "pdpPath": "/personalizar.html?producto=Bandolera+Elite",
+      "pdpPath": "/producto/bandolera-elite",
       "images": [],
       "variants": [
         { "id": "v-carbon", "sku": "BE-CAR", "colorName": "Carbón", "colorHex": "#141414", "inventory": 2, "sort": 0 }
@@ -270,7 +270,7 @@
       "engravePrice": 18,
       "inventory": 10,
       "lowStockAt": 3,
-      "pdpPath": "/personalizar.html?producto=Cinturón",
+      "pdpPath": "/producto/cinturon",
       "images": [],
       "variants": [
         { "id": "v-negro", "sku": "CIN-NEG", "colorName": "Negro", "colorHex": "#141414", "inventory": 5, "sort": 0 },
