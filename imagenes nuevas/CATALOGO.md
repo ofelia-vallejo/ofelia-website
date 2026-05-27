@@ -52,7 +52,12 @@ Colores según el cuero **visible en foto** (no etiquetas inventadas).
 | coleccion | Travel Bag III | `producto/mujer/mochila-cognac-estudio-01.jpg` | |
 | coleccion | Bolso Dama | `producto/mujer/tote-cognac-editorial.jpg` | |
 | coleccion | Travel Bag II | `producto/hombre/travel-bag-negro-estudio.jpg` | |
-| coleccion | Bandolera Moderna / Elite | — | **vacío** (gradiente) |
+| coleccion | Bandolera Moderna | `producto/bandoleras/bandolera-moderna-negro-estudio.jpg` | Negro crossbody |
+| coleccion | Bandolera Pelo · Oro | `producto/bandoleras/bandolera-pelo-oro-estudio.jpg` | + lifestyle colonial |
+| coleccion | Riñonera | `producto/accesorios/rinonera/rinonera-cognac-estudio.jpg` | variantes cognac / multi / negro |
+| coleccion | Neceser | `producto/accesorios/neceser/neceser-cafe-estudio.jpg` | Café oscuro |
+| coleccion | Cartera Pelo · Oro | `producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg` | |
+| coleccion | Travel Bag I · Espresso | `lifestyle/mujer/duffel-espresso-jet-lifestyle.jpg` | Variante espresso |
 | coleccion | Morral Elite | `lifestyle/hombre/mochila-negro-lifestyle.jpg` | |
 | coleccion | Morral Clásico | `producto/mujer/mochila-cognac-estudio-02.jpg` | |
 | coleccion | Cinturón / Billeteras / Correas | — | **vacío** (gradiente) |
@@ -60,6 +65,5 @@ Colores según el cuero **visible en foto** (no etiquetas inventadas).
 
 ## Sin foto congruente (mantener vacío)
 
-- Bandolera Moderna, Bandolera Elite (crossbody / portafolio)
-- Cinturón, billeteras, correas
-- Cuero vino, verde bosque, navy (ninguna foto en carpeta)
+- Cuero vino, verde bosque, navy en bandoleras (ninguna foto en carpeta)
+- Riñonera negro · estudio (solo lifestyle urbano)

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "currency": "CHF",
-  "updatedAt": "2026-05-26T21:33:30.000Z",
+  "updatedAt": "2026-05-27T17:00:00.000Z",
   "categories": [
     {
       "id": "mujer",
@@ -19,9 +19,10 @@
     },
     {
       "id": "bandoleras",
-      "label": "Hombre · Colección Uchuva",
+      "label": "Bandoleras y riñoneras · Colección Uchuva",
+      "description": "Crossbody, riñoneras y pelo sellado · Uchuva",
       "sort": 3,
-      "gridCols": 2,
+      "gridCols": 3,
       "active": true
     },
     {
@@ -33,7 +34,7 @@
     },
     {
       "id": "accesorios",
-      "label": "Accesorios · Colección Curuba",
+      "label": "Accesorios · Cinturón, neceser, cartera · Curuba",
       "sort": 5,
       "gridCols": 3,
       "active": true
@@ -44,8 +45,8 @@
       "id": "travel-bag-i",
       "slug": "travel-bag-i",
       "name": "Travel Bag I",
-      "shortDescription": "Cuero pleno · Cognac · Grabado a láser",
-      "description": "Weekender en cuero colombiano full-grain. Hecho a mano en Medellín.",
+      "shortDescription": "Cuero pleno · Cognac o espresso · Weekender",
+      "description": "Duffel weekender en cuero colombiano full-grain. Correas reforzadas, herrajes latón y grabado láser OV. Hecho a mano en Medellín.",
       "category": "mujer",
       "line": "travel-bag",
       "numeral": "I",
@@ -152,8 +153,12 @@
             "#3B2B26",
             "#2e211c"
           ],
-          "images": [],
-          "alts": []
+          "images": [
+            "/imagenes nuevas/lifestyle/mujer/duffel-espresso-jet-lifestyle.jpg"
+          ],
+          "alts": [
+            "Travel Bag I — espresso · lifestyle editorial"
+          ]
         }
       }
     },
@@ -616,27 +621,36 @@
       "slug": "bandolera-moderna",
       "collectionWide": true,
       "name": "Bandolera Moderna",
-      "shortDescription": "Cuero pleno · Carbón",
-      "description": "Bandolera crossbody en cuero carbón.",
+      "shortDescription": "Cuero pleno · Negro · Crossbody",
+      "description": "Bandolera crossbody en cuero negro full-grain. Dos compartimentos con cierre, correa ajustable y monograma OV grabado a láser.",
       "category": "bandoleras",
       "line": "bandolera",
+      "sort": 1,
       "active": true,
       "personalizable": true,
-      "basePrice": 280,
+      "basePrice": 285,
       "engravePrice": 30,
-      "inventory": 2,
+      "inventory": 4,
       "lowStockAt": 2,
       "pdpPath": "/producto/bandolera-moderna",
-      "images": [],
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg",
+          "alt": "Bandolera Moderna — negro · estudio",
+          "kind": "hero",
+          "sort": 0,
+          "variantId": "v-negro"
+        }
+      ],
       "variants": [
         {
-          "id": "v-carbon",
-          "sku": "BM-CAR",
-          "colorName": "Carbón",
+          "id": "v-negro",
+          "sku": "BM-NEG",
+          "colorName": "Negro",
           "colorHex": "#141414",
-          "inventory": 2,
+          "inventory": 4,
           "sort": 0,
-          "colorKey": "carbon"
+          "colorKey": "negro"
         }
       ],
       "engrave": {
@@ -669,44 +683,66 @@
         "collectionCode": "UCHUVA"
       },
       "colorData": {
-        "carbon": {
-          "label": "Carbón",
+        "negro": {
+          "label": "Negro",
           "leather": [
             "#2c3443",
             "#141414",
             "#0a0a0a"
           ],
-          "images": [],
-          "alts": []
+          "images": [
+            "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg"
+          ],
+          "alts": [
+            "Bandolera Moderna — negro · estudio editorial"
+          ]
         }
-      }
+      },
+      "editorialImage": "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg",
+      "editorialCaption": "Crossbody · dos bolsillos · herrajes plateados cepillados."
     },
     {
       "id": "bandolera-elite",
       "slug": "bandolera-elite",
       "collectionWide": true,
-      "name": "Bandolera Elite",
-      "shortDescription": "Cuero pleno · Carbón",
-      "description": "Bandolera elite en cuero carbón.",
+      "name": "Bandolera Pelo · Oro",
+      "shortDescription": "Pelo sellado · Motivo oro · Colección Uchuva",
+      "description": "Bandolera en pelo sellado marfil con motivo oro editorial. Correa textil tejida, herrajes latón antiguo y monograma OV.",
       "category": "bandoleras",
       "line": "bandolera",
+      "sort": 2,
       "active": true,
       "personalizable": true,
-      "basePrice": 295,
-      "engravePrice": 30,
-      "inventory": 2,
-      "lowStockAt": 2,
+      "basePrice": 325,
+      "engravePrice": 35,
+      "inventory": 3,
+      "lowStockAt": 1,
       "pdpPath": "/producto/bandolera-elite",
-      "images": [],
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/bandoleras/bandolera-pelo-oro-estudio.jpg",
+          "alt": "Bandolera Pelo · Oro — estudio",
+          "kind": "hero",
+          "sort": 0,
+          "variantId": "v-oro"
+        },
+        {
+          "url": "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg",
+          "alt": "Bandolera Pelo · Oro — lifestyle colonial",
+          "kind": "gallery",
+          "sort": 1,
+          "variantId": "v-oro"
+        }
+      ],
       "variants": [
         {
-          "id": "v-carbon",
-          "sku": "BE-CAR",
-          "colorName": "Carbón",
-          "colorHex": "#141414",
-          "inventory": 2,
+          "id": "v-oro",
+          "sku": "BE-ORO",
+          "colorName": "Marfil · Oro",
+          "colorHex": "#F3EEE6",
+          "inventory": 3,
           "sort": 0,
-          "colorKey": "carbon"
+          "colorKey": "oro"
         }
       ],
       "engrave": {
@@ -739,17 +775,225 @@
         "collectionCode": "UCHUVA"
       },
       "colorData": {
-        "carbon": {
-          "label": "Carbón",
+        "oro": {
+          "label": "Marfil · Oro",
           "leather": [
-            "#2c3443",
-            "#141414",
-            "#0a0a0a"
+            "#F3EEE6",
+            "#E8DFD0",
+            "#C9A227"
           ],
-          "images": [],
-          "alts": []
+          "images": [
+            "/imagenes nuevas/producto/bandoleras/bandolera-pelo-oro-estudio.jpg",
+            "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg"
+          ],
+          "alts": [
+            "Bandolera Pelo · Oro — estudio producto",
+            "Bandolera Pelo · Oro — lifestyle calle colonial"
+          ]
         }
-      }
+      },
+      "editorialImage": "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg",
+      "editorialCaption": "Pelo sellado · motivo oro · correa tejida a juego."
+    },
+    {
+      "id": "rinonera",
+      "slug": "rinonera",
+      "name": "Riñonera",
+      "shortDescription": "Cuero pleno · Cognac o negro · Cintura o crossbody",
+      "description": "Riñonera en cuero colombiano con compartimentos zip y correa ajustable. Llevar en cintura o bandolera.",
+      "category": "bandoleras",
+      "line": "rinonera",
+      "collectionDisplay": "variants",
+      "sort": 3,
+      "active": true,
+      "personalizable": true,
+      "basePrice": 195,
+      "engravePrice": 25,
+      "inventory": 9,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/rinonera",
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/accesorios/rinonera/rinonera-cognac-estudio.jpg",
+          "alt": "Riñonera — cognac · estudio",
+          "kind": "hero",
+          "sort": 0
+        }
+      ],
+      "variants": [
+        {
+          "id": "v-cognac",
+          "colorKey": "cognac",
+          "sku": "RIN-COG",
+          "colorName": "Cognac · Clásica",
+          "colorHex": "#8B5E3C",
+          "inventory": 3,
+          "sort": 0
+        },
+        {
+          "id": "v-cognac-multi",
+          "colorKey": "cognac-multi",
+          "sku": "RIN-COG-M",
+          "colorName": "Cognac · Multi",
+          "colorHex": "#8B5E3C",
+          "inventory": 3,
+          "sort": 1
+        },
+        {
+          "id": "v-negro",
+          "colorKey": "negro",
+          "sku": "RIN-NEG",
+          "colorName": "Negro",
+          "colorHex": "#141414",
+          "inventory": 3,
+          "sort": 2
+        }
+      ],
+      "colorData": {
+        "cognac": {
+          "label": "Cognac · Clásica",
+          "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/rinonera/rinonera-cognac-estudio.jpg",
+            "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-colonial-lifestyle.jpg"
+          ],
+          "alts": [
+            "Riñonera cognac — estudio",
+            "Riñonera cognac — lifestyle colonial"
+          ]
+        },
+        "cognac-multi": {
+          "label": "Cognac · Multi",
+          "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"],
+          "images": [
+            "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-multi-lifestyle.jpg"
+          ],
+          "alts": [
+            "Riñonera cognac multi — crossbody lifestyle"
+          ]
+        },
+        "negro": {
+          "label": "Negro",
+          "leather": ["#2c3443", "#141414", "#0a0a0a"],
+          "images": [
+            "/imagenes nuevas/lifestyle/unisex/rinonera-negro-urban-lifestyle.jpg"
+          ],
+          "alts": [
+            "Riñonera negro — lifestyle urbano"
+          ]
+        }
+      },
+      "engrave": {
+        "fonts": ["romana", "clasica"],
+        "sizes": {
+          "S": { "maxChars": 3, "label": "Iniciales" },
+          "M": { "maxChars": 8, "label": "Nombre" }
+        },
+        "layouts": ["texto", "monograma-ov"],
+        "zone": { "x": 0.5, "y": 0.82, "width": 0.22, "height": 0.08 }
+      },
+      "meta": { "productCode": "OV-RIN", "collectionCode": "UCHUVA" }
+    },
+    {
+      "id": "neceser",
+      "slug": "neceser",
+      "name": "Neceser de Viaje",
+      "shortDescription": "Cuero pleno · Café oscuro · Asa superior",
+      "description": "Neceser rectangular en cuero café oscuro. Compartimento principal y bolsillo frontal con cierre, ideal para viaje u organización en el bolso.",
+      "category": "accesorios",
+      "line": "neceser",
+      "sort": 2,
+      "active": true,
+      "personalizable": true,
+      "basePrice": 145,
+      "engravePrice": 22,
+      "inventory": 5,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/neceser",
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg",
+          "alt": "Neceser de viaje — café oscuro · estudio",
+          "kind": "hero",
+          "sort": 0,
+          "variantId": "v-cafe"
+        }
+      ],
+      "variants": [
+        {
+          "id": "v-cafe",
+          "sku": "NEC-CAF",
+          "colorName": "Café oscuro",
+          "colorHex": "#3B2B26",
+          "inventory": 5,
+          "sort": 0,
+          "colorKey": "cafe"
+        }
+      ],
+      "colorData": {
+        "cafe": {
+          "label": "Café oscuro",
+          "leather": ["#4a362e", "#3B2B26", "#2e211c"],
+          "images": ["/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg"],
+          "alts": ["Neceser — café oscuro · estudio"]
+        }
+      },
+      "engrave": {
+        "fonts": ["clasica", "romana"],
+        "sizes": {
+          "S": { "maxChars": 3, "label": "Iniciales" },
+          "M": { "maxChars": 10, "label": "Nombre" }
+        },
+        "layouts": ["texto", "monograma-ov"],
+        "zone": { "x": 0.5, "y": 0.78, "width": 0.2, "height": 0.08 }
+      },
+      "meta": { "productCode": "OV-NEC", "collectionCode": "CURUBA" }
+    },
+    {
+      "id": "cartera-pelo-oro",
+      "slug": "cartera-pelo-oro",
+      "name": "Cartera Pelo · Oro",
+      "shortDescription": "Pelo sellado · Motivo oro · Cierre snap",
+      "description": "Cartera compacta en pelo sellado marfil con acentos oro. Marco en cuero café, cierre superior zip y broche central.",
+      "category": "accesorios",
+      "line": "cartera",
+      "sort": 3,
+      "active": true,
+      "personalizable": false,
+      "basePrice": 95,
+      "engravePrice": 0,
+      "inventory": 4,
+      "lowStockAt": 2,
+      "pdpPath": "/producto/cartera-pelo-oro",
+      "images": [
+        {
+          "url": "/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg",
+          "alt": "Cartera Pelo · Oro — estudio",
+          "kind": "hero",
+          "sort": 0,
+          "variantId": "v-oro"
+        }
+      ],
+      "variants": [
+        {
+          "id": "v-oro",
+          "sku": "CAR-ORO",
+          "colorName": "Marfil · Oro",
+          "colorHex": "#F3EEE6",
+          "inventory": 4,
+          "sort": 0,
+          "colorKey": "oro"
+        }
+      ],
+      "colorData": {
+        "oro": {
+          "label": "Marfil · Oro",
+          "leather": ["#F3EEE6", "#E8DFD0", "#C9A227"],
+          "images": ["/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg"],
+          "alts": ["Cartera Pelo · Oro — estudio editorial"]
+        }
+      },
+      "meta": { "productCode": "OV-CAR", "collectionCode": "CURUBA" }
     },
     {
       "id": "cinturon",
