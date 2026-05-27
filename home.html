@@ -778,11 +778,11 @@
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="/home.html" class="nav-panel__link">Inicio</a>
-    <a href="/coleccion.html#mujer" class="nav-panel__link">Mujer</a>
-    <a href="/coleccion.html#hombre" class="nav-panel__link">Hombre</a>
+    <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
+    <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
       <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
+      <a href="/cuero.html" class="nav-panel__link">Cuero</a>
           <p class="nav-panel__group">Atelier</p>
     <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
     <a href="/contacto.html" class="nav-panel__link">Contacto</a>
@@ -795,7 +795,7 @@
   <section class="gender" id="top">
     <p class="gender__index">— 01 / Casa</p>
     <div class="gender__divider" aria-hidden="true"></div>
-    <a href="/coleccion.html#mujer" class="gender__panel gender__panel--mujer" id="casa-mujer">
+    <a href="/coleccion?cat=mujer" class="gender__panel gender__panel--mujer" id="casa-mujer">
       <p class="gender__big">I</p>
       <p class="gender__label">Maison · Colección Guanábana</p>
       <h2 class="gender__title">Mujer</h2>
@@ -813,7 +813,7 @@
         <span class="caption">Mochila · Cognac</span>
       </div>
     </a>
-    <a href="/coleccion.html#hombre" class="gender__panel gender__panel--hombre" id="casa-hombre">
+    <a href="/coleccion?cat=hombre" class="gender__panel gender__panel--hombre" id="casa-hombre">
       <p class="gender__big">II</p>
       <p class="gender__label">Maison · Colección Borojó</p>
       <h2 class="gender__title">Hombre</h2>
@@ -973,7 +973,7 @@
       <p class="banner-cuero__copy">
         Cuero pleno colombiano. Hilo encerado. Herrajes de latón macizo. Cada pieza se corta, se cose y se sella a mano en Medellín — pensada para una vida, no para una temporada.
       </p>
-      <a href="/manifiesto.html" class="banner-cuero__cta">Conocer la historia</a>
+      <a href="/cuero.html" class="banner-cuero__cta">Conocer el oficio del cuero</a>
     </div>
   </section>
 
@@ -995,9 +995,9 @@
       <nav class="foot__col" aria-label="Casa">
         <h4>Casa</h4>
         <ul>
-          <li><a href="/coleccion.html#mujer">Mujer</a></li>
-          <li><a href="/coleccion.html#hombre">Hombre</a></li>
-          <li><a href="/coleccion.html">Cuero</a></li>
+          <li><a href="/coleccion?cat=mujer">Mujer</a></li>
+          <li><a href="/coleccion?cat=hombre">Hombre</a></li>
+          <li><a href="/cuero.html">Cuero</a></li>
           <li><a href="/manifiesto.html">Historia</a></li>
         </ul>
       </nav>
@@ -1031,7 +1031,7 @@
     (function () {
       var h = location.hash;
       if (h === '#mujer' || h === '#hombre') {
-        location.replace('/coleccion.html' + h);
+        location.replace('/coleccion?cat=' + h.slice(1));
       }
     })();
   </script>

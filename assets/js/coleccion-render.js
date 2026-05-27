@@ -4,6 +4,14 @@
   const root = document.getElementById('coleccionCatalog');
   if (!root || !window.OVCatalog) return;
 
+  const VALID_FILTERS = ['mujer', 'hombre'];
+
+  /* Categorías visibles al filtrar por género en el menú */
+  const FILTER_GROUPS = {
+    mujer: ['mujer', 'morrales'],
+    hombre: ['hombre', 'bandoleras'],
+  };
+
   const PROMOS = [
     {
       categoryId: 'accesorios',
@@ -29,6 +37,16 @@
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/"/g, '&quot;');
+  }
+
+  function getFilter() {
+    const params = new URLSearchParams(location.search);
+    let cat = (params.get('cat') || '').toLowerCase().trim();
+    if (!cat) {
+      const hash = (location.hash || '').replace(/^#/, '').toLowerCase();
+      if (VALID_FILTERS.indexOf(hash) >= 0) cat = hash;
+    }
+    return VALID_FILTERS.indexOf(cat) >= 0 ? cat : null;
   }
 
   function stockLabel(n, low) {
@@ -162,7 +180,12 @@
     return cards;
   }
 
-  function renderCategory(cat, products) {
+  function renderCategory(cat, products, filter) {
+    if (filter) {
+      const allowed = FILTER_GROUPS[filter] || [filter];
+      if (allowed.indexOf(cat.id) < 0) return '';
+    }
+
     const items = products
       .filter((p) => p.active !== false && p.category === cat.id)
       .sort((a, b) => (Number(a.sort) || 99) - (Number(b.sort) || 99) || a.name.localeCompare(b.name));
@@ -172,29 +195,33 @@
       expandProductCards(p).forEach((c) => allCards.push(c));
     });
 
-    PROMOS.filter((pr) => pr.categoryId === cat.id).forEach((pr) => {
-      allCards.push({
-        id: 'promo-' + pr.name.replace(/\s+/g, '-').toLowerCase(),
-        href: pr.href,
-        name: pr.name,
-        detail: pr.detail,
-        badge: pr.badge || '',
-        image: pr.image,
-        gradient: pr.gradient,
-        wide: pr.wide,
-        stock: 99,
-        product: { basePrice: 0, engravePrice: 0, lowStockAt: 2 },
-        cta: 'Solicitar →',
+    if (!filter) {
+      PROMOS.filter((pr) => pr.categoryId === cat.id).forEach((pr) => {
+        allCards.push({
+          id: 'promo-' + pr.name.replace(/\s+/g, '-').toLowerCase(),
+          href: pr.href,
+          name: pr.name,
+          detail: pr.detail,
+          badge: pr.badge || '',
+          image: pr.image,
+          gradient: pr.gradient,
+          wide: pr.wide,
+          stock: 99,
+          product: { basePrice: 0, engravePrice: 0, lowStockAt: 2 },
+          cta: 'Solicitar →',
+        });
       });
-    });
+    }
 
     if (!allCards.length) return '';
 
     const cols = cat.gridCols === 2 ? 2 : 3;
     const countLabel = allCards.length + (allCards.length === 1 ? ' pieza' : ' piezas');
+    const allowed = filter ? FILTER_GROUPS[filter] || [filter] : [];
+    const highlight = filter && allowed[0] === cat.id ? ' is-filter-highlight' : '';
 
     return (
-      '<section class="category reveal" id="' + esc(cat.id) + '">' +
+      '<section class="category reveal' + highlight + '" id="' + esc(cat.id) + '" data-category="' + esc(cat.id) + '">' +
         '<div class="category__header">' +
           '<span class="category__label">' + esc(cat.label) + '</span>' +
           '<span class="category__count">' + esc(countLabel) + '</span>' +
@@ -206,28 +233,90 @@
     );
   }
 
-  function scrollToHash() {
-    const hash = (location.hash || '').replace(/^#/, '');
-    if (!hash) return;
-    const el = document.getElementById(hash);
-    if (!el) return;
-    requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  function updateTabs(filter) {
+    document.querySelectorAll('.coleccion-tab').forEach((tab) => {
+      const tabCat = tab.getAttribute('data-cat') || '';
+      const isAll = !tabCat && !filter;
+      const isMatch = tabCat && tabCat === filter;
+      tab.classList.toggle('is-active', isAll || isMatch);
+      tab.setAttribute('aria-current', isAll || isMatch ? 'page' : 'false');
     });
   }
 
+  function updateHero(filter, categories) {
+    const titleEl = document.getElementById('coleccionHeroTitle');
+    const subEl = document.getElementById('coleccionHeroSub');
+    const bannerEl = document.getElementById('coleccionFilterBanner');
+    if (!titleEl) return;
+
+    if (filter === 'mujer') {
+      titleEl.innerHTML = 'Colección<br>Mujer.';
+      if (subEl) {
+        subEl.textContent =
+          'Bolsos, carteras, morrales y piezas de viaje · cuero pleno colombiano · línea Guanábana.';
+      }
+      if (bannerEl) bannerEl.hidden = false;
+    } else if (filter === 'hombre') {
+      titleEl.innerHTML = 'Colección<br>Hombre.';
+      if (subEl) {
+        subEl.textContent =
+          'Maletines, duffels, bandoleras y accesorios · cuero pleno · línea Borojó y Uchuva.';
+      }
+      if (bannerEl) bannerEl.hidden = false;
+    } else {
+      titleEl.innerHTML = 'Cuero<br>colombiano.';
+      if (subEl) {
+        subEl.textContent =
+          'Piezas hechas a mano en Medellín. Cada línea lleva el nombre de un fruto de Antioquia — Guanábana, Borojó, Uchuva, Chontaduro, Curuba.';
+      }
+      if (bannerEl) bannerEl.hidden = true;
+    }
+  }
+
+  function scrollToFilter(filter) {
+    if (!filter) return;
+    const id = filter;
+    function go(behavior) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: behavior, block: 'start' });
+    }
+    go('auto');
+    [80, 250, 500, 900].forEach((ms) => {
+      setTimeout(() => go('smooth'), ms);
+    });
+  }
+
+  function syncUrl(filter) {
+    const wantSearch = filter ? '?cat=' + filter : '';
+    if (location.search !== wantSearch) {
+      history.replaceState({ cat: filter || '' }, '', '/coleccion' + wantSearch);
+    }
+  }
+
   async function init() {
+    const filter = getFilter();
+    updateTabs(filter);
+    updateHero(filter);
+
     root.innerHTML = '<p class="coleccion-loading">Cargando colección…</p>';
+
     try {
       const data = await window.OVCatalog.fetchCatalog();
       const categories = (data.categories || [])
         .filter((c) => c.active !== false)
         .sort((a, b) => (Number(a.sort) || 99) - (Number(b.sort) || 99));
 
-      const html = categories.map((cat) => renderCategory(cat, data.products || [])).join('');
-      root.innerHTML = html || '<p class="coleccion-loading">No hay piezas activas en el catálogo.</p>';
+      const html = categories.map((cat) => renderCategory(cat, data.products || [], filter)).join('');
 
-      scrollToHash();
+      if (filter && !html.trim()) {
+        root.innerHTML =
+          '<p class="coleccion-loading">No hay piezas activas en esta colección. <a href="/coleccion">Ver toda la colección</a></p>';
+      } else {
+        root.innerHTML = html || '<p class="coleccion-loading">No hay piezas activas en el catálogo.</p>';
+      }
+
+      syncUrl(filter);
+      scrollToFilter(filter ? (FILTER_GROUPS[filter] || [filter])[0] : null);
 
       if (window.IntersectionObserver) {
         root.querySelectorAll('.reveal').forEach((el) => {
@@ -252,7 +341,8 @@
     }
   }
 
-  window.addEventListener('hashchange', scrollToHash);
+  window.addEventListener('hashchange', () => init());
+  window.addEventListener('popstate', () => init());
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

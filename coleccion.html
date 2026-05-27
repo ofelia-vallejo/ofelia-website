@@ -28,7 +28,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/brand.css">
   <link rel="stylesheet" href="assets/css/mobile.css">
-  <link rel="stylesheet" href="assets/css/account.css">
+  <link rel="stylesheet" href="assets/css/maison.css">
   <style>
     /* PAGE HERO */
     .page-hero {
@@ -358,11 +358,11 @@
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="/home.html" class="nav-panel__link">Inicio</a>
-      <a href="/coleccion.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="/coleccion.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
       <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="/coleccion.html" class="nav-panel__link" aria-current="page">Cuero</a>
+      <a href="/cuero.html" class="nav-panel__link">Cuero</a>
           <p class="nav-panel__group">Atelier</p>
     <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
     <a href="/contacto.html" class="nav-panel__link">Contacto</a>
@@ -374,11 +374,22 @@
   <div class="page-hero">
     <div>
       <p class="page-hero__label">Frutos de Antioquia · Colección Lulo</p>
-      <h1 class="page-hero__title">Cuero<br>colombiano.</h1>
+      <h1 class="page-hero__title" id="coleccionHeroTitle">Cuero<br>colombiano.</h1>
     </div>
-    <p class="page-hero__sub">
+    <p class="page-hero__sub" id="coleccionHeroSub">
       Piezas hechas a mano en Medellín. Cada línea lleva el nombre de un fruto que solo encuentras en Colombia — Guanábana, Borojó, Uchuva, Chontaduro, Curuba. Una vida, no una temporada.
     </p>
+  </div>
+
+  <nav class="coleccion-tabs" aria-label="Filtrar colección">
+    <a href="/coleccion" class="coleccion-tab" data-cat="">Toda la colección</a>
+    <a href="/coleccion?cat=mujer" class="coleccion-tab" data-cat="mujer">Mujer</a>
+    <a href="/coleccion?cat=hombre" class="coleccion-tab" data-cat="hombre">Hombre</a>
+    <a href="/cuero.html" class="coleccion-tab" data-cat="" style="margin-left:auto">El oficio · Cuero</a>
+  </nav>
+
+  <div class="coleccion-filter-banner" id="coleccionFilterBanner" hidden>
+    <p>Mostrando piezas de esta colección. <a href="/coleccion">Ver todo el catálogo →</a></p>
   </div>
 
   <div id="coleccionCatalog" aria-live="polite"></div>
@@ -407,9 +418,9 @@
       <nav class="foot__col" aria-label="Casa">
         <h4>Casa</h4>
         <ul>
-          <li><a href="/coleccion.html#mujer">Mujer</a></li>
-          <li><a href="/coleccion.html#hombre">Hombre</a></li>
-          <li><a href="/coleccion.html">Cuero</a></li>
+          <li><a href="/coleccion?cat=mujer">Mujer</a></li>
+          <li><a href="/coleccion?cat=hombre">Hombre</a></li>
+          <li><a href="/cuero.html">Cuero</a></li>
           <li><a href="/manifiesto.html">Historia</a></li>
         </ul>
       </nav>

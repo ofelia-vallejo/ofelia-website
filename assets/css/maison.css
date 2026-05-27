@@ -1,0 +1,426 @@
+/* Maison — Cuero · Historia (páginas editoriales compartidas) */
+
+.maison-hero {
+  margin-top: 56px;
+  padding: clamp(72px, 12vw, 120px) var(--pad-x) clamp(48px, 8vw, 80px);
+  background: var(--marfil);
+  border-bottom: 1px solid var(--rule);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.maison-hero__label {
+  font-family: Cinzel, serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--text-soft);
+  margin-bottom: 28px;
+}
+
+.maison-hero__title {
+  font-size: clamp(36px, 5.5vw, 72px);
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  max-width: 14ch;
+  margin-bottom: 24px;
+}
+
+.maison-hero__sub {
+  font-size: clamp(15px, 1.8vw, 17px);
+  font-weight: 300;
+  color: rgba(11, 31, 58, 0.58);
+  line-height: 1.75;
+  max-width: 42rem;
+}
+
+.maison-hero__rule {
+  width: 56px;
+  height: 1px;
+  background: var(--rule-strong);
+  margin-top: 48px;
+}
+
+/* Bloque editorial imagen + texto */
+.maison-block {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(64px, 10vw, 100px) var(--pad-x);
+  border-top: 1px solid var(--rule);
+}
+
+.maison-block--beige {
+  background: var(--beige-medio, #ede5d8);
+  max-width: none;
+}
+
+.maison-block--navy {
+  background: var(--navy);
+  max-width: none;
+  color: var(--marfil);
+}
+
+.maison-block__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.maison-block__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.maison-block__grid--reverse .maison-media { order: 2; }
+.maison-block__grid--reverse .maison-copy { order: 1; }
+
+@media (max-width: 900px) {
+  .maison-block__grid,
+  .maison-block__grid--reverse .maison-media,
+  .maison-block__grid--reverse .maison-copy {
+    grid-template-columns: 1fr;
+    order: unset;
+  }
+}
+
+.maison-block__numeral {
+  font-family: Cinzel, serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--text-soft);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.maison-block--navy .maison-block__numeral { color: rgba(243, 238, 230, 0.45); }
+
+.maison-block__title {
+  font-size: clamp(24px, 3vw, 36px);
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 20px;
+  max-width: 16ch;
+}
+
+.maison-block--navy .maison-block__title { color: var(--marfil); }
+
+.maison-block__body {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(11, 31, 58, 0.72);
+  max-width: 36rem;
+}
+
+.maison-block__body p { margin-bottom: 1.1em; }
+.maison-block__body p:last-child { margin-bottom: 0; }
+
+.maison-block--navy .maison-block__body { color: rgba(243, 238, 230, 0.78); }
+
+.maison-block__body strong {
+  font-weight: 400;
+  color: var(--navy);
+}
+
+.maison-block--navy .maison-block__body strong { color: var(--marfil); }
+
+/* Placeholder de imagen + brief de producción */
+.maison-media {
+  position: relative;
+}
+
+.maison-frame {
+  aspect-ratio: 4 / 5;
+  background: rgba(11, 31, 58, 0.04);
+  border: 1px dashed rgba(11, 31, 58, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  text-align: center;
+  gap: 12px;
+}
+
+.maison-block--navy .maison-frame {
+  background: rgba(243, 238, 230, 0.04);
+  border-color: rgba(243, 238, 230, 0.22);
+}
+
+.maison-frame--wide { aspect-ratio: 16 / 9; }
+
+.maison-frame--square { aspect-ratio: 1; }
+
+.maison-frame__tag {
+  font-family: Cinzel, serif;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--vino);
+}
+
+.maison-frame__brief {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(11, 31, 58, 0.55);
+  max-width: 28ch;
+}
+
+.maison-block--navy .maison-frame__brief { color: rgba(243, 238, 230, 0.55); }
+
+.maison-frame__spec {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Paleta de colores */
+.maison-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.maison-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 72px;
+}
+
+.maison-swatch__dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(11, 31, 58, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.maison-swatch__name {
+  font-family: Cinzel, serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+/* Pasos del oficio */
+.maison-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(11, 31, 58, 0.08);
+  margin-top: 48px;
+}
+
+@media (max-width: 900px) {
+  .maison-steps { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 520px) {
+  .maison-steps { grid-template-columns: 1fr; }
+}
+
+.maison-step {
+  background: var(--marfil);
+  padding: 36px 28px;
+}
+
+.maison-step__n {
+  font-family: Cinzel, serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+}
+
+.maison-step__title {
+  font-size: 14px;
+  color: var(--navy);
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+
+.maison-step__text {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(11, 31, 58, 0.62);
+}
+
+/* Historia — línea de tiempo */
+.historia-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: end;
+  padding-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .historia-intro { grid-template-columns: 1fr; }
+}
+
+.historia-timeline {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x) clamp(80px, 12vw, 140px);
+}
+
+.historia-chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 5vw, 64px);
+  padding: clamp(56px, 8vw, 88px) 0;
+  border-top: 1px solid var(--rule);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .historia-chapter { grid-template-columns: 1fr; }
+}
+
+.historia-chapter__year {
+  font-family: Cinzel, serif;
+  font-size: clamp(48px, 8vw, 88px);
+  color: rgba(11, 31, 58, 0.08);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.historia-chapter__label {
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+}
+
+.historia-chapter__title {
+  font-size: clamp(22px, 2.8vw, 32px);
+  color: var(--navy);
+  line-height: 1.2;
+  max-width: 14ch;
+}
+
+.historia-quote {
+  background: var(--beige-medio, #ede5d8);
+  padding: clamp(72px, 10vw, 120px) var(--pad-x);
+  border-top: 1px solid var(--rule);
+}
+
+.historia-quote__inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.historia-quote__text {
+  font-family: Cinzel, serif;
+  font-size: clamp(22px, 3.2vw, 34px);
+  color: var(--navy);
+  line-height: 1.45;
+  margin-bottom: 28px;
+}
+
+.historia-quote__attr {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.maison-cta-bar {
+  padding: 72px var(--pad-x);
+  text-align: center;
+  border-top: 1px solid var(--rule);
+  background: var(--marfil);
+}
+
+.maison-cta-bar__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px 40px;
+  margin-top: 24px;
+}
+
+.maison-cta-bar__links a {
+  font-family: Cinzel, serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.maison-cta-bar__links a:hover { border-bottom-color: var(--navy); }
+
+/* Colección — tabs Mujer / Hombre */
+.coleccion-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding: 0 var(--pad-x) 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--rule);
+  background: var(--marfil);
+}
+
+.coleccion-tab {
+  font-family: Cinzel, serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(11, 31, 58, 0.45);
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.coleccion-tab:hover,
+.coleccion-tab.is-active {
+  color: var(--navy);
+  border-bottom-color: var(--navy);
+}
+
+@media (max-width: 600px) {
+  .coleccion-tabs .coleccion-tab:last-child {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
+.category.is-filtered-out { display: none; }
+
+.category.is-filter-highlight {
+  scroll-margin-top: 120px;
+}
+
+.coleccion-filter-banner {
+  padding: 24px var(--pad-x) 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--marfil);
+}
+
+.coleccion-filter-banner p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
