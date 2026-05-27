@@ -168,7 +168,7 @@
           (hasGallery ? '<div class="pdp__dots" id="pdpDots"></div>' : '') +
         '</div>' +
         '<div class="pdp__info">' +
-          '<nav class="pdp-breadcrumb"><a href="/home.html">Inicio</a><span class="pdp-breadcrumb__sep">/</span><a href="/coleccion.html">Cuero</a><span class="pdp-breadcrumb__sep">/</span><span aria-current="page">' + esc(p.name) + '</span></nav>' +
+          '<nav class="pdp-breadcrumb"><a href="/home">Inicio</a><span class="pdp-breadcrumb__sep">/</span><a href="/coleccion">Colección</a><span class="pdp-breadcrumb__sep">/</span><span aria-current="page">' + esc(p.name) + '</span></nav>' +
           '<p class="pdp__label">Leather House · Medellín</p>' +
           '<h1 class="pdp__title">' + esc(p.name) + '</h1>' +
           '<p class="pdp__price" id="pdpPrice">' + formatCHF(p.basePrice) + '</p>' +
@@ -483,7 +483,7 @@
       window.addEventListener('scroll', syncBack, { passive: true });
       backBtn.addEventListener('click', function () {
         if (history.length > 1) history.back();
-        else location.href = '/coleccion.html';
+        else location.href = '/coleccion';
       });
     }
 

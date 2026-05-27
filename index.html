@@ -26,8 +26,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/account.css">
-
 <style>
   :root {
     --bg:     #F3EEE6;
@@ -292,6 +290,11 @@
     transition: opacity 0.75s var(--ease), fill-opacity 0.75s var(--ease);
   }
   .layer-region.on path { opacity: 1; fill-opacity: 0.72; }
+  .stage[data-flight="1"] .layer-inked path,
+  .stage[data-flight="1"] .layer-depts path,
+  .stage[data-flight="1"] .layer-region path,
+  .stage[data-flight="1"] .layer-decorative path,
+  .stage[data-flight="1"] .layer-decorative circle,
   .stage[data-flight="1"] .layer-graticule,
   .stage[data-flight="1"] .layer-world {
     transition: none !important;
@@ -515,7 +518,7 @@
   }
 </style>
 </head>
-<body class="intro-active" data-ov-popup="">
+<body class="intro-active">
 <div id="ov-cursor"></div>
 
     <header class="navbar" role="banner">
@@ -755,9 +758,10 @@
     lRegion.classList.toggle('on', mapVisual >= 3);
     lDeco.classList.remove('on');
 
-    const showPin = mapVisual >= 3 && pinEl.dataset.placed === '1';
+    const showPin = mapVisual >= 3 && mapVisual < 5 && pinEl.dataset.placed === '1';
     pinEl.classList.toggle('on', showPin);
-    if (!showPin) pinEl.classList.remove('deep');
+    if (mapVisual < 3) pinEl.classList.remove('on', 'deep');
+    if (mapVisual !== 5) pinEl.classList.remove('deep');
   }
 
   function setPinAt(lng, lat) {
@@ -898,7 +902,8 @@
   /* ─── Panel + dots + hint sync ───────────────────── */
   const tap = ('ontouchstart' in window) ? 'Toque' : 'Clic';
   const hints = [
-    `${tap} en el globo · Colombia`,
+    `${tap} en el globo`,
+    tap === 'Toque' ? 'Toque Colombia' : 'Haga clic en Colombia',
     `${tap} en Antioquia`,
     `${tap} en Guatapé`,
     ''
@@ -962,63 +967,41 @@
     stageEl.dataset.flight = '0';
   }
 
-  /* Mundo → Colombia → Antioquia → Guatapé → casa */
+  /* Mundo → Colombia → Antioquia → Guatapé → casa (3 clics · capas tras cada zoom) */
   async function toStage1() {
     if (spinTimer) spinTimer.stop();
     pinEl.dataset.placed = '0';
     pinEl.classList.remove('on', 'deep');
-    revealMap(2);
     await animate({
       rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 2.8,
       tiltTo: 2,
-      ms: 1400
+      ms: 1600
     });
     setStage(1);
+    revealMap(1);
     syncUI();
   }
 
   async function toStage2() {
-    revealMap(3);
     await animate({
       rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 5.5,
       tiltTo: 6,
-      ms: 1400
+      ms: 1600
     });
     setStage(2);
-    syncUI();
-  }
-
-  /* Un solo clic desde el globo: Colombia + departamentos + Antioquia */
-  async function fromGlobeToAntioquia() {
-    if (spinTimer) spinTimer.stop();
-    pinEl.dataset.placed = '0';
-    pinEl.classList.remove('on', 'deep');
     revealMap(2);
-    await animate({
-      rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
-      scaleTo: Math.min(W, H) * 2.8,
-      tiltTo: 2,
-      ms: 1400
-    });
-    revealMap(3);
-    await animate({
-      rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
-      scaleTo: Math.min(W, H) * 5.5,
-      tiltTo: 6,
-      ms: 1400
-    });
-    setStage(2);
     syncUI();
   }
 
   async function toStage3() {
-    revealMap(3);
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', +p.dataset.panel === 3));
+    const hintEl = document.getElementById('hintText');
     const hintWrap = document.getElementById('clickHint');
+    if (hintEl) hintEl.textContent = '';
     if (hintWrap) hintWrap.style.display = 'none';
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
@@ -1026,10 +1009,12 @@
       tiltTo: 8,
       ms: 1600
     });
+    revealMap(3);
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', +p.dataset.panel === 4));
     await animate({ scaleTo: Math.min(W, H) * 22, tiltTo: 14, ms: 1700 });
     setStage(3);
+    revealMap(4);
     syncUI();
   }
 
@@ -1041,7 +1026,7 @@
     setStage(0);
     revealMap(0);
     syncUI();
-    spinTimer = d3.timer(spinFrame);
+    if (!spinTimer) spinTimer = d3.timer(spinFrame);
   }
 
   async function runStage(fn) {
@@ -1056,10 +1041,10 @@
     e.preventDefault();
     e.stopPropagation();
     const now = Date.now();
-    if (busy || now - lastAdvanceAt < 700) return;
+    if (busy || now - lastAdvanceAt < 900) return;
     lastAdvanceAt = now;
     if (stage >= 3) return;
-    if (stage === 0) runStage(fromGlobeToAntioquia);
+    if (stage === 0) runStage(toStage1);
     else if (stage === 1) runStage(toStage2);
     else if (stage === 2) runStage(toStage3);
   });
@@ -1070,7 +1055,6 @@
     try {
       if (stage === 1) await resetAll();
       else if (stage === 2) {
-        revealMap(2);
         await animate({
           rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
           scaleTo: Math.min(W, H) * 2.8,
@@ -1078,10 +1062,10 @@
           ms: 1400
         });
         setStage(1);
+        revealMap(1);
         syncUI();
       } else if (stage === 3) {
         pinEl.classList.remove('on', 'deep');
-        revealMap(3);
         await animate({
           rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
           scaleTo: Math.min(W, H) * 5.5,
@@ -1089,6 +1073,7 @@
           ms: 1400
         });
         setStage(2);
+        revealMap(2);
         syncUI();
       }
     } finally {
@@ -1102,13 +1087,13 @@
   });
 
   document.getElementById('skipBtn').addEventListener('click', () => {
-    window.location.href = 'home.html';
+    window.location.href = '/home';
   });
 
   document.getElementById('enterBtn').addEventListener('click', () => {
     document.body.style.transition = 'opacity 1.1s ease';
     document.body.style.opacity = '0';
-    setTimeout(() => { window.location.href = 'home.html'; }, 1100);
+    setTimeout(() => { window.location.href = '/home'; }, 1100);
   });
 
   /* ─── Navbar hamburger ───────────────────────────── */
@@ -1166,7 +1151,5 @@
 
 })();
 </script>
-<script src="assets/js/launch-popup.js" defer></script>
-<script src="assets/js/account.js" defer></script>
 </body>
 </html>

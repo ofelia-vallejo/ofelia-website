@@ -141,9 +141,12 @@
   });
 })();
 
-/* Comercio · bolsa + drawer (carga en todas las páginas con brand.js) */
+/* Comercio · bolsa + drawer (no en intro del globo) */
 (function () {
   if (document.documentElement.hasAttribute('data-ov-commerce')) return;
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  if (path === '/' || /index\.html$/i.test(path)) return;
+  if (document.body && document.body.classList.contains('intro-active')) return;
   document.documentElement.setAttribute('data-ov-commerce', '');
 
   if (!document.querySelector('link[href*="cart.css"]')) {

@@ -98,7 +98,7 @@
       body.innerHTML =
         '<div class="ov-cart-empty">' +
           '<p>Tu bolsa está vacía.</p>' +
-          '<a href="' + esc(assetPath('coleccion.html')) + '">Ver colección →</a>' +
+          '<a href="/coleccion">Ver colección →</a>' +
         '</div>';
       if (foot) foot.hidden = true;
       return;

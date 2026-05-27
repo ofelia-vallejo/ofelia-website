@@ -57,7 +57,7 @@
     <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
     <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
-      <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
@@ -71,15 +71,14 @@
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
       <a href="/home.html" class="nav-panel__link">Inicio</a>
-      <a href="/home.html#mujer" class="nav-panel__link">Mujer</a>
-      <a href="/home.html#hombre" class="nav-panel__link">Hombre</a>
+      <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
       <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="/coleccion.html" class="nav-panel__link">Cuero</a>
-          <p class="nav-panel__group">Atelier</p>
-    <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
-    <a href="/cuenta.html" class="nav-panel__link">Cuenta</a>
-    <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/cuero.html" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -89,11 +88,11 @@
       <nav class="pdp-breadcrumb" aria-label="Migas de pan">
         <a href="/home.html">Inicio</a>
         <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
-        <a href="/coleccion.html">Cuero</a>
+        <a href="/coleccion">Colección</a>
         <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
         <span aria-current="page">Travel Bag</span>
       </nav>
-      <a href="/coleccion.html" class="product-line-hero__back">← Colección</a>
+      <a href="/coleccion" class="product-line-hero__back">← Colección</a>
       <p class="product-line-hero__label">Línea de viaje · Frutos de Antioquia</p>
       <h1 class="product-line-hero__title">Travel Bag</h1>
       <p class="product-line-hero__sub">
@@ -180,15 +179,15 @@
   <footer data-dark>
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="../assets/img/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
+        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo" class="foot__logo" width="72" height="48">
         <p class="foot__tag">Leather House · Medellín → Lausanne</p>
       </div>
       <nav class="foot__col" aria-label="Casa">
         <h4>Casa</h4>
         <ul>
-          <li><a href="/home.html#mujer">Mujer</a></li>
-          <li><a href="/home.html#hombre">Hombre</a></li>
-          <li><a href="/coleccion.html">Cuero</a></li>
+          <li><a href="/coleccion?cat=mujer">Mujer</a></li>
+          <li><a href="/coleccion?cat=hombre">Hombre</a></li>
+          <li><a href="/cuero.html">Cuero</a></li>
           <li><a href="/manifiesto.html">Historia</a></li>
         </ul>
       </nav>
@@ -196,14 +195,22 @@
         <h4>Atelier</h4>
         <ul>
           <li><a href="/personalizar.html">Personalizar</a></li>
-          <li><a href="/coleccion.html">Colección</a></li>
-          <li><a href="/cuenta.html">Cuenta</a></li>
+          <li><a href="/coleccion">Colección</a></li>
           <li><a href="/contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav class="foot__col" aria-label="Contacto">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/573005526208" target="_blank" rel="noopener noreferrer">WhatsApp · Pedidos</a></li>
+          <li><a href="https://www.instagram.com/ofeliavallejoatelier/" target="_blank" rel="noopener noreferrer">@ofeliavallejoatelier</a></li>
+          <li><a href="mailto:hola@ofeliavallejo.com">hola@ofeliavallejo.com</a></li>
         </ul>
       </nav>
     </div>
     <div class="foot__bottom">
       <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
+      <span><a href="/contacto.html">Privacidad</a> · <a href="/contacto.html">Términos</a></span>
     </div>
   </footer>
   <script src="../assets/js/brand.js"></script>

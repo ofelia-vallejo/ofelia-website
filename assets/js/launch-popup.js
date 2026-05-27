@@ -83,7 +83,7 @@
               '<button type="button" class="ov-launch-coupon__copy" id="ovLaunchCopyBtn">Copiar</button>' +
             '</div>' +
             '<p class="ov-modal__sub">Preséntalo al consultar por WhatsApp o en tu pedido. Válido en lanzamiento de temporada.</p>' +
-            '<a href="' + assetPath('coleccion.html') + '" class="ov-modal__submit ov-launch-cta">Ver colección →</a>' +
+            '<a href="/coleccion" class="ov-modal__submit ov-launch-cta">Ver colección →</a>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -200,6 +200,7 @@
 
   function maybeAutoPopup() {
     if (!document.body.hasAttribute('data-ov-popup')) return;
+    if (document.body.classList.contains('intro-active')) return;
     if (isSubscribed()) return;
     const until = parseInt(localStorage.getItem(KEY_POPUP) || '0', 10);
     if (Date.now() < until) return;

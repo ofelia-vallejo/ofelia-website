@@ -4,6 +4,8 @@
     { "source": "/producto/:slug", "destination": "/producto/index.html?slug=:slug" }
   ],
   "redirects": [
+    { "source": "/coleccion.html", "destination": "/coleccion", "permanent": true },
+    { "source": "/home.html", "destination": "/home", "permanent": true },
     { "source": "/producto/travel-bag-i.html", "destination": "/producto/travel-bag-i", "permanent": true },
     { "source": "/producto/travel-bag-ii.html", "destination": "/producto/travel-bag-ii", "permanent": true },
     { "source": "/producto/travel-bag-iii.html", "destination": "/producto/travel-bag-iii", "permanent": true },
