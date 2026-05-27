@@ -5,6 +5,7 @@ node_modules/
 .DS_Store
 .vercel
 public/uploads/
+data/newsletter.json
 
 # Local Netlify folder
 .netlify

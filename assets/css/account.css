@@ -177,6 +177,77 @@
 .ov-modal__panel { display: none; }
 .ov-modal__panel.is-active { display: block; }
 
+/* ── Popup lanzamiento · solo correo + cupón ─────────── */
+.ov-launch-modal .ov-modal__body { justify-content: center; }
+
+.ov-launch-discount {
+  font-family: Cinzel, serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vino);
+  margin-bottom: 20px;
+}
+
+.ov-launch-coupon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 20px 22px;
+  margin-bottom: 24px;
+  background: var(--marfil);
+  border: 1px solid rgba(11, 31, 58, 0.12);
+}
+
+.ov-launch-coupon__label {
+  width: 100%;
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(11, 31, 58, 0.45);
+}
+
+.ov-launch-coupon__code {
+  font-family: Cinzel, serif;
+  font-size: clamp(20px, 3vw, 26px);
+  letter-spacing: 0.14em;
+  color: var(--navy);
+  flex: 1;
+  min-width: 0;
+}
+
+.ov-launch-coupon__copy {
+  padding: 10px 18px;
+  border: 1px solid var(--navy);
+  background: transparent;
+  font-family: Cinzel, serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy);
+  transition: background 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.ov-launch-coupon__copy:hover {
+  background: var(--navy);
+  color: var(--marfil);
+}
+
+.ov-launch-cta {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.ov-launch-success .ov-modal__sub { margin-bottom: 0; }
+
+html[data-accounts='off'] .atelier-gate,
+html[data-accounts='off'] .atelier-desk {
+  display: none !important;
+}
+
 .ov-modal__form {
   display: flex;
   flex-direction: column;

@@ -122,3 +122,14 @@ CREATE TABLE IF NOT EXISTS personalization_requests (
 CREATE INDEX IF NOT EXISTS idx_customers_email ON customers(email);
 CREATE INDEX IF NOT EXISTS idx_personalization_ref ON personalization_requests(ref);
 CREATE INDEX IF NOT EXISTS idx_personalization_customer ON personalization_requests(customer_id);
+
+-- Lista de correo · cupón lanzamiento (sin cuenta)
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+  id TEXT PRIMARY KEY,
+  email TEXT NOT NULL UNIQUE,
+  coupon_code TEXT NOT NULL DEFAULT 'OV-TEMPORADA',
+  source TEXT NOT NULL DEFAULT 'launch_popup',
+  subscribed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_newsletter_email ON newsletter_subscribers(email);

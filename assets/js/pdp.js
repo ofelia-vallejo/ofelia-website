@@ -196,6 +196,7 @@
               '<p class="pdp__engrave-note">Confirmación del atelier · 24–48 h</p>' +
             '</section>'
           ) : '') +
+          '<button type="button" class="pdp__cta-primary" id="pdpAddCart"' + (stock <= 0 ? ' disabled' : '') + ' hidden>Añadir a la bolsa</button>' +
           '<button type="button" class="pdp__cta-primary pdp__cta-pay" id="pdpBuy"' + (stock <= 0 ? ' disabled' : '') + '>Consultar por WhatsApp</button>' +
           '<a href="#" class="pdp__cta-primary" id="pdpCtaPersonalizar" style="margin-top:12px;background:transparent;border:1px solid var(--navy);color:var(--navy)">Personalizar · estudio</a>' +
           '<p class="pdp__cta-secondary" id="pdpPayNote" style="margin-top:10px;font-size:10px;opacity:0.5"></p>' +
@@ -226,9 +227,42 @@
     const engravePreviewText = document.getElementById('pdpEngravePreviewText');
     const leatherGrad = document.getElementById('pdpLeatherGrad');
     const buyBtn = document.getElementById('pdpBuy');
+    const addCartBtn = document.getElementById('pdpAddCart');
     const payNote = document.getElementById('pdpPayNote');
     const ctaPers = document.getElementById('pdpCtaPersonalizar');
     let activeThumbIndex = 0;
+
+    function findVariantForColor(colorKey) {
+      const variants = product.variants || [];
+      if (!variants.length) return null;
+      return (
+        variants.find(function (v) {
+          return v.colorKey === colorKey || v.id === colorKey;
+        }) || variants[0]
+      );
+    }
+
+    function currentLinePayload() {
+      const variant = findVariantForColor(currentColor);
+      const cd = colorData[currentColor] || {};
+      const texto = engraveInput ? engraveInput.value.trim() : '';
+      const hero =
+        (cd.images && cd.images[0]) ||
+        (product.images && product.images[0] && product.images[0].url) ||
+        '';
+      return {
+        slug: product.slug,
+        variantId: variant ? variant.id || variant.colorKey || '' : currentColor,
+        variantLabel: cd.label || (variant && variant.colorName) || '',
+        productName: product.name,
+        image: imgUrl(hero),
+        sku: variant && variant.sku ? variant.sku : '',
+        quantity: 1,
+        basePrice: Number(product.basePrice) || 0,
+        engravePrice: Number(product.engravePrice) || 0,
+        engraveText: texto,
+      };
+    }
 
     function crossfadeImage(img, nextSrc, nextAlt, done) {
       if (!img) { if (done) done(); return; }
@@ -373,11 +407,43 @@
     }
 
     function updateBuyLabel() {
-      if (!buyBtn || stock <= 0) return;
+      if (stock <= 0) return;
       const t = engraveInput && engraveInput.value.trim();
       const total = Number(product.basePrice) + (t ? engraveExtra : 0);
-      buyBtn.textContent = 'Consultar por WhatsApp · ' + formatCHF(total);
+      if (buyBtn) buyBtn.textContent = 'Consultar por WhatsApp · ' + formatCHF(total);
+      if (addCartBtn && !addCartBtn.hidden) {
+        addCartBtn.textContent = 'Añadir a la bolsa · ' + formatCHF(total);
+      }
     }
+
+    async function setupStripeCommerce() {
+      if (!window.OVCart) return;
+      await OVCart.fetchStripeConfig();
+      if (!OVCart.isStripeEnabled() || stock <= 0) return;
+      if (addCartBtn) {
+        addCartBtn.hidden = false;
+        addCartBtn.classList.add('pdp__cta-primary');
+      }
+      if (buyBtn) {
+        buyBtn.classList.remove('pdp__cta-primary');
+        buyBtn.classList.add('pdp__cta-whatsapp');
+        buyBtn.style.marginTop = '12px';
+      }
+      if (payNote) {
+        payNote.textContent = 'Pago seguro con tarjeta en checkout · o consulta por WhatsApp.';
+      }
+    }
+
+    if (addCartBtn && stock > 0) {
+      addCartBtn.addEventListener('click', function () {
+        if (!window.OVCart) return;
+        OVCart.addLine(currentLinePayload());
+        if (window.OVCartUI) OVCartUI.open();
+        else if (payNote) payNote.textContent = 'Añadido a la bolsa.';
+      });
+    }
+
+    setupStripeCommerce();
 
     if (buyBtn && stock > 0) {
       buyBtn.addEventListener('click', async function () {
@@ -389,22 +455,24 @@
         buyBtn.textContent = 'Abriendo WhatsApp…';
         const texto = engraveInput ? engraveInput.value.trim() : '';
         const total = Number(product.basePrice) + (texto ? engraveExtra : 0);
-        const res = await window.OVWhatsApp.open({
-          nombre: 'Consulta web',
-          email: '',
+        const colorLabel = colorData[currentColor] && colorData[currentColor].label
+          ? colorData[currentColor].label
+          : currentColor;
+        const res = await window.OVWhatsApp.openOrder({
           producto: product.name,
-          tipo_grabado: texto && texto.length <= 3 ? 'iniciales' : 'nombre',
-          texto_grabado: texto || 'Sin grabado',
-          mensaje: 'Color: ' + currentColor + '\nConsulta de compra desde la ficha de producto.',
+          color: colorLabel,
           total_estimated: String(total),
+          texto_grabado: texto,
         });
-        if (!res.ok && payNote) payNote.textContent = res.error;
+        if (!res.ok && payNote) payNote.textContent = res.error || '';
         buyBtn.disabled = false;
         updateBuyLabel();
       });
     }
 
-    if (payNote) payNote.textContent = 'Compra por WhatsApp · confirmación del atelier.';
+    if (payNote && payNote.textContent === '') {
+      payNote.textContent = 'Compra por WhatsApp · confirmación del atelier.';
+    }
 
     const backBtn = document.getElementById('pdpBack');
     if (backBtn) {

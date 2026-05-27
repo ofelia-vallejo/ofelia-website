@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="assets/css/brand.css">
   <link rel="stylesheet" href="assets/css/mobile.css">
   <link rel="stylesheet" href="assets/css/maison.css">
+  <link rel="stylesheet" href="assets/css/account.css">
   <style>
     /* PAGE HERO */
     .page-hero {
@@ -109,8 +110,39 @@
     /* CARD */
     .card {
       background: var(--marfil);
-      display: block;
+      display: flex;
+      flex-direction: column;
     }
+
+    .card__link {
+      display: block;
+      flex: 1;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card__add-cart {
+      display: block;
+      width: calc(100% - var(--pad-x) * 2);
+      margin: 0 var(--pad-x) 24px;
+      padding: 12px 16px;
+      border: 1px solid var(--navy);
+      background: transparent;
+      font-family: Cinzel, serif;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--navy);
+      cursor: pointer;
+      transition: background 0.35s var(--ease), color 0.35s var(--ease);
+    }
+
+    .card__add-cart:hover {
+      background: var(--navy);
+      color: var(--marfil);
+    }
+
+    .card__add-cart[hidden] { display: none; }
 
     .card__img {
       position: relative;
@@ -337,7 +369,7 @@
     }
   </style>
 </head>
-<body>
+<body data-ov-popup="">
 
   <div id="cursor" aria-hidden="true"></div>
 
@@ -432,9 +464,10 @@
           <li><a href="/contacto.html">Contacto</a></li>
         </ul>
       </nav>
-      <nav class="foot__col" aria-label="Redes">
-        <h4>Redes</h4>
+      <nav class="foot__col" aria-label="Contacto">
+        <h4>Contacto</h4>
         <ul>
+          <li><a href="https://wa.me/573005526208" target="_blank" rel="noopener noreferrer">WhatsApp · Pedidos</a></li>
           <li><a href="https://www.instagram.com/ofeliavallejoatelier/" target="_blank" rel="noopener noreferrer">@ofeliavallejoatelier</a></li>
           <li><a href="mailto:hola@ofeliavallejo.com">hola@ofeliavallejo.com</a></li>
         </ul>
@@ -451,6 +484,7 @@
   </footer>
 
   <script src="assets/js/brand.js"></script>
+  <script src="assets/js/launch-popup.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
   <script src="assets/js/coleccion-render.js" defer></script>
   <script src="assets/js/account.js" defer></script>

@@ -26,6 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/account.css">
 
 <style>
   :root {
@@ -291,11 +292,6 @@
     transition: opacity 0.75s var(--ease), fill-opacity 0.75s var(--ease);
   }
   .layer-region.on path { opacity: 1; fill-opacity: 0.72; }
-  .stage[data-flight="1"] .layer-inked path,
-  .stage[data-flight="1"] .layer-depts path,
-  .stage[data-flight="1"] .layer-region path,
-  .stage[data-flight="1"] .layer-decorative path,
-  .stage[data-flight="1"] .layer-decorative circle,
   .stage[data-flight="1"] .layer-graticule,
   .stage[data-flight="1"] .layer-world {
     transition: none !important;
@@ -519,7 +515,7 @@
   }
 </style>
 </head>
-<body class="intro-active">
+<body class="intro-active" data-ov-popup="">
 <div id="ov-cursor"></div>
 
     <header class="navbar" role="banner">
@@ -759,7 +755,7 @@
     lRegion.classList.toggle('on', mapVisual >= 3);
     lDeco.classList.remove('on');
 
-    const showPin = mapVisual === 3 && pinEl.dataset.placed === '1';
+    const showPin = mapVisual >= 3 && pinEl.dataset.placed === '1';
     pinEl.classList.toggle('on', showPin);
     if (!showPin) pinEl.classList.remove('deep');
   }
@@ -1004,16 +1000,14 @@
       rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 2.8,
       tiltTo: 2,
-      ms: 1300
+      ms: 1400
     });
-    setStage(1);
-    syncUI();
     revealMap(3);
     await animate({
       rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0],
       scaleTo: Math.min(W, H) * 5.5,
       tiltTo: 6,
-      ms: 1300
+      ms: 1400
     });
     setStage(2);
     syncUI();
@@ -1032,10 +1026,8 @@
       tiltTo: 8,
       ms: 1600
     });
-    revealMap(3);
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', +p.dataset.panel === 4));
-    revealMap(4);
     await animate({ scaleTo: Math.min(W, H) * 22, tiltTo: 14, ms: 1700 });
     setStage(3);
     syncUI();
@@ -1049,7 +1041,7 @@
     setStage(0);
     revealMap(0);
     syncUI();
-    if (!spinTimer) spinTimer = d3.timer(spinFrame);
+    spinTimer = d3.timer(spinFrame);
   }
 
   async function runStage(fn) {
@@ -1174,5 +1166,7 @@
 
 })();
 </script>
+<script src="assets/js/launch-popup.js" defer></script>
+<script src="assets/js/account.js" defer></script>
 </body>
 </html>

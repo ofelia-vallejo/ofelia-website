@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" data-accounts="off">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Checkout — Ofelia Vallejo</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/brand.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
+  <link rel="stylesheet" href="assets/css/cart.css">
+</head>
+<body>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar" role="banner">
+    <div class="navbar__left" aria-hidden="true"></div>
+    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    </a>
+    <div class="navbar__right">
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <div class="nav-panel__links">
+      <p class="nav-panel__group">Casa</p>
+      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
+      <a href="/coleccion.html" class="nav-panel__link">Colección</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
+  </nav>
+
+  <main id="main-content" class="checkout-page">
+    <div id="checkoutEmpty" class="checkout-empty" hidden>
+      <p>Tu bolsa está vacía.</p>
+      <p style="margin-top:24px"><a href="/coleccion.html">Ver colección →</a></p>
+    </div>
+
+    <div id="checkoutWrap" class="checkout-layout" hidden>
+      <section class="checkout-main" aria-labelledby="checkoutTitle">
+        <p class="checkout-step">Paso 1 · Contacto</p>
+        <h1 class="checkout-title" id="checkoutTitle">Checkout</h1>
+
+        <div id="checkoutCanceled" hidden style="margin-bottom:24px;padding:14px 16px;border:1px solid var(--vino);color:var(--vino);font-size:13px;font-weight:300">
+          El pago no se completó. Tu bolsa sigue guardada.
+        </div>
+
+        <form id="checkoutForm" novalidate>
+          <div class="checkout-field">
+            <label for="checkoutEmail">Correo electrónico</label>
+            <input type="email" id="checkoutEmail" name="email" autocomplete="email" required placeholder="nombre@ejemplo.com">
+          </div>
+          <div class="checkout-field">
+            <label for="checkoutName">Nombre (opcional)</label>
+            <input type="text" id="checkoutName" name="name" autocomplete="name" placeholder="Para el envío">
+          </div>
+        </form>
+
+        <p class="checkout-step" style="margin-top:32px">Paso 2 · Pago</p>
+        <p style="font-size:14px;font-weight:300;color:var(--text-soft);line-height:1.75;max-width:420px;margin:0 0 8px">
+          Dirección de envío y tarjeta en la pasarela segura de Stripe — el mismo flujo que usan las tiendas Shopify para pagos.
+        </p>
+
+        <div class="checkout-trust">
+          <p>Pago cifrado · CHF · Confirmación del atelier antes de grabar.</p>
+          <p style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.6">Stripe · Visa · Mastercard · Apple Pay</p>
+        </div>
+      </section>
+
+      <aside class="checkout-aside" aria-label="Resumen del pedido">
+        <p class="checkout-aside__title">Resumen</p>
+        <div id="checkoutSummary"></div>
+        <div class="checkout-summary-total">
+          <span>Total</span>
+          <span id="checkoutTotal">CHF 0</span>
+        </div>
+        <button type="button" class="checkout-pay-btn" id="checkoutPayBtn">Pagar con tarjeta →</button>
+        <p class="checkout-notice" id="checkoutNotice" aria-live="polite"></p>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/js/brand.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/cart-ui.js"></script>
+  <script src="assets/js/checkout-page.js" defer></script>
+</body>
+</html>

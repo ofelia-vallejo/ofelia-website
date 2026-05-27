@@ -140,3 +140,24 @@
     if (e.key === 'Escape' && panel.classList.contains('is-open')) close();
   });
 })();
+
+/* Comercio · bolsa + drawer (carga en todas las páginas con brand.js) */
+(function () {
+  if (document.documentElement.hasAttribute('data-ov-commerce')) return;
+  document.documentElement.setAttribute('data-ov-commerce', '');
+
+  if (!document.querySelector('link[href*="cart.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/assets/css/cart.css';
+    document.head.appendChild(link);
+  }
+
+  ['cart.js', 'cart-ui.js'].forEach((file) => {
+    if (document.querySelector('script[src*="' + file + '"]')) return;
+    const el = document.createElement('script');
+    el.src = '/assets/js/' + file;
+    el.defer = true;
+    document.body.appendChild(el);
+  });
+})();

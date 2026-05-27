@@ -8,8 +8,8 @@
 
   /* Categorías visibles al filtrar por género en el menú */
   const FILTER_GROUPS = {
-    mujer: ['mujer', 'morrales'],
-    hombre: ['hombre', 'bandoleras'],
+    mujer: ['mujer', 'morrales', 'bandoleras', 'accesorios'],
+    hombre: ['hombre', 'bandoleras', 'accesorios'],
   };
 
   const PROMOS = [
@@ -116,22 +116,54 @@
     }
 
     const stock = opts.stock != null ? opts.stock : 0;
+    const cart = opts.cartPayload;
+    const addCartBtn =
+      cart && stock > 0
+        ? '<button type="button" class="card__add-cart" hidden data-ov-add-cart ' +
+            'data-slug="' + esc(cart.slug) + '" ' +
+            'data-variant-id="' + esc(cart.variantId || '') + '" ' +
+            'data-variant-label="' + esc(cart.variantLabel || '') + '" ' +
+            'data-product-name="' + esc(cart.productName || opts.name) + '" ' +
+            'data-image="' + esc(cart.image || opts.image || '') + '" ' +
+            'data-sku="' + esc(cart.sku || '') + '" ' +
+            'data-base-price="' + esc(String(cart.basePrice || 0)) + '" ' +
+            'data-engrave-price="' + esc(String(cart.engravePrice || 0)) + '" ' +
+            '>Añadir a la bolsa</button>'
+        : '';
 
     return (
-      '<a href="' + esc(opts.href) + '" class="card" id="' + esc(opts.id) + '">' +
-        '<div class="card__img' + wide + '" data-dark>' +
-          numeral +
-          badge +
-          media +
-        '</div>' +
-        '<div class="card__info">' +
-          '<p class="card__name">' + esc(opts.name) + '</p>' +
-          '<p class="card__detail">' + esc(opts.detail) + '</p>' +
-          priceBlock(opts.product || { basePrice: 0, engravePrice: 0, lowStockAt: 2 }, stock) +
-          '<span class="card__cta">' + esc(opts.cta || 'Conocer más →') + '</span>' +
-        '</div>' +
-      '</a>'
+      '<article class="card" id="' + esc(opts.id) + '">' +
+        '<a href="' + esc(opts.href) + '" class="card__link">' +
+          '<div class="card__img' + wide + '" data-dark>' +
+            numeral +
+            badge +
+            media +
+          '</div>' +
+          '<div class="card__info">' +
+            '<p class="card__name">' + esc(opts.name) + '</p>' +
+            '<p class="card__detail">' + esc(opts.detail) + '</p>' +
+            priceBlock(opts.product || { basePrice: 0, engravePrice: 0, lowStockAt: 2 }, stock) +
+            '<span class="card__cta">' + esc(opts.cta || 'Conocer más →') + '</span>' +
+          '</div>' +
+        '</a>' +
+        addCartBtn +
+      '</article>'
     );
+  }
+
+  function cartPayloadFor(p, variant) {
+    if (!p || !p.slug) return null;
+    const v = variant || (p.variants && p.variants[0]) || null;
+    return {
+      slug: p.slug,
+      variantId: v ? v.id || v.colorKey || '' : '',
+      variantLabel: v ? v.colorName || '' : '',
+      productName: p.name,
+      image: v ? heroForVariant(p, v) : heroForProduct(p),
+      sku: v && v.sku ? v.sku : '',
+      basePrice: Number(p.basePrice) || 0,
+      engravePrice: Number(p.engravePrice) || 0,
+    };
   }
 
   function expandProductCards(p) {
@@ -153,6 +185,7 @@
           wide: p.collectionWide === true,
           stock: stock,
           product: p,
+          cartPayload: cartPayloadFor(p, v),
           cta: stock <= 0 ? 'Solicitar →' : 'Conocer más →',
         });
       });
@@ -175,6 +208,7 @@
       wide: p.collectionWide === true,
       stock: stock,
       product: p,
+      cartPayload: cartPayloadFor(p, firstVariant),
       cta: stock <= 0 ? 'Solicitar →' : 'Conocer más →',
     });
     return cards;
@@ -286,6 +320,33 @@
     });
   }
 
+  async function bindCollectionCart() {
+    if (!window.OVCart) return;
+    await OVCart.fetchStripeConfig();
+    const show = OVCart.isStripeEnabled();
+    root.querySelectorAll('[data-ov-add-cart]').forEach(function (btn) {
+      btn.hidden = !show;
+      if (!show || btn.dataset.ovBound) return;
+      btn.dataset.ovBound = '1';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        OVCart.addLine({
+          slug: btn.getAttribute('data-slug'),
+          variantId: btn.getAttribute('data-variant-id'),
+          variantLabel: btn.getAttribute('data-variant-label'),
+          productName: btn.getAttribute('data-product-name'),
+          image: btn.getAttribute('data-image'),
+          sku: btn.getAttribute('data-sku'),
+          basePrice: Number(btn.getAttribute('data-base-price')) || 0,
+          engravePrice: Number(btn.getAttribute('data-engrave-price')) || 0,
+          quantity: 1,
+        });
+        if (window.OVCartUI) OVCartUI.open();
+      });
+    });
+  }
+
   function syncUrl(filter) {
     const wantSearch = filter ? '?cat=' + filter : '';
     if (location.search !== wantSearch) {
@@ -317,6 +378,8 @@
 
       syncUrl(filter);
       scrollToFilter(filter ? (FILTER_GROUPS[filter] || [filter])[0] : null);
+
+      await bindCollectionCart();
 
       if (window.IntersectionObserver) {
         root.querySelectorAll('.reveal').forEach((el) => {

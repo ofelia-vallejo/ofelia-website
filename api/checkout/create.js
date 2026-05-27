@@ -1,12 +1,37 @@
 const Stripe = require('stripe');
 const { corsJson } = require('../../lib/auth');
 const { loadCatalog, findProduct, totalInventory } = require('../../lib/store');
+const { buildStripeLineItems } = require('../../lib/build-stripe-lines');
 const { createOrder } = require('../../lib/postgres');
 
 const SITE_URL = process.env.SITE_URL || 'https://ofeliavallejo.com';
 
 function generateOrderId() {
   return 'OV-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+}
+
+function normalizeItems(body) {
+  if (Array.isArray(body.items) && body.items.length) {
+    return body.items.map((it) => ({
+      slug: it.slug,
+      variantId: it.variantId || it.variant_id || '',
+      quantity: it.quantity,
+      engraveText: it.engraveText || it.engrave_text || '',
+      engraveEnabled: it.engraveEnabled ?? it.engrave_enabled,
+    }));
+  }
+  if (body.slug) {
+    return [
+      {
+        slug: body.slug,
+        variantId: body.variantId || body.variant_id || '',
+        quantity: 1,
+        engraveText: body.engraveText || '',
+        engraveEnabled: body.engraveEnabled,
+      },
+    ];
+  }
+  return [];
 }
 
 module.exports = async (req, res) => {
@@ -22,78 +47,42 @@ module.exports = async (req, res) => {
     return res.status(503).json({ ok: false, error: 'Pasarela de pago no configurada.' });
   }
 
-  const {
-    slug,
-    variantId,
-    engraveText,
-    engraveEnabled,
-    customerEmail,
-    customerName,
-  } = req.body || {};
+  const body = req.body || {};
+  const items = normalizeItems(body);
+  const { customerEmail, customerName } = body;
 
-  if (!slug) {
-    return res.status(400).json({ ok: false, error: 'slug requerido.' });
+  if (!items.length) {
+    return res.status(400).json({ ok: false, error: 'El carrito está vacío.' });
   }
 
   try {
     const catalog = await loadCatalog();
-    const product = findProduct(catalog, slug);
-    if (!product || !product.active) {
-      return res.status(404).json({ ok: false, error: 'Producto no encontrado.' });
-    }
-
-    const stock = totalInventory(product);
-    if (stock <= 0) {
-      return res.status(400).json({ ok: false, error: 'Producto agotado.' });
-    }
-
-    const withEngrave = Boolean(engraveEnabled && engraveText && engraveText.trim());
-    const baseCents = Math.round(Number(product.basePrice) || 0) * 100;
-    const engraveCents = withEngrave ? Math.round(Number(product.engravePrice) || 0) * 100 : 0;
-
-    const lineItems = [
-      {
-        price_data: {
-          currency: 'chf',
-          unit_amount: baseCents,
-          product_data: {
-            name: product.name,
-            description: product.shortDescription || 'Cuero colombiano · Ofelia Vallejo',
-            images: product.images && product.images[0] ? [absUrl(product.images[0].url)] : [],
-          },
-        },
-        quantity: 1,
-      },
-    ];
-
-    if (engraveCents > 0) {
-      lineItems.push({
-        price_data: {
-          currency: 'chf',
-          unit_amount: engraveCents,
-          product_data: {
-            name: 'Grabado láser · ' + (engraveText.trim().slice(0, 24)),
-            description: 'Servicio adicional de personalización CO₂',
-          },
-        },
-        quantity: 1,
-      });
-    }
+    const { stripeLines, orderLines, totalChf } = buildStripeLineItems(catalog, items);
 
     const orderId = generateOrderId();
     const stripe = new Stripe(secret, { apiVersion: '2024-11-20.acacia' });
 
+    const firstSlug = items[0].slug;
+    const firstProduct = findProduct(catalog, firstSlug);
+    const cancelPath =
+      items.length === 1 && firstProduct
+        ? `/producto/${firstProduct.slug}`
+        : '/checkout?canceled=1';
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       customer_email: customerEmail || undefined,
-      line_items: lineItems,
+      line_items: stripeLines,
       success_url: `${SITE_URL}/gracias?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${SITE_URL}/producto/${product.slug}`,
+      cancel_url: `${SITE_URL}${cancelPath}`,
       metadata: {
         order_id: orderId,
-        product_id: product.id,
-        variant_id: variantId || '',
-        engrave_text: withEngrave ? engraveText.trim().slice(0, 60) : '',
+        item_count: String(items.length),
+        engrave_text: items
+          .map((i) => (i.engraveText && String(i.engraveText).trim()) || '')
+          .filter(Boolean)
+          .join(' | ')
+          .slice(0, 500),
       },
       shipping_address_collection: {
         allowed_countries: ['CH', 'DE', 'FR', 'IT', 'ES', 'GB', 'CO', 'US'],
@@ -102,21 +91,21 @@ module.exports = async (req, res) => {
 
     if (process.env.DATABASE_URL) {
       try {
-      await createOrder({
-        id: orderId,
-        stripeSessionId: session.id,
-        status: 'pending',
-        customerEmail: customerEmail || null,
-        customerName: customerName || null,
-        productId: product.id,
-        variantId: variantId || null,
-        totalChf: Math.round((baseCents + engraveCents) / 100),
-        lineItems: lineItems.map((li) => ({
-          name: li.price_data.product_data.name,
-          amount: li.price_data.unit_amount,
-        })),
-        engraveConfig: withEngrave ? { text: engraveText.trim() } : {},
-      });
+        const primary = orderLines[0];
+        await createOrder({
+          id: orderId,
+          stripeSessionId: session.id,
+          status: 'pending',
+          customerEmail: customerEmail || null,
+          customerName: customerName || null,
+          productId: primary ? primary.productId : null,
+          variantId: primary ? primary.variantId : null,
+          totalChf,
+          lineItems: orderLines,
+          engraveConfig: orderLines
+            .filter((l) => l.engrave)
+            .map((l) => ({ slug: l.slug, text: l.engrave.text })),
+        });
       } catch (dbErr) {
         console.warn('[checkout] order db:', dbErr.message);
       }
@@ -129,13 +118,13 @@ module.exports = async (req, res) => {
       orderId,
     });
   } catch (err) {
+    if (err.code === 'PRODUCT_NOT_FOUND') {
+      return res.status(404).json({ ok: false, error: err.message });
+    }
+    if (err.code === 'OUT_OF_STOCK') {
+      return res.status(400).json({ ok: false, error: err.message });
+    }
     console.error('[checkout/create]', err);
     return res.status(500).json({ ok: false, error: 'No se pudo iniciar el pago.' });
   }
 };
-
-function absUrl(path) {
-  if (!path) return '';
-  if (path.startsWith('http')) return path;
-  return SITE_URL + (path.startsWith('/') ? path : '/' + path);
-}
