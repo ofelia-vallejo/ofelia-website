@@ -1,4 +1,11 @@
 {
+  "installCommand": "npm install --omit=dev",
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 30,
+      "excludeFiles": "{imagenes base/**,videos base/**,graphify-out/**,memory/**,scripts/**,producto/_archive/**,Home v6.html,.git/**}"
+    }
+  },
   "cleanUrls": true,
   "rewrites": [
     { "source": "/producto/:slug", "destination": "/producto/index.html?slug=:slug" }

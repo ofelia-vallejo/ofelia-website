@@ -8,9 +8,6 @@
     "postgres": "^3.4.5",
     "stripe": "^17.7.0"
   },
-  "devDependencies": {
-    "netlify-cli": "^26.0.2"
-  },
   "scripts": {
     "dev": "STORE_MODE=file npx vercel dev",
     "seed:catalog": "node scripts/seed-catalog.js",

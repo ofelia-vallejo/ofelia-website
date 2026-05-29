@@ -1,6 +1,22 @@
+# No subir a Vercel (reduce tamaño y evita fallos de build)
+node_modules/
+.claude/
+.codex/
+.cursor/
+.env
+.env.local
+.DS_Store
+.vercel
+public/uploads/
+data/newsletter.json
+.netlify
+
+# Medios de referencia / dev (el sitio usa imagenes nuevas/ en repo)
 imagenes base/
-assets/img/inicio/
-assets/img/producto/
-assets/img/lifestyle/
-assets/img/cuero/
-assets/img/nuevas/
+videos base/
+graphify-out/
+memory/
+scripts/
+
+# Duplicados y archivos locales
+Home v6.html
