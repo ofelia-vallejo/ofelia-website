@@ -232,6 +232,20 @@
     const ctaPers = document.getElementById('pdpCtaPersonalizar');
     let activeThumbIndex = 0;
 
+    function priceForVariant(variant) {
+      if (variant && variant.priceCHF != null && variant.priceCHF !== '') {
+        return Number(variant.priceCHF) || 0;
+      }
+      return Number(product.basePrice) || 0;
+    }
+
+    function refreshPriceDisplay() {
+      const v = findVariantForColor(currentColor);
+      const price = priceForVariant(v);
+      const priceEl = document.getElementById('pdpPrice');
+      if (priceEl) priceEl.textContent = formatCHF(price);
+    }
+
     function findVariantForColor(colorKey) {
       const variants = product.variants || [];
       if (!variants.length) return null;
@@ -258,7 +272,7 @@
         image: imgUrl(hero),
         sku: variant && variant.sku ? variant.sku : '',
         quantity: 1,
-        basePrice: Number(product.basePrice) || 0,
+        basePrice: priceForVariant(variant),
         engravePrice: Number(product.engravePrice) || 0,
         engraveText: texto,
       };
@@ -332,6 +346,7 @@
         sw.classList.toggle('is-active', on);
       });
       setGalleryForColor(colorKey, 0);
+      refreshPriceDisplay();
       history.replaceState(null, '', '#' + colorKey);
     }
 
@@ -409,7 +424,7 @@
     function updateBuyLabel() {
       if (stock <= 0) return;
       const t = engraveInput && engraveInput.value.trim();
-      const total = Number(product.basePrice) + (t ? engraveExtra : 0);
+      const total = priceForVariant(findVariantForColor(currentColor)) + (t ? engraveExtra : 0);
       if (buyBtn) buyBtn.textContent = 'Consultar por WhatsApp · ' + formatCHF(total);
       if (addCartBtn && !addCartBtn.hidden) {
         addCartBtn.textContent = 'Añadir a la bolsa · ' + formatCHF(total);
@@ -454,7 +469,7 @@
         buyBtn.disabled = true;
         buyBtn.textContent = 'Abriendo WhatsApp…';
         const texto = engraveInput ? engraveInput.value.trim() : '';
-        const total = Number(product.basePrice) + (texto ? engraveExtra : 0);
+        const total = priceForVariant(findVariantForColor(currentColor)) + (texto ? engraveExtra : 0);
         const colorLabel = colorData[currentColor] && colorData[currentColor].label
           ? colorData[currentColor].label
           : currentColor;

@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS product_variants (
   color_hex TEXT DEFAULT '',
   color_key TEXT DEFAULT '',
   inventory INT NOT NULL DEFAULT 0,
+  price_chf INT,
   sort_order INT NOT NULL DEFAULT 0
 );
 

@@ -305,3 +305,80 @@ ofelia vallejo/
 ---
 
 *Última actualización: 2026-05-26 — Logos alineados (2 fuente + 3 web), PDP dinámico, enlaces unificados, checklist Vercel.*
+
+---
+
+## Graphify · Knowledge Graph del Proyecto
+
+> **Instalado:** `graphifyy` v0.3.1 · Skill para Claude Code y Cowork
+> **PyPI:** `pip install graphifyy` · **GitHub:** github.com/safishamsi/graphify
+
+### Regla de uso — LEER ANTES DE BUSCAR ARCHIVOS
+
+Cuando `graph.json` existe en la raíz del proyecto, **siempre consultar el knowledge graph antes de hacer Glob/Grep manual**. El graph ya tiene el índice estructural de todo el proyecto — es 71x más eficiente en tokens que buscar archivo por archivo.
+
+```
+/graphify query "¿qué archivos manejan el carrito de compras?"
+/graphify query "¿qué CSS controla el navbar?"
+/graphify query "¿cómo se conecta home.html con brand.js?"
+```
+
+### Comandos disponibles (todos desde terminal o Claude Code)
+
+| Comando | Qué hace |
+|---|---|
+| `graphify .` | Construye el graph desde cero (toda la carpeta) |
+| `graphify . --update` | Actualización incremental (solo archivos cambiados) |
+| `graphify query "<pregunta>"` | Consulta el graph desde terminal |
+| `/graphify query "<pregunta>"` | Consulta el graph desde Claude Code |
+| `graphify . --watch` | Reconstruye automáticamente al detectar cambios |
+| `graphify add <url>` | Agrega URL / paper / video YouTube al graph |
+| `graphify hook install` | Instala git hook: reconstruye en cada commit |
+| `graphify install` | Integra con Claude Code (CLAUDE.md + PreToolUse hook) |
+| `graphify . --obsidian` | Exporta vault de Obsidian (opt-in) |
+| `graphify . --neo4j` | Exporta a Neo4j (base de datos de grafos) |
+| `graphify . --wiki` | Genera artículos estilo Wikipedia por comunidad |
+| `graphify . --mcp` | Inicia servidor MCP stdio para integración externa |
+
+### Outputs generados por `graphify .`
+
+| Archivo | Contenido |
+|---|---|
+| `graph.json` | Graph completo — persistente entre sesiones, fuente de verdad |
+| `graph.html` | Visualización interactiva (abrir en browser) |
+| `GRAPH_REPORT.md` | Reporte: nodos god, conexiones sorprendentes, comunidades |
+
+### Tipos de nodos y edges en el graph
+
+- **EXTRACTED** (confianza 1.0): relaciones explícitas en el código
+- **INFERRED** (0.4–0.9): relaciones inferidas por el modelo
+- **AMBIGUOUS** (0.1–0.3): posibles relaciones, inciertas
+- **semantically_similar_to**: funciones/conceptos conceptualmente relacionados sin llamarse
+- **rationale_for**: comentarios `# WHY:` `# RATIONALE:` como nodos de conocimiento
+- **hyperedges**: grupos de 3+ nodos con relación compartida (ej: flujo de auth completo)
+
+### Instalación inicial (ejecutar una vez desde terminal)
+
+```bash
+# En la carpeta del proyecto:
+cd "/Users/evelynpatino/Documents/Claude/Projects/ofelia vallejo"
+pip install graphifyy
+graphify install          # configura Claude Code
+graphify .                # construye el graph (primera vez ~2-5 min)
+graphify hook install     # auto-rebuild en cada git commit
+```
+
+### Fuentes adicionales para el graph (ejecutar según necesidad)
+
+```bash
+# Agregar documentación web de marca:
+graphify add https://ofeliavallejo.com
+
+# Agregar papers o referencias de lujo (ejemplos):
+# graphify add https://arxiv.org/abs/... 
+
+# Agregar videos de referencia editorial:
+# graphify add <youtube-url>
+```
+
+*Sección añadida: 2026-05-27 · graphify v0.3.1 · settings.json hook instalado en .claude/*

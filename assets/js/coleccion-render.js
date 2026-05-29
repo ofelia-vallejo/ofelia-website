@@ -83,13 +83,25 @@
     return (p.name || '') + ' — ' + (v.colorName || '');
   }
 
+  function minPriceCHF(p) {
+    if (!p) return 0;
+    if (p.variants && p.variants.length) {
+      const prices = p.variants
+        .map((v) => (v.priceCHF != null ? Number(v.priceCHF) : Number(p.basePrice)))
+        .filter((n) => n > 0);
+      if (prices.length) return Math.min(...prices);
+    }
+    return Number(p.basePrice) || 0;
+  }
+
   function priceBlock(p, stock) {
-    if (!p || !p.basePrice) return '';
+    const displayPrice = minPriceCHF(p);
+    if (!p || !displayPrice) return '';
     const low = p.lowStockAt || 2;
     const badge = stockLabel(stock, low);
     let html =
       '<p class="card__price">' +
-      window.OVCatalog.formatCHF(p.basePrice) +
+      window.OVCatalog.formatCHF(displayPrice) +
       (p.engravePrice ? ' · Grabado desde +' + window.OVCatalog.formatCHF(p.engravePrice) : '') +
       '</p>';
     if (badge) {
@@ -161,7 +173,10 @@
       productName: p.name,
       image: v ? heroForVariant(p, v) : heroForProduct(p),
       sku: v && v.sku ? v.sku : '',
-      basePrice: Number(p.basePrice) || 0,
+      basePrice:
+        v && v.priceCHF != null
+          ? Number(v.priceCHF) || 0
+          : Number(p.basePrice) || 0,
       engravePrice: Number(p.engravePrice) || 0,
     };
   }
@@ -178,7 +193,7 @@
           href: '/producto/' + p.slug + '#' + key,
           name: v.colorName || p.name,
           detail: p.shortDescription || '',
-          badge: (v.colorName || '').split(' · ')[0] || v.colorName,
+          badge: p.isNew ? 'Nuevo' : ((v.colorName || '').split(' · ')[0] || v.colorName),
           numeral: p.numeral || '',
           image: heroForVariant(p, v),
           alt: altForVariant(p, v),
@@ -201,7 +216,7 @@
       href: p.pdpPath || '/producto/' + p.slug,
       name: p.name,
       detail: p.shortDescription || '',
-      badge: firstVariant ? firstVariant.colorName.split(' · ')[0] : '',
+      badge: p.isNew ? 'Nuevo' : (firstVariant ? firstVariant.colorName.split(' · ')[0] : ''),
       numeral: p.numeral || '',
       image: heroForProduct(p),
       alt: (p.images && p.images[0] && p.images[0].alt) || p.name,

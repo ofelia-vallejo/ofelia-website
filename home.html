@@ -315,6 +315,124 @@
       color: rgba(243, 238, 230, 0.85);
     }
 
+    /* NUEVOS · temporada */
+    .nuevos {
+      background: var(--marfil);
+      border-top: 1px solid var(--rule);
+    }
+
+    .nuevos__head {
+      padding: 48px var(--pad-x) 28px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nuevos__head .l {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: clamp(22px, 3.2vw, 32px);
+      letter-spacing: 0.06em;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .nuevos__head .r {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: color 0.4s var(--ease);
+    }
+
+    .nuevos__head .r:hover { color: var(--navy); }
+
+    .nuevos__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(11, 31, 58, 0.06);
+      padding: 0 var(--pad-x) 64px;
+    }
+
+    .nuevos__card {
+      display: block;
+      position: relative;
+      background: var(--marfil);
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .nuevos__card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 1.1s var(--ease);
+    }
+
+    .nuevos__card:hover img { transform: scale(1.04); }
+
+    .nuevos__card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(11, 31, 58, 0.55) 100%);
+      pointer-events: none;
+    }
+
+    .nuevos__badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 2;
+      font-size: 8px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      background: var(--vino);
+      color: var(--marfil);
+    }
+
+    .nuevos__meta {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2;
+      color: var(--marfil);
+    }
+
+    .nuevos__meta .name {
+      font-family: Cinzel, serif;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      margin: 0 0 4px;
+    }
+
+    .nuevos__meta .det {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.82;
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .nuevos__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 520px) {
+      .nuevos__grid { grid-template-columns: 1fr; padding-bottom: 48px; }
+    }
+
     /* EDIT · COLECCIÓN POR GÉNERO */
     .edit {
       background: var(--marfil);
@@ -976,6 +1094,63 @@
       </div>
     </div>
   </div>
+
+  <section class="nuevos reveal" id="nuevos" aria-labelledby="nuevos-title">
+    <header class="nuevos__head">
+      <h2 class="l" id="nuevos-title">Nuevos · temporada</h2>
+      <a href="/coleccion#bandoleras" class="r">Ver bandoleras y accesorios →</a>
+    </header>
+    <div class="nuevos__grid">
+      <a href="/producto/neceser#cognac" class="nuevos__card" data-dark>
+        <span class="nuevos__badge">Nuevo</span>
+        <img src="imagenes nuevas/lifestyle/mujer/neceser-cognac-colonial-lifestyle.jpg" alt="Neceser de viaje — cognac · calle colonial" loading="lazy" decoding="async">
+        <div class="nuevos__meta">
+          <p class="name">Neceser</p>
+          <p class="det">Cognac · Curuba</p>
+        </div>
+      </a>
+      <a href="/producto/bandolera-moderna#cognac" class="nuevos__card" data-dark>
+        <span class="nuevos__badge">Nuevo</span>
+        <img src="imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg" alt="Bandolera Moderna — cognac · lifestyle" loading="lazy" decoding="async">
+        <div class="nuevos__meta">
+          <p class="name">Bandolera Moderna</p>
+          <p class="det">Cognac · Uchuva</p>
+        </div>
+      </a>
+      <a href="/producto/rinonera#negro" class="nuevos__card" data-dark>
+        <span class="nuevos__badge">Nuevo</span>
+        <img src="imagenes nuevas/lifestyle/unisex/rinonera-negro-guatape-lifestyle.jpg" alt="Riñonera — negro · Guatapé" loading="lazy" decoding="async">
+        <div class="nuevos__meta">
+          <p class="name">Riñonera</p>
+          <p class="det">Negro · Guatapé</p>
+        </div>
+      </a>
+      <a href="/producto/bandolera-moderna#negro" class="nuevos__card" data-dark>
+        <span class="nuevos__badge">Nuevo</span>
+        <img src="imagenes nuevas/lifestyle/unisex/bandolera-moderna-negro-metrocable-lifestyle.jpg" alt="Bandolera Moderna — negro · Metrocable" loading="lazy" decoding="async">
+        <div class="nuevos__meta">
+          <p class="name">Bandolera Moderna</p>
+          <p class="det">Negro · Medellín</p>
+        </div>
+      </a>
+      <a href="/producto/neceser#cognac" class="nuevos__card" data-dark>
+        <span class="nuevos__badge">Nuevo</span>
+        <img src="imagenes nuevas/lifestyle/mujer/neceser-cognac-coltejer-lifestyle.jpg" alt="Neceser — cognac · Coltejer" loading="lazy" decoding="async">
+        <div class="nuevos__meta">
+          <p class="name">Neceser</p>
+          <p class="det">Cognac · ciudad</p>
+        </div>
+      </a>
+      <a href="/producto/neceser#cafe" class="nuevos__card" data-dark>
+        <span class="nuevos__badge">Nuevo</span>
+        <img src="imagenes nuevas/lifestyle/mujer/neceser-cafe-botero-lifestyle.jpg" alt="Neceser — café oscuro · Plaza Botero" loading="lazy" decoding="async">
+        <div class="nuevos__meta">
+          <p class="name">Neceser</p>
+          <p class="det">Café oscuro · Botero</p>
+        </div>
+      </a>
+    </div>
+  </section>
 
   <section class="banner-statement reveal" id="historia">
     <div class="banner-statement__stack">

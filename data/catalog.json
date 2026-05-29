@@ -1,7 +1,7 @@
 {
   "version": 1,
   "currency": "CHF",
-  "updatedAt": "2026-05-27T17:00:00.000Z",
+  "updatedAt": "2026-05-29T03:03:40.044Z",
   "categories": [
     {
       "id": "mujer",
@@ -52,9 +52,9 @@
       "numeral": "I",
       "active": true,
       "personalizable": true,
-      "basePrice": 385,
+      "basePrice": 300,
       "engravePrice": 45,
-      "inventory": 5,
+      "inventory": 13,
       "lowStockAt": 2,
       "pdpPath": "/producto/travel-bag-i",
       "images": [
@@ -79,18 +79,20 @@
           "sku": "TB-I-COG",
           "colorName": "Cognac",
           "colorHex": "#8B5E3C",
-          "inventory": 3,
+          "inventory": 7,
           "sort": 0,
-          "colorKey": "cognac"
+          "colorKey": "cognac",
+          "priceCHF": 300
         },
         {
           "id": "v-espresso",
           "sku": "TB-I-ESP",
           "colorName": "Espresso",
           "colorHex": "#3B2B26",
-          "inventory": 2,
+          "inventory": 6,
           "sort": 1,
-          "colorKey": "espresso"
+          "colorKey": "espresso",
+          "priceCHF": 300
         }
       ],
       "engrave": {
@@ -173,9 +175,9 @@
       "numeral": "II",
       "active": true,
       "personalizable": true,
-      "basePrice": 395,
+      "basePrice": 450,
       "engravePrice": 45,
-      "inventory": 4,
+      "inventory": 2,
       "lowStockAt": 2,
       "pdpPath": "/producto/travel-bag-ii",
       "images": [
@@ -200,9 +202,10 @@
           "sku": "TB-II-NEG",
           "colorName": "Negro",
           "colorHex": "#141414",
-          "inventory": 4,
+          "inventory": 2,
           "sort": 0,
-          "colorKey": "negro"
+          "colorKey": "negro",
+          "priceCHF": 450
         }
       ],
       "engrave": {
@@ -257,7 +260,8 @@
             "Travel Bag II — negro · Guatapé"
           ]
         }
-      }
+      },
+      "collectionDisplay": "variants"
     },
     {
       "id": "travel-bag-iii",
@@ -270,9 +274,9 @@
       "numeral": "III",
       "active": true,
       "personalizable": true,
-      "basePrice": 365,
+      "basePrice": 350,
       "engravePrice": 40,
-      "inventory": 3,
+      "inventory": 5,
       "lowStockAt": 2,
       "pdpPath": "/producto/travel-bag-iii",
       "images": [
@@ -286,13 +290,24 @@
       ],
       "variants": [
         {
-          "id": "v-cognac",
+          "id": "v-standard",
           "sku": "TB-III-COG",
-          "colorName": "Cognac",
+          "colorName": "Morral",
           "colorHex": "#8B5E3C",
-          "inventory": 3,
+          "inventory": 4,
           "sort": 0,
-          "colorKey": "cognac"
+          "colorKey": "v-standard",
+          "priceCHF": 350
+        },
+        {
+          "id": "v-grande",
+          "sku": "TB-III-COG",
+          "colorName": "Morral Grande",
+          "colorHex": "#8B5E3C",
+          "inventory": 1,
+          "sort": 1,
+          "colorKey": "v-grande",
+          "priceCHF": 400
         }
       ],
       "engrave": {
@@ -344,7 +359,8 @@
             "Travel Bag III — cognac · estudio"
           ]
         }
-      }
+      },
+      "collectionDisplay": "variants"
     },
     {
       "id": "bolso-dama",
@@ -356,9 +372,9 @@
       "line": "tote",
       "active": true,
       "personalizable": true,
-      "basePrice": 320,
+      "basePrice": 400,
       "engravePrice": 35,
-      "inventory": 6,
+      "inventory": 10,
       "lowStockAt": 2,
       "pdpPath": "/producto/bolso-dama",
       "images": [
@@ -383,9 +399,10 @@
           "sku": "BD-COG",
           "colorName": "Cognac",
           "colorHex": "#8B5E3C",
-          "inventory": 6,
+          "inventory": 10,
           "sort": 0,
-          "colorKey": "cognac"
+          "colorKey": "cognac",
+          "priceCHF": 400
         }
       ],
       "engrave": {
@@ -440,7 +457,8 @@
             "Bolso Dama — tote cognac · lifestyle"
           ]
         }
-      }
+      },
+      "collectionDisplay": "variants"
     },
     {
       "id": "morral-elite",
@@ -453,9 +471,9 @@
       "line": "morral",
       "active": true,
       "personalizable": true,
-      "basePrice": 340,
+      "basePrice": 400,
       "engravePrice": 38,
-      "inventory": 4,
+      "inventory": 5,
       "lowStockAt": 2,
       "pdpPath": "/producto/morral-elite",
       "images": [
@@ -476,13 +494,24 @@
       ],
       "variants": [
         {
-          "id": "v-negro",
+          "id": "v-standard",
           "sku": "ME-NEG",
-          "colorName": "Negro",
+          "colorName": "Elite",
           "colorHex": "#141414",
           "inventory": 4,
           "sort": 0,
-          "colorKey": "negro"
+          "colorKey": "v-standard",
+          "priceCHF": 400
+        },
+        {
+          "id": "v-grande",
+          "sku": "ME-NEG",
+          "colorName": "Elite Grande",
+          "colorHex": "#141414",
+          "inventory": 1,
+          "sort": 1,
+          "colorKey": "v-grande",
+          "priceCHF": 500
         }
       ],
       "engrave": {
@@ -532,7 +561,8 @@
             "Morral Elite — negro · estudio"
           ]
         }
-      }
+      },
+      "collectionDisplay": "variants"
     },
     {
       "id": "morral-clasico",
@@ -545,9 +575,9 @@
       "line": "morral",
       "active": true,
       "personalizable": true,
-      "basePrice": 310,
+      "basePrice": 350,
       "engravePrice": 35,
-      "inventory": 0,
+      "inventory": 5,
       "lowStockAt": 2,
       "pdpPath": "/producto/morral-clasico",
       "images": [
@@ -561,13 +591,24 @@
       ],
       "variants": [
         {
-          "id": "v-cognac",
+          "id": "v-standard",
           "sku": "MC-COG",
-          "colorName": "Cognac",
+          "colorName": "Clásico",
           "colorHex": "#8B5E3C",
-          "inventory": 0,
+          "inventory": 4,
           "sort": 0,
-          "colorKey": "cognac"
+          "colorKey": "v-standard",
+          "priceCHF": 350
+        },
+        {
+          "id": "v-grande",
+          "sku": "MC-COG",
+          "colorName": "Clásico Grande",
+          "colorHex": "#8B5E3C",
+          "inventory": 1,
+          "sort": 1,
+          "colorKey": "v-grande",
+          "priceCHF": 450
         }
       ],
       "engrave": {
@@ -614,43 +655,64 @@
             "Morral Clásico — cognac · estudio"
           ]
         }
-      }
+      },
+      "collectionDisplay": "variants"
     },
     {
       "id": "bandolera-moderna",
       "slug": "bandolera-moderna",
       "collectionWide": true,
+      "collectionDisplay": "variants",
       "name": "Bandolera Moderna",
-      "shortDescription": "Cuero pleno · Negro · Crossbody",
-      "description": "Bandolera crossbody en cuero negro full-grain. Dos compartimentos con cierre, correa ajustable y monograma OV grabado a láser.",
+      "shortDescription": "Cuero pleno · Negro o cognac · Crossbody",
+      "description": "Bandolera crossbody en cuero colombiano full-grain. Dos compartimentos con cierre, correa ajustable y monograma OV grabado a láser.",
       "category": "bandoleras",
       "line": "bandolera",
       "sort": 1,
       "active": true,
+      "isNew": true,
       "personalizable": true,
-      "basePrice": 285,
+      "basePrice": 250,
       "engravePrice": 30,
-      "inventory": 4,
+      "inventory": 5,
       "lowStockAt": 2,
       "pdpPath": "/producto/bandolera-moderna",
       "images": [
         {
-          "url": "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg",
-          "alt": "Bandolera Moderna — negro · estudio",
+          "url": "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg",
+          "alt": "Bandolera Moderna — cognac · lifestyle",
           "kind": "hero",
           "sort": 0,
+          "variantId": "v-cognac"
+        },
+        {
+          "url": "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg",
+          "alt": "Bandolera Moderna — negro · estudio",
+          "kind": "gallery",
+          "sort": 1,
           "variantId": "v-negro"
         }
       ],
       "variants": [
         {
+          "id": "v-cognac",
+          "sku": "BM-COG",
+          "colorName": "Cognac",
+          "colorHex": "#8B5E3C",
+          "inventory": 3,
+          "sort": 0,
+          "colorKey": "cognac",
+          "priceCHF": 250
+        },
+        {
           "id": "v-negro",
           "sku": "BM-NEG",
           "colorName": "Negro",
           "colorHex": "#141414",
-          "inventory": 4,
-          "sort": 0,
-          "colorKey": "negro"
+          "inventory": 2,
+          "sort": 1,
+          "colorKey": "negro",
+          "priceCHF": 250
         }
       ],
       "engrave": {
@@ -683,6 +745,20 @@
         "collectionCode": "UCHUVA"
       },
       "colorData": {
+        "cognac": {
+          "label": "Cognac",
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
+          "images": [
+            "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg"
+          ],
+          "alts": [
+            "Bandolera Moderna — cognac · lifestyle arquitectura"
+          ]
+        },
         "negro": {
           "label": "Negro",
           "leather": [
@@ -691,15 +767,17 @@
             "#0a0a0a"
           ],
           "images": [
+            "/imagenes nuevas/lifestyle/unisex/bandolera-moderna-negro-metrocable-lifestyle.jpg",
             "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg"
           ],
           "alts": [
+            "Bandolera Moderna — negro · Metrocable Medellín",
             "Bandolera Moderna — negro · estudio editorial"
           ]
         }
       },
-      "editorialImage": "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg",
-      "editorialCaption": "Crossbody · dos bolsillos · herrajes plateados cepillados."
+      "editorialImage": "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg",
+      "editorialCaption": "Crossbody · dos bolsillos · herrajes latón cepillado."
     },
     {
       "id": "bandolera-elite",
@@ -713,9 +791,9 @@
       "sort": 2,
       "active": true,
       "personalizable": true,
-      "basePrice": 325,
+      "basePrice": 250,
       "engravePrice": 35,
-      "inventory": 3,
+      "inventory": 10,
       "lowStockAt": 1,
       "pdpPath": "/producto/bandolera-elite",
       "images": [
@@ -740,9 +818,10 @@
           "sku": "BE-ORO",
           "colorName": "Marfil · Oro",
           "colorHex": "#F3EEE6",
-          "inventory": 3,
+          "inventory": 10,
           "sort": 0,
-          "colorKey": "oro"
+          "colorKey": "oro",
+          "priceCHF": 250
         }
       ],
       "engrave": {
@@ -793,7 +872,8 @@
         }
       },
       "editorialImage": "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg",
-      "editorialCaption": "Pelo sellado · motivo oro · correa tejida a juego."
+      "editorialCaption": "Pelo sellado · motivo oro · correa tejida a juego.",
+      "collectionDisplay": "variants"
     },
     {
       "id": "rinonera",
@@ -806,10 +886,11 @@
       "collectionDisplay": "variants",
       "sort": 3,
       "active": true,
+      "isNew": true,
       "personalizable": true,
-      "basePrice": 195,
+      "basePrice": 150,
       "engravePrice": 25,
-      "inventory": 9,
+      "inventory": 15,
       "lowStockAt": 2,
       "pdpPath": "/producto/rinonera",
       "images": [
@@ -822,37 +903,58 @@
       ],
       "variants": [
         {
-          "id": "v-cognac",
-          "colorKey": "cognac",
-          "sku": "RIN-COG",
-          "colorName": "Cognac · Clásica",
+          "id": "v-mod",
+          "colorKey": "mod",
+          "colorName": "Moderna",
+          "sku": "RIN-MOD",
           "colorHex": "#8B5E3C",
-          "inventory": 3,
-          "sort": 0
+          "inventory": 5,
+          "sort": 0,
+          "priceCHF": 150
         },
         {
-          "id": "v-cognac-multi",
-          "colorKey": "cognac-multi",
-          "sku": "RIN-COG-M",
-          "colorName": "Cognac · Multi",
+          "id": "v-clasica",
+          "colorKey": "clasica",
+          "colorName": "Clásica",
+          "sku": "RIN-CLA",
           "colorHex": "#8B5E3C",
-          "inventory": 3,
-          "sort": 1
+          "inventory": 5,
+          "sort": 1,
+          "priceCHF": 170
         },
         {
-          "id": "v-negro",
-          "colorKey": "negro",
-          "sku": "RIN-NEG",
-          "colorName": "Negro",
+          "id": "v-elite",
+          "colorKey": "elite",
+          "colorName": "Elite",
+          "sku": "RIN-ELI",
           "colorHex": "#141414",
-          "inventory": 3,
-          "sort": 2
+          "inventory": 5,
+          "sort": 2,
+          "priceCHF": 200
         }
       ],
       "colorData": {
-        "cognac": {
+        "mod": {
+          "label": "Cognac · Multi",
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
+          "images": [
+            "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-multi-lifestyle.jpg"
+          ],
+          "alts": [
+            "Riñonera cognac multi — crossbody lifestyle"
+          ]
+        },
+        "clasica": {
           "label": "Cognac · Clásica",
-          "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"],
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
           "images": [
             "/imagenes nuevas/producto/accesorios/rinonera/rinonera-cognac-estudio.jpg",
             "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-colonial-lifestyle.jpg"
@@ -862,92 +964,176 @@
             "Riñonera cognac — lifestyle colonial"
           ]
         },
-        "cognac-multi": {
-          "label": "Cognac · Multi",
-          "leather": ["#9a6b42", "#8B5E3C", "#6d4a2c"],
-          "images": [
-            "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-multi-lifestyle.jpg"
-          ],
-          "alts": [
-            "Riñonera cognac multi — crossbody lifestyle"
-          ]
-        },
-        "negro": {
+        "elite": {
           "label": "Negro",
-          "leather": ["#2c3443", "#141414", "#0a0a0a"],
+          "leather": [
+            "#2c3443",
+            "#141414",
+            "#0a0a0a"
+          ],
           "images": [
+            "/imagenes nuevas/lifestyle/unisex/rinonera-negro-guatape-lifestyle.jpg",
             "/imagenes nuevas/lifestyle/unisex/rinonera-negro-urban-lifestyle.jpg"
           ],
           "alts": [
+            "Riñonera negro — Guatapé · zócalo colonial",
             "Riñonera negro — lifestyle urbano"
           ]
         }
       },
       "engrave": {
-        "fonts": ["romana", "clasica"],
+        "fonts": [
+          "romana",
+          "clasica"
+        ],
         "sizes": {
-          "S": { "maxChars": 3, "label": "Iniciales" },
-          "M": { "maxChars": 8, "label": "Nombre" }
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 8,
+            "label": "Nombre"
+          }
         },
-        "layouts": ["texto", "monograma-ov"],
-        "zone": { "x": 0.5, "y": 0.82, "width": 0.22, "height": 0.08 }
+        "layouts": [
+          "texto",
+          "monograma-ov"
+        ],
+        "zone": {
+          "x": 0.5,
+          "y": 0.82,
+          "width": 0.22,
+          "height": 0.08
+        }
       },
-      "meta": { "productCode": "OV-RIN", "collectionCode": "UCHUVA" }
+      "meta": {
+        "productCode": "OV-RIN",
+        "collectionCode": "UCHUVA"
+      }
     },
     {
       "id": "neceser",
       "slug": "neceser",
       "name": "Neceser de Viaje",
-      "shortDescription": "Cuero pleno · Café oscuro · Asa superior",
-      "description": "Neceser rectangular en cuero café oscuro. Compartimento principal y bolsillo frontal con cierre, ideal para viaje u organización en el bolso.",
+      "shortDescription": "Cuero pleno · Cognac o café · Asa superior",
+      "description": "Neceser rectangular en cuero colombiano. Compartimento principal y bolsillo frontal con cierre. Ideal para viaje u organización en el bolso.",
       "category": "accesorios",
       "line": "neceser",
+      "collectionDisplay": "variants",
       "sort": 2,
       "active": true,
+      "isNew": true,
       "personalizable": true,
-      "basePrice": 145,
+      "basePrice": 200,
       "engravePrice": 22,
-      "inventory": 5,
+      "inventory": 10,
       "lowStockAt": 2,
       "pdpPath": "/producto/neceser",
       "images": [
         {
-          "url": "/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg",
-          "alt": "Neceser de viaje — café oscuro · estudio",
+          "url": "/imagenes nuevas/producto/accesorios/neceser/neceser-cognac-estudio.jpg",
+          "alt": "Neceser de viaje — cognac · estudio",
           "kind": "hero",
           "sort": 0,
+          "variantId": "v-cognac"
+        },
+        {
+          "url": "/imagenes nuevas/lifestyle/mujer/neceser-cafe-botero-lifestyle.jpg",
+          "alt": "Neceser — café oscuro · Plaza Botero",
+          "kind": "gallery",
+          "sort": 1,
           "variantId": "v-cafe"
         }
       ],
       "variants": [
+        {
+          "id": "v-cognac",
+          "sku": "NEC-COG",
+          "colorName": "Cognac",
+          "colorHex": "#8B5E3C",
+          "inventory": 5,
+          "sort": 0,
+          "colorKey": "cognac",
+          "priceCHF": 200
+        },
         {
           "id": "v-cafe",
           "sku": "NEC-CAF",
           "colorName": "Café oscuro",
           "colorHex": "#3B2B26",
           "inventory": 5,
-          "sort": 0,
-          "colorKey": "cafe"
+          "sort": 1,
+          "colorKey": "cafe",
+          "priceCHF": 200
         }
       ],
       "colorData": {
+        "cognac": {
+          "label": "Cognac",
+          "leather": [
+            "#9a6b42",
+            "#8B5E3C",
+            "#6d4a2c"
+          ],
+          "images": [
+            "/imagenes nuevas/lifestyle/mujer/neceser-cognac-colonial-lifestyle.jpg",
+            "/imagenes nuevas/lifestyle/mujer/neceser-cognac-coltejer-lifestyle.jpg",
+            "/imagenes nuevas/producto/accesorios/neceser/neceser-cognac-estudio.jpg"
+          ],
+          "alts": [
+            "Neceser cognac — calle colonial",
+            "Neceser cognac — Coltejer · Medellín",
+            "Neceser cognac — estudio producto"
+          ]
+        },
         "cafe": {
           "label": "Café oscuro",
-          "leather": ["#4a362e", "#3B2B26", "#2e211c"],
-          "images": ["/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg"],
-          "alts": ["Neceser — café oscuro · estudio"]
+          "leather": [
+            "#4a362e",
+            "#3B2B26",
+            "#2e211c"
+          ],
+          "images": [
+            "/imagenes nuevas/lifestyle/mujer/neceser-cafe-botero-lifestyle.jpg",
+            "/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg"
+          ],
+          "alts": [
+            "Neceser café — Plaza Botero",
+            "Neceser café oscuro — estudio"
+          ]
         }
       },
       "engrave": {
-        "fonts": ["clasica", "romana"],
+        "fonts": [
+          "clasica",
+          "romana"
+        ],
         "sizes": {
-          "S": { "maxChars": 3, "label": "Iniciales" },
-          "M": { "maxChars": 10, "label": "Nombre" }
+          "S": {
+            "maxChars": 3,
+            "label": "Iniciales"
+          },
+          "M": {
+            "maxChars": 10,
+            "label": "Nombre"
+          }
         },
-        "layouts": ["texto", "monograma-ov"],
-        "zone": { "x": 0.5, "y": 0.78, "width": 0.2, "height": 0.08 }
+        "layouts": [
+          "texto",
+          "monograma-ov"
+        ],
+        "zone": {
+          "x": 0.5,
+          "y": 0.78,
+          "width": 0.2,
+          "height": 0.08
+        }
       },
-      "meta": { "productCode": "OV-NEC", "collectionCode": "CURUBA" }
+      "meta": {
+        "productCode": "OV-NEC",
+        "collectionCode": "CURUBA"
+      }
     },
     {
       "id": "cartera-pelo-oro",
@@ -988,12 +1174,23 @@
       "colorData": {
         "oro": {
           "label": "Marfil · Oro",
-          "leather": ["#F3EEE6", "#E8DFD0", "#C9A227"],
-          "images": ["/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg"],
-          "alts": ["Cartera Pelo · Oro — estudio editorial"]
+          "leather": [
+            "#F3EEE6",
+            "#E8DFD0",
+            "#C9A227"
+          ],
+          "images": [
+            "/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg"
+          ],
+          "alts": [
+            "Cartera Pelo · Oro — estudio editorial"
+          ]
         }
       },
-      "meta": { "productCode": "OV-CAR", "collectionCode": "CURUBA" }
+      "meta": {
+        "productCode": "OV-CAR",
+        "collectionCode": "CURUBA"
+      }
     },
     {
       "id": "cinturon",

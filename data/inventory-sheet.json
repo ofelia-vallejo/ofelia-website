@@ -1,0 +1,112 @@
+{
+  "_note": "Hoja de inventario · edita aquí CANTIDAD y PRECIO (CHF). Luego: npm run inventory:apply y npm run db:push (si usas Postgres).",
+  "_updated": "2026-05-29",
+  "currency": "CHF",
+  "rows": [
+    {
+      "label": "MORRAL MOD",
+      "productId": "travel-bag-iii",
+      "variantId": "v-standard",
+      "quantity": 4,
+      "priceCHF": 350
+    },
+    {
+      "label": "MORRAL GR MOD",
+      "productId": "travel-bag-iii",
+      "variantId": "v-grande",
+      "quantity": 1,
+      "priceCHF": 400
+    },
+    {
+      "label": "MORRAL CLAS",
+      "productId": "morral-clasico",
+      "variantId": "v-standard",
+      "quantity": 4,
+      "priceCHF": 350
+    },
+    {
+      "label": "MORRAL GR CLAS",
+      "productId": "morral-clasico",
+      "variantId": "v-grande",
+      "quantity": 1,
+      "priceCHF": 450
+    },
+    {
+      "label": "MORRAL ELITE",
+      "productId": "morral-elite",
+      "variantId": "v-standard",
+      "quantity": 4,
+      "priceCHF": 400
+    },
+    {
+      "label": "MORRAL GR ELITE",
+      "productId": "morral-elite",
+      "variantId": "v-grande",
+      "quantity": 1,
+      "priceCHF": 500
+    },
+    {
+      "label": "MALETA VIAJERA",
+      "productId": "travel-bag-i",
+      "variantId": null,
+      "quantity": 13,
+      "priceCHF": 300
+    },
+    {
+      "label": "MALETA ELITE",
+      "productId": "travel-bag-ii",
+      "variantId": "v-negro",
+      "quantity": 2,
+      "priceCHF": 450
+    },
+    {
+      "label": "NECESER ELITE",
+      "productId": "neceser",
+      "variantId": null,
+      "quantity": 10,
+      "priceCHF": 200
+    },
+    {
+      "label": "RIÑONERA MOD",
+      "productId": "rinonera",
+      "variantId": "v-mod",
+      "quantity": 5,
+      "priceCHF": 150
+    },
+    {
+      "label": "RIÑONERA CLASICA",
+      "productId": "rinonera",
+      "variantId": "v-clasica",
+      "quantity": 5,
+      "priceCHF": 170
+    },
+    {
+      "label": "RIÑONERA ELITE",
+      "productId": "rinonera",
+      "variantId": "v-elite",
+      "quantity": 5,
+      "priceCHF": 200
+    },
+    {
+      "label": "BANDOLERA ELITE",
+      "productId": "bandolera-elite",
+      "variantId": "v-oro",
+      "quantity": 10,
+      "priceCHF": 250
+    },
+    {
+      "label": "BANDOLERA ELITE (mod)",
+      "productId": "bandolera-moderna",
+      "variantId": null,
+      "quantity": 5,
+      "priceCHF": 250
+    },
+    {
+      "label": "BOLSO DAMA",
+      "productId": "bolso-dama",
+      "variantId": "v-cognac",
+      "quantity": 10,
+      "priceCHF": 400
+    }
+  ]
+}

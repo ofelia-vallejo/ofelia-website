@@ -11,6 +11,8 @@
   "scripts": {
     "dev": "STORE_MODE=file npx vercel dev",
     "seed:catalog": "node scripts/seed-catalog.js",
-    "db:migrate": "node scripts/db-migrate.js"
+    "db:migrate": "node scripts/db-migrate.js",
+    "db:push": "node scripts/db-migrate.js",
+    "inventory:apply": "node scripts/apply-inventory-sheet.js"
   }
 }

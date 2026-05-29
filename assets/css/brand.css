@@ -607,3 +607,303 @@ html[data-accounts='off'] #navAccountLink,
 .nav-account {
   display: none !important;
 }
+
+/* ============================================================
+   COMPONENTES UI PREMIUM · 21st.dev style
+   Patrones de alta calidad para toda la experiencia OV
+   ============================================================ */
+
+/* ── LINK CON UNDERLINE ANIMADO (draw/erase) ────────────────
+   Reemplaza los simples border-bottom por una línea que se
+   dibuja desde la izquierda. Aplica: .link-draw */
+.link-draw {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.link-draw::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.link-draw:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* ── BADGE PILL EDITORIAL ───────────────────────────────────
+   Para etiquetas de producto, colección, estado. .badge-pill */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid var(--rule-strong);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--text-soft);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.badge-pill:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+.badge-pill--dark {
+  border-color: rgba(243,238,230,0.2);
+  color: rgba(243,238,230,0.6);
+}
+
+/* ── BOTÓN CTA PRINCIPAL · con fill animado ─────────────────
+   .btn-ov — versión clara; .btn-ov--dark — versión navy */
+.btn-ov {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 36px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--navy);
+  border: 1px solid rgba(11, 31, 58, 0.3);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s ease, border-color 0.4s ease;
+  text-decoration: none;
+}
+
+.btn-ov::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--navy);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 0;
+}
+
+.btn-ov:hover { color: var(--marfil); border-color: var(--navy); }
+.btn-ov:hover::before { transform: scaleY(1); }
+
+.btn-ov span { position: relative; z-index: 1; }
+
+.btn-ov--dark {
+  color: var(--marfil);
+  border-color: rgba(243,238,230,0.3);
+}
+
+.btn-ov--dark::before { background: var(--marfil); }
+.btn-ov--dark:hover { color: var(--navy); border-color: var(--marfil); }
+
+/* ── PRODUCT CARD PREMIUM ───────────────────────────────────
+   Hover state con overlay de información elevada
+   .product-card-premium */
+.product-card-premium {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--beige-medio);
+}
+
+.product-card-premium__media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-card-premium__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-card-premium:hover .product-card-premium__img {
+  transform: scale(1.04);
+}
+
+.product-card-premium__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(11,31,58,0.55) 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.product-card-premium:hover .product-card-premium__overlay {
+  opacity: 1;
+}
+
+.product-card-premium__info {
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.product-card-premium__name {
+  font-family: Cinzel, serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.product-card-premium__det {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.product-card-premium__arrow {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  color: var(--navy);
+  font-size: 14px;
+}
+
+.product-card-premium:hover .product-card-premium__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── LOADING SKELETON (para imágenes que cargan) ────────────
+   Aplicar a contenedores de imagen: .img-skeleton */
+.img-skeleton {
+  position: relative;
+  background: var(--beige-medio);
+  overflow: hidden;
+}
+
+.img-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(243,238,230,0.6) 50%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer 1.8s infinite;
+}
+
+.img-skeleton.is-loaded::after { display: none; }
+
+@keyframes skeleton-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── TOOLTIP EDITORIAL ──────────────────────────────────────
+   .ov-tooltip — aparece encima del elemento al hover */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--navy);
+  color: var(--marfil);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+}
+
+[data-tooltip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── INPUT FIELD EDITORIAL ──────────────────────────────────
+   Para formularios: .field-ov */
+.field-ov {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-ov__label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.field-ov:focus-within .field-ov__label {
+  color: var(--navy);
+}
+
+.field-ov__input {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 10px 0;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.field-ov__input:focus {
+  border-bottom-color: var(--navy);
+}
+
+.field-ov__input::placeholder {
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ── VISUALLY HIDDEN (accesibilidad) ────────────────────────
+   Para textos de screen reader únicamente */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
