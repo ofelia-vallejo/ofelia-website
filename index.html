@@ -12,6 +12,8 @@
 <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0B1F3A">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <meta name="robots" content="noindex, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ofelia Vallejo">
@@ -289,7 +291,7 @@
     opacity: 0;
     transition: opacity 0.75s var(--ease), fill-opacity 0.75s var(--ease);
   }
-  .layer-region.on path { opacity: 1; fill-opacity: 0.72; }
+  .layer-region.on path { opacity: 1; fill-opacity: 0.08; }
   .stage[data-flight="1"] .layer-inked path,
   .stage[data-flight="1"] .layer-depts path,
   .stage[data-flight="1"] .layer-region path,
@@ -474,6 +476,146 @@
   }
 
   /* ─── Mobile global ──────────────────────────────── */
+  /* ─── Grain overlay ─────────────────────────────── */
+  .grain {
+    position: absolute; inset: 0;
+    mix-blend-mode: multiply;
+    opacity: 0.16;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ─── Atmosphere bloom ───────────────────────────── */
+  .atmos {
+    position: absolute; left: 50%; top: 50%;
+    width: 260px; height: 260px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    box-shadow: 0 0 90px 40px rgba(11,31,58,0.13);
+    pointer-events: none; z-index: 1;
+    opacity: 0; transition: opacity 1.1s var(--ease);
+  }
+  .stage[data-stage="0"] .atmos { opacity: 0; }
+  .stage[data-stage="1"] .atmos { opacity: 1; }
+  .stage[data-stage="2"] .atmos { opacity: 0.5; }
+  .stage[data-stage="3"] .atmos { opacity: 0; }
+
+  /* ─── Whirl (anillos orbitales — stage 0) ───────── */
+  /* 96vmin ≈ 1.33× globe diameter — outer rings orbit clearly outside globe */
+  .whirl {
+    position: absolute; left: 50%; top: 50%;
+    width: 96vmin; height: 96vmin;
+    transform: translate(-50%, -50%);
+    pointer-events: none; z-index: 4;
+    transition: opacity 1s var(--ease);
+  }
+  .stage:not([data-stage="0"]) .whirl { opacity: 0; }
+  .whirl > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .whirl .ring-slow { animation: spin-slow 90s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
+  .whirl .ring-ccw  { animation: spin-ccw  40s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
+  .whirl .ring-cw   { animation: spin-cw   24s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
+  .whirl .ring-fast { animation: spin-fast 12s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
+  @keyframes spin-slow { to { transform: rotate(360deg);  } }
+  @keyframes spin-ccw  { to { transform: rotate(-360deg); } }
+  @keyframes spin-cw   { to { transform: rotate(360deg);  } }
+  @keyframes spin-fast { to { transform: rotate(720deg);  } }
+  .whirl text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px; letter-spacing: 0.42em;
+    fill: var(--ink); opacity: 0.5;
+  }
+
+  /* ─── Cartographic corners ───────────────────────── */
+  .corner {
+    position: absolute; width: 26px; height: 26px;
+    z-index: 5; pointer-events: none;
+    opacity: 0.5;
+  }
+  .corner.tl { top: 60px; left: 22px;   border-top: 1px solid var(--ink); border-left:  1px solid var(--ink); }
+  .corner.tr { top: 60px; right: 22px;  border-top: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+  .corner.bl { bottom: 22px; left: 22px;  border-bottom: 1px solid var(--ink); border-left:  1px solid var(--ink); }
+  .corner.br { bottom: 22px; right: 22px; border-bottom: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+
+  /* ─── Reticle (cruceta cartográfica) ─────────────── */
+  .reticle {
+    position: absolute; left: 50%; top: 50%;
+    width: 220px; height: 220px;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: none; z-index: 5;
+    opacity: 0; transition: opacity 0.7s var(--ease), transform 0.9s var(--ease);
+  }
+  .stage[data-stage="1"] .reticle { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  .stage[data-stage="2"] .reticle { opacity: 0.55; transform: translate(-50%, -50%) scale(0.6); }
+  .stage[data-stage="3"] .reticle { opacity: 0; transform: translate(-50%, -50%) scale(0.35); }
+  .reticle svg { width: 100%; height: 100%; display: block; }
+  .reticle line   { stroke: var(--ink); stroke-width: 0.55; opacity: 0.4; }
+  .reticle circle { fill: none; stroke: var(--ink); stroke-width: 0.45; opacity: 0.28; stroke-dasharray: 2 5; }
+
+  /* ─── HUD corners ────────────────────────────────── */
+  .hud {
+    position: absolute; z-index: 6; pointer-events: none; color: var(--ink);
+  }
+  .hud.tl { top: 70px; left: 56px; }
+  .hud.tr { top: 70px; right: 56px; text-align: right; }
+  .hud.bl { bottom: 36px; left: 56px; }
+  .hud.br { bottom: 36px; right: 56px; text-align: right; }
+  .hud .hlabel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--s1); margin-bottom: 4px; display: block;
+  }
+  .hud .hval {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.16em; color: var(--ink);
+  }
+  .breadcrumb-hud {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .breadcrumb-hud .bc-item {
+    font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
+    letter-spacing: 0.16em; color: var(--s2);
+    transition: color 0.5s var(--ease);
+  }
+  .breadcrumb-hud .bc-item.bc-active { color: var(--ink); }
+  .breadcrumb-hud .bc-sep { color: var(--s3); font-size: 8.5px; opacity: 0.6; }
+  /* ─── HUD + corners color adapt on dark map (stage 2–3) ─ */
+  .stage[data-stage="1"] .hud .hlabel,
+  .stage[data-stage="2"] .hud .hlabel,
+  .stage[data-stage="3"] .hud .hlabel { color: rgba(243,238,230,0.45); }
+
+  .stage[data-stage="1"] .hud .hval,
+  .stage[data-stage="2"] .hud .hval,
+  .stage[data-stage="3"] .hud .hval { color: var(--bg); }
+
+  .stage[data-stage="1"] .breadcrumb-hud .bc-item,
+  .stage[data-stage="2"] .breadcrumb-hud .bc-item,
+  .stage[data-stage="3"] .breadcrumb-hud .bc-item { color: rgba(243,238,230,0.35); }
+
+  .stage[data-stage="1"] .breadcrumb-hud .bc-item.bc-active,
+  .stage[data-stage="2"] .breadcrumb-hud .bc-item.bc-active,
+  .stage[data-stage="3"] .breadcrumb-hud .bc-item.bc-active { color: rgba(243,238,230,0.85); }
+
+  .stage[data-stage="1"] .breadcrumb-hud .bc-sep,
+  .stage[data-stage="2"] .breadcrumb-hud .bc-sep,
+  .stage[data-stage="3"] .breadcrumb-hud .bc-sep { color: rgba(243,238,230,0.2); }
+
+  .stage[data-stage="1"] .corner,
+  .stage[data-stage="2"] .corner,
+  .stage[data-stage="3"] .corner { border-color: rgba(243,238,230,0.3); }
+
+  /* Smooth color transition */
+  .hud .hlabel, .hud .hval,
+  .breadcrumb-hud .bc-item, .breadcrumb-hud .bc-sep,
+  .corner { transition: color 0.7s var(--ease), border-color 0.7s var(--ease); }
+
+  @media (max-width: 768px) {
+    .hud.tl { top: 64px; left: 20px; }
+    .hud.tr { top: 64px; right: 20px; }
+    .hud.bl { bottom: 96px; left: 20px; }
+    .hud.br { bottom: 96px; right: 20px; }
+    .reticle { width: 180px; height: 180px; }
+  }
+
   @media (max-width: 768px) {
     .panels {
       width: min(calc(100% - 40px), 560px);
@@ -523,7 +665,7 @@
 
     <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+    <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
       <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
@@ -537,7 +679,7 @@
     <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home" class="nav-panel__link">Inicio</a>
       <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
       <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
@@ -560,9 +702,94 @@
 <!-- ─── Escena del globo ─────────────────────────────── -->
 <div class="stage" id="stage" data-stage="0">
 
+  <!-- Corners cartográficos -->
+  <span class="corner tl"></span>
+  <span class="corner tr"></span>
+  <span class="corner bl"></span>
+  <span class="corner br"></span>
+
+  <!-- Atmosphere bloom -->
+  <div class="atmos"></div>
+
+  <!-- Anillos orbitales (stage 0) -->
+  <div class="whirl" id="whirl">
+    <svg viewBox="0 0 380 380" class="ring-slow">
+      <defs>
+        <path id="whirl-arc" d="M 190,190 m -178,0 a 178,178 0 1,1 356,0 a 178,178 0 1,1 -356,0" fill="none"/>
+      </defs>
+      <circle cx="190" cy="190" r="178" fill="none" stroke="#0B1F3A" stroke-width="0.4" stroke-dasharray="1 14" opacity="0.38"/>
+      <text><textPath href="#whirl-arc" startOffset="0">ANTIOQUIA  ·  MEDELLÍN  ·  COLOMBIA  ·  LATINOAMÉRICA  ·  ATLÁNTICO  ·  PACÍFICO  ·  </textPath></text>
+    </svg>
+    <svg viewBox="0 0 380 380" class="ring-ccw">
+      <circle cx="190" cy="190" r="156" fill="none" stroke="#0B1F3A" stroke-width="0.55" stroke-dasharray="3 9" opacity="0.45"/>
+    </svg>
+    <svg viewBox="0 0 380 380" class="ring-cw">
+      <circle cx="190" cy="190" r="140" fill="none" stroke="#5B1E24" stroke-width="0.5" stroke-dasharray="38 230" opacity="0.65"/>
+    </svg>
+    <svg viewBox="0 0 380 380" class="ring-fast">
+      <circle cx="190" cy="190" r="124" fill="none" stroke="#0B1F3A" stroke-width="0.28" stroke-dasharray="1 4" opacity="0.55"/>
+      <g stroke="#0B1F3A" stroke-width="0.45" opacity="0.35">
+        <line x1="190" y1="12"  x2="190" y2="0"/>
+        <line x1="190" y1="380" x2="190" y2="368"/>
+        <line x1="0"   y1="190" x2="12"  y2="190"/>
+        <line x1="380" y1="190" x2="368" y2="190"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Reticle cartográfico -->
+  <div class="reticle">
+    <svg viewBox="0 0 220 220">
+      <line x1="110" y1="0"   x2="110" y2="78"/>
+      <line x1="110" y1="142" x2="110" y2="220"/>
+      <line x1="0"   y1="110" x2="78"  y2="110"/>
+      <line x1="142" y1="110" x2="220" y2="110"/>
+      <circle cx="110" cy="110" r="36"/>
+      <circle cx="110" cy="110" r="58"/>
+    </svg>
+  </div>
+
+  <!-- HUD — esquina superior izquierda: breadcrumb -->
+  <div class="hud tl">
+    <div class="breadcrumb-hud" id="breadcrumbHud">
+      <span class="bc-item bc-active" data-i="0">Mundo</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-item" data-i="1">Colombia</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-item" data-i="2">Antioquia</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-item" data-i="3">Guatapé</span>
+    </div>
+  </div>
+
+  <!-- HUD — esquina superior derecha: contador -->
+  <div class="hud tr">
+    <span class="hlabel">Atlas</span>
+    <span class="hval" id="atlasCounter">01 · 04</span>
+  </div>
+
+  <!-- HUD — esquina inferior izquierda: coordenadas en vivo -->
+  <div class="hud bl">
+    <span class="hlabel">Coordenadas · proyección</span>
+    <span class="hval" id="coordsDisplay">00°00′N · 00°00′O</span>
+  </div>
+
+  <!-- HUD — esquina inferior derecha: firma -->
+  <div class="hud br">
+    <span class="hlabel">Cartografía</span>
+    <span class="hval">Ofelia Vallejo</span>
+  </div>
+
   <div class="tilt-wrap" id="tiltWrap">
     <svg class="globe-svg" id="svg">
       <defs>
+        <filter id="grain-filter" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" />
+          <feColorMatrix values="0 0 0 0 0.04
+                                 0 0 0 0 0.12
+                                 0 0 0 0 0.23
+                                 0 0 0 0.38 0" />
+        </filter>
         <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100" /></clipPath>
       </defs>
       <g clip-path="url(#globe-clip)">
@@ -582,6 +809,10 @@
     </svg>
   </div>
 
+  <!-- Grain paper texture -->
+  <svg class="grain" aria-hidden="true" preserveAspectRatio="none">
+    <rect width="100%" height="100%" filter="url(#grain-filter)"/>
+  </svg>
 
   <div class="vignette"></div>
 
@@ -658,7 +889,7 @@
 
 </div><!-- .stage -->
 
-<script src="/assets/js/brand.js"></script>
+<script src="/assets/js/brand.js?v=20260529"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
@@ -731,6 +962,32 @@
     return from + delta * t;
   }
 
+  /* ─── Stroke scaling & coord helpers ────────────── */
+  function strokeFor(scale) {
+    return {
+      land:   Math.min(1.1,  0.45 + scale / 6000),
+      dept:   Math.min(1.5,  0.50 + scale / 4000),
+      region: Math.min(2.0,  0.50 + scale / 2500)
+    };
+  }
+
+  function formatCoord(lng, lat) {
+    const la = Math.abs(lat), lo = Math.abs(lng);
+    const latD = Math.floor(la), latM = Math.floor((la - latD) * 60);
+    const lonD = Math.floor(lo), lonM = Math.floor((lo - lonD) * 60);
+    return latD.toString().padStart(2,'0') + '°' + latM.toString().padStart(2,'0') + '′' + (lat >= 0 ? 'N' : 'S')
+         + ' · ' + lonD.toString().padStart(2,'0') + '°' + lonM.toString().padStart(2,'0') + '′' + (lng >= 0 ? 'E' : 'O');
+  }
+
+  const coordsEl  = document.getElementById('coordsDisplay');
+  const counterEl = document.getElementById('atlasCounter');
+  const bcItems   = document.querySelectorAll('#breadcrumbHud .bc-item');
+
+  function syncHUD(stageIdx) {
+    if (counterEl) counterEl.textContent = (stageIdx + 1).toString().padStart(2,'0') + ' · 04';
+    bcItems.forEach(it => it.classList.toggle('bc-active', +it.dataset.i <= stageIdx));
+  }
+
   function scheduleRedraw(immediate) {
     if (immediate) {
       redrawQueued = false;
@@ -783,12 +1040,15 @@
 
   function redraw() {
     syncGlobeMask();
+    const sw = strokeFor(proj.scale());
     $grat.selectAll('path').attr('d', path);
-    $world.selectAll('path').attr('d', path);
+    $world.selectAll('path').attr('d', path).attr('stroke-width', sw.land);
     $inked.selectAll('path').attr('d', path);
-    $depts.selectAll('path').attr('d', path);
-    $region.selectAll('path').attr('d', path);
+    $depts.selectAll('path').attr('d', path).attr('stroke-width', sw.dept);
+    $region.selectAll('path').attr('d', path).attr('stroke-width', sw.region);
     $deco.selectAll('path').attr('d', path);
+    /* live coordinates */
+    if (coordsEl) { const r = proj.rotate(); coordsEl.textContent = formatCoord(-r[0], -r[1]); }
     $deco.selectAll('circle.deco').each(function() {
       const pt = proj([+this.getAttribute('data-lng'), +this.getAttribute('data-lat')]);
       if (pt) {
@@ -879,6 +1139,7 @@
   setTimeout(() => {
     step0El.remove();
     syncUI();
+    syncHUD(0);
     if (navbarEl) navbarEl.classList.add('is-visible');
   }, 3800);
 
@@ -981,6 +1242,7 @@
     setStage(1);
     revealMap(1);
     syncUI();
+    syncHUD(1);
   }
 
   async function toStage2() {
@@ -993,15 +1255,15 @@
     setStage(2);
     revealMap(2);
     syncUI();
+    syncHUD(2);
   }
 
   async function toStage3() {
+    revealMap(3);                              /* pin visible desde el inicio del zoom */
     setPinAt(guatapeCenter[0], guatapeCenter[1]);
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', +p.dataset.panel === 3));
-    const hintEl = document.getElementById('hintText');
     const hintWrap = document.getElementById('clickHint');
-    if (hintEl) hintEl.textContent = '';
     if (hintWrap) hintWrap.style.display = 'none';
     await animate({
       rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0],
@@ -1009,24 +1271,23 @@
       tiltTo: 8,
       ms: 1600
     });
-    revealMap(3);
     document.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('active', +p.dataset.panel === 4));
     await animate({ scaleTo: Math.min(W, H) * 22, tiltTo: 14, ms: 1700 });
-    setStage(3);
-    revealMap(4);
+    setStage(3);                               /* CSS oculta pin + activa vignette */
     syncUI();
+    syncHUD(3);
   }
 
   async function resetAll() {
-    setPinAt(guatapeCenter[0], guatapeCenter[1]);
     pinEl.classList.remove('on', 'deep');
     const resetScale = Math.min(window.innerWidth, window.innerHeight) * 0.36;
     await animate({ rotTo: [20, -10, 0], scaleTo: resetScale, tiltTo: 0, ms: 1600 });
     setStage(0);
     revealMap(0);
     syncUI();
-    if (!spinTimer) spinTimer = d3.timer(spinFrame);
+    syncHUD(0);
+    spinTimer = d3.timer(spinFrame);           /* reiniciar rotación */
   }
 
   async function runStage(fn) {
@@ -1063,7 +1324,7 @@
         });
         setStage(1);
         revealMap(1);
-        syncUI();
+        syncUI(); syncHUD(1);
       } else if (stage === 3) {
         pinEl.classList.remove('on', 'deep');
         await animate({
@@ -1074,7 +1335,7 @@
         });
         setStage(2);
         revealMap(2);
-        syncUI();
+        syncUI(); syncHUD(2);
       }
     } finally {
       endFlight();
