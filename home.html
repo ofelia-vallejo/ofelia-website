@@ -102,9 +102,52 @@
 
     .reveal.is-in { opacity: 1; transform: translateY(0); }
 
-    .navbar {
+    /* TICKER */
+    .ticker {
       position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      height: 28px;
+      background: var(--navy);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker__track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: ticker-scroll 32s linear infinite;
+      will-change: transform;
+    }
+
+    .ticker__item {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(243, 238, 230, 0.55);
+      padding: 0 28px;
+      flex-shrink: 0;
+    }
+
+    .ticker__item span {
+      color: rgba(243, 238, 230, 0.2);
+      margin: 0 6px;
+    }
+
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .navbar {
+      position: fixed;
+      top: 28px;
       left: 0;
       right: 0;
       z-index: 1000;
@@ -119,15 +162,34 @@
       justify-content: space-between;
     }
 
-    .navbar__left  { flex: 1; display: flex; align-items: center; }
-    .navbar__logo  { flex-shrink: 0; display: flex; align-items: center; }
+    .navbar .nav-section {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      gap: 36px;
+      padding-right: 36px;
+    }
+
+    .navbar .util {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      gap: 36px;
+      padding-left: 36px;
+    }
+
+    .navbar__logo-img {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
     .navbar__firma {
       height: 34px;
       width: auto;
       display: block;
       mix-blend-mode: multiply;
     }
-    .navbar__right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
 
     .nav-link {
       position: relative;
@@ -165,55 +227,46 @@
     }
 
     .menu-btn {
-      background: none; border: none; padding: 0;
-      width: 26px; height: 16px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      flex-shrink: 0;
+      display: none;
+      font-family: inherit;
+      font-weight: 400;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+      background: none;
+      border: none;
+      padding: 0;
+      margin-left: auto;
     }
-    .menu-btn span {
-      display: block; height: 1px; background: var(--navy);
-      transition: transform .34s var(--ease), opacity .34s var(--ease);
-      transform-origin: center;
-    }
-    .menu-btn.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-    .menu-btn.is-open span:nth-child(2) { opacity: 0; }
-    .menu-btn.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-    .nav-panel {
-      position: fixed; top: 0; right: 0;
-      width: min(300px, 82vw); height: 100vh;
-      background: var(--navy); z-index: 200;
-      transform: translateX(100%);
-      transition: transform .52s cubic-bezier(0.25,0.46,0.45,0.94);
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 80px 44px; pointer-events: none;
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: rgba(243, 238, 230, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      padding: 28px var(--pad-x);
+      z-index: 999;
+      flex-direction: column;
+      gap: 22px;
     }
-    .nav-panel.is-open { transform: translateX(0); pointer-events: auto; }
-    .nav-panel__links { display: flex; flex-direction: column; }
-    .nav-panel__link {
-      font-family: 'Cinzel', serif; font-size: 17px; letter-spacing: .07em;
-      color: rgba(243,238,230,.70); text-decoration: none;
-      padding: 14px 0; border-bottom: 1px solid rgba(243,238,230,.07);
-      transition: color .3s;
-    }
-    .nav-panel__link:last-child { border-bottom: none; }
-    .nav-panel__link:hover { color: var(--marfil); }
-    .nav-panel__foot {
-      position: absolute; bottom: 36px; left: 44px;
-      font-size: 7.5px; letter-spacing: .24em; text-transform: uppercase;
-      color: rgba(243,238,230,.22);
-    }
-    .nav-overlay {
-      position: fixed; inset: 0; z-index: 199;
-      background: transparent; pointer-events: none; transition: background .4s;
-    }
-    .nav-overlay.is-active { background: rgba(11,31,58,.24); pointer-events: auto; }
 
-    @media (max-width: 768px) {
-      .navbar { padding: 0 20px; }
-      .navbar__firma { height: 24px; }
-      .navbar__right { gap: 18px; }
+    .nav-drawer.is-open { display: flex; }
+
+    .nav-drawer a {
+      font-weight: 400;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+      transition: opacity 0.3s var(--ease);
     }
+
+    .nav-drawer a:hover { opacity: 0.5; }
+    .nav-drawer a[aria-current="page"] { opacity: 0.4; }
 
     footer {
       background: var(--navy);
@@ -294,8 +347,8 @@
 
     /* GENDER HERO */
     .gender {
-      margin-top: 56px;
-      min-height: calc(100vh - 56px);
+      margin-top: 84px;
+      min-height: calc(100vh - 84px);
       display: grid;
       grid-template-columns: 1fr 1fr;
       position: relative;
@@ -406,7 +459,7 @@
     }
 
     .gender__media {
-      margin-top: 48px;
+      margin-top: 80px;
       flex: 1;
       min-height: 320px;
       max-height: 460px;
@@ -830,12 +883,35 @@
 
     /* RESPONSIVE — tablet */
     @media (max-width: 1100px) {
+      .navbar .nav-section,
+      .navbar .util { gap: 24px; }
       .navbar a.nav-link { font-size: 10px; letter-spacing: 0.14em; }
     }
 
     /* RESPONSIVE — mobile */
     @media (max-width: 900px) {
       :root { --pad-x: 20px; }
+
+      .ticker { height: 24px; }
+      .ticker__item { font-size: 8px; padding: 0 20px; }
+
+      .navbar { top: 24px; padding: 0 20px; }
+      .navbar .nav-section { display: none; }
+      .navbar .util { display: none; }
+      .menu-btn { display: inline-block; }
+
+      .navbar__logo-img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .navbar__firma { height: 26px; }
+
+      .gender {
+        margin-top: 80px !important;
+        min-height: calc(100vh - 80px) !important;
+      }
 
       .signature-banner {
         display: block;
@@ -905,29 +981,39 @@
 
   <div id="cursor" aria-hidden="true"></div>
 
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span class="ticker__item">Leather House <span>·</span> Medellín · Antioquia <span>·</span> Cuero Pleno Colombiano <span>·</span> Hecho a Mano <span>·</span> Grabado Láser <span>·</span> Elegancia que Permanece <span>·</span></span>
+      <span class="ticker__item">Leather House <span>·</span> Medellín · Antioquia <span>·</span> Cuero Pleno Colombiano <span>·</span> Hecho a Mano <span>·</span> Grabado Láser <span>·</span> Elegancia que Permanece <span>·</span></span>
+      <span class="ticker__item">Leather House <span>·</span> Medellín · Antioquia <span>·</span> Cuero Pleno Colombiano <span>·</span> Hecho a Mano <span>·</span> Grabado Láser <span>·</span> Elegancia que Permanece <span>·</span></span>
+      <span class="ticker__item">Leather House <span>·</span> Medellín · Antioquia <span>·</span> Cuero Pleno Colombiano <span>·</span> Hecho a Mano <span>·</span> Grabado Láser <span>·</span> Elegancia que Permanece <span>·</span></span>
+    </div>
+  </div>
+
   <header class="navbar" role="banner">
-    <div class="navbar__left"></div>
-    <a href="index.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+    <nav class="nav-section" aria-label="Navegación principal izquierda">
+      <a href="#mujer" class="nav-link">Mujer</a>
+      <a href="#hombre" class="nav-link">Hombre</a>
+      <a href="manifiesto.html" class="nav-link">Historia</a>
+    </nav>
+    <a href="index.html" class="navbar__logo-img" aria-label="Ofelia Vallejo — Inicio">
       <img src="logo-firma.png" alt="Ofelia Vallejo" class="navbar__firma">
     </a>
-    <div class="navbar__right">
-      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <nav class="util" aria-label="Navegación principal derecha">
+      <a href="coleccion.html" class="nav-link">Cuero</a>
+      <a href="personalizar.html" class="nav-link">Personalizar</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+    </nav>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Abrir menú de navegación">Menú</button>
   </header>
 
-  <div class="nav-overlay" id="navOverlay"></div>
-  <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
-    <div class="nav-panel__links">
-      <a href="#mujer"          class="nav-panel__link">Mujer</a>
-      <a href="#hombre"         class="nav-panel__link">Hombre</a>
-      <a href="manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="coleccion.html"  class="nav-panel__link">Cuero</a>
-      <a href="personalizar.html" class="nav-panel__link">Personalizar</a>
-      <a href="contacto.html"   class="nav-panel__link">Contacto</a>
-    </div>
-    <span class="nav-panel__foot">Leather House · Medellín</span>
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Navegación móvil">
+    <a href="#" class="nav-link" data-active="true">Mujer</a>
+    <a href="#" class="nav-link" data-active="true">Hombre</a>
+    <a href="manifiesto.html" class="nav-link">Historia</a>
+    <a href="coleccion.html" class="nav-link">Cuero</a>
+    <a href="personalizar.html" class="nav-link">Personalizar</a>
+    <a href="#contacto" class="nav-link">Contacto</a>
   </nav>
 
   <main>
@@ -1163,27 +1249,23 @@
     })();
 
     (function () {
-      const btn     = document.getElementById('menuBtn');
-      const panel   = document.getElementById('navPanel');
-      const overlay = document.getElementById('navOverlay');
-      if (!btn || !panel) return;
+      const btn = document.querySelector('.menu-btn');
+      const drawer = document.querySelector('.nav-drawer');
+      if (!btn || !drawer) return;
 
-      function open()  {
-        panel.classList.add('is-open');
-        overlay.classList.add('is-active');
-        btn.classList.add('is-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
-      function close() {
-        panel.classList.remove('is-open');
-        overlay.classList.remove('is-active');
-        btn.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-      }
+      btn.addEventListener('click', () => {
+        const open = drawer.classList.toggle('is-open');
+        btn.textContent = open ? 'Cerrar' : 'Menú';
+        btn.setAttribute('aria-expanded', String(open));
+      });
 
-      btn.addEventListener('click', () => panel.classList.contains('is-open') ? close() : open());
-      overlay.addEventListener('click', close);
-      panel.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => {
+          drawer.classList.remove('is-open');
+          btn.textContent = 'Menú';
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
     })();
   </script>
 </body>
