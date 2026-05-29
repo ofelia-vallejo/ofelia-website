@@ -2,8 +2,7 @@
   "installCommand": "npm install --omit=dev",
   "functions": {
     "api/**/*.js": {
-      "maxDuration": 30,
-      "excludeFiles": "{imagenes base/**,videos base/**,graphify-out/**,memory/**,scripts/**,producto/_archive/**,Home v6.html,.git/**}"
+      "maxDuration": 30
     }
   },
   "cleanUrls": true,

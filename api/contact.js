@@ -3,6 +3,7 @@
 // Returns: { ok, message } | { ok: false, error }
 
 const nodemailer = require('nodemailer');
+const { subscribe } = require('../lib/newsletter');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RECIPIENT = process.env.EMAIL_TO || 'atelierofelia.vallejo@gmail.com';
@@ -23,7 +24,38 @@ module.exports = async (req, res) => {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
-  const { nombre, email, asunto, mensaje } = req.body || {};
+  let body = req.body || {};
+  if (typeof body === 'string') {
+    try {
+      body = JSON.parse(body);
+    } catch {
+      return res.status(400).json({ ok: false, error: 'JSON inválido' });
+    }
+  }
+
+  /* Popup lanzamiento · POST /api/contact con solo { email } (misma ruta, menos functions) */
+  if (body.email && !body.mensaje && !body.nombre) {
+    try {
+      const result = await subscribe(body.email);
+      return res.status(200).json({
+        ok: true,
+        alreadySubscribed: result.alreadySubscribed,
+        couponCode: result.couponCode,
+        discountLabel: result.discountLabel,
+        message: result.alreadySubscribed
+          ? 'Este correo ya tiene su cupón de la casa.'
+          : 'Cupón enviado. Guárdalo para tu primera pieza.',
+      });
+    } catch (e) {
+      if (e.code === 'INVALID_EMAIL') {
+        return res.status(400).json({ ok: false, error: e.message });
+      }
+      console.error('[newsletter]', e);
+      return res.status(500).json({ ok: false, error: 'No se pudo registrar el correo.' });
+    }
+  }
+
+  const { nombre, email, asunto, mensaje } = body;
 
   if (!nombre || !email || !mensaje) {
     return res.status(400).json({

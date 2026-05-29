@@ -8,6 +8,7 @@ const { hasCustomersDb, savePersonalizationRequest } = require('../lib/customers
 const { verifyCustomerToken, getCustomerBearer } = require('../lib/customer-auth');
 const {
   buildPersonalizationMessage,
+  buildOrderMessage,
   buildWhatsAppUrl,
 } = require('../lib/personalizar-message');
 
@@ -69,10 +70,13 @@ module.exports = async (req, res) => {
     engrave_price,
     total_estimated,
     channel,
+    type,
+    color,
   } = req.body || {};
 
   const sendChannel = channel === 'whatsapp' ? 'whatsapp' : 'email';
   const isWhatsApp = sendChannel === 'whatsapp';
+  const isPedido = type === 'pedido';
 
   if (!producto) {
     return res.status(400).json({
@@ -81,8 +85,10 @@ module.exports = async (req, res) => {
     });
   }
 
-  if (isWhatsApp) {
-    if (!nombre) {
+  if (isWhatsApp || isPedido) {
+    // pedido: solo requiere producto (ya validado arriba)
+    // personalizar por WhatsApp: requiere nombre
+    if (!isPedido && !nombre) {
       return res.status(400).json({ ok: false, error: 'Indica tu nombre.' });
     }
   } else if (!nombre || !email || !tipo_grabado || !texto_grabado) {
@@ -132,7 +138,9 @@ module.exports = async (req, res) => {
     base_price,
     engrave_price,
     total_estimated,
+    color: color || '',
     channel: sendChannel,
+    type: isPedido ? 'pedido' : 'personalizacion',
   };
 
   const token = getCustomerBearer(req);
@@ -149,7 +157,9 @@ module.exports = async (req, res) => {
     }
   }
 
-  const waMessage = buildPersonalizationMessage(payload);
+  const waMessage = isPedido
+    ? buildOrderMessage(payload)
+    : buildPersonalizationMessage(payload);
   const whatsapp_url = buildWhatsAppUrl(waMessage);
 
   if (sendChannel === 'whatsapp' && !whatsapp_url) {
