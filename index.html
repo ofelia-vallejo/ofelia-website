@@ -200,6 +200,20 @@
   .pin .halo--2 { animation-delay: 0.9s; }
   @keyframes pin-pulse { 0% { r: 5; opacity: 0.95; } 100% { r: 78; opacity: 0; } }
 
+  /* ─── Arc flight layer ──────────────────────────── */
+  .layer-arc path.arc-line {
+    fill: none; stroke: var(--accent); stroke-width: 0.7;
+    stroke-dasharray: 4 5; opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .layer-arc path.arc-line.visible { opacity: 0.35; }
+  .layer-arc circle.arc-target {
+    fill: none; stroke: var(--accent); stroke-width: 0.7;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .layer-arc circle.arc-target.visible { opacity: 0.35; }
+  .layer-arc circle.traveler { fill: var(--accent); opacity: 0.75; }
+
   /* ─── Vignette (stage 4) ─────────────────────────── */
   .vignette {
     position: absolute; inset: 0; z-index: 3;
@@ -440,6 +454,7 @@
         <g class="layer-depts"      id="lDepts"></g>
         <g class="layer-region"     id="lRegion"></g>
         <g class="layer-decorative" id="lDeco"></g>
+        <g class="layer-arc"        id="lArc"></g>
         <g class="pin" id="pin">
           <circle class="halo halo--1" cx="0" cy="0" r="5" />
           <circle class="halo halo--2" cx="0" cy="0" r="5" />
@@ -550,13 +565,14 @@
   const pinEl   = document.getElementById('pin');
   const backBtn = document.getElementById('backBtn');
 
-  const lWater = document.getElementById('lWater');
-  const lGrat  = document.getElementById('lGrat');
-  const lWorld = document.getElementById('lWorld');
-  const lInked = document.getElementById('lInked');
-  const lDepts = document.getElementById('lDepts');
-  const lRegion= document.getElementById('lRegion');
-  const lDeco  = document.getElementById('lDeco');
+  const lWater  = document.getElementById('lWater');
+  const lGrat   = document.getElementById('lGrat');
+  const lWorld  = document.getElementById('lWorld');
+  const lInked  = document.getElementById('lInked');
+  const lDepts  = document.getElementById('lDepts');
+  const lRegion = document.getElementById('lRegion');
+  const lDeco   = document.getElementById('lDeco');
+  const lArc    = document.getElementById('lArc');
 
   const $world  = d3.select(lWorld);
   const $inked  = d3.select(lInked);
@@ -564,6 +580,7 @@
   const $region = d3.select(lRegion);
   const $deco   = d3.select(lDeco);
   const $grat   = d3.select(lGrat);
+  const $arc    = d3.select(lArc);
 
   /* ─── Projection ─────────────────────────────────── */
   let W = window.innerWidth, H = window.innerHeight;
@@ -571,7 +588,6 @@
   const proj = d3.geoOrthographic().scale(INIT_SCALE).translate([W/2, H/2]).clipAngle(90);
   const path = d3.geoPath(proj);
   let currentClip = INIT_SCALE, currentTilt = 0;
-
   const waterCircle = lWater.querySelector('circle');
 
   function setClip(r) {
@@ -580,15 +596,15 @@
     clipC.setAttribute('cx', cx); clipC.setAttribute('cy', cy); clipC.setAttribute('r', r);
     waterCircle.setAttribute('cx', cx); waterCircle.setAttribute('cy', cy); waterCircle.setAttribute('r', r + 2);
   }
-  /* init clip & water at projection center */
   setClip(INIT_SCALE);
+
   function setTilt(deg) { currentTilt = deg; tiltEl.style.transform = 'rotateX(' + deg + 'deg)'; }
 
   function strokeFor(scale) {
     return {
-      land:   Math.min(0.9, 0.35 + scale/8000),
-      dept:   Math.min(1.1, 0.4  + scale/5000),
-      region: Math.min(2.2, 0.6  + scale/2000)
+      land:   Math.min(0.9,  0.35 + scale / 8000),
+      dept:   Math.min(1.1,  0.4  + scale / 5000),
+      region: Math.min(2.2,  0.6  + scale / 2000)
     };
   }
 
@@ -600,11 +616,13 @@
          + ' · ' + lonD.toString().padStart(2,'0') + '°' + lonM.toString().padStart(2,'0') + '′' + (lng >= 0 ? 'E' : 'O');
   }
 
-  function updateCoords() {
-    const r = proj.rotate();
-    document.getElementById('coordsVal').textContent = formatCoord(-r[0], -r[1]);
-  }
+  /* ─── Arc state ──────────────────────────────────── */
+  let arcTravelerDot = null;
+  let arcGeoInterp   = null;
+  let arcToGeo       = null;
+  let arcFadeTimer   = null;
 
+  /* ─── Redraw ─────────────────────────────────────── */
   function redraw() {
     const sw = strokeFor(proj.scale());
     $world.selectAll('path').attr('d', path).attr('stroke-width', sw.land);
@@ -617,15 +635,35 @@
       if (pt) { this.setAttribute('cx', pt[0]); this.setAttribute('cy', pt[1]); }
     });
     $grat.selectAll('path').attr('d', path);
+
+    /* Arc layer — reproject each frame so arc follows the globe */
+    $arc.selectAll('path.arc-line').attr('d', path);
+    if (arcToGeo) {
+      const dp = proj(arcToGeo);
+      $arc.selectAll('circle.arc-target').each(function() {
+        if (dp) { this.setAttribute('cx', dp[0]); this.setAttribute('cy', dp[1]); }
+      });
+    }
+    if (arcTravelerDot) {
+      const node = arcTravelerDot.node();
+      if (node && node._geoPos) {
+        const tp = proj(node._geoPos);
+        if (tp) { node.setAttribute('cx', tp[0]); node.setAttribute('cy', tp[1]); }
+      }
+    }
+
     if (pinEl.dataset.lng) {
       const pt = proj([+pinEl.dataset.lng, +pinEl.dataset.lat]);
       if (pt) pinEl.setAttribute('transform', 'translate(' + pt[0] + ',' + pt[1] + ')');
     }
-    lDepts.classList.toggle('on', proj.scale() > 800);
-    lInked.classList.toggle('off', proj.scale() > 1300);
-    lRegion.classList.toggle('on', proj.scale() > 1800 && stage >= 2);
-    lDeco.classList.toggle('on', proj.scale() > 2500 && stage >= 3);
-    updateCoords();
+
+    lDepts.classList.toggle('on',  proj.scale() > INIT_SCALE * 2.5);
+    lInked.classList.toggle('off', proj.scale() > INIT_SCALE * 4);
+    lRegion.classList.toggle('on', proj.scale() > INIT_SCALE * 8  && stage >= 2);
+    lDeco.classList.toggle('on',   proj.scale() > INIT_SCALE * 15 && stage >= 3);
+
+    const r = proj.rotate();
+    document.getElementById('coordsVal').textContent = formatCoord(-r[0], -r[1]);
   }
 
   /* ─── Load data ──────────────────────────────────── */
@@ -647,7 +685,6 @@
   const antioquia  = colombiaGeo.features.find(f => f.properties &&
     /antioquia/i.test(f.properties.NOMBRE_DPT || f.properties.name || ''));
 
-  /* Pre-compute centroids once */
   const colombiaCenter  = colombia  ? d3.geoCentroid(colombia)  : [-74.3, 4.6];
   const antioquiaCenter = antioquia ? d3.geoCentroid(antioquia) : [-75.5, 6.5];
   const guatapeCenter   = [-75.1489, 6.2303];
@@ -660,7 +697,6 @@
   $depts.selectAll('path').data(colombiaGeo.features).join('path').attr('d', path);
   if (antioquia) $region.append('path').datum(antioquia).attr('d', path);
 
-  /* Decorative river + ridges */
   $deco.append('path').datum({ type:'LineString', coordinates:[
     [-75.43,6.07],[-75.44,6.10],[-75.46,6.14],[-75.47,6.18],
     [-75.49,6.21],[-75.52,6.25],[-75.54,6.30],[-75.55,6.36],
@@ -690,10 +726,93 @@
   pinEl.dataset.lng = -75.5812;
   pinEl.dataset.lat = 6.2476;
 
+  /* ─── Arc helpers ────────────────────────────────── */
+  function drawFlightArc(fromGeo, toGeo) {
+    if (arcFadeTimer) { clearTimeout(arcFadeTimer); arcFadeTimer = null; }
+    $arc.selectAll('*').remove();
+
+    $arc.append('path')
+      .datum({ type:'LineString', coordinates:[fromGeo, toGeo] })
+      .attr('class', 'arc-line')
+      .attr('d', path);
+
+    const dp = proj(toGeo);
+    $arc.append('circle')
+      .attr('class', 'arc-target')
+      .attr('r', '5')
+      .attr('cx', dp ? dp[0] : 0)
+      .attr('cy', dp ? dp[1] : 0);
+
+    arcTravelerDot = $arc.append('circle').attr('class', 'traveler').attr('r', '2.5');
+    arcGeoInterp   = d3.geoInterpolate(fromGeo, toGeo);
+    arcToGeo       = toGeo;
+
+    requestAnimationFrame(() => {
+      $arc.selectAll('.arc-line').classed('visible', true);
+      $arc.selectAll('.arc-target').classed('visible', true);
+    });
+  }
+
+  function updateTravelerDot(k) {
+    if (!arcTravelerDot || !arcGeoInterp) return;
+    const pos  = arcGeoInterp(k);
+    const pt   = proj(pos);
+    const node = arcTravelerDot.node();
+    if (node) {
+      node._geoPos = pos;
+      if (pt) { node.setAttribute('cx', pt[0]); node.setAttribute('cy', pt[1]); }
+    }
+  }
+
+  function clearFlightArc() {
+    $arc.selectAll('.arc-line, .arc-target').classed('visible', false);
+    arcFadeTimer = setTimeout(() => {
+      $arc.selectAll('*').remove();
+      arcTravelerDot = arcGeoInterp = arcToGeo = arcFadeTimer = null;
+    }, 600);
+  }
+
+  /* ─── Easing ─────────────────────────────────────── */
+  const easeInOut = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+
+  /* ─── Animate — spherical interpolation ─────────────
+     toGeo  : [lng, lat] geographic target (center of view)
+     withArc: show flight arc (stages 1–3 only)           */
+  function animate({ toGeo, scaleTo, clipTo, tiltTo, ms = 2200, withArc = false }) {
+    return new Promise(resolve => {
+      const r0      = proj.rotate().slice();
+      const fromGeo = [-r0[0], -r0[1]];
+      const geoInterp = toGeo ? d3.geoInterpolate(fromGeo, toGeo) : null;
+      const s0  = proj.scale(), c0 = currentClip, tv0 = currentTilt;
+      const t0  = performance.now();
+
+      if (withArc && toGeo) drawFlightArc(fromGeo, toGeo);
+
+      function frame(now) {
+        const raw = Math.min(1, (now - t0) / ms);
+        const k   = easeInOut(raw);
+
+        if (geoInterp) {
+          const p = geoInterp(k);
+          proj.rotate([-p[0], -p[1], 0]);
+        }
+        if (scaleTo !== undefined) proj.scale(s0 + (scaleTo - s0) * k);
+        if (clipTo  !== undefined) { currentClip = c0 + (clipTo - c0) * k; setClip(currentClip); }
+        if (tiltTo  !== undefined) setTilt(tv0 + (tiltTo - tv0) * k);
+
+        updateTravelerDot(k);
+        redraw();
+
+        if (raw < 1) requestAnimationFrame(frame);
+        else { clearFlightArc(); resolve(); }
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
   /* ─── Initial draw + entrance ────────────────────── */
   redraw();
 
-  /* Step0 entrance sequence */
   const step0Mono = document.getElementById('step0Mono');
   const step0Tag  = document.getElementById('step0Tag');
   setTimeout(() => step0Mono.classList.add('vis'), 300);
@@ -701,7 +820,6 @@
   setTimeout(() => step0El.classList.add('out'), 2200);
   setTimeout(() => { step0El.remove(); updatePanel(0); }, 3800);
 
-  /* Free-spin (stage 0) */
   let spinTimer = d3.timer(() => {
     if (stage === 0 && !busy) {
       const r = proj.rotate();
@@ -744,26 +862,6 @@
     }
   }
 
-  /* ─── Animate helper ─────────────────────────────── */
-  const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
-
-  function animate({rotTo, scaleTo, clipTo, tiltTo, ms = 1800}) {
-    return new Promise(resolve => {
-      const r0 = proj.rotate().slice(), s0 = proj.scale(), c0 = currentClip, t0val = currentTilt;
-      const t0 = performance.now();
-      function frame(t) {
-        const k = ease(Math.min(1, (t - t0) / ms));
-        if (rotTo)   proj.rotate([r0[0]+(rotTo[0]-r0[0])*k, r0[1]+(rotTo[1]-r0[1])*k, r0[2]]);
-        if (scaleTo !== undefined) proj.scale(s0 + (scaleTo - s0) * k);
-        if (clipTo  !== undefined) { currentClip = c0 + (clipTo - c0) * k; setClip(currentClip); }
-        if (tiltTo  !== undefined) setTilt(t0val + (tiltTo - t0val) * k);
-        redraw();
-        if (k < 1) requestAnimationFrame(frame); else resolve();
-      }
-      requestAnimationFrame(frame);
-    });
-  }
-
   /* ─── Stage machine ──────────────────────────────── */
   let stage = 0, busy = false;
 
@@ -771,7 +869,7 @@
     if (busy) return; busy = true;
     stageEl.dataset.stage = '1';
     updatePanel(1);
-    await animate({ rotTo:[74,-4,0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:2200 });
+    await animate({ toGeo:[-74.0,4.0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:2200, withArc:true });
     stage = 1; busy = false;
   }
 
@@ -779,7 +877,7 @@
     if (busy) return; busy = true;
     stageEl.dataset.stage = '2';
     updatePanel(2);
-    await animate({ rotTo:[-colombiaCenter[0],-colombiaCenter[1],0], scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200 });
+    await animate({ toGeo:colombiaCenter, scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200, withArc:true });
     stage = 2; busy = false;
   }
 
@@ -787,7 +885,7 @@
     if (busy) return; busy = true;
     stageEl.dataset.stage = '3';
     updatePanel(3);
-    await animate({ rotTo:[-antioquiaCenter[0],-antioquiaCenter[1],0], scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200 });
+    await animate({ toGeo:antioquiaCenter, scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200, withArc:true });
     pinEl.classList.add('on');
     stage = 3; busy = false;
   }
@@ -797,7 +895,7 @@
     stageEl.dataset.stage = '4';
     updatePanel(4);
     pinEl.classList.add('deep');
-    await animate({ rotTo:[-guatapeCenter[0],-guatapeCenter[1],0], scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
+    await animate({ toGeo:guatapeCenter, scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
     stage = 4; busy = false;
   }
 
@@ -805,10 +903,13 @@
     if (busy) return; busy = true;
     stageEl.dataset.stage = '0';
     pinEl.classList.remove('on','deep');
+    if (arcFadeTimer) { clearTimeout(arcFadeTimer); arcFadeTimer = null; }
+    $arc.selectAll('*').remove();
+    arcTravelerDot = arcGeoInterp = arcToGeo = null;
     const place = document.getElementById('coordsPlace');
     if (place) { place.textContent = 'Cargando atlas…'; place.classList.remove('resolved'); }
     updatePanel(0);
-    await animate({ rotTo:[20,-10,0], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
+    await animate({ toGeo:[-20,10], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
     stage = 0; busy = false;
   }
 
