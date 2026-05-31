@@ -551,8 +551,8 @@
 
 </div><!-- .stage -->
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script src="assets/data/d3.min.js"></script>
+<script src="assets/data/topojson-client.min.js"></script>
 
 <script>
 (async function(){
@@ -667,22 +667,22 @@
   }
 
   /* ─── Load data ──────────────────────────────────── */
+  /* world-atlas served locally; Colombia depts are optional (degrade gracefully) */
   let world50, colombiaGeo;
   try {
-    const [w, c] = await Promise.all([
-      d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json'),
-      d3.json('https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json')
-    ]);
-    world50 = w; colombiaGeo = c;
+    world50 = await d3.json('assets/data/countries-50m.json');
   } catch(err) {
     const el = document.getElementById('step0Loading');
     if (el) el.textContent = 'Error cargando atlas · revisa conexión';
     return;
   }
+  colombiaGeo = await d3.json(
+    'https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json'
+  ).catch(() => null);
 
   const countries  = topojson.feature(world50, world50.objects.countries);
   const colombia   = countries.features.find(f => f.properties && /colombia/i.test(f.properties.name));
-  const antioquia  = colombiaGeo.features.find(f => f.properties &&
+  const antioquia  = colombiaGeo && colombiaGeo.features.find(f => f.properties &&
     /antioquia/i.test(f.properties.NOMBRE_DPT || f.properties.name || ''));
 
   const colombiaCenter  = colombia  ? d3.geoCentroid(colombia)  : [-74.3, 4.6];
@@ -694,7 +694,7 @@
   $grat.append('path').datum(graticule()).attr('d', path);
   $world.selectAll('path').data(countries.features).join('path').attr('d', path);
   if (colombia)  $inked.append('path').datum(colombia).attr('d', path);
-  $depts.selectAll('path').data(colombiaGeo.features).join('path').attr('d', path);
+  if (colombiaGeo) $depts.selectAll('path').data(colombiaGeo.features).join('path').attr('d', path);
   if (antioquia) $region.append('path').datum(antioquia).attr('d', path);
 
   $deco.append('path').datum({ type:'LineString', coordinates:[

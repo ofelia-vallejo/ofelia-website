@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "nodemailer": "^8.0.7"
+    "d3": "^7.9.0",
+    "nodemailer": "^8.0.7",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
   }
 }
