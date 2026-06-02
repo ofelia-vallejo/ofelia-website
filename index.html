@@ -165,18 +165,21 @@
   .layer-water circle { fill: var(--bg); }
   .layer-graticule path { fill: none; stroke: var(--ink); stroke-width: 0.4; opacity: 0.09; }
   .layer-world path { fill: none; stroke: var(--ink); stroke-width: 0.6; opacity: 0.70; }
+  /* Colombia country: border-only highlight — fill fades as we zoom in */
   .layer-inked path {
-    fill: var(--ink); fill-opacity: 0.92; stroke: var(--ink); stroke-width: 0.8;
-    transition: fill-opacity 0.6s var(--ease), stroke-opacity 0.6s var(--ease);
+    fill: var(--ink); fill-opacity: 0.10; stroke: var(--ink); stroke-width: 1.2;
+    transition: fill-opacity 0.8s var(--ease), stroke-opacity 0.8s var(--ease), stroke-width 0.8s var(--ease);
   }
   .layer-inked.off path { fill-opacity: 0; stroke-opacity: 0; }
-  .layer-depts path { fill: none; stroke: var(--ink); stroke-width: 0.55; opacity: 0; transition: opacity 0.8s var(--ease); }
-  .layer-depts.on path { opacity: 0.65; }
+  /* Department borders — border-only, never filled */
+  .layer-depts path { fill: none; stroke: var(--ink); stroke-width: 0.5; opacity: 0; transition: opacity 0.9s var(--ease); }
+  .layer-depts.on path { opacity: 0.55; }
+  /* Antioquia region — subtle fill + stronger border */
   .layer-region path {
-    fill: var(--ink); fill-opacity: 0; stroke: var(--ink); stroke-width: 0.9;
-    opacity: 0; transition: opacity 0.8s var(--ease), fill-opacity 0.8s var(--ease);
+    fill: var(--ink); fill-opacity: 0; stroke: var(--ink); stroke-width: 1.4;
+    opacity: 0; transition: opacity 0.9s var(--ease), fill-opacity 0.9s var(--ease);
   }
-  .layer-region.on path { opacity: 1; fill-opacity: 0.06; }
+  .layer-region.on path { opacity: 1; fill-opacity: 0.08; }
   .layer-decorative path, .layer-decorative circle {
     stroke: var(--ink); stroke-width: 0.5; fill: none;
     opacity: 0; transition: opacity 0.8s var(--ease);
@@ -657,9 +660,12 @@
       if (pt) pinEl.setAttribute('transform', 'translate(' + pt[0] + ',' + pt[1] + ')');
     }
 
-    lDepts.classList.toggle('on',  proj.scale() > INIT_SCALE * 2.5);
-    lInked.classList.toggle('off', proj.scale() > INIT_SCALE * 4);
-    lRegion.classList.toggle('on', proj.scale() > INIT_SCALE * 8  && stage >= 2);
+    /* lInked (Colombia fill) fades once we zoom past country level */
+    lInked.classList.toggle('off', proj.scale() > INIT_SCALE * 5);
+    /* Departments appear from stage 1 onward once zoomed to country level */
+    lDepts.classList.toggle('on',  proj.scale() > INIT_SCALE * 1.4 && stage >= 1);
+    /* Antioquia highlighted only when zoomed into Colombia (stage 2+) */
+    lRegion.classList.toggle('on', proj.scale() > INIT_SCALE * 6  && stage >= 2);
     lDeco.classList.toggle('on',   proj.scale() > INIT_SCALE * 15 && stage >= 3);
 
     const r = proj.rotate();
@@ -676,9 +682,7 @@
     if (el) el.textContent = 'Error cargando atlas · revisa conexión';
     return;
   }
-  colombiaGeo = await d3.json(
-    'https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json'
-  ).catch(() => null);
+  colombiaGeo = await d3.json('assets/data/Colombia.geo.json').catch(() => null);
 
   const countries  = topojson.feature(world50, world50.objects.countries);
   const colombia   = countries.features.find(f => f.properties && /colombia/i.test(f.properties.name));
@@ -870,7 +874,7 @@
     stageEl.dataset.stage = '1';
     updatePanel(1);
     await animate({ toGeo:[-74.0,4.0], scaleTo:Math.min(W,H)*0.62, clipTo:Math.max(W,H)*1.6, tiltTo:0, ms:2200, withArc:true });
-    stage = 1; busy = false;
+    stage = 1; busy = false; redraw();
   }
 
   async function toStage2() {
@@ -878,7 +882,7 @@
     stageEl.dataset.stage = '2';
     updatePanel(2);
     await animate({ toGeo:colombiaCenter, scaleTo:Math.min(W,H)*3.6, tiltTo:4, ms:2200, withArc:true });
-    stage = 2; busy = false;
+    stage = 2; busy = false; redraw();
   }
 
   async function toStage3() {
@@ -887,7 +891,7 @@
     updatePanel(3);
     await animate({ toGeo:antioquiaCenter, scaleTo:Math.min(W,H)*12, tiltTo:10, ms:2200, withArc:true });
     pinEl.classList.add('on');
-    stage = 3; busy = false;
+    stage = 3; busy = false; redraw();
   }
 
   async function toStage4() {
@@ -896,7 +900,7 @@
     updatePanel(4);
     pinEl.classList.add('deep');
     await animate({ toGeo:guatapeCenter, scaleTo:Math.min(W,H)*28, tiltTo:18, ms:2400 });
-    stage = 4; busy = false;
+    stage = 4; busy = false; redraw();
   }
 
   async function resetAll() {
@@ -910,7 +914,7 @@
     if (place) { place.textContent = 'Cargando atlas…'; place.classList.remove('resolved'); }
     updatePanel(0);
     await animate({ toGeo:[-20,10], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 });
-    stage = 0; busy = false;
+    stage = 0; busy = false; redraw();
   }
 
   /* ─── Click handlers ─────────────────────────────── */
