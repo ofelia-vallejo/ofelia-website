@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@geo-maps/countries-maritime-500m": "^0.6.0",
+    "@svg-maps/colombia": "^2.0.0",
+    "colombia": "^0.0.1",
     "d3": "^7.9.0",
     "nodemailer": "^8.0.7",
     "topojson-client": "^3.1.0",
