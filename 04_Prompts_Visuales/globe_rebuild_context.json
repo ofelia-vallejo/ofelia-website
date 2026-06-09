@@ -1,0 +1,357 @@
+{
+  "_meta": {
+    "proyecto": "Ofelia Vallejo — Globe Entry Animation",
+    "archivo": "index.html",
+    "proposito": "Pantalla de entrada cartográfica interactiva. El usuario hace clic 4 veces para volar del mundo → Latinoamérica → Colombia → Antioquia → Guatapé, luego entra al sitio.",
+    "librerias": {
+      "d3": "v7 — cargado desde assets/data/d3.min.js (local, NO cdn)",
+      "topojson": "topojson-client v3 — assets/data/topojson-client.min.js (local)",
+      "datos_mundo": "assets/data/countries-50m.json — world-atlas TopoJSON 50m (local)",
+      "datos_colombia": "assets/data/Colombia.geo.json — 33 departamentos GeoJSON (local, generado)"
+    },
+    "instruccion": "Reconstruir SOLO el bloque <script> al final del HTML. NO tocar HTML, CSS, estructura de capas SVG, copy de paneles ni estilos. La arquitectura SVG/CSS/HTML se describe aquí como referencia para que el script funcione con ella."
+  },
+
+  "viaje_narrativo": {
+    "etapas": [
+      {
+        "stage": 0,
+        "nombre": "El mundo gira",
+        "descripcion": "Vista global. El globo rota automáticamente en bucle. Panel: 'El mundo de Ofelia.'",
+        "rotacion_auto": true,
+        "velocidad_spin": "0.16° por frame (d3.timer)",
+        "hint": "Haga clic en el globo",
+        "escala_target": "INIT_SCALE = Math.min(W,H) * 0.36",
+        "clip_target": "INIT_SCALE (esfera exacta)",
+        "tilt_target": 0
+      },
+      {
+        "stage": 1,
+        "nombre": "Latinoamérica / Colombia visible",
+        "descripcion": "Zoom al continente americano, Colombia centrada. Aparecen departamentos.",
+        "geo_target": [-74.0, 4.0],
+        "escala_target": "Math.min(W,H) * 0.62",
+        "clip_target": "Math.max(W,H) * 1.6",
+        "tilt_target": 0,
+        "ms": 2200,
+        "with_arc": true,
+        "hint": "Haga clic en Colombia ●",
+        "layers_on": ["lDepts"],
+        "layers_off": []
+      },
+      {
+        "stage": 2,
+        "nombre": "Colombia zoom",
+        "descripcion": "Zoom al país completo. Colombia border + departamentos bien visibles.",
+        "geo_target": "d3.geoCentroid(colombia) — calculado del TopoJSON",
+        "escala_target": "Math.min(W,H) * 3.6",
+        "clip_target": "no cambiar (heredar del stage 1)",
+        "tilt_target": 4,
+        "ms": 2200,
+        "with_arc": true,
+        "hint": "Haga clic en Antioquia ●",
+        "layers_on": ["lDepts", "lRegion"],
+        "layers_off": ["lInked (fade cuando scale > INIT_SCALE*5)"]
+      },
+      {
+        "stage": 3,
+        "nombre": "Antioquia",
+        "descripcion": "Zoom a Antioquia. Aparece el pin con pulso. Decorativas (ríos, municipios) visibles.",
+        "geo_target": "d3.geoCentroid(antioquia) — del Colombia.geo.json",
+        "escala_target": "Math.min(W,H) * 12",
+        "clip_target": "no cambiar",
+        "tilt_target": 10,
+        "ms": 2200,
+        "with_arc": true,
+        "hint": "Haga clic en Guatapé ●",
+        "layers_on": ["lDepts", "lRegion", "lDeco", "pin.on"],
+        "layers_off": ["lInked"]
+      },
+      {
+        "stage": 4,
+        "nombre": "Guatapé — destino final",
+        "descripcion": "Zoom máximo a Guatapé. Pin crece (deep). Vignette aparece. Card sube desde abajo.",
+        "geo_target": [-75.1489, 6.2303],
+        "escala_target": "Math.min(W,H) * 28",
+        "clip_target": "no cambiar",
+        "tilt_target": 18,
+        "ms": 2400,
+        "with_arc": false,
+        "hint": "",
+        "layers_on": ["lDepts", "lRegion", "lDeco", "pin.on", "pin.deep", "vignette (via CSS data-stage=4)", "card (via CSS data-stage=4)"]
+      }
+    ]
+  },
+
+  "svg_layers": {
+    "orden_z": ["lWater", "lGrat", "lWorld", "lInked", "lDepts", "lRegion", "lDeco", "lArc", "pin"],
+    "todos_dentro_de": "<g clip-path='url(#globe-clip)'> — clip circular del globo",
+    "capas": {
+      "lWater": {
+        "id": "lWater",
+        "clase_css": "layer-water",
+        "contenido": "Un <circle> que es el fondo azul-marfil del océano",
+        "css": "fill: var(--bg) — #F3EEE6",
+        "nota": "El círculo se reposiciona con setClip() en cada frame"
+      },
+      "lGrat": {
+        "id": "lGrat",
+        "clase_css": "layer-graticule",
+        "contenido": "Un <path> — d3.geoGraticule().step([15,15])",
+        "css": "fill:none; stroke: var(--ink); stroke-width:0.4; opacity:0.09"
+      },
+      "lWorld": {
+        "id": "lWorld",
+        "clase_css": "layer-world",
+        "contenido": "Todos los países del mundo (countries-50m.json features)",
+        "css": "fill:none; stroke: var(--ink); stroke-width:0.6; opacity:0.70"
+      },
+      "lInked": {
+        "id": "lInked",
+        "clase_css": "layer-inked",
+        "contenido": "Colombia país (1 path del TopoJSON world)",
+        "css_default": "fill: var(--ink); fill-opacity:0.10; stroke: var(--ink); stroke-width:1.2",
+        "css_off": "clase 'off' → fill-opacity:0; stroke-opacity:0",
+        "logica": "toggle('off') cuando scale > INIT_SCALE * 5 — se desvanece al hacer zoom adentro"
+      },
+      "lDepts": {
+        "id": "lDepts",
+        "clase_css": "layer-depts",
+        "contenido": "33 departamentos de Colombia (Colombia.geo.json features)",
+        "css_default": "fill:none; stroke: var(--ink); stroke-width:0.5; opacity:0",
+        "css_on": "clase 'on' → opacity:0.55",
+        "logica": "toggle('on') cuando scale > INIT_SCALE * 1.4 && stage >= 1"
+      },
+      "lRegion": {
+        "id": "lRegion",
+        "clase_css": "layer-region",
+        "contenido": "Solo Antioquia (1 feature del Colombia.geo.json)",
+        "css_default": "fill: var(--ink); fill-opacity:0; stroke: var(--ink); stroke-width:1.4; opacity:0",
+        "css_on": "clase 'on' → opacity:1; fill-opacity:0.08",
+        "logica": "toggle('on') cuando scale > INIT_SCALE * 6 && stage >= 2"
+      },
+      "lDeco": {
+        "id": "lDeco",
+        "clase_css": "layer-decorative",
+        "contenido": "3 LineStrings decorativos (ríos/caminos de Antioquia) + 7 círculos municipios del Valle de Aburrá",
+        "css_default": "stroke: var(--ink); stroke-width:0.5; fill:none; opacity:0",
+        "css_on": "clase 'on' → opacity:0.45",
+        "logica": "toggle('on') cuando scale > INIT_SCALE * 15 && stage >= 3",
+        "municipios": ["Bello [-75.5573,6.3373]", "Envigado [-75.5836,6.1717]", "Itagüí [-75.5993,6.1717]", "Sabaneta [-75.6164,6.1500]", "Caldas [-75.6353,6.0917]", "Copacabana [-75.5076,6.3475]", "La Estrella [-75.6353,6.1583]"],
+        "nota_circulos": "Los círculos tienen data-lng / data-lat y se reposicionan con proj() en cada redraw()"
+      },
+      "lArc": {
+        "id": "lArc",
+        "clase_css": "layer-arc",
+        "contenido": "Arc de vuelo animado (path dashed + circle target + circle traveler)",
+        "arc_line_css": "fill:none; stroke: var(--accent) #5B1E24; stroke-width:0.7; stroke-dasharray:4 5; opacity:0 → clase 'visible' → opacity:0.35",
+        "arc_target_css": "fill:none; stroke: var(--accent); stroke-width:0.7; opacity:0 → clase 'visible' → opacity:0.35",
+        "traveler_css": "fill: var(--accent); opacity:0.75; r=2.5",
+        "logica": "Se dibuja en drawFlightArc(fromGeo, toGeo) al inicio de cada transición con withArc:true. Se anima con arcGeoInterp(k) en cada frame. Se limpia con clearFlightArc() al terminar."
+      },
+      "pin": {
+        "id": "pin",
+        "clase_css": "pin",
+        "contenido": "2 halos pulsantes (halo halo--1, halo halo--2) + core circle r=3.2",
+        "css_default": "opacity:0",
+        "css_on": "clase 'on' → opacity:1",
+        "css_deep": "clase 'deep' → transform:scale(1.6)",
+        "core_color": "fill: var(--accent) #5B1E24",
+        "halo_animacion": "@keyframes pin-pulse — 0%{r:5;opacity:0.95} 100%{r:78;opacity:0} — 2.4s infinite",
+        "posicion": "dataset.lng = -75.5812, dataset.lat = 6.2476 — se posiciona con pinEl.setAttribute('transform', translate(pt[0],pt[1]))"
+      }
+    }
+  },
+
+  "proyeccion": {
+    "tipo": "d3.geoOrthographic()",
+    "escala_inicial": "INIT_SCALE = Math.min(W, H) * 0.36",
+    "translate": "[W/2, H/2] — centrada en viewport",
+    "clip_angle": 90,
+    "rotacion_formato": "[yaw, pitch, roll] — yaw=-lng, pitch=-lat",
+    "nota": "Para centrar en [lng,lat] geográfico → proj.rotate([-lng, -lat, 0])"
+  },
+
+  "clip_circle": {
+    "elemento": "<clipPath id='globe-clip'><circle id='clipCircle'></clipPath>",
+    "funcion_setClip": "setClip(r) — actualiza clipCircle cx/cy/r y waterCircle cx/cy/r+2",
+    "comportamiento": "Al inicio r=INIT_SCALE (esfera perfecta). En stage 1 se expande a Math.max(W,H)*1.6 para que el globo llene la pantalla al hacer zoom. En reset vuelve a INIT_SCALE.",
+    "cuando_pasar_clipTo": "Solo en toStage1 (expand) y resetAll (collapse). Los demás stages no lo cambian."
+  },
+
+  "animacion": {
+    "funcion": "animate({ toGeo, scaleTo, clipTo, tiltTo, ms=2200, withArc=false })",
+    "retorna": "Promise que resuelve cuando la animación termina",
+    "interpolacion_rotacion": "d3.geoInterpolate(fromGeo, toGeo) — interpolación esférica great-circle, NO lerp lineal de ángulos",
+    "easing": "easeInOut cubic — t<0.5 ? 4t³ : 1-(-2t+2)³/2",
+    "parametros": {
+      "toGeo": "[lng, lat] destino geográfico — se convierte internamente a rotación",
+      "scaleTo": "escala final de la proyección",
+      "clipTo": "radio final del clip circle (omitir para no cambiar)",
+      "tiltTo": "grados de rotateX en .tilt-wrap (omitir para no cambiar)",
+      "ms": "duración total en milisegundos",
+      "withArc": "si true, dibuja el arco de vuelo antes de animar"
+    },
+    "loop": "requestAnimationFrame — calcula raw=t/ms, k=easeInOut(raw), actualiza proyección + clip + tilt + travelerDot → redraw() — termina cuando raw>=1"
+  },
+
+  "redraw": {
+    "descripcion": "Reprojecta todos los paths y elementos de cada capa con la proyección actual",
+    "orden": [
+      "lWorld paths — attr('d', path)",
+      "lInked paths — attr('d', path)",
+      "lDepts paths — attr('d', path) + stroke-width dinámico",
+      "lRegion paths — attr('d', path) + stroke-width dinámico",
+      "lDeco paths — attr('d', path)",
+      "lDeco circles — reposicionar con proj([lng,lat])",
+      "lGrat paths — attr('d', path)",
+      "lArc arc-line — attr('d', path)",
+      "lArc arc-target — reposicionar con proj(arcToGeo)",
+      "arcTravelerDot — reposicionar con proj(node._geoPos)",
+      "pin — reposicionar con proj([dataset.lng, dataset.lat])",
+      "lInked toggle 'off' — scale > INIT_SCALE*5",
+      "lDepts toggle 'on' — scale > INIT_SCALE*1.4 && stage>=1",
+      "lRegion toggle 'on' — scale > INIT_SCALE*6 && stage>=2",
+      "lDeco toggle 'on' — scale > INIT_SCALE*15 && stage>=3",
+      "coordsVal — formatCoord(-rotate[0], -rotate[1])"
+    ],
+    "stroke_dinamico": "strokeFor(scale) — land: min(0.9, 0.35+scale/8000) | dept: min(1.1, 0.4+scale/5000) | region: min(2.2, 0.6+scale/2000)",
+    "CRITICO": "Llamar redraw() DESPUÉS de asignar stage=N al terminar cada transición. Sin esto, los toggles de capas no se actualizan."
+  },
+
+  "stage_machine": {
+    "variables": "let stage=0, busy=false",
+    "patron": "Cada función verifica 'if(busy) return', pone busy=true, actualiza stageEl.dataset.stage, llama updatePanel, await animate(), asigna stage=N, busy=false, llama redraw()",
+    "funciones": {
+      "toStage1": {
+        "desde": "stage 0",
+        "accion": "animate({ toGeo:[-74.0,4.0], scaleTo:min(W,H)*0.62, clipTo:max(W,H)*1.6, tiltTo:0, ms:2200, withArc:true })",
+        "post": "stage=1; busy=false; redraw()"
+      },
+      "toStage2": {
+        "desde": "stage 1",
+        "accion": "animate({ toGeo:colombiaCenter, scaleTo:min(W,H)*3.6, tiltTo:4, ms:2200, withArc:true })",
+        "post": "stage=2; busy=false; redraw()",
+        "nota": "colombiaCenter = d3.geoCentroid(colombia) del TopoJSON"
+      },
+      "toStage3": {
+        "desde": "stage 2",
+        "accion": "animate({ toGeo:antioquiaCenter, scaleTo:min(W,H)*12, tiltTo:10, ms:2200, withArc:true })",
+        "post": "pinEl.classList.add('on'); stage=3; busy=false; redraw()",
+        "nota": "antioquiaCenter = d3.geoCentroid(antioquia) del Colombia.geo.json"
+      },
+      "toStage4": {
+        "desde": "stage 3",
+        "accion": "animate({ toGeo:[-75.1489,6.2303], scaleTo:min(W,H)*28, tiltTo:18, ms:2400 })",
+        "post": "stage=4; busy=false; redraw()",
+        "pre": "pinEl.classList.add('deep') antes de animate"
+      },
+      "resetAll": {
+        "desde": "cualquier stage",
+        "accion": "limpiar arc, quitar pin classes, animate({ toGeo:[-20,10], scaleTo:INIT_SCALE, clipTo:INIT_SCALE, tiltTo:0, ms:1600 })",
+        "post": "stage=0; busy=false; redraw()"
+      }
+    }
+  },
+
+  "arc_flight": {
+    "drawFlightArc": {
+      "entrada": "fromGeo:[lng,lat], toGeo:[lng,lat]",
+      "crea": "path.arc-line (LineString fromGeo→toGeo) + circle.arc-target en toGeo + circle.traveler",
+      "fade_in": "requestAnimationFrame → .classed('visible', true) en arc-line y arc-target",
+      "interpolador": "arcGeoInterp = d3.geoInterpolate(fromGeo, toGeo)"
+    },
+    "updateTravelerDot": {
+      "entrada": "k (0→1 ease progress)",
+      "accion": "arcGeoInterp(k) → proj() → setAttribute cx/cy en traveler, guarda _geoPos en node"
+    },
+    "clearFlightArc": {
+      "accion": "remove class 'visible' → setTimeout 600ms → $arc.selectAll('*').remove() + null todos los arc state"
+    }
+  },
+
+  "entrada_inicial": {
+    "step0": "Pantalla negra #141414 con 'O  V' en Cinzel y tagline",
+    "secuencia": [
+      "t=300ms: step0Mono.classList.add('vis') — aparece O V",
+      "t=900ms: step0Tag.classList.add('vis') — aparece tagline",
+      "t=2200ms: step0El.classList.add('out') — fade out (opacity:0, 1.4s)",
+      "t=3800ms: step0El.remove() + updatePanel(0) — panel 0 aparece"
+    ],
+    "spin": "d3.timer() arranca rotación automática (+0.16° por frame) solo cuando stage===0 && !busy"
+  },
+
+  "tilt": {
+    "elemento": "#tiltWrap .tilt-wrap",
+    "css": "transform: rotateX(Ndeg); transform-origin: 50% 60%",
+    "funcion": "setTilt(deg) → currentTilt=deg → tiltEl.style.transform",
+    "valores": { "stage0": 0, "stage1": 0, "stage2": 4, "stage3": 10, "stage4": 18 }
+  },
+
+  "coordenadas": {
+    "elemento": "#coordsVal",
+    "formato": "formatCoord(lng, lat) → '06°14′N · 75°09′O'",
+    "actualizacion": "En cada redraw() con los valores del rotate actual: formatCoord(-rotate[0], -rotate[1])",
+    "place": "#coordsPlace — texto de lugar, resuelto en stage 4 a 'Guatapé, Antioquia · Colombia'"
+  },
+
+  "datos_carga": {
+    "world50": {
+      "fuente": "assets/data/countries-50m.json",
+      "uso": "topojson.feature(world50, world50.objects.countries) → countries.features",
+      "colombia": "countries.features.find(f => /colombia/i.test(f.properties.name))"
+    },
+    "colombiaGeo": {
+      "fuente": "assets/data/Colombia.geo.json",
+      "uso": "colombiaGeo.features — 33 departamentos",
+      "antioquia": "colombiaGeo.features.find(f => /antioquia/i.test(f.properties.NOMBRE_DPT || f.properties.name || ''))",
+      "manejo_error": ".catch(() => null) — si falla, la animación continúa sin departamentos"
+    },
+    "puntos_clave": {
+      "colombiaCenter": "d3.geoCentroid(colombia) o fallback [-74.3, 4.6]",
+      "antioquiaCenter": "d3.geoCentroid(antioquia) o fallback [-75.5, 6.5]",
+      "guatapeCenter": "[-75.1489, 6.2303] — hardcoded"
+    }
+  },
+
+  "html_no_tocar": {
+    "estructura_svg": "<g clip-path='url(#globe-clip)'> con 8 capas en orden exacto: lWater, lGrat, lWorld, lInked, lDepts, lRegion, lDeco, lArc, pin",
+    "clippath": "<clipPath id='globe-clip'><circle id='clipCircle'></clipPath>",
+    "grain_filter": "<filter id='grain-filter'> definido en el SVG principal. El <svg class='grain'> separado lo referencia.",
+    "paneles": "5 .panel con data-panel=0..4 — NO modificar copy",
+    "card": ".card con sello OV + coordenadas Guatapé + botón 'Entrar a la Casa'",
+    "step0": "#step0 con #step0Mono, #step0Tag, #step0Loading",
+    "controles": "#backBtn, #skipBtn, #enterBtn — mantener IDs"
+  },
+
+  "css_no_tocar": {
+    "variables": "--bg:#F3EEE6; --ink:#0B1F3A; --accent:#5B1E24; --ease:cubic-bezier(0.25,0.46,0.45,0.94)",
+    "transitions_de_capas": "Todas las transiciones de opacidad/fill-opacity están en el CSS — el JS solo añade/quita clases 'on'/'off'",
+    "stage_data_attr": "CSS usa [data-stage='4'] para activar vignette y card — solo el JS escribe stageEl.dataset.stage",
+    "pin_animacion": "@keyframes pin-pulse está en CSS — JS solo añade/quita clases 'on' y 'deep'"
+  },
+
+  "problemas_conocidos": {
+    "redraw_faltante": "CRÍTICO: siempre llamar redraw() después de asignar stage=N. Sin esto los toggles de capas (lDepts, lRegion) no actualizan hasta el próximo frame.",
+    "clip_no_heredado": "clipTo solo se pasa en toStage1 y resetAll. Las demás transiciones NO deben pasarlo (heredan el valor actual de currentClip).",
+    "colombia_geo_simplificado": "Los polígonos de Colombia.geo.json son aproximaciones manuales de 33 departamentos — funcionan para visualización pero no son precisos geodésicamente.",
+    "grain_filter_cross_svg": "El filter grain-filter está definido en el SVG principal pero lo usa un SVG secundario. En algunos navegadores esto puede no funcionar (CORS o implementación). El grain es visual-only, no afecta funcionalidad.",
+    "spinner_y_busy": "d3.timer() sigue corriendo en background — la condición stage===0 && !busy evita conflictos con las transiciones.",
+    "resize": "En resize, proj.translate se actualiza pero INIT_SCALE no se recalcula. Para soporte completo de resize habría que recalcular INIT_SCALE y reescalar relativamente."
+  },
+
+  "checklist_reconstruccion": [
+    "1. Cargar ambos scripts locales antes del <script> principal: assets/data/d3.min.js y assets/data/topojson-client.min.js",
+    "2. Wrap todo el JS en async IIFE: (async function(){ ... })()",
+    "3. Cargar world50 con await d3.json — si falla, mostrar error y return",
+    "4. Cargar colombiaGeo con .catch(()=>null) — no bloquear si falla",
+    "5. Proyección geoOrthographic con INIT_SCALE=min(W,H)*0.36, translate [W/2,H/2], clipAngle 90",
+    "6. setClip(r) actualiza TANTO clipCircle (id) COMO waterCircle (querySelector en lWater)",
+    "7. Dibujar capas en init: grat, world, inked, depts, region, deco (paths + circles), pin.dataset",
+    "8. Spin con d3.timer: solo cuando stage===0 && !busy",
+    "9. animate() usa d3.geoInterpolate para rotación — NUNCA lerp de ángulos",
+    "10. Cada toStageN() termina con stage=N; busy=false; redraw()",
+    "11. Click en SVG avanza stage 0→1→2→3→4. Click en pin: 3→4. backBtn: resetAll.",
+    "12. step0 se remueve a t=3800ms — hasta entonces el globo ya está renderizado detrás"
+  ]
+}
