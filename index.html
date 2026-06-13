@@ -796,7 +796,7 @@
   async function toStage1() {
     if (busy) return; busy = true;
     stageEl.dataset.stage = '1'; updatePanel(1);
-    await animate({ toGeo: colombiaCenter, scaleTo: Math.min(W,H)*5.5, clipTo: Math.max(W,H)*1.6, tiltTo: 5, ms: 2600, withArc: true });
+    await animate({ toGeo: colombiaCenter, scaleTo: Math.min(W,H)*3.6, clipTo: Math.max(W,H)*1.6, tiltTo: 5, ms: 2600, withArc: true });
     pinEl.classList.add('on');
     stage = 1; busy = false; redraw();
   }
