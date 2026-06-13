@@ -625,10 +625,10 @@
       if (pt) pinEl.setAttribute('transform', 'translate(' + pt[0] + ',' + pt[1] + ')');
     }
 
-    lInked.classList.toggle('off', proj.scale() > INIT_SCALE * 4);
+    lInked.classList.toggle('off', proj.scale() > INIT_SCALE * 5);
     lDepts.classList.toggle('on',  proj.scale() > INIT_SCALE * 1.4 && stage >= 1);
-    lRegion.classList.toggle('on', proj.scale() > INIT_SCALE * 3.5 && stage >= 1);
-    lDeco.classList.toggle('on',   proj.scale() > INIT_SCALE * 12  && stage >= 2);
+    lRegion.classList.toggle('on', proj.scale() > INIT_SCALE * 10  && stage >= 2);
+    lDeco.classList.toggle('on',   proj.scale() > INIT_SCALE * 15  && stage >= 2);
 
     const r = proj.rotate();
     document.getElementById('coordsVal').textContent = formatCoord(-r[0], -r[1]);
