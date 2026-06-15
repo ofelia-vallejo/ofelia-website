@@ -8,10 +8,11 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/brand.css">
-  <link rel="stylesheet" href="assets/css/mobile.css">
-  <link rel="stylesheet" href="assets/css/cart.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/mobile.css">
+  <link rel="stylesheet" href="/assets/css/cart.css">
 </head>
 <body>
 
@@ -19,7 +20,7 @@
 
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+    <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
       <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
@@ -33,13 +34,13 @@
   <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion" class="nav-panel__link">Colección</a>
       <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
       <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
-      <a href="/coleccion" class="nav-panel__link">Colección</a>
       <p class="nav-panel__group">Atelier</p>
-      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
-      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/personalizar" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -90,13 +91,16 @@
         </div>
         <button type="button" class="checkout-pay-btn" id="checkoutPayBtn">Pagar con tarjeta →</button>
         <p class="checkout-notice" id="checkoutNotice" aria-live="polite"></p>
+        <p style="font-size:10px;color:rgba(11,31,58,0.4);line-height:1.6;margin-top:16px">
+          Al completar el pago aceptas nuestros <a href="/terminos" style="color:inherit;border-bottom:1px solid currentColor">Términos</a> y confirmas haber leído la <a href="/privacidad" style="color:inherit;border-bottom:1px solid currentColor">Política de privacidad</a>. Pago procesado de forma segura por Stripe.
+        </p>
       </aside>
     </div>
   </main>
 
-  <script src="assets/js/brand.js"></script>
-  <script src="assets/js/cart.js"></script>
-  <script src="assets/js/cart-ui.js"></script>
-  <script src="assets/js/checkout-page.js" defer></script>
+  <script src="/assets/js/brand.js"></script>
+  <script src="/assets/js/cart.js"></script>
+  <script src="/assets/js/cart-ui.js"></script>
+  <script src="/assets/js/checkout-page.js" defer></script>
 </body>
 </html>

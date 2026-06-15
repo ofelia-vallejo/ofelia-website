@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "STORE_MODE=file npx vercel dev",
+    "check:env": "node scripts/check-env.js",
     "seed:catalog": "node scripts/seed-catalog.js",
     "db:migrate": "node scripts/db-migrate.js",
     "db:push": "node scripts/db-migrate.js",

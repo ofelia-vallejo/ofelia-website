@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidad — Ofelia Vallejo</title>
+  <meta name="description" content="Política de privacidad de Ofelia Vallejo · Leather House. Tratamiento de datos personales conforme al RGPD europeo y nFADP suizo.">
+  <link rel="canonical" href="https://ofeliavallejo.com/privacidad">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo_sello_badge.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
+  <meta name="theme-color" content="#0B1F3A">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ofelia Vallejo">
+  <meta property="og:title" content="Política de Privacidad — Ofelia Vallejo">
+  <meta property="og:url" content="https://ofeliavallejo.com/privacidad">
+  <meta property="og:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/mobile.css">
+  <link rel="stylesheet" href="/assets/css/account.css">
+  <style>
+    .legal-hero {
+      margin-top: 56px;
+      background: var(--navy);
+      padding: 80px var(--pad-x) 64px;
+      color: var(--marfil);
+    }
+
+    .legal-hero__label {
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(243, 238, 230, 0.4);
+      margin-bottom: 24px;
+    }
+
+    .legal-hero__title {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      max-width: 560px;
+      margin-bottom: 20px;
+    }
+
+    .legal-hero__updated {
+      font-size: 11px;
+      color: rgba(243, 238, 230, 0.4);
+      letter-spacing: 0.12em;
+    }
+
+    .legal-body {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 80px var(--pad-x) 120px;
+    }
+
+    .legal-body h2 {
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: 0.06em;
+      color: var(--navy);
+      margin: 56px 0 20px;
+      padding-top: 32px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .legal-body h2:first-child {
+      margin-top: 0;
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .legal-body h3 {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--navy);
+      margin: 32px 0 12px;
+    }
+
+    .legal-body p {
+      font-size: 14px;
+      line-height: 1.9;
+      color: rgba(11, 31, 58, 0.65);
+      margin-bottom: 16px;
+    }
+
+    .legal-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+    }
+
+    .legal-body ul li {
+      font-size: 14px;
+      line-height: 1.9;
+      color: rgba(11, 31, 58, 0.65);
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .legal-body ul li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: rgba(11, 31, 58, 0.3);
+    }
+
+    .legal-body a {
+      color: var(--navy);
+      border-bottom: 1px solid rgba(11, 31, 58, 0.25);
+      padding-bottom: 1px;
+      transition: border-color 0.3s ease;
+    }
+
+    .legal-body a:hover { border-bottom-color: var(--navy); }
+
+    .legal-body .highlight-box {
+      background: var(--beige-medio);
+      border-left: 2px solid var(--navy);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .legal-body .highlight-box p {
+      margin: 0;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    .legal-toc {
+      background: var(--beige-medio);
+      padding: 32px 36px;
+      margin-bottom: 48px;
+    }
+
+    .legal-toc__title {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    .legal-toc ol {
+      list-style: none;
+      padding: 0;
+      counter-reset: toc;
+    }
+
+    .legal-toc ol li {
+      counter-increment: toc;
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(11, 31, 58, 0.6);
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .legal-toc ol li::before {
+      content: counter(toc) ".";
+      position: absolute;
+      left: 0;
+      color: rgba(11, 31, 58, 0.3);
+      font-size: 12px;
+    }
+
+    .legal-toc ol li a {
+      color: var(--navy);
+      border-bottom: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .legal-toc ol li a:hover { opacity: 0.65; }
+
+    @media (max-width: 900px) {
+      .legal-body { padding: 60px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar" role="banner">
+    <div class="navbar__left" aria-hidden="true"></div>
+    <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    </a>
+    <div class="navbar__right">
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <div class="nav-panel__links">
+      <p class="nav-panel__group">Casa</p>
+      <a href="/home" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion" class="nav-panel__link">Colección</a>
+      <p class="nav-panel__group">Maison</p>
+      <a href="/manifiesto" class="nav-panel__link">Historia</a>
+      <a href="/cuero" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="/personalizar" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto" class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
+  </nav>
+
+  <main id="main-content">
+
+    <div class="legal-hero" data-dark>
+      <p class="legal-hero__label">Legal · Privacidad</p>
+      <h1 class="legal-hero__title">Política de Privacidad</h1>
+      <p class="legal-hero__updated">Última actualización: junio de 2026</p>
+    </div>
+
+    <article class="legal-body">
+
+      <div class="legal-toc">
+        <p class="legal-toc__title">Índice</p>
+        <ol>
+          <li><a href="#responsable">Responsable del tratamiento</a></li>
+          <li><a href="#datos">Datos que recopilamos</a></li>
+          <li><a href="#finalidades">Finalidades y base legal</a></li>
+          <li><a href="#cookies">Cookies y tecnologías similares</a></li>
+          <li><a href="#terceros">Destinatarios y transferencias</a></li>
+          <li><a href="#conservacion">Plazos de conservación</a></li>
+          <li><a href="#derechos">Sus derechos</a></li>
+          <li><a href="#seguridad">Seguridad</a></li>
+          <li><a href="#menores">Menores de edad</a></li>
+          <li><a href="#cambios">Cambios en esta política</a></li>
+          <li><a href="#contacto">Contacto y reclamaciones</a></li>
+        </ol>
+      </div>
+
+      <h2 id="responsable">1. Responsable del tratamiento</h2>
+      <p>El responsable del tratamiento de sus datos personales es:</p>
+      <div class="highlight-box">
+        <p><strong>Ofelia Vallejo — Leather House</strong><br>
+        Lausanne, Suiza<br>
+        Correo electrónico: <a href="mailto:privacidad@ofeliavallejo.com">privacidad@ofeliavallejo.com</a><br>
+        Sitio web: <a href="https://ofeliavallejo.com">ofeliavallejo.com</a></p>
+      </div>
+      <p>Esta política se aplica a todos los tratamientos de datos personales realizados a través del sitio web <strong>ofeliavallejo.com</strong> y de nuestras comunicaciones comerciales.</p>
+
+      <h2 id="datos">2. Datos que recopilamos</h2>
+      <h3>Datos que usted nos proporciona directamente</h3>
+      <ul>
+        <li>Nombre y apellidos</li>
+        <li>Dirección de correo electrónico</li>
+        <li>Dirección postal para envíos</li>
+        <li>Número de teléfono (opcional)</li>
+        <li>Datos de pago — procesados por Stripe; no almacenamos números de tarjeta</li>
+        <li>Texto para grabado láser personalizado (nombre, iniciales, fecha)</li>
+        <li>Mensajes enviados a través del formulario de contacto</li>
+      </ul>
+      <h3>Datos recopilados automáticamente</h3>
+      <ul>
+        <li>Dirección IP y datos de acceso al servidor</li>
+        <li>Tipo de navegador y sistema operativo</li>
+        <li>Páginas visitadas y duración de la visita</li>
+        <li>Fuente de tráfico (referencia)</li>
+        <li>Cookies (ver sección 4)</li>
+      </ul>
+
+      <h2 id="finalidades">3. Finalidades y base legal</h2>
+      <p>Tratamos sus datos personales únicamente para las siguientes finalidades y sobre las bases legales indicadas:</p>
+      <ul>
+        <li><strong>Gestión de pedidos y envíos</strong> — ejecución del contrato (Art. 6.1.b RGPD / Art. 31.2.a nFADP)</li>
+        <li><strong>Atención al cliente y soporte post-venta</strong> — ejecución del contrato e interés legítimo</li>
+        <li><strong>Grabado personalizado</strong> — ejecución del contrato; el texto de personalización se almacena vinculado al pedido</li>
+        <li><strong>Comunicaciones comerciales / newsletter</strong> — consentimiento expreso (Art. 6.1.a RGPD); puede retirar su consentimiento en cualquier momento</li>
+        <li><strong>Análisis y mejora del sitio web</strong> — interés legítimo; uso de cookies analíticas solo con su consentimiento</li>
+        <li><strong>Cumplimiento de obligaciones legales</strong> — obligación legal (Art. 6.1.c RGPD)</li>
+      </ul>
+      <p>No tomamos decisiones automatizadas ni elaboramos perfiles que produzcan efectos jurídicos significativos sobre usted.</p>
+
+      <h2 id="cookies">4. Cookies y tecnologías similares</h2>
+      <p>Utilizamos cookies y tecnologías similares para el funcionamiento del sitio, el análisis de uso y, con su consentimiento, para publicidad personalizada.</p>
+      <h3>Cookies esenciales (siempre activas)</h3>
+      <ul>
+        <li>Sesión de carrito de compras</li>
+        <li>Autenticación segura</li>
+        <li>Preferencias de consentimiento</li>
+      </ul>
+      <h3>Cookies analíticas (requieren consentimiento)</h3>
+      <ul>
+        <li>Google Analytics — medición de tráfico y comportamiento</li>
+      </ul>
+      <h3>Cookies de marketing (requieren consentimiento)</h3>
+      <ul>
+        <li>Meta Pixel — retargeting publicitario</li>
+        <li>Google Ads — seguimiento de conversiones</li>
+      </ul>
+      <p>Puede gestionar sus preferencias de cookies en cualquier momento a través del enlace <strong>"Preferencias de cookies"</strong> en el pie de página, o configurando su navegador para rechazar cookies.</p>
+
+      <h2 id="terceros">5. Destinatarios y transferencias internacionales</h2>
+      <p>Sus datos pueden ser compartidos con los siguientes destinatarios, bajo acuerdos de tratamiento que garantizan la protección adecuada:</p>
+      <ul>
+        <li><strong>Stripe Inc.</strong> (EE. UU.) — procesamiento de pagos. Sujeto a cláusulas contractuales tipo (CCT) aprobadas por la Comisión Europea</li>
+        <li><strong>Vercel Inc.</strong> (EE. UU.) — alojamiento web. Sujeto a CCT</li>
+        <li><strong>Operadores logísticos</strong> en Suiza y Europa — solo nombre, dirección y datos de contacto necesarios para el envío</li>
+        <li><strong>Proveedores de email transaccional</strong> — para confirmaciones de pedido y comunicaciones de servicio</li>
+      </ul>
+      <p>No vendemos ni cedemos sus datos personales a terceros con fines propios de marketing.</p>
+
+      <h2 id="conservacion">6. Plazos de conservación</h2>
+      <ul>
+        <li><strong>Datos de pedidos</strong> — 10 años (obligación contable y fiscal)</li>
+        <li><strong>Datos de cuenta</strong> — mientras la cuenta esté activa + 3 años tras el último acceso</li>
+        <li><strong>Newsletter</strong> — hasta que retire su consentimiento</li>
+        <li><strong>Datos de contacto</strong> — 3 años desde la última comunicación</li>
+        <li><strong>Logs del servidor</strong> — 90 días</li>
+      </ul>
+
+      <h2 id="derechos">7. Sus derechos</h2>
+      <p>De conformidad con el RGPD (Reglamento UE 2016/679) y la nFADP (nueva Ley Federal de Protección de Datos, Suiza), usted tiene derecho a:</p>
+      <ul>
+        <li><strong>Acceso</strong> — obtener confirmación sobre si tratamos sus datos y recibir una copia</li>
+        <li><strong>Rectificación</strong> — solicitar la corrección de datos inexactos</li>
+        <li><strong>Supresión</strong> — solicitar la eliminación de sus datos ("derecho al olvido") cuando no sean necesarios</li>
+        <li><strong>Limitación</strong> — solicitar la restricción del tratamiento en determinados supuestos</li>
+        <li><strong>Portabilidad</strong> — recibir sus datos en formato estructurado y legible por máquina</li>
+        <li><strong>Oposición</strong> — oponerse al tratamiento basado en interés legítimo o para marketing directo</li>
+        <li><strong>Retirada del consentimiento</strong> — en cualquier momento, sin afectar la licitud del tratamiento previo</li>
+      </ul>
+      <p>Para ejercer sus derechos, escriba a <a href="mailto:privacidad@ofeliavallejo.com">privacidad@ofeliavallejo.com</a> indicando su solicitud y documento de identidad. Responderemos en un plazo máximo de 30 días.</p>
+
+      <h2 id="seguridad">8. Seguridad</h2>
+      <p>Adoptamos medidas técnicas y organizativas adecuadas para proteger sus datos personales frente a acceso no autorizado, pérdida, destrucción o divulgación, incluyendo:</p>
+      <ul>
+        <li>Cifrado en tránsito (HTTPS/TLS)</li>
+        <li>Acceso restringido a datos personales mediante autenticación</li>
+        <li>Almacenamiento en servidores dentro del Espacio Económico Europeo o bajo garantías equivalentes</li>
+        <li>Procesamiento de pagos exclusivamente a través de Stripe (certificación PCI DSS Nivel 1)</li>
+      </ul>
+      <p>En caso de violación de seguridad que afecte a sus datos, le notificaremos conforme a los plazos legales aplicables.</p>
+
+      <h2 id="menores">9. Menores de edad</h2>
+      <p>Nuestro sitio web no está dirigido a menores de 16 años. No recopilamos conscientemente datos personales de menores. Si tiene conocimiento de que un menor nos ha proporcionado sus datos sin consentimiento parental, contáctenos para proceder a su eliminación.</p>
+
+      <h2 id="cambios">10. Cambios en esta política</h2>
+      <p>Podemos actualizar esta política para reflejar cambios en nuestras prácticas o en la normativa aplicable. Publicaremos la nueva versión en esta página con la fecha de actualización. Para cambios materiales, le informaremos por correo electrónico si tenemos sus datos de contacto.</p>
+
+      <h2 id="contacto">11. Contacto y reclamaciones</h2>
+      <p>Para cualquier consulta sobre esta política o el tratamiento de sus datos:</p>
+      <div class="highlight-box">
+        <p>
+          <strong>Ofelia Vallejo — Responsable de Privacidad</strong><br>
+          <a href="mailto:privacidad@ofeliavallejo.com">privacidad@ofeliavallejo.com</a>
+        </p>
+      </div>
+      <p>Si considera que el tratamiento de sus datos no es conforme a la normativa aplicable, tiene derecho a presentar una reclamación ante la autoridad de control competente:</p>
+      <ul>
+        <li><strong>Suiza:</strong> Comisionado Federal de Protección de Datos e Información (PFPDT) — <a href="https://www.edoeb.admin.ch" target="_blank" rel="noopener noreferrer">edoeb.admin.ch</a></li>
+        <li><strong>Unión Europea:</strong> Autoridad de control del Estado miembro donde reside habitualmente</li>
+      </ul>
+
+    </article>
+
+  </main>
+
+  <footer data-dark id="pie">
+    <div class="foot__cols">
+      <div class="foot__brand">
+        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
+        <p class="foot__tag">Leather House · Medellín → Lausanne</p>
+      </div>
+      <nav class="foot__col" aria-label="Casa">
+        <h4>Casa</h4>
+        <ul>
+          <li><a href="/coleccion?cat=mujer">Mujer</a></li>
+          <li><a href="/coleccion?cat=hombre">Hombre</a></li>
+          <li><a href="/cuero">Cuero</a></li>
+          <li><a href="/manifiesto">Historia</a></li>
+        </ul>
+      </nav>
+      <nav class="foot__col" aria-label="Atelier">
+        <h4>Atelier</h4>
+        <ul>
+          <li><a href="/personalizar">Personalizar</a></li>
+          <li><a href="/coleccion">Colección</a></li>
+          <li><a href="/cuenta">Cuenta</a></li>
+          <li><a href="/contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav class="foot__col" aria-label="Legal">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacidad" aria-current="page">Privacidad</a></li>
+          <li><a href="/terminos">Términos</a></li>
+          <li><a href="mailto:privacidad@ofeliavallejo.com">Datos personales</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
+      <span>
+        <a href="/privacidad">Privacidad</a>
+        ·
+        <a href="/terminos">Términos</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="/assets/js/brand.js"></script>
+</body>
+</html>

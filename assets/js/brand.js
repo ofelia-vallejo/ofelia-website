@@ -164,3 +164,12 @@
     document.body.appendChild(el);
   });
 })();
+
+/* Cookie consent — carga en todas las páginas si no está ya incluido */
+(function () {
+  if (document.querySelector('script[src*="cookie-consent"]')) return;
+  const s = document.createElement('script');
+  s.src = '/assets/js/cookie-consent.js';
+  s.defer = true;
+  document.body.appendChild(s);
+})();

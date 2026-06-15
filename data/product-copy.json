@@ -1,0 +1,296 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-15",
+  "products": {
+    "travel-bag-i": {
+      "tagline": "Elegancia que permanece.",
+      "heroDescription": "Cuero full-grain colombiano, pieza concebida para durar generaciones, no temporadas. Curtido vegetal artesanal en Medellín.",
+      "descriptionParagraphs": [
+        "Cada Travel Bag I es una declaración de intenciones. Duffel weekender en cuero pleno colombiano, con silueta atemporal que trasciende el calendario de viajes.",
+        "El curtido vegetal artesanal, realizado en nuestro taller de Medellín, permite que el cuero desarrolle una pátina única con el uso — cada pieza se vuelve irrepetible, marcada por el tiempo y la historia de quien la porta.",
+        "Correas reforzadas, herrajes de latón antiguo y costura saddlestitch a mano. Grabado láser OV en esquina inferior derecha del panel frontal."
+      ],
+      "care": "Cera natural, paño seco. El cuero full-grain mejora con el uso — cada pieza se vuelve única. Evite la exposición prolongada al sol directo y la humedad extrema.",
+      "material": "Full-grain colombiano",
+      "dimensions": "48 × 28 × 22 cm",
+      "weight": "1,4 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain colombiano" },
+        { "label": "Curtido", "value": "Vegetal artesanal" },
+        { "label": "Forro interior", "value": "Lino crudo" },
+        { "label": "Cierre principal", "value": "YKK latón" },
+        { "label": "Bolsillos interiores", "value": "2 principales · 1 laptop" },
+        { "label": "Bolsillo exterior", "value": "1 frontal con cierre" },
+        { "label": "Asa superior", "value": "Cuero doble cosido" },
+        { "label": "Correa hombro", "value": "Ajustable, desmontable" },
+        { "label": "Hardware", "value": "Latón antiguo cepillado" },
+        { "label": "Costuras", "value": "Saddlestitch a mano" },
+        { "label": "Cantos", "value": "Pintados y pulidos a mano" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ],
+      "editorialImage": "/imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg",
+      "editorialCaption": "Una pieza para el viaje que permanece."
+    },
+    "travel-bag-ii": {
+      "tagline": "Elegancia que permanece.",
+      "heroDescription": "Maletín estructurado en cuero negro full-grain. Silueta Antioquia para el viaje de negocios y el trayecto largo.",
+      "descriptionParagraphs": [
+        "Travel Bag II · Maletín Antioquia nace del oficio paisa elevado al estándar editorial europeo. Estructura firme, cuero negro pleno y presencia sobria.",
+        "Compartimentos pensados para documentos y objetos de viaje. Herrajes latón antiguo, costuras reforzadas y grabado láser personalizable antes del envío.",
+        "Hecho a mano en Medellín — pieza para heredar, no para temporada."
+      ],
+      "care": "Cera natural, paño seco. Almacene en lugar ventilado. El cuero negro desarrolla brillo natural con el uso.",
+      "material": "Full-grain negro",
+      "dimensions": "42 × 32 × 12 cm",
+      "weight": "1,6 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain negro" },
+        { "label": "Curtido", "value": "Vegetal artesanal" },
+        { "label": "Estructura", "value": "Maletín rígido" },
+        { "label": "Forro interior", "value": "Lino natural" },
+        { "label": "Cierre principal", "value": "YKK latón" },
+        { "label": "Asa superior", "value": "Cuero doble cosido" },
+        { "label": "Correa hombro", "value": "Ajustable, desmontable" },
+        { "label": "Hardware", "value": "Latón antiguo cepillado" },
+        { "label": "Grabado láser", "value": "Esquina inferior derecha · CO₂ ~0,35 mm" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ],
+      "editorialImage": "/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg"
+    },
+    "travel-bag-iii": {
+      "tagline": "Cuero hecho para durar.",
+      "heroDescription": "Morral weekender en cuero cognac full-grain. Forma ergonómica para ciudad, camino y viaje corto.",
+      "descriptionParagraphs": [
+        "Travel Bag III lleva la herencia del morral antioqueño a una silueta contemporánea. Cuero cognac pleno, correas reforzadas y compartimento generoso.",
+        "Disponible en dos capacidades — estándar y grande — según la duración del viaje. Curtido vegetal que envejece con dignidad.",
+        "Grabado láser OV sobre passant superior o esquina del panel frontal."
+      ],
+      "care": "Cera natural, paño seco. No sumergir. El cognac aclara levemente con la luz — parte natural del envejecimiento del cuero.",
+      "material": "Full-grain cognac",
+      "dimensions": "38 × 30 × 18 cm",
+      "weight": "1,1 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain cognac" },
+        { "label": "Curtido", "value": "Vegetal artesanal" },
+        { "label": "Capacidades", "value": "Estándar · Grande" },
+        { "label": "Correas", "value": "Acolchadas, reforzadas" },
+        { "label": "Cierre", "value": "Cordón y hebilla latón" },
+        { "label": "Costuras", "value": "Saddlestitch a mano" },
+        { "label": "Grabado láser", "value": "Passant superior o panel frontal" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ]
+    },
+    "bolso-dama": {
+      "tagline": "Elegancia que permanece.",
+      "heroDescription": "Tote estructurado en cuero full-grain cognac. Líneas limpias, presencia editorial, compartimento amplio.",
+      "descriptionParagraphs": [
+        "Bolso Dama es el tote de la casa: estructura discreta, asas reforzadas y silueta que acompaña el día sin imponer tendencia.",
+        "Cuero pleno colombiano curtido vegetal, forro en lino y grabado láser centrado al frente bajo — posición oficial de la firma sobre tote.",
+        "Concebido para durar generaciones. Cada pieza puede llevar iniciales, nombre o la firma Ofelia Vallejo en cuero."
+      ],
+      "care": "Cera natural, paño seco. Guarde relleno suave para conservar la forma. Evite cargas que deformen las asas.",
+      "material": "Full-grain cognac",
+      "dimensions": "38 × 32 × 14 cm",
+      "weight": "0,9 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain cognac" },
+        { "label": "Curtido", "value": "Vegetal artesanal" },
+        { "label": "Forro interior", "value": "Lino crudo" },
+        { "label": "Compartimento", "value": "Principal amplio · bolsillo interior" },
+        { "label": "Asas", "value": "Cuero doble cosido" },
+        { "label": "Grabado láser", "value": "Centrado al frente bajo · ~6 cm de la base" },
+        { "label": "Costuras", "value": "Saddlestitch a mano" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ],
+      "editorialImage": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg"
+    },
+    "morral-elite": {
+      "tagline": "Cuero hecho para durar.",
+      "heroDescription": "Morral en cuero negro full-grain con compartimentos internos estructurados. La línea más completa de la colección Chontaduro.",
+      "descriptionParagraphs": [
+        "Morral Elite combina la tradición del morral paisa con organización interior pensada para el día completo. Cuero negro pleno, herrajes discretos.",
+        "Dos capacidades — Elite y Elite Grande — para quien necesita más espacio sin renunciar a la silueta. Costuras reforzadas a mano en Medellín.",
+        "Grabado láser en passant superior o esquina inferior derecha del panel frontal."
+      ],
+      "care": "Cera natural, paño seco. No exponer a lluvia prolongada. El negro conserva profundidad con cuidado ocasional.",
+      "material": "Full-grain negro",
+      "dimensions": "40 × 32 × 16 cm",
+      "weight": "1,2 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain negro" },
+        { "label": "Compartimentos", "value": "Principal · organizador interior" },
+        { "label": "Capacidades", "value": "Elite · Elite Grande" },
+        { "label": "Correas", "value": "Acolchadas, ajustables" },
+        { "label": "Costuras", "value": "Reforzadas a mano" },
+        { "label": "Grabado láser", "value": "Passant o panel frontal" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ],
+      "editorialImage": "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg"
+    },
+    "morral-clasico": {
+      "tagline": "Cuero hecho para durar.",
+      "heroDescription": "Morral clásico en cuero cognac. Forma tradicional, construcción artesanal, herencia paisa.",
+      "descriptionParagraphs": [
+        "Morral Clásico es la expresión más directa del oficio: cuero cognac pleno, cordón de cierre y correas que mejoran con el uso.",
+        "Silueta atemporal para ciudad y camino. Disponible en tamaño estándar y grande.",
+        "Cada pieza se hace a mano en Medellín — sin producción en serie."
+      ],
+      "care": "Cera natural, paño seco. El cognac desarrolla pátina con el tiempo.",
+      "material": "Full-grain cognac",
+      "dimensions": "36 × 28 × 14 cm",
+      "weight": "0,95 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain cognac" },
+        { "label": "Cierre", "value": "Cordón y hebilla latón" },
+        { "label": "Capacidades", "value": "Clásico · Clásico Grande" },
+        { "label": "Correas", "value": "Cuero reforzado" },
+        { "label": "Costuras", "value": "A mano" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ]
+    },
+    "bandolera-moderna": {
+      "tagline": "Tu nombre. En cuero.",
+      "heroDescription": "Bandolera crossbody en cuero colombiano full-grain. Dos compartimentos con cierre, correa ajustable y monograma OV grabado a láser.",
+      "descriptionParagraphs": [
+        "Bandolera Moderna acompaña el día con manos libres. Dos bolsillos con cierre, correa ajustable y silueta compacta en cuero pleno.",
+        "Disponible en cognac y negro. Herrajes latón cepillado, costura al tono y grabado en esquina inferior derecha del panel frontal.",
+        "Pieza de la colección Uchuva — bandoleras y riñoneras hechas para durar."
+      ],
+      "care": "Paño seco. Cera ligera en las zonas de roce. No saturar el cuero.",
+      "material": "Full-grain colombiano",
+      "dimensions": "24 × 18 × 8 cm",
+      "weight": "0,45 kg",
+      "hardware": "Latón cepillado",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain colombiano" },
+        { "label": "Compartimentos", "value": "2 con cierre zip" },
+        { "label": "Correa", "value": "Ajustable, desmontable" },
+        { "label": "Colores", "value": "Cognac · Negro" },
+        { "label": "Grabado láser", "value": "Esquina inferior derecha · ~3 cm de los bordes" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ],
+      "editorialImage": "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg",
+      "editorialCaption": "Crossbody · dos bolsillos · herrajes latón cepillado."
+    },
+    "bandolera-elite": {
+      "tagline": "Elegancia que permanece.",
+      "heroDescription": "Bandolera en pelo sellado marfil con motivo oro editorial. Correa textil tejida, herrajes latón antiguo y monograma OV.",
+      "descriptionParagraphs": [
+        "Bandolera Pelo · Oro pertenece a la línea Uchuva de pelo sellado. Superficie marfil con motivo oro discreto — acabado editorial, no retail.",
+        "Marco en cuero café, correa tejida a juego y herrajes latón antiguo. Pieza de presencia sin volumen excesivo.",
+        "Grabado láser disponible en zona frontal según diseño de la pieza."
+      ],
+      "care": "Paño seco únicamente. No usar productos abrasivos sobre pelo sellado. Guardar en funda de algodón.",
+      "material": "Pelo sellado · marco cuero",
+      "dimensions": "26 × 20 × 7 cm",
+      "weight": "0,4 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Superficie", "value": "Pelo sellado marfil · motivo oro" },
+        { "label": "Marco", "value": "Cuero café oscuro" },
+        { "label": "Correa", "value": "Textil tejida a juego" },
+        { "label": "Cierre", "value": "Zip superior" },
+        { "label": "Hardware", "value": "Latón antiguo" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ],
+      "editorialImage": "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg",
+      "editorialCaption": "Pelo sellado · motivo oro · correa tejida a juego."
+    },
+    "rinonera": {
+      "tagline": "Tu nombre. En cuero.",
+      "heroDescription": "Riñonera en cuero colombiano con compartimentos zip y correa ajustable. En cintura o bandolera.",
+      "descriptionParagraphs": [
+        "Riñonera Ofelia Vallejo resuelve el día con manos libres. Tres variantes — Moderna, Clásica y Elite — en cognac y negro.",
+        "Compartimentos con cierre, correa ajustable y cuero pleno colombiano. Llevar en cintura o cruzada al torso.",
+        "Grabado láser en zona frontal. Confirmación del atelier antes de producir."
+      ],
+      "care": "Paño seco, cera ligera. Evitar humedad en los cierres.",
+      "material": "Full-grain colombiano",
+      "dimensions": "22 × 14 × 6 cm",
+      "weight": "0,3 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain colombiano" },
+        { "label": "Variantes", "value": "Moderna · Clásica · Elite" },
+        { "label": "Compartimentos", "value": "Principal · bolsillo zip" },
+        { "label": "Correa", "value": "Ajustable · cintura o crossbody" },
+        { "label": "Grabado láser", "value": "Zona frontal central" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ]
+    },
+    "neceser": {
+      "tagline": "Cuero hecho para durar.",
+      "heroDescription": "Neceser rectangular en cuero colombiano. Compartimento principal y bolsillo frontal con cierre. Para viaje u organización en el bolso.",
+      "descriptionParagraphs": [
+        "Neceser de Viaje organiza lo esencial con la misma permanencia que el resto de la casa. Forma rectangular, asa superior y cierres YKK latón.",
+        "Disponible en cognac y café oscuro. Interior con forro natural, bolsillo frontal y espacio para artículos de aseo o escritorio.",
+        "Grabado láser opcional en el panel frontal."
+      ],
+      "care": "Paño seco. No mojar. Ventilar tras el uso.",
+      "material": "Full-grain colombiano",
+      "dimensions": "24 × 16 × 10 cm",
+      "weight": "0,35 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Material exterior", "value": "Full-grain colombiano" },
+        { "label": "Compartimentos", "value": "Principal · bolsillo frontal zip" },
+        { "label": "Asa", "value": "Cuero superior" },
+        { "label": "Colores", "value": "Cognac · Café oscuro" },
+        { "label": "Cierre", "value": "YKK latón" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ]
+    },
+    "cartera-pelo-oro": {
+      "tagline": "Elegancia que permanece.",
+      "heroDescription": "Cartera compacta en pelo sellado marfil con acentos oro. Marco en cuero café, cierre zip y broche central.",
+      "descriptionParagraphs": [
+        "Cartera Pelo · Oro es el accesorio más íntimo de la colección Curuba. Compacta, con pelo sellado marfil y detalle oro editorial.",
+        "Marco en cuero café oscuro, cierre superior zip y broche central. Sin grabado — la pieza lleva la firma de la casa en su construcción.",
+        "Para llevar en bolso o sola, con la misma sobriedad romana del resto de la maison."
+      ],
+      "care": "Paño seco. No doblar con objetos rígidos dentro. Guardar en funda de algodón.",
+      "material": "Pelo sellado · marco cuero",
+      "dimensions": "20 × 12 × 3 cm",
+      "weight": "0,15 kg",
+      "hardware": "Latón antiguo",
+      "specs": [
+        { "label": "Superficie", "value": "Pelo sellado marfil · acento oro" },
+        { "label": "Marco", "value": "Cuero café oscuro" },
+        { "label": "Cierre", "value": "Zip superior · broche central" },
+        { "label": "Compartimentos", "value": "Principal · tarjetero" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ]
+    },
+    "cinturon": {
+      "tagline": "Tu nombre. En cuero.",
+      "heroDescription": "Cinturón unisex en cuero colombiano full-grain. Hebilla gunmetal cepillada. Monograma OV grabado a láser en la punta.",
+      "descriptionParagraphs": [
+        "Cinturón Ofelia Vallejo une seis acabados — liso o granulado en negro, navy, espresso y cognac — con una sola promesa: cuero pleno que mejora con el uso.",
+        "Hebilla gunmetal cepillada, pasador de cuero a juego y grabado láser en la punta, ~2 cm del extremo. Posición oficial de la firma en cinturón.",
+        "Hecho a mano en Medellín. Pieza de guardarropa permanente, no de temporada."
+      ],
+      "care": "Paño seco. Cera natural ocasional. Colgar o enrollar sin dobleces agudos.",
+      "material": "Full-grain colombiano",
+      "dimensions": "Ancho 3,5 cm · largos 90–110 cm",
+      "weight": "0,2 kg",
+      "hardware": "Gunmetal cepillado",
+      "specs": [
+        { "label": "Material", "value": "Cuero pleno colombiano" },
+        { "label": "Forro", "value": "Tono natural" },
+        { "label": "Hebilla", "value": "Gunmetal cepillada" },
+        { "label": "Acabados", "value": "Liso · Granulado" },
+        { "label": "Colores", "value": "Negro · Navy · Espresso · Cognac" },
+        { "label": "Grabado láser", "value": "Punta · ~2 cm del extremo · CO₂ ~0,35 mm" },
+        { "label": "Hecho en", "value": "Medellín, Colombia" }
+      ],
+      "editorialImage": "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg",
+      "editorialCaption": "Seis acabados. Una firma en cuero."
+    }
+  }
+}

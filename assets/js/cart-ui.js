@@ -66,7 +66,7 @@
           '<strong id="ovCartSubtotal">CHF 0</strong>' +
         '</div>' +
         '<p class="ov-cart-note">Envío e impuestos se calculan en el pago seguro · Stripe</p>' +
-        '<a href="' + esc(assetPath('checkout.html')) + '" class="ov-cart-cta" id="ovCartCheckoutBtn">Ir al pago →</a>' +
+        '<a href="/checkout" class="ov-cart-cta" id="ovCartCheckoutBtn">Ir al pago →</a>' +
         '<button type="button" class="ov-cart-cta ov-cart-cta--ghost" id="ovCartContinueBtn">Seguir explorando</button>' +
       '</div>';
 

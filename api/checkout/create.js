@@ -1,10 +1,16 @@
-const Stripe = require('stripe');
+'use strict';
+
+// POST /api/checkout/create
+// Body: { items: [{slug, variantId?, quantity?, engraveText?, engraveEnabled?}], customerEmail?, customerName? }
+//    or legacy: { slug, variantId?, engraveText?, engraveEnabled?, customerEmail? }
+// Returns: { ok, sessionId, url, orderId }
+
 const { corsJson } = require('../../lib/auth');
-const { loadCatalog, findProduct, totalInventory } = require('../../lib/store');
+const { getStripe } = require('../../lib/stripe-client');
+const { loadCatalog, findProduct } = require('../../lib/store');
 const { buildStripeLineItems } = require('../../lib/build-stripe-lines');
 const { createOrder } = require('../../lib/postgres');
-
-const SITE_URL = process.env.SITE_URL || 'https://ofeliavallejo.com';
+const config = require('../../lib/config');
 
 function generateOrderId() {
   return 'OV-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
@@ -21,15 +27,13 @@ function normalizeItems(body) {
     }));
   }
   if (body.slug) {
-    return [
-      {
-        slug: body.slug,
-        variantId: body.variantId || body.variant_id || '',
-        quantity: 1,
-        engraveText: body.engraveText || '',
-        engraveEnabled: body.engraveEnabled,
-      },
-    ];
+    return [{
+      slug: body.slug,
+      variantId: body.variantId || body.variant_id || '',
+      quantity: 1,
+      engraveText: body.engraveText || '',
+      engraveEnabled: body.engraveEnabled,
+    }];
   }
   return [];
 }
@@ -42,11 +46,6 @@ module.exports = async (req, res) => {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
-  const secret = process.env.STRIPE_SECRET_KEY;
-  if (!secret) {
-    return res.status(503).json({ ok: false, error: 'Pasarela de pago no configurada.' });
-  }
-
   const body = req.body || {};
   const items = normalizeItems(body);
   const { customerEmail, customerName } = body;
@@ -56,14 +55,12 @@ module.exports = async (req, res) => {
   }
 
   try {
+    const stripe = getStripe(); // throws 503 if not configured
     const catalog = await loadCatalog();
     const { stripeLines, orderLines, totalChf } = buildStripeLineItems(catalog, items);
 
     const orderId = generateOrderId();
-    const stripe = new Stripe(secret, { apiVersion: '2024-11-20.acacia' });
-
-    const firstSlug = items[0].slug;
-    const firstProduct = findProduct(catalog, firstSlug);
+    const firstProduct = findProduct(catalog, items[0].slug);
     const cancelPath =
       items.length === 1 && firstProduct
         ? `/producto/${firstProduct.slug}`
@@ -73,23 +70,21 @@ module.exports = async (req, res) => {
       mode: 'payment',
       customer_email: customerEmail || undefined,
       line_items: stripeLines,
-      success_url: `${SITE_URL}/gracias?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${SITE_URL}${cancelPath}`,
+      success_url: `${config.siteUrl}/gracias?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${config.siteUrl}${cancelPath}`,
       metadata: {
         order_id: orderId,
         item_count: String(items.length),
         engrave_text: items
           .map((i) => (i.engraveText && String(i.engraveText).trim()) || '')
-          .filter(Boolean)
-          .join(' | ')
-          .slice(0, 500),
+          .filter(Boolean).join(' | ').slice(0, 500),
       },
       shipping_address_collection: {
         allowed_countries: ['CH', 'DE', 'FR', 'IT', 'ES', 'GB', 'CO', 'US'],
       },
     });
 
-    if (process.env.DATABASE_URL) {
+    if (config.dbConfigured) {
       try {
         const primary = orderLines[0];
         await createOrder({
@@ -111,19 +106,11 @@ module.exports = async (req, res) => {
       }
     }
 
-    return res.status(200).json({
-      ok: true,
-      sessionId: session.id,
-      url: session.url,
-      orderId,
-    });
+    return res.status(200).json({ ok: true, sessionId: session.id, url: session.url, orderId });
   } catch (err) {
-    if (err.code === 'PRODUCT_NOT_FOUND') {
-      return res.status(404).json({ ok: false, error: err.message });
-    }
-    if (err.code === 'OUT_OF_STOCK') {
-      return res.status(400).json({ ok: false, error: err.message });
-    }
+    if (err.statusCode) return res.status(err.statusCode).json({ ok: false, error: err.message });
+    if (err.code === 'PRODUCT_NOT_FOUND') return res.status(404).json({ ok: false, error: err.message });
+    if (err.code === 'OUT_OF_STOCK') return res.status(400).json({ ok: false, error: err.message });
     console.error('[checkout/create]', err);
     return res.status(500).json({ ok: false, error: 'No se pudo iniciar el pago.' });
   }

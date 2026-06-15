@@ -1,0 +1,1968 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-15T22:30:04Z",
+  "purpose": "Brief de assets visuales para diseñadora/fotógrafa — Ofelia Vallejo Leather House",
+  "referenceDocs": [
+    "CLAUDE.md",
+    "brief_fotografico_producto.md",
+    "06_Identidad_Marca/brand_discovery.md"
+  ],
+  "globalStyle": {
+    "direction": "Editorial fashion-house · Vogue Italia / AnOther · no retail head-on",
+    "lighting": "Natural lateral dramática · golden hour 3000–3200 K · sin flash plano",
+    "camera": "50–80 mm prime · f/2.0–2.8 · ISO 100–400 · emulación Portra 400 / Vision3 250D",
+    "materials": "Cuero full-grain colombiano · latón antiguo cepillado · travertino · nogal · lino",
+    "dnaPaisa": "Sutil: lime-wash, cerámica Carmen de Viboral, café, cabuya — sin folclorismo"
+  },
+  "delivery": {
+    "format": "JPEG alta resolución + export web 2400 px lado largo",
+    "colorProfile": "sRGB",
+    "folderRoot": "imagenes nuevas/",
+    "subfolders": [
+      "producto/",
+      "lifestyle/",
+      "detalle/",
+      "inicio/"
+    ]
+  },
+  "products": [
+    {
+      "slug": "travel-bag-i",
+      "name": "Travel Bag I",
+      "collection": "Guanábana",
+      "category": "mujer",
+      "line": "travel-bag",
+      "personalizable": true,
+      "pdpPath": "/producto/travel-bag-i",
+      "colorVariants": [
+        "cognac",
+        "espresso"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "travel-bag",
+        "position": "Esquina inferior derecha del panel frontal",
+        "offset": "~4 cm del borde inferior y derecho",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo (PDP overlay)"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 6,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/mujer/duffel-espresso-jet-lifestyle.jpg",
+        "/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~3 imágenes para cubrir 2 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "cognac": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          },
+          "espresso": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "travel-bag-ii",
+      "name": "Travel Bag II · Maletín Antioquia",
+      "collection": "Borojó",
+      "category": "hombre",
+      "line": "travel-bag",
+      "personalizable": true,
+      "pdpPath": "/producto/travel-bag-ii",
+      "colorVariants": [
+        "negro"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "travel-bag",
+        "position": "Esquina inferior derecha del panel frontal",
+        "offset": "~4 cm del borde inferior y derecho",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo (PDP overlay)"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 5,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg",
+        "/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~1 imágenes para cubrir 1 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "negro": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "travel-bag-iii",
+      "name": "Travel Bag III",
+      "collection": "Guanábana",
+      "category": "mujer",
+      "line": "travel-bag",
+      "personalizable": true,
+      "pdpPath": "/producto/travel-bag-iii",
+      "colorVariants": [
+        "cognac"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "travel-bag",
+        "position": "Esquina inferior derecha del panel frontal",
+        "offset": "~4 cm del borde inferior y derecho",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo (PDP overlay)"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 5,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~2 imágenes para cubrir 1 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "cognac": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "bolso-dama",
+      "name": "Bolso Dama",
+      "collection": "Guanábana",
+      "category": "mujer",
+      "line": "tote",
+      "personalizable": true,
+      "pdpPath": "/producto/bolso-dama",
+      "colorVariants": [
+        "cognac"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "tote",
+        "position": "Centrado al frente, bajo",
+        "offset": "~6 cm sobre la base",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 5,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
+        "/imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~1 imágenes para cubrir 1 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "cognac": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "morral-elite",
+      "name": "Morral Elite",
+      "collection": "Chontaduro",
+      "category": "morrales",
+      "line": "morral",
+      "personalizable": true,
+      "pdpPath": "/producto/morral-elite",
+      "colorVariants": [
+        "negro"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "morral",
+        "position": "Passant superior o esquina inferior derecha",
+        "offset": "Visible en al menos una foto de detalle",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 5,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
+        "/imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~1 imágenes para cubrir 1 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "negro": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "morral-clasico",
+      "name": "Morral Clásico",
+      "collection": "Chontaduro",
+      "category": "morrales",
+      "line": "morral",
+      "personalizable": true,
+      "pdpPath": "/producto/morral-clasico",
+      "colorVariants": [
+        "cognac"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "morral",
+        "position": "Passant superior o esquina inferior derecha",
+        "offset": "Visible en al menos una foto de detalle",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 5,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~2 imágenes para cubrir 1 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "cognac": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "bandolera-moderna",
+      "name": "Bandolera Moderna",
+      "collection": "Uchuva",
+      "category": "bandoleras",
+      "line": "bandolera",
+      "personalizable": true,
+      "pdpPath": "/producto/bandolera-moderna",
+      "colorVariants": [
+        "cognac",
+        "negro"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "bandolera",
+        "position": "Esquina inferior derecha del panel frontal",
+        "offset": "~3 cm de los bordes",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 6,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/unisex/bandolera-moderna-negro-metrocable-lifestyle.jpg",
+        "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~3 imágenes para cubrir 2 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "cognac": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          },
+          "negro": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "bandolera-elite",
+      "name": "Bandolera Pelo · Oro",
+      "collection": "Uchuva",
+      "category": "bandoleras",
+      "line": "bandolera",
+      "personalizable": true,
+      "pdpPath": "/producto/bandolera-elite",
+      "colorVariants": [
+        "oro"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "bandolera",
+        "position": "Esquina inferior derecha del panel frontal",
+        "offset": "~3 cm de los bordes",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 5,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg",
+        "/imagenes nuevas/producto/bandoleras/bandolera-pelo-oro-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~1 imágenes para cubrir 1 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "oro": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "rinonera",
+      "name": "Riñonera",
+      "collection": "Uchuva",
+      "category": "bandoleras",
+      "line": "rinonera",
+      "personalizable": true,
+      "pdpPath": "/producto/rinonera",
+      "colorVariants": [
+        "mod",
+        "clasica",
+        "elite"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "bandolera",
+        "position": "Panel frontal, zona inferior",
+        "offset": "~2–3 cm de los bordes",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 9,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-colonial-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-multi-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/unisex/rinonera-negro-guatape-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/unisex/rinonera-negro-urban-lifestyle.jpg",
+        "/imagenes nuevas/producto/accesorios/rinonera/rinonera-cognac-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~4 imágenes para cubrir 3 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "mod": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          },
+          "clasica": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          },
+          "elite": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "neceser",
+      "name": "Neceser de Viaje",
+      "collection": "Curuba",
+      "category": "accesorios",
+      "line": "neceser",
+      "personalizable": true,
+      "pdpPath": "/producto/neceser",
+      "colorVariants": [
+        "cognac",
+        "cafe"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "accesorio",
+        "position": "Frontal central, sobre la base",
+        "offset": "~3 cm del borde inferior",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        },
+        {
+          "id": "detail_back",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Vista trasera o tres cuartos trasero. Silueta y correas visibles.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "interior_open",
+          "type": "product_still",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Interior abierto: forro, bolsillos, cremallera. Cenital o tres cuartos.",
+          "modelRequired": false,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 6,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/lifestyle/mujer/neceser-cafe-botero-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/mujer/neceser-cognac-colonial-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/mujer/neceser-cognac-coltejer-lifestyle.jpg",
+        "/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/neceser/neceser-cognac-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~1 imágenes para cubrir 2 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "cognac": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          },
+          "cafe": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "cartera-pelo-oro",
+      "name": "Cartera Pelo · Oro",
+      "collection": "Curuba",
+      "category": "accesorios",
+      "line": "cartera",
+      "personalizable": false,
+      "pdpPath": "/producto/cartera-pelo-oro",
+      "colorVariants": [
+        "oro"
+      ],
+      "laserEngraving": {
+        "enabled": false,
+        "productType": "accesorio",
+        "position": null,
+        "offset": null,
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": null
+      },
+      "requiredAssets": [
+        {
+          "id": "hero_editorial",
+          "type": "editorial",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "3:4",
+          "minResolution": "2000×2667",
+          "description": "Modelo en crop editorial (sin smile-to-camera). Producto como héroe. Luz natural lateral · golden hour 3000–3200 K.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "studio_product",
+          "type": "product_still",
+          "pdpSlot": "gallery_main_alt",
+          "aspectRatio": "4:5",
+          "minResolution": "2000×2500",
+          "description": "Producto solo sobre travertino, nogal o lino. Grano full-grain legible. Sin modelo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "detail_hardware",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "1600×1600",
+          "description": "Macro de herrajes latón antiguo / gunmetal, cremalleras YKK, costura saddlestitch.",
+          "modelRequired": false,
+          "perColorVariant": false
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 5,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~2 imágenes para cubrir 1 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "hero_editorial",
+          "studio_product",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "oro": {
+            "minRequired": 3,
+            "priority": [
+              "hero_editorial",
+              "studio_product",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "slug": "cinturon",
+      "name": "Cinturón",
+      "collection": "Curuba",
+      "category": "accesorios",
+      "line": "cinturon",
+      "personalizable": true,
+      "pdpPath": "/producto/cinturon",
+      "colorVariants": [
+        "negro-liso",
+        "negro-granulado",
+        "navy-granulado",
+        "espresso-liso",
+        "espresso-granulado",
+        "cognac-liso"
+      ],
+      "laserEngraving": {
+        "enabled": true,
+        "productType": "cinturon",
+        "position": "Centrado en la punta del cinturón",
+        "offset": "~2 cm del extremo",
+        "technical": "Grabado CO₂ ~0.3–0.4 mm · marca recessed café oscuro/navy · borde levemente carbonizado",
+        "zoneRef": "engrave.zone del catálogo"
+      },
+      "requiredAssets": [
+        {
+          "id": "belt_flat",
+          "type": "product_still",
+          "pdpSlot": "gallery_main",
+          "aspectRatio": "16:9",
+          "minResolution": "2400×1350",
+          "description": "Plano cenital del cinturón extendido. Textura liso o granulado visible.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "belt_tip_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Macro de punta con grabado OV centrado ~2 cm del extremo.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "lifestyle",
+          "type": "lifestyle",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Locación atmosférica (atelier lime-wash, lobby europeo, calle colonial Medellín). Modelo en transición o perfil.",
+          "modelRequired": true,
+          "perColorVariant": true
+        },
+        {
+          "id": "laser_engraving",
+          "type": "macro",
+          "pdpSlot": "gallery_thumb",
+          "aspectRatio": "1:1",
+          "minResolution": "2000×2000",
+          "description": "Grabado láser CO₂ real en cuero (~0.3–0.4 mm). Monograma OV o iniciales de ejemplo. Luz rasante lateral. Nunca logo aplicado en post.",
+          "modelRequired": false,
+          "perColorVariant": true
+        },
+        {
+          "id": "editorial_ficha",
+          "type": "editorial",
+          "pdpSlot": "ficha_hero",
+          "aspectRatio": "4:5",
+          "minResolution": "1800×2250",
+          "description": "Imagen editorial para bloque ficha PDP (modelo sentada/de perfil, producto en primer plano).",
+          "modelRequired": true,
+          "perColorVariant": false
+        }
+      ],
+      "pdpGallery": {
+        "minImagesPerVariant": 3,
+        "recommendedTotal": 18,
+        "slots": [
+          "gallery_main",
+          "gallery_thumb_1",
+          "gallery_thumb_2",
+          "gallery_thumb_3",
+          "ficha_hero"
+        ],
+        "notes": "PDP muestra carrusel principal + miniaturas. Con ≥3 imágenes por color se activa ficha completa."
+      },
+      "wardrobe": {
+        "palette": [
+          "marfil #F3EEE6",
+          "beige #EDE5D8",
+          "navy #0B1F3A",
+          "espresso #3B2B26",
+          "vino #5B1E24",
+          "verde #1F3527"
+        ],
+        "notes": "Wardrobe tonal en paleta de marca. Sin joyería llamativa ni logos de otras marcas. Postura editorial — caminando, sentada, perfil."
+      },
+      "forbidden": [
+        "Smile-to-camera / pose influencer",
+        "Logo Ofelia Vallejo aplicado en post (solo grabado láser real)",
+        "Oro brillante vectorial, glassmorphism, neón, lavanda/morado",
+        "Folclorismo turístico (vueltiao, Wayuu, ruana, Botero kitsch)",
+        "Avatar Pixar / 3D CGI / wellness aesthetic",
+        "Placa metálica, foil o vinilo como marca"
+      ],
+      "namingConvention": "imagenes nuevas/producto/{categoria}/{slug}-{colorKey}-{tipo}.jpg",
+      "existingAssets": [
+        "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-plano.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
+      ],
+      "gaps": {
+        "summary": "Faltan ~7 imágenes para cubrir 6 variante(s) × 3 mínimo PDP",
+        "priorityDeliverables": [
+          "belt_flat",
+          "belt_tip_engraving",
+          "lifestyle",
+          "laser_engraving"
+        ],
+        "perColorVariant": {
+          "negro-liso": {
+            "minRequired": 3,
+            "priority": [
+              "belt_flat",
+              "belt_tip_engraving",
+              "lifestyle"
+            ]
+          },
+          "negro-granulado": {
+            "minRequired": 3,
+            "priority": [
+              "belt_flat",
+              "belt_tip_engraving",
+              "lifestyle"
+            ]
+          },
+          "navy-granulado": {
+            "minRequired": 3,
+            "priority": [
+              "belt_flat",
+              "belt_tip_engraving",
+              "lifestyle"
+            ]
+          },
+          "espresso-liso": {
+            "minRequired": 3,
+            "priority": [
+              "belt_flat",
+              "belt_tip_engraving",
+              "lifestyle"
+            ]
+          },
+          "espresso-granulado": {
+            "minRequired": 3,
+            "priority": [
+              "belt_flat",
+              "belt_tip_engraving",
+              "lifestyle"
+            ]
+          },
+          "cognac-liso": {
+            "minRequired": 3,
+            "priority": [
+              "belt_flat",
+              "belt_tip_engraving",
+              "lifestyle"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

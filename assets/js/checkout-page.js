@@ -67,6 +67,15 @@
 
     if (!renderSummary()) return;
 
+    // GA4 · begin_checkout (al ver el checkout con artículos en la bolsa)
+    if (window.OVAnalytics) {
+      var c = OVCart.getCart();
+      window.OVAnalytics.ecommerce('begin_checkout', {
+        value: c.cost.totalAmount.amount,
+        items: c.lines.map(function (l, i) { return window.OVAnalytics.itemFromLine(l, i); }),
+      });
+    }
+
     if (!OVCart.isStripeEnabled()) {
       setNotice('Pasarela en configuración. Mientras tanto, consulta por WhatsApp.', false);
       const btn = document.getElementById('checkoutPayBtn');

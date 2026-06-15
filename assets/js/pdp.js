@@ -80,6 +80,80 @@
     return Number(p.inventory) || 0;
   }
 
+  function buildSpecsBar(p) {
+    var specBarItems = [
+      { label: 'Material', val: p.material || 'Full-grain colombiano' },
+      { label: 'Dimensiones', val: p.dimensions || '\u2014' },
+      { label: 'Peso', val: p.weight || '\u2014' },
+      { label: 'Hardware', val: p.hardware || 'Lat\u00f3n antiguo' },
+      { label: 'Personalizaci\u00f3n', val: p.personalizable !== false ? 'Grabado l\u00e1ser' : '\u2014' },
+    ];
+    return specBarItems.map(function (s) {
+      return '<div class="pdp__spec"><p class="pdp__spec-label">' + esc(s.label) + '</p><p class="pdp__spec-val">' + esc(s.val) + '</p></div>';
+    }).join('');
+  }
+
+  function buildDescriptionHtml(p) {
+    var paragraphs = p.descriptionParagraphs;
+    if (paragraphs && paragraphs.length) {
+      return paragraphs.map(function (para) {
+        return '<p class="pdp__desc-para">' + esc(para) + '</p>';
+      }).join('');
+    }
+    var text = p.description || p.shortDescription || '';
+    return text ? '<p class="pdp__desc-para">' + esc(text) + '</p>' : '';
+  }
+
+  function buildCareHtml(p) {
+    if (!p.care) return '';
+    return (
+      '<div class="pdp__care">' +
+        '<p class="pdp__care-label">Cuidado del cuero</p>' +
+        '<p class="pdp__care-text">' + esc(p.care) + '</p>' +
+      '</div>'
+    );
+  }
+
+  function buildSpecRowsHtml(p, accordion) {
+    if (p.specs && p.specs.length) {
+      return p.specs.map(function (row) {
+        return '<div class="pdp__spec-row">' +
+          '<span class="pdp__spec-row-label">' + esc(row.label) + '</span>' +
+          '<span class="pdp__spec-row-val">' + esc(row.value) + '</span>' +
+        '</div>';
+      }).join('');
+    }
+    return accordion.map(function (item) {
+      return '<div class="pdp__spec-row">' +
+        '<span class="pdp__spec-row-label">' + esc(item.title) + '</span>' +
+        '<span class="pdp__spec-row-val">' + esc(item.body) + '</span>' +
+      '</div>';
+    }).join('');
+  }
+
+  async function mergeProductCopy(catalog) {
+    if (!catalog || !catalog.products) return catalog;
+    try {
+      var res = await fetch('/data/product-copy.json');
+      if (!res.ok) return catalog;
+      var copyDoc = await res.json();
+      if (!copyDoc.products) return catalog;
+      return Object.assign({}, catalog, {
+        products: catalog.products.map(function (p) {
+          var copy = copyDoc.products[p.slug];
+          if (!copy) return p;
+          var merged = Object.assign({}, p, copy);
+          if (copy.descriptionParagraphs && copy.descriptionParagraphs.length) {
+            merged.description = copy.descriptionParagraphs.join(' ');
+          }
+          return merged;
+        }),
+      });
+    } catch (e) {
+      return catalog;
+    }
+  }
+
   function renderProduct(p, related) {
     const colorData = buildColorData(p);
     const colorKeys = Object.keys(colorData);
@@ -89,14 +163,14 @@
     const accordion = p.accordion && p.accordion.length
       ? p.accordion
       : [
-          { title: 'Materiales', body: 'Cuero pleno colombiano · hecho a mano en Medellín.' },
-          { title: 'Grabado láser', body: 'Personalización CO₂ · confirmación del atelier antes de grabar.' },
+          { title: 'Materiales', body: 'Cuero pleno colombiano \u00b7 hecho a mano en Medell\u00edn.' },
+          { title: 'Grabado l\u00e1ser', body: 'Personalizaci\u00f3n CO\u2082 \u00b7 confirmaci\u00f3n del atelier antes de grabar.' },
         ];
 
     const galleryImages = colorData[firstColor].images || [];
     const hasGallery = galleryImages.length > 0;
 
-    const thumbs = hasGallery
+    const thumbsHtml = hasGallery
       ? galleryImages.map((src, i) =>
           '<button type="button" class="pdp__thumb' + (i === 0 ? ' is-active' : '') + '" role="tab" data-index="' + i + '" aria-selected="' + (i === 0) + '">' +
             '<img src="' + esc(imgUrl(src)) + '" alt="" loading="' + (i === 0 ? 'eager' : 'lazy') + '">' +
@@ -114,22 +188,18 @@
       '<button type="button" class="pdp__swatch' + (k === firstColor ? ' is-active' : '') + '" data-color="' + esc(k) + '" style="background:' + esc(colorData[k].leather[1] || '#3B2B26') + '" aria-label="' + esc(colorData[k].label) + '"></button>'
     ).join('');
 
-    const accHtml = accordion.map((item, idx) =>
-      '<div class="pdp__acc-item' + (idx === 0 ? ' is-open' : '') + '">' +
-        '<button type="button" class="pdp__acc-trigger" aria-expanded="' + (idx === 0) + '">' +
-          '<span>' + esc(item.title) + '</span>' +
-          '<svg class="pdp__acc-chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1"/></svg>' +
-        '</button>' +
-        '<div class="pdp__acc-panel"><div class="pdp__acc-panel-inner"><p class="pdp__acc-body">' + esc(item.body) + '</p></div></div>' +
-      '</div>'
-    ).join('');
+    const specsBarHtml = buildSpecsBar(p);
+
+    const specRowsHtml =
+      '<p class="pdp__ficha-specs-title">Especificaciones t\u00e9cnicas</p>' +
+      buildSpecRowsHtml(p, accordion);
 
     const relatedHtml = (related || []).slice(0, 3).map((r) => {
-      const hero = (r.images && r.images[0]) ? imgUrl(r.images[0].url) : '';
+      const heroImg = (r.images && r.images[0]) ? imgUrl(r.images[0].url) : '';
       return (
         '<a href="/producto/' + esc(r.slug) + '" class="pdp__card">' +
-          '<div class="pdp__card-img" data-dark>' +
-            (hero ? '<img src="' + esc(hero) + '" alt="' + esc(r.name) + '" loading="lazy">' : '') +
+          '<div class="pdp__card-img">' +
+            (heroImg ? '<img src="' + esc(heroImg) + '" alt="' + esc(r.name) + '" loading="lazy">' : '') +
           '</div>' +
           '<p class="pdp__card-name">' + esc(r.name) + '</p>' +
           '<p class="pdp__card-price">' + formatCHF(r.basePrice) + '</p>' +
@@ -137,14 +207,38 @@
       );
     }).join('');
 
-    const hero = hasGallery ? imgUrl(galleryImages[0]) : '';
+    const heroSrc = hasGallery ? imgUrl(galleryImages[0]) : '';
     const editorial = p.editorialImage ? imgUrl(p.editorialImage) : '';
-    const showEditorial = Boolean(editorial);
+
+    const fichaMainSrc = editorial || heroSrc;
+    const fichaMediaHtml = fichaMainSrc
+      ? '<img class="pdp__ficha-img-main" src="' + esc(fichaMainSrc) + '" alt="' + esc(p.name) + '" loading="lazy">' +
+        (galleryImages.length >= 3
+          ? '<div class="pdp__ficha-img-thumbs">' +
+            '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[1])) + '" alt="" loading="lazy">' +
+            '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[2])) + '" alt="" loading="lazy">' +
+            '</div>'
+          : '')
+      : '<div class="pdp__ficha-img-placeholder"></div>';
+
+    const stockText = stock <= 0 ? 'Agotado' : stock <= (p.lowStockAt || 2) ? '\u00daltimas unidades' : 'En stock';
+    const tagline = p.tagline || '\u201cElegancia que permanece.\u201d';
+    const heroDesc = p.heroDescription || p.shortDescription || p.description || '';
+    const descriptionHtml = buildDescriptionHtml(p);
+    const careHtml = buildCareHtml(p);
+
+    // GA4 · view_item
+    if (window.OVAnalytics) {
+      window.OVAnalytics.ecommerce('view_item', {
+        value: Number(p.basePrice) || 0,
+        items: [window.OVAnalytics.itemFromProduct(p)],
+      });
+    }
 
     if (window.OVSeo && window.OVSeo.applyProduct) {
       window.OVSeo.applyProduct(p);
     } else {
-      document.title = p.name + ' · Ofelia Vallejo';
+      document.title = p.name + ' \u00b7 Ofelia Vallejo';
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) metaDesc.content = (p.shortDescription || p.description || '').slice(0, 160);
     }
@@ -156,58 +250,118 @@
     pdp.dataset.slug = p.slug;
 
     pdp.innerHTML =
-      '<div class="pdp__layout reveal">' +
-        '<div class="pdp__gallery' + (hasGallery ? '' : ' pdp__gallery--pending') + '" data-dark>' +
-          (hasGallery ? '<div class="pdp__thumbs" role="tablist">' + thumbs + '</div>' : '') +
-          '<div class="pdp__stage' + (hasGallery ? '' : ' pdp__stage--pending') + '" style="--leather-mid:' + esc(colorData[firstColor].leather[1] || '#3B2B26') + '">' +
-            (hasGallery
-              ? '<img id="pdpMainImg" class="pdp__main-img" src="' + esc(hero) + '" alt="' + esc(p.name) + '">'
-              : '<p class="pdp__stage-empty" id="pdpStageEmpty">Imagen en proceso</p>') +
-          '</div>' +
-          (hasGallery ? '<div class="pdp__carousel" id="pdpCarousel">' + slides + '</div>' : '') +
-          (hasGallery ? '<div class="pdp__dots" id="pdpDots"></div>' : '') +
-        '</div>' +
-        '<div class="pdp__info">' +
-          '<nav class="pdp-breadcrumb"><a href="/home">Inicio</a><span class="pdp-breadcrumb__sep">/</span><a href="/coleccion">Colección</a><span class="pdp-breadcrumb__sep">/</span><span aria-current="page">' + esc(p.name) + '</span></nav>' +
-          '<p class="pdp__label">Leather House · Medellín</p>' +
+      // ── HERO ──────────────────────────────────────────────
+      '<div class="pdp__hero reveal">' +
+        '<div class="pdp__hero-left">' +
+          '<nav class="pdp-breadcrumb">' +
+            '<a href="/home">Inicio</a>' +
+            '<span class="pdp-breadcrumb__sep">/</span>' +
+            '<a href="/coleccion">Colecci\u00f3n</a>' +
+            '<span class="pdp-breadcrumb__sep">/</span>' +
+            '<span aria-current="page">' + esc(p.name) + '</span>' +
+          '</nav>' +
+          '<p class="pdp__label">Leather House \u00b7 Medell\u00edn</p>' +
           '<h1 class="pdp__title">' + esc(p.name) + '</h1>' +
-          '<p class="pdp__price" id="pdpPrice">' + formatCHF(p.basePrice) + '</p>' +
-          (engraveExtra ? '<p class="pdp__price-sub">Grabado láser adicional desde +' + formatCHF(engraveExtra) + '</p>' : '') +
-          '<p class="pdp__stock' + (stock <= 0 ? ' pdp__stock--out' : '') + '" id="pdpStock">' +
-            (stock <= 0 ? 'Agotado' : stock <= (p.lowStockAt || 2) ? 'Últimas unidades' : 'En stock') +
-          '</p>' +
-          '<hr class="pdp__rule">' +
-          '<p class="pdp__desc">' + esc(p.description || p.shortDescription) + '</p>' +
-          (colorKeys.length > 1 ? '<div class="pdp__colors"><div class="pdp__swatches" role="radiogroup">' + swatches + '</div><p class="pdp__color-name" id="pdpColorName">' + esc(colorData[firstColor].label) + '</p></div>' : '') +
-          '<hr class="pdp__rule">' +
-          '<div class="pdp__accordion" id="pdpAccordion">' + accHtml + '</div>' +
-          (p.personalizable !== false ? (
-            '<section class="pdp__engrave" id="pdpEngrave">' +
-              '<p class="pdp__engrave-label">Tu nombre. En cuero.</p>' +
-              '<input type="text" id="pdpEngraveInput" class="pdp__engrave-input" maxlength="24" placeholder="Iniciales o nombre" autocomplete="off">' +
-              '<div class="pdp__engrave-preview" aria-live="polite">' +
-                '<svg class="pdp__engrave-svg" viewBox="0 0 320 100" role="img">' +
-                  '<defs><linearGradient id="pdpLeatherGrad" x1="0%" y1="0%" x2="100%" y2="100%">' +
-                    '<stop offset="0%" stop-color="#4a362e"/><stop offset="45%" stop-color="#3B2B26"/><stop offset="100%" stop-color="#2e211c"/>' +
-                  '</linearGradient><filter id="pdpEngraveFX"><feDropShadow dx="0" dy="1" flood-color="rgba(243,238,230,0.18)"/><feDropShadow dx="0" dy="-1" stdDeviation="0.4" flood-color="rgba(11,31,58,0.65)"/></filter></defs>' +
-                  '<rect width="320" height="100" fill="url(#pdpLeatherGrad)" rx="2"/>' +
-                  '<text id="pdpEngravePreviewText" class="pdp__engrave-leather-text" filter="url(#pdpEngraveFX)" x="160" y="58" text-anchor="middle" dominant-baseline="middle">—</text>' +
-                '</svg></div>' +
-              '<p class="pdp__engrave-note">Confirmación del atelier · 24–48 h</p>' +
-            '</section>'
-          ) : '') +
-          '<button type="button" class="pdp__cta-primary" id="pdpAddCart"' + (stock <= 0 ? ' disabled' : '') + ' hidden>Añadir a la bolsa</button>' +
-          '<button type="button" class="pdp__cta-primary pdp__cta-pay" id="pdpBuy"' + (stock <= 0 ? ' disabled' : '') + '>Consultar por WhatsApp</button>' +
-          '<a href="#" class="pdp__cta-primary" id="pdpCtaPersonalizar" style="margin-top:12px;background:transparent;border:1px solid var(--navy);color:var(--navy)">Personalizar · estudio</a>' +
-          '<p class="pdp__cta-secondary" id="pdpPayNote" style="margin-top:10px;font-size:10px;opacity:0.5"></p>' +
+          '<p class="pdp__tagline">' + esc(tagline) + '</p>' +
+          '<p class="pdp__desc">' + esc(heroDesc) + '</p>' +
+          '<div class="pdp__colors">' +
+            '<p class="pdp__colors-label">Color</p>' +
+            '<div class="pdp__swatches" role="radiogroup">' + swatches + '</div>' +
+            '<p class="pdp__color-name" id="pdpColorName">' + esc(colorData[firstColor].label) + '</p>' +
+          '</div>' +
+          '<p class="pdp__stock' + (stock <= 0 ? ' pdp__stock--out' : '') + '" id="pdpStock">' + stockText + '</p>' +
+        '</div>' +
+        '<div class="pdp__hero-right">' +
+          '<div class="pdp__gallery' + (hasGallery ? '' : ' pdp__gallery--pending') + '">' +
+            '<div class="pdp__stage' + (hasGallery ? '' : ' pdp__stage--pending') + '" style="--leather-mid:' + esc(colorData[firstColor].leather[1] || '#3B2B26') + '">' +
+              (hasGallery
+                ? '<img id="pdpMainImg" class="pdp__main-img" src="' + esc(heroSrc) + '" alt="' + esc(p.name) + '">'
+                : '<p class="pdp__stage-empty" id="pdpStageEmpty">Imagen en proceso</p>') +
+            '</div>' +
+            (hasGallery ? '<div class="pdp__thumbs" role="tablist">' + thumbsHtml + '</div>' : '') +
+            (hasGallery ? '<div class="pdp__carousel" id="pdpCarousel">' + slides + '</div>' : '') +
+            (hasGallery ? '<div class="pdp__dots" id="pdpDots"></div>' : '') +
+          '</div>' +
         '</div>' +
       '</div>' +
-      (showEditorial ? (
-        '<section class="pdp__editorial reveal"><div class="pdp__editorial-media" data-dark><img src="' + esc(editorial) + '" alt="" loading="lazy"></div>' +
-        (p.editorialCaption ? '<p class="pdp__editorial-caption">' + esc(p.editorialCaption) + '</p>' : '') +
-        '</section>'
-      ) : '') +
-      (relatedHtml ? '<section class="pdp__related reveal"><h2 class="pdp__related-title">También de la casa</h2><div class="pdp__related-grid">' + relatedHtml + '</div></section>' : '') +
+
+      // ── QUICK SPECS BAR ────────────────────────────────────
+      '<div class="pdp__specs-bar">' + specsBarHtml + '</div>' +
+
+      // ── FICHA COMPLETA ─────────────────────────────────────
+      '<div class="pdp__ficha">' +
+        '<div class="pdp__ficha-header">' +
+          '<p class="pdp__ficha-label">Ficha Completa</p>' +
+          '<p class="pdp__ficha-subtitle">\u201cCuero hecho para durar.\u201d</p>' +
+        '</div>' +
+        '<div class="pdp__ficha-grid">' +
+
+          // Left: lifestyle / editorial media
+          '<div class="pdp__ficha-media">' + fichaMediaHtml + '</div>' +
+
+          // Center: spec rows
+          '<div class="pdp__ficha-specs">' +
+            specRowsHtml +
+          '</div>' +
+
+          // Right: description + price + CTAs
+          '<div class="pdp__ficha-purchase">' +
+            '<div class="pdp__desc-block">' +
+              '<p class="pdp__desc-block-label">Descripci\u00f3n</p>' +
+              '<div class="pdp__desc-long">' + descriptionHtml + '</div>' +
+              careHtml +
+            '</div>' +
+            '<div class="pdp__ficha-price-row">' +
+              '<div class="pdp__origin">' +
+                '<p class="pdp__origin-label">Hecho en</p>' +
+                '<p class="pdp__origin-val">Medell\u00edn, Colombia</p>' +
+              '</div>' +
+              '<div>' +
+                '<p class="pdp__price" id="pdpPrice">' + formatCHF(p.basePrice) + '</p>' +
+                (engraveExtra ? '<p class="pdp__price-sub">Grabado +' + formatCHF(engraveExtra) + '</p>' : '') +
+              '</div>' +
+            '</div>' +
+            (p.personalizable !== false
+              ? '<section class="pdp__engrave" id="pdpEngrave">' +
+                  '<p class="pdp__engrave-label">Tu nombre. En cuero.</p>' +
+                  '<input type="text" id="pdpEngraveInput" class="pdp__engrave-input" maxlength="24" placeholder="Iniciales o nombre" autocomplete="off">' +
+                  '<div class="pdp__engrave-preview" aria-live="polite">' +
+                    '<svg class="pdp__engrave-svg" viewBox="0 0 320 100" role="img">' +
+                      '<defs>' +
+                        '<linearGradient id="pdpLeatherGrad" x1="0%" y1="0%" x2="100%" y2="100%">' +
+                          '<stop offset="0%" stop-color="#4a362e"/>' +
+                          '<stop offset="45%" stop-color="#3B2B26"/>' +
+                          '<stop offset="100%" stop-color="#2e211c"/>' +
+                        '</linearGradient>' +
+                        '<filter id="pdpEngraveFX">' +
+                          '<feDropShadow dx="0" dy="1" flood-color="rgba(243,238,230,0.18)"/>' +
+                          '<feDropShadow dx="0" dy="-1" stdDeviation="0.4" flood-color="rgba(11,31,58,0.65)"/>' +
+                        '</filter>' +
+                      '</defs>' +
+                      '<rect width="320" height="100" fill="url(#pdpLeatherGrad)" rx="2"/>' +
+                      '<text id="pdpEngravePreviewText" class="pdp__engrave-leather-text" filter="url(#pdpEngraveFX)" x="160" y="58" text-anchor="middle" dominant-baseline="middle">\u2014</text>' +
+                    '</svg>' +
+                  '</div>' +
+                  '<p class="pdp__engrave-note">Confirmaci\u00f3n del atelier \u00b7 24\u201348 h</p>' +
+                '</section>'
+              : '') +
+            '<button type="button" class="pdp__cta-primary" id="pdpAddCart"' + (stock <= 0 ? ' disabled' : '') + ' hidden>A\u00f1adir a la bolsa</button>' +
+            '<button type="button" class="pdp__cta-primary pdp__cta-pay" id="pdpBuy"' + (stock <= 0 ? ' disabled' : '') + '>Consultar por WhatsApp</button>' +
+            '<a href="#" class="pdp__cta-engrave" id="pdpCtaPersonalizar">Tu Nombre. En Cuero.</a>' +
+            '<p class="pdp__pay-note" id="pdpPayNote"></p>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      // ── QUOTE BAND ─────────────────────────────────────────
+      '<div class="pdp__quote">' +
+        '<p class="pdp__quote-text">\u201cCada pieza lleva la firma de la abuela Ofelia Vallejo \u2014 patrimonio, no producto.\u201d</p>' +
+      '</div>' +
+
+      // ── RELATED ────────────────────────────────────────────
+      (relatedHtml ? '<section class="pdp__related reveal"><h2 class="pdp__related-title">Tambi\u00e9n de la casa</h2><div class="pdp__related-grid">' + relatedHtml + '</div></section>' : '') +
+
+      // ── COLOR DATA ─────────────────────────────────────────
       '<script type="application/json" id="pdpColorData">' + JSON.stringify(colorData) + '<\/script>';
 
     document.getElementById('pdpFooter').hidden = false;
@@ -402,7 +556,7 @@
         params.set('texto_grabado', t);
         params.set('tipo_grabado', t.length <= 3 ? 'iniciales' : 'nombre');
       }
-      return '/personalizar.html?' + params.toString();
+      return '/personalizar?' + params.toString();
     }
 
     if (ctaPers) {
@@ -519,7 +673,8 @@
     }
 
     try {
-      const catalog = await window.OVCatalog.fetchCatalog();
+      let catalog = await window.OVCatalog.fetchCatalog();
+      catalog = await mergeProductCopy(catalog);
       const product = catalog.products.find(function (p) {
         return p.slug === slug || p.id === slug;
       });

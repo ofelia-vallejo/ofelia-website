@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
         engravePrice: Number(body.engravePrice) || 0,
         inventory: Number(body.inventory) || 0,
         lowStockAt: Number(body.lowStockAt) || 2,
-        pdpPath: body.pdpPath || `/personalizar.html?producto=${encodeURIComponent(body.name || slug)}`,
+        pdpPath: body.pdpPath || `/personalizar?producto=${encodeURIComponent(body.name || slug)}`,
         images: Array.isArray(body.images) ? body.images : [],
         variants: Array.isArray(body.variants) ? body.variants : [],
         engrave: body.engrave || {

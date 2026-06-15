@@ -100,6 +100,16 @@
       data.lines.push(line);
     }
     writeRaw(data);
+
+    // GA4 · add_to_cart
+    if (global.OVAnalytics) {
+      const it = global.OVAnalytics.itemFromLine(line);
+      global.OVAnalytics.ecommerce('add_to_cart', {
+        value: lineTotal(line),
+        items: [it],
+      });
+    }
+
     return getCart();
   }
 
@@ -183,6 +193,19 @@
       return { ok: false, error: json.error || 'No se pudo iniciar el pago.' };
     }
     if (json.url) {
+      // Guardar snapshot del pedido para el evento purchase en /gracias
+      // (el carrito se limpia antes de redirigir a Stripe).
+      try {
+        localStorage.setItem(
+          'ov_last_order',
+          JSON.stringify({
+            value: cart.cost.totalAmount.amount,
+            currency: cart.cost.totalAmount.currencyCode || 'CHF',
+            lines: cart.lines,
+            ts: Date.now(),
+          })
+        );
+      } catch (e) {}
       clearCart();
       global.location.href = json.url;
     }

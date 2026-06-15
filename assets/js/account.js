@@ -212,13 +212,11 @@
   }
 
   function cuentaHref() {
-    const isSub = window.location.pathname.includes('/producto/');
-    return isSub ? '../cuenta.html' : '/cuenta.html';
+    return '/cuenta';
   }
 
   function personalizarHref() {
-    const isSub = window.location.pathname.includes('/producto/');
-    return isSub ? '../personalizar.html' : '/personalizar.html';
+    return '/personalizar';
   }
 
   function buildModal() {
@@ -265,7 +263,7 @@
             '</form>' +
           '</div>' +
           '<p class="ov-modal__notice" id="ovModalNotice" aria-live="polite"></p>' +
-          '<p class="ov-modal__legal">Al registrarte aceptas nuestra <a href="' + assetPath('contacto.html') + '">política de privacidad</a>. Puedes darte de baja en cualquier momento.</p>' +
+          '<p class="ov-modal__legal">Al registrarte aceptas nuestra <a href="/privacidad">política de privacidad</a>. Puedes darte de baja en cualquier momento.</p>' +
         '</div>' +
       '</div>';
 

@@ -48,15 +48,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/brand.css">
-  <link rel="stylesheet" href="../assets/css/account.css">
-  <link rel="stylesheet" href="../assets/css/producto.css">
+  <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/account.css">
+  <link rel="stylesheet" href="/assets/css/producto.css">
 </head>
 <body>
   <div id="cursor" aria-hidden="true"></div>
     <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
+    <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
       <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
@@ -70,15 +70,16 @@
     <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion" class="nav-panel__link">Colección</a>
       <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
       <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
-      <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="/cuero.html" class="nav-panel__link">Cuero</a>
+      <a href="/manifiesto" class="nav-panel__link">Historia</a>
+      <a href="/cuero" class="nav-panel__link">Cuero</a>
       <p class="nav-panel__group">Atelier</p>
-      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
-      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/personalizar" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -86,7 +87,7 @@
   <main>
     <header class="product-line-hero reveal">
       <nav class="pdp-breadcrumb" aria-label="Migas de pan">
-        <a href="/home.html">Inicio</a>
+        <a href="/home">Inicio</a>
         <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
         <a href="/coleccion">Colección</a>
         <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
@@ -106,12 +107,12 @@
         href="/producto/travel-bag-i"
         class="product-line-card product-card"
         data-category="mujer"
-        style="--img-hover: url('../assets/img/nuevas/producto/mujer/estudio-01.jpg')">
+        style="--img-hover: url('/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg')">
         <div class="product-line-card__img" data-dark>
           <span class="product-line-card__numeral">I</span>
           <span class="product-line-card__badge">Cognac</span>
           <img
-            src="../imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg"
+            src="/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg"
             alt="Travel Bag I — cuero cognac"
             class="product-line-card__photo"
             style="object-position: 50% 54%;"
@@ -128,12 +129,12 @@
         href="/producto/travel-bag-ii"
         class="product-line-card product-card"
         data-category="hombre"
-        style="--img-hover: url('../imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg')">
+        style="--img-hover: url('/imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg')">
         <div class="product-line-card__img" data-dark>
           <span class="product-line-card__numeral">II</span>
           <span class="product-line-card__badge">Negro</span>
           <img
-            src="../imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg"
+            src="/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg"
             alt="Travel Bag II — cuero negro"
             class="product-line-card__photo"
             style="object-position: 50% 54%;"
@@ -150,12 +151,12 @@
         href="/producto/travel-bag-iii"
         class="product-line-card product-card"
         data-category="mujer"
-        style="--img-hover: url('../imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg')">
+        style="--img-hover: url('/imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg')">
         <div class="product-line-card__img" data-dark>
           <span class="product-line-card__numeral">III</span>
           <span class="product-line-card__badge">Cognac</span>
           <img
-            src="../imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg"
+            src="/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg"
             alt="Travel Bag III — mochila cognac"
             class="product-line-card__photo"
             style="object-position: 50% 46%;"
@@ -172,7 +173,7 @@
     <section class="product-bespoke reveal" data-dark>
       <h2 class="product-bespoke__title">Tu nombre. En cuero.</h2>
       <p class="product-bespoke__sub">Personaliza cualquier weekender — Granadilla, Mora o Lulo — con iniciales o nombre antes del envío.</p>
-      <a href="/personalizar.html" class="product-bespoke__cta">Solicitar grabado →</a>
+      <a href="/personalizar" class="product-bespoke__cta">Solicitar grabado →</a>
     </section>
   </main>
 
@@ -187,16 +188,17 @@
         <ul>
           <li><a href="/coleccion?cat=mujer">Mujer</a></li>
           <li><a href="/coleccion?cat=hombre">Hombre</a></li>
-          <li><a href="/cuero.html">Cuero</a></li>
-          <li><a href="/manifiesto.html">Historia</a></li>
+          <li><a href="/cuero">Cuero</a></li>
+          <li><a href="/manifiesto">Historia</a></li>
         </ul>
       </nav>
       <nav class="foot__col" aria-label="Atelier">
         <h4>Atelier</h4>
         <ul>
-          <li><a href="/personalizar.html">Personalizar</a></li>
+          <li><a href="/personalizar">Personalizar</a></li>
           <li><a href="/coleccion">Colección</a></li>
-          <li><a href="/contacto.html">Contacto</a></li>
+          <li><a href="/cuenta">Cuenta</a></li>
+          <li><a href="/contacto">Contacto</a></li>
         </ul>
       </nav>
       <nav class="foot__col" aria-label="Contacto">
@@ -210,11 +212,11 @@
     </div>
     <div class="foot__bottom">
       <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
-      <span><a href="/contacto.html">Privacidad</a> · <a href="/contacto.html">Términos</a></span>
+      <span><a href="/privacidad">Privacidad</a> · <a href="/terminos">Términos</a></span>
     </div>
   </footer>
-  <script src="../assets/js/brand.js"></script>
-  <script src="../assets/js/account.js" defer></script>
+  <script src="/assets/js/brand.js"></script>
+  <script src="/assets/js/account.js" defer></script>
   <script>
     (function () {
       var backBtn = document.getElementById('pdpBack');
@@ -228,7 +230,7 @@
         if (window.history.length > 1) {
           window.history.back();
         } else {
-          window.location.href = '../home.html';
+          window.location.href = '/home';
         }
       });
     })();

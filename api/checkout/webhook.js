@@ -1,4 +1,10 @@
-const Stripe = require('stripe');
+'use strict';
+
+// POST /api/checkout/webhook — Stripe webhook receiver.
+// Raw body required for HMAC signature verification — must NOT be JSON-parsed by middleware.
+
+const { getStripe } = require('../../lib/stripe-client');
+const config = require('../../lib/config');
 const {
   updateOrderBySession,
   getOrderBySession,
@@ -16,24 +22,22 @@ async function readRawBody(req) {
 }
 
 module.exports = async (req, res) => {
-  if (req.method !== 'POST') {
-    return res.status(405).send('Method not allowed');
+  if (req.method !== 'POST') return res.status(405).send('Method not allowed');
+
+  if (!config.stripeWebhookSecret) {
+    return res.status(503).send('Webhook no configurado. Verifica STRIPE_WEBHOOK_SECRET.');
   }
 
-  const secret = process.env.STRIPE_SECRET_KEY;
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  let stripe;
+  try { stripe = getStripe(); }
+  catch (err) { return res.status(503).send(err.message); }
 
-  if (!secret || !webhookSecret) {
-    return res.status(503).send('Webhook no configurado');
-  }
-
-  const stripe = new Stripe(secret);
   const sig = req.headers['stripe-signature'];
   let event;
 
   try {
     const rawBody = await readRawBody(req);
-    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
+    event = stripe.webhooks.constructEvent(rawBody, sig, config.stripeWebhookSecret);
   } catch (err) {
     console.error('[webhook] signature:', err.message);
     return res.status(400).send('Webhook Error: ' + err.message);
@@ -46,7 +50,7 @@ module.exports = async (req, res) => {
       const productId = session.metadata?.product_id;
       const variantId = session.metadata?.variant_id || null;
 
-      if (process.env.DATABASE_URL) {
+      if (config.dbConfigured) {
         await updateOrderBySession(session.id, {
           status: 'paid',
           stripePaymentIntent: session.payment_intent,
@@ -61,12 +65,12 @@ module.exports = async (req, res) => {
         }
 
         if (productId) {
-          await decrementInventory(productId, variantId || null, 1);
+          await decrementInventory(productId, variantId, 1);
         }
       }
     }
 
-    if (event.type === 'checkout.session.expired' && process.env.DATABASE_URL) {
+    if (event.type === 'checkout.session.expired' && config.dbConfigured) {
       const session = event.data.object;
       await updateOrderBySession(session.id, { status: 'expired' });
       const order = await getOrderBySession(session.id);

@@ -25,10 +25,12 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/brand.css">
-  <link rel="stylesheet" href="assets/css/mobile.css">
-  <link rel="stylesheet" href="assets/css/account.css">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/mobile.css">
+  <link rel="stylesheet" href="/assets/css/account.css">
   <style>
     /* HERO */
     .contact-hero {
@@ -326,7 +328,7 @@
 
     <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+    <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
       <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
@@ -340,16 +342,17 @@
     <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion" class="nav-panel__link">Colección</a>
       <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
       <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
-      <a href="/manifiesto.html" class="nav-panel__link">Historia</a>
-      <a href="/cuero.html" class="nav-panel__link">Cuero</a>
-          <p class="nav-panel__group">Atelier</p>
-    <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
-    <a href="/cuenta.html" class="nav-panel__link">Cuenta</a>
-    <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/manifiesto" class="nav-panel__link">Historia</a>
+      <a href="/cuero" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="/personalizar" class="nav-panel__link">Personalizar</a>
+      <a href="/cuenta" class="nav-panel__link">Cuenta</a>
+      <a href="/contacto" class="nav-panel__link" aria-current="page">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -374,7 +377,7 @@
         <h2 class="channel__title">Pedidos</h2>
         <p class="channel__body">
           Para cotizaciones, pedidos personalizados y consultas sobre materiales.
-          <a href="/personalizar.html" style="display:block;margin-top:0.75rem;color:inherit;border-bottom:1px solid currentColor;width:fit-content">Estudio de grabado →</a>
+          <a href="/personalizar" style="display:block;margin-top:0.75rem;color:inherit;border-bottom:1px solid currentColor;width:fit-content">Estudio de grabado →</a>
         </p>
         <a href="mailto:hola@ofeliavallejo.com" class="channel__cta">hola@ofeliavallejo.com</a>
       </div>
@@ -387,7 +390,7 @@
         <p class="channel__body">
           Respuesta directa. Para hablar de tu pieza, medidas y detalles de grabado.
         </p>
-        <a href="/personalizar.html#solicitud-formulario" class="channel__cta">Enviar solicitud por WhatsApp →</a>
+        <a href="/personalizar#solicitud-formulario" class="channel__cta">Enviar solicitud por WhatsApp →</a>
       </div>
 
       <div class="channel">
@@ -459,7 +462,7 @@
               No
             </label>
           </div>
-          <p class="contact-form__legal" style="margin-top:0.5rem"><a href="/personalizar.html">Abrir el estudio de grabado</a> para ver la vista previa en cuero.</p>
+          <p class="contact-form__legal" style="margin-top:0.5rem"><a href="/personalizar">Abrir el estudio de grabado</a> para ver la vista previa en cuero.</p>
         </div>
 
         <div class="contact-form__group">
@@ -485,7 +488,7 @@
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
+        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
         <p class="foot__tag">Leather House · Medellín → Lausanne</p>
       </div>
       <nav class="foot__col" aria-label="Casa">
@@ -493,17 +496,17 @@
         <ul>
           <li><a href="/coleccion?cat=mujer">Mujer</a></li>
           <li><a href="/coleccion?cat=hombre">Hombre</a></li>
-          <li><a href="/cuero.html">Cuero</a></li>
-          <li><a href="/manifiesto.html">Historia</a></li>
+          <li><a href="/cuero">Cuero</a></li>
+          <li><a href="/manifiesto">Historia</a></li>
         </ul>
       </nav>
       <nav class="foot__col" aria-label="Atelier">
         <h4>Atelier</h4>
         <ul>
-          <li><a href="/personalizar.html">Personalizar</a></li>
+          <li><a href="/personalizar">Personalizar</a></li>
           <li><a href="/coleccion">Colección</a></li>
-          <li><a href="/cuenta.html">Cuenta</a></li>
-          <li><a href="/contacto.html">Contacto</a></li>
+          <li><a href="/cuenta">Cuenta</a></li>
+          <li><a href="/contacto">Contacto</a></li>
         </ul>
       </nav>
       <nav class="foot__col" aria-label="Contacto">
@@ -518,15 +521,15 @@
     <div class="foot__bottom">
       <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
       <span>
-        <a href="/contacto.html">Privacidad</a>
+        <a href="/privacidad">Privacidad</a>
         ·
-        <a href="/contacto.html">Términos</a>
+        <a href="/terminos">Términos</a>
       </span>
     </div>
   </footer>
 
-  <script src="assets/js/brand.js"></script>
-  <script src="assets/js/account.js" defer></script>
+  <script src="/assets/js/brand.js"></script>
+  <script src="/assets/js/account.js" defer></script>
   <script>
     (function () {
       const form = document.getElementById('form-contacto');

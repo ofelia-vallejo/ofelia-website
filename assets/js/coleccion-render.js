@@ -6,6 +6,12 @@
 
   const VALID_FILTERS = ['mujer', 'hombre'];
 
+  function getCategoryHash() {
+    const hash = (location.hash || '').replace(/^#/, '').toLowerCase().trim();
+    if (!hash || VALID_FILTERS.indexOf(hash) >= 0) return null;
+    return hash;
+  }
+
   /* Categorías visibles al filtrar por género en el menú */
   const FILTER_GROUPS = {
     mujer: ['mujer', 'morrales', 'bandoleras', 'accesorios'],
@@ -17,7 +23,7 @@
       categoryId: 'accesorios',
       name: 'Billeteras',
       detail: 'Cuero pleno · estudio de grabado',
-      href: '/personalizar.html?producto=Billetera',
+      href: '/personalizar?producto=Billetera',
       wide: true,
       gradient: 'navy',
     },
@@ -25,7 +31,7 @@
       categoryId: 'accesorios',
       name: 'Tu nombre. En la punta.',
       detail: 'Iniciales o monograma OV · antes del envío',
-      href: '/personalizar.html',
+      href: '/personalizar',
       wide: true,
       image: '/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg',
       badge: 'Bespoke',
@@ -364,8 +370,10 @@
 
   function syncUrl(filter) {
     const wantSearch = filter ? '?cat=' + filter : '';
-    if (location.search !== wantSearch) {
-      history.replaceState({ cat: filter || '' }, '', '/coleccion' + wantSearch);
+    const hash = location.hash || '';
+    const wantPath = '/coleccion' + wantSearch + hash;
+    if (location.pathname + location.search + hash !== wantPath) {
+      history.replaceState({ cat: filter || '' }, '', wantPath);
     }
   }
 
@@ -392,7 +400,8 @@
       }
 
       syncUrl(filter);
-      scrollToFilter(filter ? (FILTER_GROUPS[filter] || [filter])[0] : null);
+      const categoryHash = getCategoryHash();
+      scrollToFilter(categoryHash || (filter ? (FILTER_GROUPS[filter] || [filter])[0] : null));
 
       await bindCollectionCart();
 
@@ -414,7 +423,7 @@
       }
     } catch (err) {
       root.innerHTML =
-        '<p class="coleccion-loading">No se pudo cargar el catálogo. <a href="/contacto.html">Contacto</a></p>';
+        '<p class="coleccion-loading">No se pudo cargar el catálogo. <a href="/contacto">Contacto</a></p>';
       console.warn('[coleccion-render]', err.message);
     }
   }

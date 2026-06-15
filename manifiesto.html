@@ -11,16 +11,27 @@
   <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
   <meta name="theme-color" content="#0B1F3A">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Historia — Ofelia Vallejo">
-  <meta property="og:description" content="Nacida de una firma. Herencia paisa y cuero colombiano.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ofelia Vallejo">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Historia · Nacida de una firma — Ofelia Vallejo">
+  <meta property="og:description" content="La firma cursiva de la abuela Ofelia Vallejo es el sello de cada pieza. Heritage paisa, cuero colombiano full-grain, Leather House entre Medellín y Lausanne.">
   <meta property="og:url" content="https://ofeliavallejo.com/manifiesto">
+  <meta property="og:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Historia · Nacida de una firma — Ofelia Vallejo">
+  <meta name="twitter:description" content="Heritage paisa · cuero colombiano · Leather House Medellín → Lausanne.">
+  <meta name="twitter:image" content="https://ofeliavallejo.com/assets/icons/og-image.jpg">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/brand.css">
-  <link rel="stylesheet" href="assets/css/mobile.css">
-  <link rel="stylesheet" href="assets/css/maison.css">
-  <link rel="stylesheet" href="assets/css/account.css">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/mobile.css">
+  <link rel="stylesheet" href="/assets/css/maison.css">
+  <link rel="stylesheet" href="/assets/css/account.css">
 </head>
 <body data-ov-popup="">
 
@@ -28,7 +39,7 @@
 
   <header class="navbar" role="banner">
     <div class="navbar__left" aria-hidden="true"></div>
-    <a href="/home.html" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+    <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
       <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
     </a>
     <div class="navbar__right">
@@ -42,15 +53,16 @@
   <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
     <div class="nav-panel__links">
       <p class="nav-panel__group">Casa</p>
-      <a href="/home.html" class="nav-panel__link">Inicio</a>
+      <a href="/home" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion" class="nav-panel__link">Colección</a>
       <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
       <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
       <p class="nav-panel__group">Maison</p>
-      <a href="/manifiesto.html" class="nav-panel__link" aria-current="page">Historia</a>
-      <a href="/cuero.html" class="nav-panel__link">Cuero</a>
+      <a href="/manifiesto" class="nav-panel__link" aria-current="page">Historia</a>
+      <a href="/cuero" class="nav-panel__link">Cuero</a>
       <p class="nav-panel__group">Atelier</p>
-      <a href="/personalizar.html" class="nav-panel__link">Personalizar</a>
-      <a href="/contacto.html" class="nav-panel__link">Contacto</a>
+      <a href="/personalizar" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto" class="nav-panel__link">Contacto</a>
     </div>
     <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
   </nav>
@@ -109,7 +121,7 @@
           <div class="maison-block__body">
             <p>La caligrafía de la abuela Ofelia es <strong>patrimonio familiar</strong>. Se graba en láser sobre el cuero — hundida, permanente — en la esquina que cada modelo define.</p>
             <p>Tu nombre puede acompañarla: iniciales, monograma o frase breve. Una pieza, una marca.</p>
-            <p><a href="/personalizar.html" style="color:var(--navy);border-bottom:1px solid rgba(11,31,58,.2)">Personalizar en cuero →</a></p>
+            <p><a href="/personalizar" style="color:var(--navy);border-bottom:1px solid rgba(11,31,58,.2)">Personalizar en cuero →</a></p>
           </div>
           <div class="maison-media" style="margin-top:28px">
             <div class="maison-frame" role="img" aria-label="Imagen pendiente: sello OV">
@@ -151,7 +163,7 @@
         <div>
           <div class="maison-block__body">
             <p>Cuero pleno. Hilo encerado. Herrajes de latón macizo. Grabado láser CO₂ a 0,4&nbsp;mm de profundidad.</p>
-            <p>En la página <a href="/cuero.html" style="color:var(--navy);border-bottom:1px solid rgba(11,31,58,.2)">Cuero</a> documentamos materiales, colores y cada paso de construcción — con el espacio reservado para las fotografías del atelier.</p>
+            <p>En la página <a href="/cuero" style="color:var(--navy);border-bottom:1px solid rgba(11,31,58,.2)">Cuero</a> documentamos materiales, colores y cada paso de construcción — con el espacio reservado para las fotografías del atelier.</p>
           </div>
         </div>
       </article>
@@ -223,8 +235,8 @@
       <nav class="maison-cta-bar__links" style="margin-top:36px">
         <a href="/coleccion?cat=mujer" style="color:var(--marfil)">Mujer</a>
         <a href="/coleccion?cat=hombre" style="color:var(--marfil)">Hombre</a>
-        <a href="/cuero.html" style="color:var(--marfil)">Cuero</a>
-        <a href="/personalizar.html" style="color:var(--marfil)">Personalizar</a>
+        <a href="/cuero" style="color:var(--marfil)">Cuero</a>
+        <a href="/personalizar" style="color:var(--marfil)">Personalizar</a>
       </nav>
     </section>
 
@@ -233,7 +245,7 @@
   <footer data-dark id="contacto">
     <div class="foot__cols">
       <div class="foot__brand">
-        <img src="assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
+        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
         <p class="foot__tag">Leather House · Medellín → Lausanne</p>
       </div>
       <nav class="foot__col" aria-label="Casa">
@@ -241,16 +253,17 @@
         <ul>
           <li><a href="/coleccion?cat=mujer">Mujer</a></li>
           <li><a href="/coleccion?cat=hombre">Hombre</a></li>
-          <li><a href="/cuero.html">Cuero</a></li>
-          <li><a href="/manifiesto.html">Historia</a></li>
+          <li><a href="/cuero">Cuero</a></li>
+          <li><a href="/manifiesto">Historia</a></li>
         </ul>
       </nav>
       <nav class="foot__col" aria-label="Atelier">
         <h4>Atelier</h4>
         <ul>
-          <li><a href="/personalizar.html">Personalizar</a></li>
+          <li><a href="/personalizar">Personalizar</a></li>
           <li><a href="/coleccion">Colección</a></li>
-          <li><a href="/contacto.html">Contacto</a></li>
+          <li><a href="/cuenta">Cuenta</a></li>
+          <li><a href="/contacto">Contacto</a></li>
         </ul>
       </nav>
       <nav class="foot__col" aria-label="Contacto">
@@ -261,15 +274,22 @@
           <li><a href="mailto:hola@ofeliavallejo.com">hola@ofeliavallejo.com</a></li>
         </ul>
       </nav>
+      <nav class="foot__col" aria-label="Legal">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacidad">Privacidad</a></li>
+          <li><a href="/terminos">Términos</a></li>
+        </ul>
+      </nav>
     </div>
     <div class="foot__bottom">
       <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
-      <span><a href="/contacto.html">Privacidad</a> · <a href="/contacto.html">Términos</a></span>
+      <span><a href="/privacidad">Privacidad</a> · <a href="/terminos">Términos</a></span>
     </div>
   </footer>
 
-  <script src="assets/js/brand.js"></script>
-  <script src="assets/js/launch-popup.js" defer></script>
-  <script src="assets/js/account.js" defer></script>
+  <script src="/assets/js/brand.js"></script>
+  <script src="/assets/js/launch-popup.js" defer></script>
+  <script src="/assets/js/account.js" defer></script>
 </body>
 </html>

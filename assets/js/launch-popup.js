@@ -68,10 +68,14 @@
               '<div class="ov-modal__field">' +
                 '<input type="email" name="email" id="ovLaunchEmail" placeholder="Tu correo" autocomplete="email" required>' +
               '</div>' +
+              '<label class="ov-modal__consent">' +
+                '<input type="checkbox" id="ovLaunchConsent" required> ' +
+                '<span>Acepto recibir comunicaciones de Ofelia Vallejo. Ver <a href="/privacidad" target="_blank">política de privacidad</a>.</span>' +
+              '</label>' +
               '<button type="submit" class="ov-modal__submit">Recibir cupón →</button>' +
             '</form>' +
             '<p class="ov-modal__notice" id="ovLaunchNotice" aria-live="polite"></p>' +
-            '<p class="ov-modal__legal">Solo novedades y el cupón. Sin spam. <a href="' + assetPath('contacto.html') + '">Privacidad</a>.</p>' +
+            '<p class="ov-modal__legal">Solo novedades y el cupón. Sin spam. <a href="/privacidad">Privacidad</a>.</p>' +
           '</div>' +
           '<div class="ov-launch-success" id="ovLaunchSuccess" hidden>' +
             '<p class="ov-modal__eyebrow">Listo</p>' +
@@ -138,9 +142,14 @@
   async function onSubmit(e) {
     e.preventDefault();
     const input = document.getElementById('ovLaunchEmail');
+    const consent = document.getElementById('ovLaunchConsent');
     const email = input && input.value.trim();
     if (!email) {
       showNotice('Escribe tu correo.', false);
+      return;
+    }
+    if (consent && !consent.checked) {
+      showNotice('Debes aceptar la política de privacidad para continuar.', false);
       return;
     }
 
