@@ -504,10 +504,9 @@ let W = innerWidth, H = innerHeight;
 canvas.setAttribute('viewBox', `0 0 ${W} ${H}`);
 canvas.setAttribute('preserveAspectRatio','xMidYMid meet');
 
-/* tweakable knobs
-   TIMING FIX: t3:1.8 + t4:1.4 = 3200ms total para Colombia→Antioquia (era 2000ms, demasiado rápido) */
+/* tweakable knobs — valores idénticos al diseño v6 (Claude Design) */
 const TW = {
-  t1: 2.0, t2: 1.6, t3: 1.8, t4: 1.4,
+  t1: 2.0, t2: 1.6, t3: 1.1, t4: 0.9,
   tilt: 18,
   z1: 0.62, z2: 3.6, z3: 12, z4: 28
 };
