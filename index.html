@@ -568,9 +568,9 @@
       const c = path.centroid(antFeat);
       if (isFinite(c[0])){
         gLbl.append('text').attr('x',c[0]).attr('y',c[1]-6).attr('text-anchor','middle')
-          .attr('class','lab m').attr('fill','var(--paper)').attr('opacity',fa).text('ANTIOQUIA');
+          .attr('class','lab m').attr('fill','var(--ink)').attr('opacity',fa).text('ANTIOQUIA');
         gLbl.append('text').attr('x',c[0]).attr('y',c[1]+10).attr('text-anchor','middle')
-          .attr('class','lab tag').attr('fill','var(--paper)').attr('opacity',fa*0.85).text('DEPARTAMENTO');
+          .attr('class','lab tag').attr('fill','var(--ink)').attr('opacity',fa*0.85).text('DEPARTAMENTO');
       }
     }
   }
@@ -628,6 +628,7 @@
         const sc=proj.scale();
         if (sc>300) document.querySelector('.country.hi')?.classList.add('on');
         if (sc>900) gDept.selectAll('path').classed('on',true);
+        if (sc>1200){ const hi=document.querySelector('.country.hi'); if(hi&&!hi.classList.contains('fadeout')) hi.classList.add('fadeout'); }
       }
     });
 
