@@ -60,10 +60,10 @@
   /* departments — pointer-events:none so paths never capture globe clicks */
   .dept     { fill: none; stroke: var(--ink); opacity: 0; vector-effect: non-scaling-stroke;
               transition: opacity .9s ease; pointer-events: none; }
-  .dept.on  { opacity: .38; }
-  /* Antioquia: fill snaps in when .on is added, opacity animates */
+  .dept.on  { opacity: .68; }
+  /* Antioquia: croquis — light fill + ink stroke (cartographic sketch, not solid blob) */
   .dept.ant     { transition: opacity 1s ease; }
-  .dept.ant.on  { opacity: 1; fill: var(--ink); stroke: var(--paper); stroke-width: 1.0; }
+  .dept.ant.on  { opacity: 1; fill: var(--ink); fill-opacity: 0.08; stroke: var(--ink); stroke-width: 0.9; }
   .dept.subant     { fill: rgba(11,31,58,.07); stroke: var(--paper); stroke-width: .4; opacity: 0;
                      transition: opacity .8s ease; pointer-events: none; }
   .dept.subant.on  { opacity: .6; }
@@ -628,7 +628,6 @@
         const sc=proj.scale();
         if (sc>300) document.querySelector('.country.hi')?.classList.add('on');
         if (sc>900) gDept.selectAll('path').classed('on',true);
-        if (sc>1300){ const hi=document.querySelector('.country.hi'); if(hi&&!hi.classList.contains('fadeout')) hi.classList.add('fadeout'); }
       }
     });
 
