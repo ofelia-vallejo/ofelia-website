@@ -48,10 +48,10 @@
   :root{
     --paper:#efece4;
     --paper-2:#e7e3d8;
-    --ink:#1a1814;
-    --ink-2:#2c2823;
+    --ink:#0B1F3A;
+    --ink-2:#173354;
     --muted:#8a8377;
-    --hair:#1a181433;
+    --hair:#0B1F3A33;
     --gold:#5a4a2a;
   }
   *{box-sizing:border-box}
@@ -79,42 +79,42 @@
 
   /* vignette overlay */
   #vignette{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .8s ease;
-    background:radial-gradient(ellipse 65% 60% at 50% 55%, transparent 30%, #1a1814 130%)}
+    background:radial-gradient(ellipse 65% 60% at 50% 55%, transparent 30%, #0B1F3A 130%)}
   #vignette.on{opacity:.55}
 
   /* atmosphere ring */
   #atmo{position:fixed;left:50%;top:50%;width:280px;height:280px;margin:-140px 0 0 -140px;border-radius:50%;
     z-index:3;pointer-events:none;opacity:0;transition:opacity .8s ease;
-    box-shadow:0 0 80px 30px #1a181420, inset 0 0 30px 6px #00000018}
+    box-shadow:0 0 80px 30px #0B1F3A20, inset 0 0 30px 6px #00000018}
   #atmo.on{opacity:1}
 
   /* ---------- paths ---------- */
-  .sphere-fill{fill:#1a18140a}
-  .graticule{fill:none;stroke:#1a1814;opacity:.14;vector-effect:non-scaling-stroke}
-  .land{fill:none;stroke:#1a1814;opacity:.78;vector-effect:non-scaling-stroke}
-  .borders{fill:none;stroke:#1a1814;opacity:.55;vector-effect:non-scaling-stroke}
-  .country.hi{fill:#1a1814;opacity:0;transition:opacity .9s ease}
+  .sphere-fill{fill:#0B1F3A0a}
+  .graticule{fill:none;stroke:#0B1F3A;opacity:.14;vector-effect:non-scaling-stroke}
+  .land{fill:none;stroke:#0B1F3A;opacity:.78;vector-effect:non-scaling-stroke}
+  .borders{fill:none;stroke:#0B1F3A;opacity:.55;vector-effect:non-scaling-stroke}
+  .country.hi{fill:#0B1F3A;opacity:0;transition:opacity .9s ease}
   .country.hi.on{opacity:.93}
   .country.hi.fadeout{opacity:0}
-  .sphere-stroke{fill:none;stroke:#1a1814;opacity:.9;vector-effect:non-scaling-stroke;transition:opacity .8s ease}
+  .sphere-stroke{fill:none;stroke:#0B1F3A;opacity:.9;vector-effect:non-scaling-stroke;transition:opacity .8s ease}
   .sphere-stroke.fade{opacity:0}
 
-  .dept{fill:none;stroke:#1a1814;opacity:0;vector-effect:non-scaling-stroke;transition:opacity .9s ease}
+  .dept{fill:none;stroke:#0B1F3A;opacity:0;vector-effect:non-scaling-stroke;transition:opacity .9s ease}
   .dept.on{opacity:.55}
   .dept.ant{transition:fill 1s ease, opacity .9s ease}
-  .dept.ant.on{opacity:.96;fill:#1a1814}
-  .dept.subant{fill:#1a18141a;stroke:#efece4;stroke-width:.4;opacity:0;transition:opacity .8s ease}
+  .dept.ant.on{opacity:.96;fill:#0B1F3A}
+  .dept.subant{fill:#0B1F3A1a;stroke:#efece4;stroke-width:.4;opacity:0;transition:opacity .8s ease}
   .dept.subant.on{opacity:.7}
 
   .pin{opacity:0;transition:opacity .7s ease;cursor:pointer}
   .pin.on{opacity:1}
-  .pin .core{fill:#1a1814}
-  .pin .halo{fill:none;stroke:#1a1814;stroke-width:.8;opacity:.55}
+  .pin .core{fill:#0B1F3A}
+  .pin .halo{fill:none;stroke:#0B1F3A;stroke-width:.8;opacity:.55}
   .pin .halo.a{animation:pulse 2.6s ease-out infinite}
   .pin .halo.b{animation:pulse 2.6s ease-out infinite;animation-delay:1.3s}
   @keyframes pulse{0%{r:5;opacity:.85}100%{r:78;opacity:0}}
   .pin .ring-outer{fill:none;stroke:#efece4;stroke-width:1.2;opacity:.8;transition:r .9s ease, stroke-width .9s ease}
-  .pin .ring-inner{fill:#1a1814;transition:r .9s ease}
+  .pin .ring-inner{fill:#0B1F3A;transition:r .9s ease}
   .pin.deep .ring-outer{r:13;stroke-width:1.6}
   .pin.deep .ring-inner{r:5}
   .pin.deep .halo{stroke-width:1.1}
@@ -123,14 +123,14 @@
   .pin .lab.m,.pin .lab.tag{transition:x .9s ease, opacity .9s ease}
   .pin.deep .lab.m{x:80;font-size:13px}
   .pin.deep .lab.tag{x:80;font-size:9.5px}
-  .leader{stroke:#1a1814;stroke-width:.5;fill:none;opacity:.6}
+  .leader{stroke:#0B1F3A;stroke-width:.5;fill:none;opacity:.6}
 
   /* Aburrá valley silhouette */
   .valley{opacity:0;transition:opacity 1s ease}
   .valley.on{opacity:.9}
 
   /* labels */
-  .lab{font-family:"GFS Didot","Cormorant Garamond",serif;fill:#1a1814;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
+  .lab{font-family:"GFS Didot","Cormorant Garamond",serif;fill:#0B1F3A;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
   .lab.s{font-size:9px;opacity:.55}
   .lab.m{font-size:11px;opacity:.85}
   .lab.l{font-size:14px;opacity:.95}
@@ -414,7 +414,7 @@
         <circle class="ring hair" cx="150" cy="150" r="122"/>
       </g>
       <g class="spin-slow">
-        <text font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="6" fill="#1a1814" opacity=".55">
+        <text font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="6" fill="#0B1F3A" opacity=".55">
           <textPath href="#arc" startOffset="0">ANTIOQUIA · MEDELLÍN · COLOMBIA · LATINOAMÉRICA · </textPath>
         </text>
       </g>
