@@ -11,7 +11,8 @@
   <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/assets/img/logo_firma_nav.png?v=2" as="image">
-  <link rel="preload" href="/assets/video/oficio-legendario-home.webp" as="image" type="image/webp">
+  <link rel="preload" href="/assets/video/oficio-legendario-poster.jpg" as="image">
+  <link rel="preload" href="/assets/video/oficio-legendario-home.mp4" as="video" type="video/mp4">
   <meta name="theme-color" content="#0B1F3A">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
@@ -1056,6 +1057,7 @@
     }
 
     .banner-statement__video {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1575,49 +1577,8 @@
   </nav>
 
   <main id="main-content">
-  <section class="campaign-hero" id="top" data-dark aria-labelledby="home-title">
-    <div class="campaign-hero__media" aria-hidden="true">
-      <img
-        src="/assets/video/oficio-legendario-home.webp"
-        alt=""
-        width="960"
-        height="540"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async">
-    </div>
-    <div class="campaign-hero__inner">
-      <div class="campaign-hero__content">
-        <p class="campaign-hero__label">Leather House · Medellín</p>
-        <h1 class="campaign-hero__title" id="home-title">Cuero colombiano hecho para durar.</h1>
-        <p class="campaign-hero__copy">
-          Bolsos, maletines y accesorios en cuero pleno, hechos a mano en Medellín y pensados para acompañarte de ciudad a ciudad.
-        </p>
-        <div class="campaign-hero__actions" aria-label="Acciones principales">
-          <a href="/coleccion" class="campaign-hero__btn campaign-hero__btn--primary">Ver colección</a>
-          <a href="/personalizar" class="campaign-hero__btn">Personalizar pieza</a>
-        </div>
-      </div>
-      <aside class="campaign-hero__proof" aria-label="Razones para elegir Ofelia Vallejo">
-        <div class="campaign-hero__proof-item">
-          <strong>100%</strong>
-          <span>Cuero pleno colombiano</span>
-        </div>
-        <div class="campaign-hero__proof-item">
-          <strong>CO₂</strong>
-          <span>Grabado láser personalizado</span>
-        </div>
-        <div class="campaign-hero__proof-item">
-          <strong>EU</strong>
-          <span>Envíos a Europa bajo pedido</span>
-        </div>
-      </aside>
-    </div>
-    <a href="#nuevos" class="campaign-hero__scroll">Comprar ahora ↓</a>
-  </section>
-
-  <section class="gender shop-gate reveal" id="comprar" aria-labelledby="comprar-title">
-    <h2 class="visually-hidden" id="comprar-title">Comprar por colección</h2>
+  <section class="gender shop-gate" id="top" aria-labelledby="home-title">
+    <h1 class="visually-hidden" id="home-title">Ofelia Vallejo · bolsos y maletines en cuero colombiano</h1>
     <p class="gender__index">— 01 / Comprar</p>
     <div class="gender__divider" aria-hidden="true"></div>
     <a href="/coleccion?cat=mujer" class="gender__panel gender__panel--mujer" id="casa-mujer" aria-label="Colección Mujer — Cuero pleno colombiano, hecho a mano en Medellín">
@@ -1735,32 +1696,38 @@
 
   <section class="banner-statement reveal" id="historia">
     <div class="banner-statement__media" data-dark aria-hidden="true">
-      <img
+      <video
         class="banner-statement__video"
-        src="/assets/video/oficio-legendario-home.webp"
-        alt=""
-        width="960"
-        height="540"
-        loading="lazy"
-        decoding="async">
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="/assets/video/oficio-legendario-poster.jpg"
+        preload="metadata"
+        aria-hidden="true">
+        <source src="/assets/video/oficio-legendario-home.mp4" type="video/mp4">
+        <source src="/assets/video/oficio-legendario-home.webm" type="video/webm">
+        <!-- fallback: animated webp para navegadores sin soporte de fuente -->
+        <img src="/assets/video/oficio-legendario-home.webp" alt="" class="banner-statement__video">
+      </video>
     </div>
     <div class="banner-statement__stack">
       <div class="banner-statement__content">
         <header class="banner-statement__head">
           <div class="banner-statement__rule" aria-hidden="true"></div>
-          <p class="banner-statement__eyebrow">El origen de una pieza</p>
+          <p class="banner-statement__eyebrow">Leather House · Medellín, Colombia</p>
         </header>
-        <h2 class="banner-statement__title"><a href="/manifiesto">Antes de ser bolso, fue oficio.</a></h2>
+        <h2 class="banner-statement__title"><a href="/manifiesto">Nacida de una firma.</a></h2>
         <p class="banner-statement__body">
-          En Antioquia, el cuero se despierta despacio: corte, fuego, costura y paciencia.
-          Un maestro del oficio convierte una piel noble en una pieza hecha para cruzar generaciones.
+          La firma de la abuela Ofelia Vallejo no es un logo — es el origen.
+          Cada pieza que sale del atelier lleva en su cuero la huella de ese nombre y el oficio de quienes lo honran.
         </p>
-        <ul class="banner-statement__notes" aria-label="Proceso artesanal">
+        <ul class="banner-statement__notes" aria-label="Valores de la casa">
           <li>Cuero pleno colombiano</li>
-          <li>Manos de Medellín</li>
-          <li>Hecho para durar</li>
+          <li>Hecho a mano en Medellín</li>
+          <li>Grabado láser · firma de la casa</li>
         </ul>
-        <a href="/manifiesto" class="banner-statement__cta">Ver la historia →</a>
+        <a href="/manifiesto" class="banner-statement__cta">La historia de Ofelia →</a>
       </div>
       <div class="banner-statement__watermark" aria-hidden="true">
         <img src="/assets/img/logo_firma_completa.png" alt="" class="banner-statement__mark" width="240" height="auto" aria-hidden="true">

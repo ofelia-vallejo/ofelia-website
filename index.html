@@ -17,7 +17,28 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<meta name="theme-color" content="#0B1F3A">
+<meta name="theme-color" content="#efece4">
+
+<!-- Google tag (GA4) — replace G-XXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<!-- Meta Pixel — replace YOUR_PIXEL_ID with your Pixel ID -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'YOUR_PIXEL_ID');
+  fbq('track', 'PageView');
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=GFS+Didot&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -25,13 +46,13 @@
 <script src="/assets/data/topojson-client.min.js"></script>
 <style>
   :root{
-    --paper:#F3EEE6;
-    --paper-2:#EDE5D8;
-    --ink:#0B1F3A;
-    --ink-2:#1a3154;
-    --muted:#6f7a90;
-    --hair:#0B1F3A33;
-    --gold:#2f5d8a;
+    --paper:#efece4;
+    --paper-2:#e7e3d8;
+    --ink:#1a1814;
+    --ink-2:#2c2823;
+    --muted:#8a8377;
+    --hair:#1a181433;
+    --gold:#5a4a2a;
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;-webkit-font-smoothing:antialiased;overflow:hidden}
@@ -53,61 +74,47 @@
   /* ---------- persistent canvas (one SVG, one projection) ---------- */
   #cam{position:fixed;inset:0;z-index:2;perspective:1400px;perspective-origin:50% 65%;transform:translateY(-7vh)}
   #canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
-    transform-origin:50% 60%;transform:rotateX(0deg);will-change:transform,clip-path;
-    shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
+    transform-origin:50% 60%;transform:rotateX(0deg);will-change:transform,clip-path}
   #canvas.click{cursor:pointer}
 
-  /* vignette overlay that intensifies during deep zoom */
+  /* vignette overlay */
   #vignette{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .8s ease;
-    background:radial-gradient(ellipse 65% 60% at 50% 55%, transparent 30%, var(--ink) 130%)}
+    background:radial-gradient(ellipse 65% 60% at 50% 55%, transparent 30%, #1a1814 130%)}
   #vignette.on{opacity:.55}
 
   /* atmosphere ring */
   #atmo{position:fixed;left:50%;top:50%;width:280px;height:280px;margin:-140px 0 0 -140px;border-radius:50%;
     z-index:3;pointer-events:none;opacity:0;transition:opacity .8s ease;
-    box-shadow:0 0 80px 30px #8d7d5b1f, inset 0 0 30px 6px #00000014}
+    box-shadow:0 0 80px 30px #1a181420, inset 0 0 30px 6px #00000018}
   #atmo.on{opacity:1}
 
-  /* ---------- luz que sigue el cursor + destello al clic ---------- */
-  #lux{position:fixed;top:0;left:0;width:480px;height:480px;margin:-240px 0 0 -240px;
-    z-index:3;border-radius:50%;pointer-events:none;
-    background:radial-gradient(circle, rgba(255,246,228,.55), rgba(255,246,228,.18) 36%, transparent 66%);
-    mix-blend-mode:soft-light;opacity:0;transition:opacity .9s ease;will-change:transform}
-  #lux.on{opacity:1}
-  #lux.flash{opacity:1;background:radial-gradient(circle, rgba(255,247,232,.85), rgba(255,247,232,.28) 34%, transparent 64%)}
-  body.diving #lux{opacity:0 !important}
-  .pulse{position:fixed;z-index:4;pointer-events:none;border-radius:50%;
-    border:1.4px solid var(--ink);width:16px;height:16px;margin:-8px 0 0 -8px;
-    opacity:.5;animation:pulseRing 950ms cubic-bezier(.2,.7,.2,1) forwards}
-  @keyframes pulseRing{to{transform:scale(10);opacity:0}}
-
   /* ---------- paths ---------- */
-  .sphere-fill{fill:url(#ocean)}
-  .graticule{fill:none;stroke:var(--ink);opacity:.14;vector-effect:non-scaling-stroke}
-  .land{fill:none;stroke:var(--ink);opacity:.78;vector-effect:non-scaling-stroke}
-  .borders{fill:none;stroke:var(--ink);opacity:.55;vector-effect:non-scaling-stroke}
-  .country.hi{fill:var(--ink);opacity:0;transition:opacity .9s ease}
+  .sphere-fill{fill:#1a18140a}
+  .graticule{fill:none;stroke:#1a1814;opacity:.14;vector-effect:non-scaling-stroke}
+  .land{fill:none;stroke:#1a1814;opacity:.78;vector-effect:non-scaling-stroke}
+  .borders{fill:none;stroke:#1a1814;opacity:.55;vector-effect:non-scaling-stroke}
+  .country.hi{fill:#1a1814;opacity:0;transition:opacity .9s ease}
   .country.hi.on{opacity:.93}
   .country.hi.fadeout{opacity:0}
-  .sphere-stroke{fill:none;stroke:var(--ink);opacity:.9;vector-effect:non-scaling-stroke;transition:opacity .8s ease}
+  .sphere-stroke{fill:none;stroke:#1a1814;opacity:.9;vector-effect:non-scaling-stroke;transition:opacity .8s ease}
   .sphere-stroke.fade{opacity:0}
 
-  .dept{fill:none;stroke:var(--ink);opacity:0;vector-effect:non-scaling-stroke;transition:opacity .9s ease}
+  .dept{fill:none;stroke:#1a1814;opacity:0;vector-effect:non-scaling-stroke;transition:opacity .9s ease}
   .dept.on{opacity:.55}
   .dept.ant{transition:fill 1s ease, opacity .9s ease}
-  .dept.ant.on{opacity:.96;fill:var(--ink)}
-  .dept.subant{fill:#0B1F3A1a;stroke:var(--paper);stroke-width:.4;opacity:0;transition:opacity .8s ease}
+  .dept.ant.on{opacity:.96;fill:#1a1814}
+  .dept.subant{fill:#1a18141a;stroke:#efece4;stroke-width:.4;opacity:0;transition:opacity .8s ease}
   .dept.subant.on{opacity:.7}
 
   .pin{opacity:0;transition:opacity .7s ease;cursor:pointer}
   .pin.on{opacity:1}
-  .pin .core{fill:var(--ink)}
-  .pin .halo{fill:none;stroke:var(--ink);stroke-width:.8;opacity:.55}
+  .pin .core{fill:#1a1814}
+  .pin .halo{fill:none;stroke:#1a1814;stroke-width:.8;opacity:.55}
   .pin .halo.a{animation:pulse 2.6s ease-out infinite}
   .pin .halo.b{animation:pulse 2.6s ease-out infinite;animation-delay:1.3s}
   @keyframes pulse{0%{r:5;opacity:.85}100%{r:78;opacity:0}}
-  .pin .ring-outer{fill:none;stroke:var(--paper);stroke-width:1.2;opacity:.8;transition:r .9s ease, stroke-width .9s ease}
-  .pin .ring-inner{fill:var(--ink);transition:r .9s ease}
+  .pin .ring-outer{fill:none;stroke:#efece4;stroke-width:1.2;opacity:.8;transition:r .9s ease, stroke-width .9s ease}
+  .pin .ring-inner{fill:#1a1814;transition:r .9s ease}
   .pin.deep .ring-outer{r:13;stroke-width:1.6}
   .pin.deep .ring-inner{r:5}
   .pin.deep .halo{stroke-width:1.1}
@@ -116,21 +123,25 @@
   .pin .lab.m,.pin .lab.tag{transition:x .9s ease, opacity .9s ease}
   .pin.deep .lab.m{x:80;font-size:13px}
   .pin.deep .lab.tag{x:80;font-size:9.5px}
-  .leader{stroke:var(--ink);stroke-width:.5;fill:none;opacity:.6}
+  .leader{stroke:#1a1814;stroke-width:.5;fill:none;opacity:.6}
 
   /* Aburrá valley silhouette */
   .valley{opacity:0;transition:opacity 1s ease}
   .valley.on{opacity:.9}
 
   /* labels */
-  .lab{font-family:"GFS Didot","Cormorant Garamond",serif;fill:var(--ink);letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
+  .lab{font-family:"GFS Didot","Cormorant Garamond",serif;fill:#1a1814;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
   .lab.s{font-size:9px;opacity:.55}
   .lab.m{font-size:11px;opacity:.85}
   .lab.l{font-size:14px;opacity:.95}
   .lab.tag{font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.28em;opacity:.55}
 
-  /* ---------- WHIRL (loader rings) ---------- */
-  #whirl{position:fixed;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none;transform:translateY(-7vh);transition:opacity .55s ease, transform .9s cubic-bezier(.7,0,.2,1)}
+  /* ---------- WHIRL (loader rings) ----------
+     RING FIX: translateY(-7vh) matches #cam so rings sit on the globe,
+     not at viewport center. The .off transform retains the shift. */
+  #whirl{position:fixed;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none;
+    transform:translateY(-7vh);
+    transition:opacity .55s ease, transform .9s cubic-bezier(.7,0,.2,1)}
   #whirl.off{opacity:0;transform:translateY(-7vh) scale(1.4)}
   .whirl-box{position:relative;width:300px;height:300px}
   .whirl-box svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
@@ -184,8 +195,32 @@
   .ret.thin{stroke-width:.4;opacity:.4;stroke-dasharray:2 4}
   .ret-tick{stroke:var(--ink);stroke-width:.6}
 
+  /* ---------- FINAL MEDELLÍN CARD ---------- */
+  #card{position:fixed;left:50%;bottom:64px;transform:translate(-50%, 30px);z-index:6;pointer-events:none;opacity:0;
+    transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+    width:min(720px,86vw);display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;
+    background:#efece4f5;border:1px solid var(--ink);padding:20px 24px;backdrop-filter:blur(2px)}
+  #card.on{opacity:1;transform:translate(-50%, 0);pointer-events:auto}
+  #card .seal{width:64px;height:64px;border:1px solid var(--ink);display:grid;place-items:center;position:relative}
+  #card .seal::before,#card .seal::after{content:"";position:absolute;background:var(--ink);opacity:.85}
+  #card .seal::before{left:50%;top:6px;bottom:6px;width:1px;margin-left:-.5px}
+  #card .seal::after{top:50%;left:6px;right:6px;height:1px;margin-top:-.5px}
+  #card .seal span{position:relative;z-index:1;background:#efece4;padding:0 4px;font-family:"GFS Didot",serif;font-size:22px;letter-spacing:.05em}
+  #card .ttl{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:30px;line-height:1;letter-spacing:-.005em;margin:0}
+  #card .ttl em{font-style:italic;color:var(--gold);font-family:"Cormorant Garamond",serif}
+  #card .sub{margin-top:8px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.65}
+  #card .cta{border:1px solid var(--ink);background:transparent;color:var(--ink);
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;padding:14px 18px;cursor:pointer;transition:background .25s,color .25s;white-space:nowrap}
+  #card .cta:hover{background:var(--ink);color:var(--paper)}
+
+  /* back button */
+  .back{position:fixed;top:14px;left:14px;z-index:10;border:1px solid var(--ink);background:transparent;color:var(--ink);
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;padding:8px 12px;cursor:pointer;opacity:.7;transition:opacity .25s, background .25s, color .25s}
+  .back:hover{opacity:1;background:var(--ink);color:var(--paper)}
+  .back[hidden]{display:none}
+
   /* ---------- Tweaks panel ---------- */
-  #tweaks{position:fixed;right:18px;bottom:18px;z-index:11;width:300px;background:#F3EEE6f2;border:1px solid var(--ink);padding:14px 14px 12px;
+  #tweaks{position:fixed;right:18px;bottom:18px;z-index:11;width:300px;background:#efece4f2;border:1px solid var(--ink);padding:14px 14px 12px;
     font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink);box-shadow:0 10px 30px #00000022;display:none}
   #tweaks.on{display:block}
   #tweaks h4{margin:0 0 10px;font:600 10px/1 "JetBrains Mono",monospace;letter-spacing:.3em;text-transform:uppercase;opacity:.8}
@@ -199,7 +234,7 @@
   #tweaks button:hover{background:var(--ink);color:var(--paper)}
   #tweaks .close{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--ink);font-size:14px;cursor:pointer;padding:2px 6px;width:auto;flex:none}
 
-  /* ---------- hide legacy chrome elements ---------- */
+  /* ---------- hide legacy chrome (frame, HUD, hint, coords, reticle, back label) ---------- */
   #chrome, #hud, #hint, #coords, #reticle, #back{display:none !important}
 
   /* ---------- Navbar ---------- */
@@ -217,11 +252,11 @@
   .menu-btn.is-open span:nth-child(3){transform:translateY(-6.4px) rotate(-45deg)}
 
   .nav-overlay{position:fixed;inset:0;z-index:44;background:transparent;pointer-events:none;transition:background .45s ease}
-  .nav-overlay.is-active{background:rgba(11,31,58,.30);pointer-events:auto}
+  .nav-overlay.is-active{background:rgba(26,24,20,.30);pointer-events:auto}
   .nav-panel{position:fixed;top:0;right:0;width:min(320px,84vw);height:100%;z-index:45;
     background:var(--paper-2);border-left:1px solid var(--hair);
     transform:translateX(100%);transition:transform .5s cubic-bezier(.6,.04,.32,1);
-    padding:84px 40px;pointer-events:none;box-shadow:-20px 0 60px rgba(11,31,58,.12)}
+    padding:84px 40px;pointer-events:none;box-shadow:-20px 0 60px rgba(26,24,20,.10)}
   .nav-panel.is-open{transform:translateX(0);pointer-events:auto}
   .nav-panel__group{font:400 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.28em;text-transform:uppercase;
     color:var(--muted);margin:22px 0 8px;padding-top:16px;border-top:1px solid var(--hair)}
@@ -238,22 +273,19 @@
   .panel{position:absolute;bottom:0;left:0;right:0;opacity:0;transform:translateY(14px);
     transition:opacity .8s ease,transform .8s ease}
   .panel.active{opacity:1;transform:translateY(0)}
-  .panel__card{position:relative;padding:32px 48px 30px;
-    background:linear-gradient(177deg, rgba(244,241,234,.97), rgba(234,230,220,.97));
-    border:1px solid rgba(120,106,78,.18);
-    box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 22px 52px -24px rgba(92,78,50,.36)}
-  .panel__title{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:clamp(22px,2.6vw,30px);
-    font-weight:400;letter-spacing:.008em;line-height:1.24;color:var(--ink);margin:0 0 14px;text-wrap:balance}
-  .panel__rule{width:34px;height:1px;margin:0 auto 14px;border:0;
-    background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.75}
-  .panel__body{font-family:"Cormorant Garamond",serif;font-size:17px;font-weight:400;font-style:italic;
-    letter-spacing:.01em;line-height:1.5;color:var(--muted);margin:0;text-wrap:pretty}
+  .panel__card{padding:26px 36px 22px;background:rgba(239,236,228,.94);
+    border:1px solid var(--hair);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 14px 38px rgba(26,24,20,.08)}
+  .panel__title{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:clamp(20px,2.4vw,27px);
+    font-weight:400;letter-spacing:.015em;line-height:1.32;color:var(--ink);margin:0 0 14px}
+  .panel__rule{width:38px;height:1px;margin:0 auto 14px;border:0;background:var(--hair)}
+  .panel__body{font-family:"Cormorant Garamond",serif;font-size:16px;font-weight:400;font-style:italic;
+    letter-spacing:.02em;line-height:1.6;color:var(--muted);margin:0}
 
   /* hint de clic */
   .vhint{position:fixed;bottom:3.4vh;left:50%;transform:translateX(-50%);z-index:20;
     display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
     font:400 9px/1 "JetBrains Mono",monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
-    background:rgba(243,238,230,.9);padding:9px 16px;border:1px solid var(--hair);
+    background:rgba(239,236,228,.9);padding:9px 16px;border:1px solid var(--hair);
     opacity:0;transition:opacity .6s ease;pointer-events:none}
   .vhint.show{opacity:1}
   .vhint i{width:6px;height:6px;border-radius:50%;background:var(--gold);
@@ -263,13 +295,7 @@
   /* durante el clavado, ocultar narrativa y navbar */
   body.diving .panels, body.diving .vhint, body.diving .navbar{opacity:0 !important;pointer-events:none}
 
-  /* back button */
-  .back{position:fixed;top:14px;left:14px;z-index:10;border:1px solid var(--ink);background:transparent;color:var(--ink);
-    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;padding:8px 12px;cursor:pointer;opacity:.7;transition:opacity .25s, background .25s, color .25s}
-  .back:hover{opacity:1;background:var(--ink);color:var(--paper)}
-  .back[hidden]{display:none}
-
-  /* custom cursor */
+  /* custom cursor (brand.js) */
   #cursor{position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:var(--ink);
     pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s,width .25s,height .25s}
 
@@ -287,6 +313,7 @@
 
 <!-- Navbar · firma Ofelia Vallejo -->
 <header class="navbar" id="navbar" role="banner">
+  <div aria-hidden="true"></div>
   <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
     <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
   </a>
@@ -297,12 +324,11 @@
   </div>
 </header>
 
-<!-- Nav overlay + panel -->
 <div class="nav-overlay" id="navOverlay"></div>
 <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
   <div class="nav-panel__links">
     <p class="nav-panel__group">Casa</p>
-    <a href="/home" class="nav-panel__link">Inicio</a>
+    <a href="/home" class="nav-panel__link" aria-current="page">Inicio</a>
     <a href="/coleccion" class="nav-panel__link">Colección</a>
     <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
     <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
@@ -322,14 +348,14 @@
     <div class="panel__card">
       <h2 class="panel__title">El mundo de Ofelia Vallejo.</h2>
       <hr class="panel__rule" aria-hidden="true">
-      <p class="panel__body">Un proyecto que nace en algún lugar de la tierra.</p>
+      <p class="panel__body">Todo gran oficio tiene una coordenada.</p>
     </div>
   </div>
   <div class="panel" data-panel="1">
     <div class="panel__card">
-      <h2 class="panel__title">Donde la tradición se transforma en arte.</h2>
+      <h2 class="panel__title">Colombia, tierra de cuero pleno.</h2>
       <hr class="panel__rule" aria-hidden="true">
-      <p class="panel__body">Antioquia — tierra de talabarteros, curtidores y artesanos.</p>
+      <p class="panel__body">El cuero pleno colombiano es el mejor de América. Aquí nace la pieza.</p>
     </div>
   </div>
 </div>
@@ -337,16 +363,23 @@
 <!-- Hint de clic -->
 <div class="vhint" id="vhint"><i></i><span id="vhintText">Haga clic en el globo</span></div>
 
-<!-- Back button (oculto vía CSS) -->
 <button class="back" id="back" hidden>← Volver</button>
 
-<!-- Globe -->
 <div id="cam">
   <svg id="canvas"></svg>
 </div>
 <div id="atmo"></div>
-<div id="lux"></div>
 <div id="vignette"></div>
+
+<!-- Medellín final card -->
+<div id="card" role="region" aria-label="Entrar al sitio">
+  <div class="seal"><span>OV</span></div>
+  <div class="body">
+    <p class="ttl">Medellín, <em>Antioquia</em></p>
+    <p class="sub">Leather House · Hecho a mano · Colombia</p>
+  </div>
+  <button class="cta" id="cardCta">Entrar →</button>
+</div>
 
 <!-- Reticle (oculto vía CSS) -->
 <div id="reticle">
@@ -361,7 +394,7 @@
   </svg>
 </div>
 
-<!-- Whirl rings (loader) -->
+<!-- Whirl rings — FIJO: translateY(-7vh) en CSS para alinear con #cam -->
 <div id="whirl">
   <div class="whirl-box">
     <svg viewBox="0 0 300 300">
@@ -381,7 +414,7 @@
         <circle class="ring hair" cx="150" cy="150" r="122"/>
       </g>
       <g class="spin-slow">
-        <text font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="6" fill="#0B1F3A" opacity=".55">
+        <text font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="6" fill="#1a1814" opacity=".55">
           <textPath href="#arc" startOffset="0">ANTIOQUIA · MEDELLÍN · COLOMBIA · LATINOAMÉRICA · </textPath>
         </text>
       </g>
@@ -417,27 +450,27 @@
   <div id="coordZoom" style="margin-top:4px">z 0.10×</div>
 </div>
 
-<!-- Tweaks panel -->
+<!-- Tweaks panel (Claude Design edit mode) -->
 <aside id="tweaks">
   <button class="close" id="tweaksClose">×</button>
   <h4>Tweaks · Cámara</h4>
   <div class="row"><label>T1 · loader→latam (s)</label><span class="val" id="vT1">2.0</span></div>
   <input id="t1" type="range" min="0.8" max="4.5" step="0.1" value="2.0">
-  <div class="row"><label>T2 · latam→colombia (s)</label><span class="val" id="vT2">1.3</span></div>
-  <input id="t2" type="range" min="0.8" max="4.5" step="0.1" value="1.3">
-  <div class="row"><label>T3 · antioquia→entrar (s)</label><span class="val" id="vT3">1.1</span></div>
-  <input id="t3" type="range" min="0.6" max="3" step="0.1" value="1.1">
-  <div class="row"><label>T4 · zoom final (s)</label><span class="val" id="vT4">0.9</span></div>
-  <input id="t4" type="range" min="0.5" max="2.5" step="0.1" value="0.9">
+  <div class="row"><label>T2 · latam→colombia (s)</label><span class="val" id="vT2">1.6</span></div>
+  <input id="t2" type="range" min="0.8" max="4.5" step="0.1" value="1.6">
+  <div class="row"><label>T3 · antioquia→entrar (s)</label><span class="val" id="vT3">1.8</span></div>
+  <input id="t3" type="range" min="0.6" max="4" step="0.1" value="1.8">
+  <div class="row"><label>T4 · zoom final (s)</label><span class="val" id="vT4">1.4</span></div>
+  <input id="t4" type="range" min="0.5" max="3" step="0.1" value="1.4">
   <div class="grp"></div>
-  <div class="row"><label>Tilt (cámara °)</label><span class="val" id="vTilt">12</span></div>
-  <input id="tilt" type="range" min="0" max="35" step="1" value="12">
-  <div class="row"><label>Zoom Latam</label><span class="val" id="vZ1">0.44</span></div>
-  <input id="z1" type="range" min="0.35" max="1.2" step="0.01" value="0.44">
-  <div class="row"><label>Zoom Colombia</label><span class="val" id="vZ2">2.4</span></div>
-  <input id="z2" type="range" min="2" max="6" step="0.1" value="2.4">
-  <div class="row"><label>Zoom Antioquia</label><span class="val" id="vZ3">8</span></div>
-  <input id="z3" type="range" min="6" max="22" step="1" value="8">
+  <div class="row"><label>Tilt (cámara °)</label><span class="val" id="vTilt">18</span></div>
+  <input id="tilt" type="range" min="0" max="35" step="1" value="18">
+  <div class="row"><label>Zoom Latam</label><span class="val" id="vZ1">0.62</span></div>
+  <input id="z1" type="range" min="0.35" max="1.2" step="0.01" value="0.62">
+  <div class="row"><label>Zoom Colombia</label><span class="val" id="vZ2">3.6</span></div>
+  <input id="z2" type="range" min="2" max="6" step="0.1" value="3.6">
+  <div class="row"><label>Zoom Antioquia</label><span class="val" id="vZ3">12</span></div>
+  <input id="z3" type="range" min="6" max="22" step="1" value="12">
   <div class="row"><label>Zoom final (entrada)</label><span class="val" id="vZ4">28</span></div>
   <input id="z4" type="range" min="18" max="48" step="1" value="28">
   <div class="actions">
@@ -448,11 +481,20 @@
 
 <script>
 /* ============================================================
-   One canvas. One projection. Continuous camera moves through
-   loader → LatAm → Colombia → Antioquia/Medellín.
+   Globo Ofelia Vallejo — v6 final
+   One canvas. One projection. Continuous camera through
+   loader → LatAm → Colombia → Antioquia/Medellín → /home.
    ============================================================ */
 
-const ENTER_URL = '/home';
+/* UTM pass-through — preserva parámetros de campaña al navegar a /home */
+function homeWithUtm(){
+  const p = new URLSearchParams(window.location.search);
+  const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'];
+  const out = new URLSearchParams();
+  keys.forEach(k=>{ if (p.has(k)) out.set(k, p.get(k)); });
+  const qs = out.toString();
+  return qs ? '/home?' + qs : '/home';
+}
 
 const $ = id => document.getElementById(id);
 const NS = 'http://www.w3.org/2000/svg';
@@ -462,34 +504,24 @@ let W = innerWidth, H = innerHeight;
 canvas.setAttribute('viewBox', `0 0 ${W} ${H}`);
 canvas.setAttribute('preserveAspectRatio','xMidYMid meet');
 
-/* tweakable knobs */
+/* tweakable knobs
+   TIMING FIX: t3:1.8 + t4:1.4 = 3200ms total para Colombia→Antioquia (era 2000ms, demasiado rápido) */
 const TW = {
-  t1: 2.0, t2: 1.3, t3: 1.1, t4: 0.9,
-  tilt: 12,
-  z1: 0.44, z2: 2.4, z3: 8, z4: 28
+  t1: 2.0, t2: 1.6, t3: 1.8, t4: 1.4,
+  tilt: 18,
+  z1: 0.62, z2: 3.6, z3: 12, z4: 28
 };
 
 /* projection */
 const proj = d3.geoOrthographic()
   .scale(98)
   .translate([W/2, H/2])
-  .rotate([70, -8, 0])
+  .rotate([20, -10, 0])
   .clipAngle(90);
 const path = d3.geoPath(proj);
 
 /* SVG layers */
-const svg = d3.select(canvas);
-
-/* defs: sombreado 3D de la esfera */
-svg.append('defs').html(
-  '<radialGradient id="ocean" cx="0.38" cy="0.30" r="0.78" gradientUnits="objectBoundingBox">' +
-    '<stop offset="0" stop-color="#fdfaf3" stop-opacity="0.82"/>' +
-    '<stop offset="0.34" stop-color="#efece4" stop-opacity="0.40"/>' +
-    '<stop offset="0.74" stop-color="#cabfa6" stop-opacity="0.16"/>' +
-    '<stop offset="0.92" stop-color="#a99a78" stop-opacity="0.24"/>' +
-    '<stop offset="1" stop-color="#8d7d5b" stop-opacity="0.32"/>' +
-  '</radialGradient>'
-);
+const svg    = d3.select(canvas);
 const gSphere = svg.append('g');
 const gGrid   = svg.append('g');
 const gLand   = svg.append('g');
@@ -522,7 +554,7 @@ function getClipR(){
 }
 setClipR(100);
 
-/* ----------- camera tilt ----------- */
+/* ----------- camera tilt (CSS perspective) ----------- */
 function setTilt(deg){
   canvas.style.transform = `rotateX(${deg}deg)`;
 }
@@ -556,9 +588,8 @@ function buildScene(){
   gBord.append('path').datum(topojson.mesh(world, world.objects.countries, (a,b)=>a!==b))
     .attr('class','borders').attr('d', path).attr('stroke-width', 0.5);
 
-  const co = feats.find(f => String(f.id) === '170' || /colombia/i.test(f.properties.name||''));
+  const co = feats.find(f => f.id === '170');
   if (co) gColHi.append('path').datum(co).attr('class','country hi').attr('d', path);
-
   gSphStr.attr('d', path);
 
   gDept.selectAll('path').data(colombia.features).join('path')
@@ -661,7 +692,7 @@ function drawLabels(){
       const t = gLabels.append('text').attr('x',p[0]).attr('y',p[1]).attr('text-anchor','middle')
         .attr('class',it.cls).attr('opacity', fadeLatam).text(it.text);
       if (it.text==='COLOMBIA' && document.querySelector('.country.hi.on')){
-        t.attr('fill','#F3EEE6');
+        t.attr('fill','#efece4');
       }
     });
   }
@@ -670,8 +701,8 @@ function drawLabels(){
   if (fadeAnt > 0.01 && antFeat){
     const c = path.centroid(antFeat);
     if (isFinite(c[0])){
-      gLabels.append('text').attr('x',c[0]).attr('y',c[1]-6).attr('text-anchor','middle').attr('class','lab m').attr('fill','#F3EEE6').attr('opacity',fadeAnt).text('ANTIOQUIA');
-      gLabels.append('text').attr('x',c[0]).attr('y',c[1]+10).attr('text-anchor','middle').attr('class','lab tag').attr('fill','#F3EEE6').attr('opacity',fadeAnt*0.85).text('DEPARTAMENTO');
+      gLabels.append('text').attr('x',c[0]).attr('y',c[1]-6).attr('text-anchor','middle').attr('class','lab m').attr('fill','#efece4').attr('opacity',fadeAnt).text('ANTIOQUIA');
+      gLabels.append('text').attr('x',c[0]).attr('y',c[1]+10).attr('text-anchor','middle').attr('class','lab tag').attr('fill','#efece4').attr('opacity',fadeAnt*0.85).text('DEPARTAMENTO');
     }
   }
 }
@@ -709,13 +740,11 @@ function pad(n){return (n<10?'0':'')+n}
 /* ============================================================
    FREE SPIN (loader only)
    ============================================================ */
-let spinPhase = 0;
 const timer = d3.timer(()=>{
   if (!freeSpin) return;
-  spinPhase += 0.0042;
-  const lon = 70 + Math.sin(spinPhase) * 48;
-  const lat = -8 + Math.sin(spinPhase * 0.7) * 5;
-  proj.rotate([lon, lat, 0]);
+  const r = proj.rotate();
+  r[0] = (r[0] + 0.16) % 360;
+  proj.rotate(r);
   redraw();
 });
 
@@ -732,12 +761,7 @@ function animate({rotTo, scaleTo, clipTo, tiltTo, ms, ease=easeIO, onTick}){
     const s0 = proj.scale();
     const c0 = getClipR();
     const tlt0 = currentTilt();
-    const rI = (rotTo) ? (function(){
-      const a0=r0[0], b0=r0[1], g0=r0[2]||0;
-      const a1=rotTo[0], b1=(rotTo[1]!=null?rotTo[1]:b0), g1=(rotTo[2]!=null?rotTo[2]:0);
-      let dl = ((a1-a0) % 360 + 540) % 360 - 180;
-      return (t)=>[a0+dl*t, b0+(b1-b0)*t, g0+(g1-g0)*t];
-    })() : null;
+    const rI = (rotTo) ? d3.interpolate(r0, rotTo) : null;
     const sI = (scaleTo!=null) ? d3.interpolate(s0, scaleTo) : null;
     const cI = (clipTo!=null) ? d3.interpolate(c0, clipTo) : null;
     const tI = (tiltTo!=null) ? d3.interpolate(tlt0, tiltTo) : null;
@@ -765,6 +789,7 @@ function currentTilt(){
 /* ============================================================
    FLOW
    ============================================================ */
+/* CLICK 1 — globo → Colombia (Antioquia resaltada) */
 async function flyToColombia(){
   if (busy) return; busy = true;
   mode = 'journey-1';
@@ -774,12 +799,16 @@ async function flyToColombia(){
   $('chrome').classList.add('off');
   $('atmo').classList.add('on');
 
+  /* camino más corto en longitud para evitar que el globo dé la vuelta */
+  const _cur = proj.rotate();
+  const _dLon = ((74.5 - _cur[0]) % 360 + 540) % 360 - 180;
+  const _lonTo = _cur[0] + _dLon;
   await animate({
-    rotTo: [74.5, -5.5, 0],
+    rotTo: [_lonTo, -5.5, 0],
     scaleTo: Math.min(W,H) * TW.z2,
     clipTo: Math.max(W,H) * 1.6,
-    tiltTo: TW.tilt * 0.18,
-    ms: 2500,
+    tiltTo: TW.tilt * 0.35,
+    ms: (TW.t1 + TW.t2) * 600,
     ease: easeIO,
     onTick: ()=>{
       const sc = proj.scale();
@@ -817,6 +846,7 @@ async function flyToColombia(){
   busy = false;
 }
 
+/* CLICK 2 — zoom profundo continuo que se funde con /home */
 async function diveAndEnter(){
   if (busy || stage !== 1) return; busy = true;
   mode = 'journey-2';
@@ -832,6 +862,7 @@ async function diveAndEnter(){
   $('crumbSub').innerHTML = '<em>entrando…</em>';
   $('step').textContent = '03';
 
+  /* camino más corto a Medellín */
   const _c2 = proj.rotate();
   const _d2 = ((75.5744 - _c2[0]) % 360 + 540) % 360 - 180;
   await animate({
@@ -854,6 +885,7 @@ async function diveAndEnter(){
   busy = false;
 }
 
+/* Velo papel + navegación a /home (con UTM pass-through) */
 function fadeAndEnter(){
   return new Promise(res=>{
     try { window.parent?.postMessage({type:'ofelia:enter'}, '*'); } catch(e){}
@@ -862,7 +894,7 @@ function fadeAndEnter(){
     document.body.appendChild(veil);
     requestAnimationFrame(()=>{ veil.style.opacity = '1'; });
     setTimeout(()=>{
-      if (ENTER_URL) { try { window.location.href = ENTER_URL; } catch(e){} }
+      try { window.location.href = homeWithUtm(); } catch(e){}
       res();
     }, 820);
   });
@@ -889,35 +921,11 @@ canvas.addEventListener('click', dispatchClick);
   el.addEventListener('click', dispatchClick);
 });
 
-/* ---------- luz cálida que sigue el cursor ---------- */
-(function(){
-  const lux = $('lux');
-  if (!lux) return;
-  let lx = innerWidth/2, ly = innerHeight*0.43, tx = lx, ty = ly, raf = null;
-  function tick(){
-    lx += (tx-lx)*0.16; ly += (ty-ly)*0.16;
-    lux.style.transform = `translate(${lx}px,${ly}px)`;
-    if (Math.abs(tx-lx) > 0.4 || Math.abs(ty-ly) > 0.4) raf = requestAnimationFrame(tick);
-    else { lux.style.transform = `translate(${tx}px,${ty}px)`; raf = null; }
-  }
-  lux.style.transform = `translate(${lx}px,${ly}px)`;
-  window.addEventListener('pointermove', (e)=>{
-    tx = e.clientX; ty = e.clientY;
-    lux.classList.add('on');
-    if (!raf) raf = requestAnimationFrame(tick);
-  }, {passive:true});
-  window.addEventListener('pointerdown', (e)=>{
-    const p = document.createElement('div');
-    p.className = 'pulse';
-    p.style.left = e.clientX + 'px';
-    p.style.top  = e.clientY + 'px';
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(), 1000);
-    lux.classList.add('on','flash');
-    setTimeout(()=>lux.classList.remove('flash'), 280);
-  }, {passive:true});
-})();
+/* Card CTA */
+const cardCtaEl = $('cardCta');
+if (cardCtaEl) cardCtaEl.addEventListener('click', ()=>diveAndEnter());
 
+/* Back button */
 const backEl = $('back');
 if (backEl) backEl.addEventListener('click', resetAll);
 
@@ -969,7 +977,7 @@ addEventListener('resize', ()=>{
 });
 
 /* ============================================================
-   TWEAKS PANEL
+   TWEAKS PANEL (Claude Design edit mode)
    ============================================================ */
 const tweaksEl = $('tweaks');
 window.addEventListener('message', (e)=>{
@@ -1009,7 +1017,7 @@ $('jumpEnd').addEventListener('click', async ()=>{
 });
 
 /* ============================================================
-   NAVBAR + CUADROS DE TEXTO
+   NAVBAR + CUADROS
    ============================================================ */
 function showPanel(n){
   document.querySelectorAll('#panels .panel').forEach(p=>{
@@ -1023,7 +1031,7 @@ function vhintOn(on){ const v = $('vhint'); if (v) v.classList.toggle('show', !!
 function navbarOn(on){ const n = $('navbar'); if (n) n.classList.toggle('show', !!on); }
 
 /* ============================================================
-   LOAD — async from local files
+   LOAD — desde archivos locales (no CDN)
    ============================================================ */
 (async () => {
   try {
@@ -1031,15 +1039,15 @@ function navbarOn(on){ const n = $('navbar'); if (n) n.classList.toggle('show', 
       d3.json('/assets/data/countries-50m.json'),
       d3.json('/assets/data/Colombia.geo.json')
     ]);
-    antFeat = colombia.features.find(f => {
+    antFeat = colombia.features.find(f=>{
       const nm = (f.properties.NOMBRE_DPT||f.properties.name||'').toString().toUpperCase();
       return nm.includes('ANTIOQUIA');
     });
     buildScene();
-  } catch(err) {
+  } catch(err){
     console.error('No se pudo cargar el mapa:', err);
-    const t = $('vhintText');
-    if (t){ $('vhint').classList.add('show'); t.textContent = 'No se pudo cargar el mapa'; }
+    const v = $('vhint'), t = $('vhintText');
+    if (v && t){ v.classList.add('show'); t.textContent = 'Error cargando el mapa'; }
   }
 })();
 </script>
