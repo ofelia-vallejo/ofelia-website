@@ -20,457 +20,274 @@
 <meta name="theme-color" content="#0B1F3A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=GFS+Didot&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<script src="/assets/data/d3.min.js"></script>
+<script src="/assets/data/topojson-client.min.js"></script>
 <style>
-  :root {
-    --paper:  #F3EEE6;
-    --paper2: #EDE5D8;
-    --ink:    #0B1F3A;
-    --accent: #5B1E24;
-    --gold:   #8b7355;
-    --muted:  rgba(11,31,58,.55);
-    --hair:   rgba(11,31,58,.12);
-    --s1:     rgba(11,31,58,0.55);
-    --s2:     rgba(11,31,58,0.32);
-    --s3:     rgba(11,31,58,0.14);
-    --ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  :root{
+    --paper:#F3EEE6;
+    --paper-2:#EDE5D8;
+    --ink:#0B1F3A;
+    --ink-2:#1a3154;
+    --muted:#6f7a90;
+    --hair:#0B1F3A33;
+    --gold:#2f5d8a;
   }
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body {
-    margin: 0; padding: 0;
-    background: var(--paper); color: var(--ink);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 300; font-size: 13px;
-    -webkit-font-smoothing: antialiased;
-    min-height: 100%;
-    min-height: 100dvh;
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+
+  /* paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:6;
+    background:
+      radial-gradient(1400px 800px at 18% 8%, #00000010, transparent 60%),
+      radial-gradient(1100px 700px at 88% 92%, #00000014, transparent 65%);
+    mix-blend-mode:multiply;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.30;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode:multiply;
   }
 
-  /* ─── Pantalla oscura de entrada ────────────────────── */
-  .step0 {
-    position: fixed; inset: 0; z-index: 100;
-    background: #141414;
-    display: flex; align-items: center; justify-content: center;
-    transition: opacity 1.4s var(--ease);
-  }
-  .step0.out { opacity: 0; pointer-events: none; }
-  .step0__logo {
-    height: 56px; width: auto; max-width: 140px;
-    object-fit: contain; display: block;
-    opacity: 0; filter: brightness(10);
-    transition: opacity 1.1s var(--ease);
-  }
-  .step0__logo.vis { opacity: 0.92; }
-  .step0__tag {
-    position: absolute; bottom: 80px; left: 50%;
-    transform: translateX(-50%);
-    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-    white-space: nowrap; color: rgba(243,238,230,0);
-    transition: color 1.4s var(--ease) 0.6s;
-  }
-  .step0__tag.vis { color: rgba(243,238,230,0.3); }
-  .step0__loading {
-    position: absolute; bottom: 56px; left: 50%;
-    transform: translateX(-50%);
-    font-family: 'JetBrains Mono', monospace; font-size: 9px;
-    letter-spacing: 0.3em; text-transform: uppercase;
-    color: rgba(243,238,230,0.22);
-  }
+  /* ---------- persistent canvas (one SVG, one projection) ---------- */
+  #cam{position:fixed;inset:0;z-index:2;perspective:1400px;perspective-origin:50% 65%;transform:translateY(-7vh)}
+  #canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
+    transform-origin:50% 60%;transform:rotateX(0deg);will-change:transform,clip-path;
+    shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
+  #canvas.click{cursor:pointer}
 
-  /* ─── Navbar ────────────────────────────────────────── */
-  .navbar {
-    position: fixed; top: 0; left: 0; right: 0; height: 64px; z-index: 50;
-    display: grid; grid-template-columns: 1fr auto 1fr;
-    align-items: center; padding: 0 34px;
-    background: linear-gradient(to bottom, rgba(243,238,230,.88) 0%, transparent 100%);
-    pointer-events: none; opacity: 0; transition: opacity .7s ease;
-  }
-  .navbar.show { opacity: 1; }
-  .navbar__logo  { grid-column: 2; justify-self: center; display: flex; align-items: center; pointer-events: auto; outline: none; }
-  .navbar__firma { height: 38px; width: auto; display: block; mix-blend-mode: multiply; }
-  .navbar__right { grid-column: 3; justify-self: end; display: flex; align-items: center; pointer-events: auto; }
-  .menu-btn {
-    background: none; border: none; cursor: pointer;
-    display: flex; flex-direction: column; gap: 5px; padding: 8px;
-  }
-  .menu-btn span {
-    width: 26px; height: 1.4px; background: var(--ink);
-    display: block; transition: transform .35s ease, opacity .25s ease;
-  }
-  .menu-btn.is-open span:nth-child(1) { transform: translateY(6.4px) rotate(45deg); }
-  .menu-btn.is-open span:nth-child(2) { opacity: 0; }
-  .menu-btn.is-open span:nth-child(3) { transform: translateY(-6.4px) rotate(-45deg); }
+  /* vignette overlay that intensifies during deep zoom */
+  #vignette{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .8s ease;
+    background:radial-gradient(ellipse 65% 60% at 50% 55%, transparent 30%, var(--ink) 130%)}
+  #vignette.on{opacity:.55}
 
-  .nav-overlay { position: fixed; inset: 0; z-index: 44; background: transparent; pointer-events: none; transition: background .45s ease; }
-  .nav-overlay.is-active { background: rgba(26,24,20,.30); pointer-events: auto; }
-  .nav-panel {
-    position: fixed; top: 0; right: 0;
-    width: min(320px,84vw); height: 100%; z-index: 55;
-    background: var(--paper2); border-left: 1px solid var(--hair);
-    transform: translateX(100%); transition: transform .5s cubic-bezier(.6,.04,.32,1);
-    padding: 84px 40px; pointer-events: none;
-    box-shadow: -20px 0 60px rgba(26,24,20,.10);
-  }
-  .nav-panel.is-open { transform: translateX(0); pointer-events: auto; }
-  .nav-panel__group {
-    font: 400 9.5px/1 'JetBrains Mono', monospace;
-    letter-spacing: .28em; text-transform: uppercase;
-    color: var(--muted); margin: 22px 0 8px; padding-top: 16px;
-    border-top: 1px solid var(--hair);
-  }
-  .nav-panel__group:first-child { padding-top: 0; border-top: none; margin-top: 0; }
-  .nav-panel__link {
-    display: block; font-family: 'Cinzel', serif;
-    font-size: 19px; font-weight: 400; letter-spacing: .04em;
-    color: var(--ink); text-decoration: none;
-    padding: 7px 0; transition: color .25s, padding-left .25s;
-  }
-  .nav-panel__link:hover { color: var(--gold); padding-left: 6px; }
-  .nav-panel__foot {
-    position: absolute; bottom: 34px; left: 40px;
-    font: 400 8px/1.4 'JetBrains Mono', monospace;
-    letter-spacing: .24em; text-transform: uppercase; color: var(--muted);
-  }
+  /* atmosphere ring */
+  #atmo{position:fixed;left:50%;top:50%;width:280px;height:280px;margin:-140px 0 0 -140px;border-radius:50%;
+    z-index:3;pointer-events:none;opacity:0;transition:opacity .8s ease;
+    box-shadow:0 0 80px 30px #8d7d5b1f, inset 0 0 30px 6px #00000014}
+  #atmo.on{opacity:1}
 
-  /* ─── Stage ─────────────────────────────────────────── */
-  .stage {
-    position: fixed; inset: 0;
-    background: var(--paper);
-    perspective: 1400px; perspective-origin: 50% 65%;
-    overflow: hidden;
-    touch-action: manipulation;
-  }
-  .tilt-wrap {
-    position: absolute; inset: 0;
-    background: var(--paper);
-    transform: rotateX(0deg) translateZ(0);
-    transform-origin: 50% 60%;
-    transition: transform 0s;
-    will-change: transform;
-    overflow: hidden;
-  }
-  .globe-svg {
-    width: 100%; height: 100%; display: block; overflow: hidden;
-    shape-rendering: geometricPrecision;
-    text-rendering: optimizeLegibility;
-  }
-  .globe-svg path, .globe-svg circle { shape-rendering: geometricPrecision; }
+  /* ---------- luz que sigue el cursor + destello al clic ---------- */
+  #lux{position:fixed;top:0;left:0;width:480px;height:480px;margin:-240px 0 0 -240px;
+    z-index:3;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle, rgba(255,246,228,.55), rgba(255,246,228,.18) 36%, transparent 66%);
+    mix-blend-mode:soft-light;opacity:0;transition:opacity .9s ease;will-change:transform}
+  #lux.on{opacity:1}
+  #lux.flash{opacity:1;background:radial-gradient(circle, rgba(255,247,232,.85), rgba(255,247,232,.28) 34%, transparent 64%)}
+  body.diving #lux{opacity:0 !important}
+  .pulse{position:fixed;z-index:4;pointer-events:none;border-radius:50%;
+    border:1.4px solid var(--ink);width:16px;height:16px;margin:-8px 0 0 -8px;
+    opacity:.5;animation:pulseRing 950ms cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes pulseRing{to{transform:scale(10);opacity:0}}
 
-  /* ─── SVG layer styles ───────────────────────────────── */
-  .layer-water circle { fill: var(--paper); }
-  .stage:not(.is-atlas-ready) .layer-water { opacity: 0; }
-  .globe-stroke {
-    fill: none; stroke: var(--ink);
-    vector-effect: non-scaling-stroke;
-    stroke-linecap: round; stroke-linejoin: round;
-    paint-order: stroke fill;
-  }
-  .layer-graticule path { stroke-width: 0.28px; opacity: 0.07; }
-  .layer-graticule.is-hidden,
-  .layer-world.is-hidden { opacity: 0; pointer-events: none; transition: opacity 0.55s var(--ease); }
-  .layer-world path { stroke-width: 0.75px; opacity: 0.88; }
-  .layer-inked path {
-    fill: var(--ink); fill-opacity: 0.92;
-    stroke: var(--ink); stroke-width: 0.65px;
-    vector-effect: non-scaling-stroke; stroke-linejoin: round;
-    transition: fill-opacity 0.65s var(--ease), stroke-opacity 0.65s var(--ease);
-  }
-  .layer-inked.off path { fill-opacity: 0; stroke-opacity: 0; }
-  .layer-depts path {
-    stroke-width: 0.48px; opacity: 0;
-    transition: opacity 0.75s var(--ease);
-  }
-  .layer-depts.on path { opacity: 0.68; }
-  .layer-region path {
-    fill: var(--ink); fill-opacity: 0;
-    stroke: var(--ink); stroke-width: 0.7px;
-    vector-effect: non-scaling-stroke; stroke-linejoin: round;
-    opacity: 0;
-    transition: opacity 0.75s var(--ease), fill-opacity 0.75s var(--ease);
-  }
-  .layer-region.on path { opacity: 1; fill-opacity: 0.08; }
-  .stage[data-flight="1"] .layer-inked path,
-  .stage[data-flight="1"] .layer-depts path,
-  .stage[data-flight="1"] .layer-region path { transition: none !important; }
-  .layer-decorative { display: none; }
+  /* ---------- paths ---------- */
+  .sphere-fill{fill:url(#ocean)}
+  .graticule{fill:none;stroke:var(--ink);opacity:.14;vector-effect:non-scaling-stroke}
+  .land{fill:none;stroke:var(--ink);opacity:.78;vector-effect:non-scaling-stroke}
+  .borders{fill:none;stroke:var(--ink);opacity:.55;vector-effect:non-scaling-stroke}
+  .country.hi{fill:var(--ink);opacity:0;transition:opacity .9s ease}
+  .country.hi.on{opacity:.93}
+  .country.hi.fadeout{opacity:0}
+  .sphere-stroke{fill:none;stroke:var(--ink);opacity:.9;vector-effect:non-scaling-stroke;transition:opacity .8s ease}
+  .sphere-stroke.fade{opacity:0}
 
-  /* ─── Pin ────────────────────────────────────────────── */
-  .pin {
-    opacity: 0; transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
-    transform-origin: center; transform-box: fill-box; pointer-events: none;
-  }
-  .pin.on { opacity: 1; pointer-events: auto; }
-  .pin.deep { transform: scale(1.6); }
-  .pin .core { fill: var(--accent); }
-  .pin .halo {
-    fill: none; stroke: var(--accent); stroke-width: 1;
-    animation: pin-pulse 2.4s ease-out infinite;
-    transform-origin: center; transform-box: fill-box;
-  }
-  .pin .halo--2 { animation-delay: 0.9s; }
-  @keyframes pin-pulse { 0% { r: 4; opacity: 0.85; } 100% { r: 14; opacity: 0; } }
-  .stage[data-stage="3"] .pin { opacity: 0 !important; pointer-events: none; }
+  .dept{fill:none;stroke:var(--ink);opacity:0;vector-effect:non-scaling-stroke;transition:opacity .9s ease}
+  .dept.on{opacity:.55}
+  .dept.ant{transition:fill 1s ease, opacity .9s ease}
+  .dept.ant.on{opacity:.96;fill:var(--ink)}
+  .dept.subant{fill:#0B1F3A1a;stroke:var(--paper);stroke-width:.4;opacity:0;transition:opacity .8s ease}
+  .dept.subant.on{opacity:.7}
 
-  /* ─── Vignette ───────────────────────────────────────── */
-  .vignette {
-    position: absolute; inset: 0; z-index: 3;
-    background: radial-gradient(ellipse at center, transparent 30%, rgba(11,31,58,0.18) 80%, rgba(11,31,58,0.32) 100%);
-    pointer-events: none; opacity: 0; transition: opacity 1.2s var(--ease);
-  }
-  .stage[data-stage="3"] .vignette { opacity: 1; }
+  .pin{opacity:0;transition:opacity .7s ease;cursor:pointer}
+  .pin.on{opacity:1}
+  .pin .core{fill:var(--ink)}
+  .pin .halo{fill:none;stroke:var(--ink);stroke-width:.8;opacity:.55}
+  .pin .halo.a{animation:pulse 2.6s ease-out infinite}
+  .pin .halo.b{animation:pulse 2.6s ease-out infinite;animation-delay:1.3s}
+  @keyframes pulse{0%{r:5;opacity:.85}100%{r:78;opacity:0}}
+  .pin .ring-outer{fill:none;stroke:var(--paper);stroke-width:1.2;opacity:.8;transition:r .9s ease, stroke-width .9s ease}
+  .pin .ring-inner{fill:var(--ink);transition:r .9s ease}
+  .pin.deep .ring-outer{r:13;stroke-width:1.6}
+  .pin.deep .ring-inner{r:5}
+  .pin.deep .halo{stroke-width:1.1}
+  .pin .leader{transition:x2 .9s ease,opacity .9s ease}
+  .pin.deep .leader{x2:72}
+  .pin .lab.m,.pin .lab.tag{transition:x .9s ease, opacity .9s ease}
+  .pin.deep .lab.m{x:80;font-size:13px}
+  .pin.deep .lab.tag{x:80;font-size:9.5px}
+  .leader{stroke:var(--ink);stroke-width:.5;fill:none;opacity:.6}
 
-  /* ─── Paneles de contenido ───────────────────────────── */
-  .panels {
-    position: absolute; bottom: 140px; left: 50%;
-    transform: translateX(-50%);
-    text-align: center; width: min(560px, 90vw);
-    z-index: 6; pointer-events: none;
-  }
-  .panel {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    opacity: 0; transform: translateY(12px);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-  }
-  .panel.active { opacity: 1; transform: translateY(0); }
-  .panel__card {
-    width: 100%; padding: 24px 32px 20px;
-    background: rgba(243,238,230,0.95);
-    border: 1px solid rgba(11,31,58,0.14);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.55) inset, 0 12px 32px rgba(11,31,58,0.06), 0 2px 8px rgba(11,31,58,0.03);
-  }
-  .panel__title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(15px,2vw,22px); font-weight: 400;
-    letter-spacing: 0.04em; line-height: 1.35;
-    color: var(--ink); margin: 0 0 14px;
-  }
-  .panel__rule { width: 36px; height: 1px; margin: 0 auto 14px; border: 0; background: rgba(11,31,58,0.22); }
-  .panel__body {
-    font-size: 13px; font-weight: 300; letter-spacing: 0.07em;
-    color: rgba(11,31,58,0.68); line-height: 1.7; margin: 0; font-style: italic;
-  }
-  .stage[data-stage="3"] .panels { display: none; }
-  .stage[data-stage="3"] .click-hint,
-  .stage[data-stage="3"] .nav-dots { opacity: 0; pointer-events: none; }
+  /* Aburrá valley silhouette */
+  .valley{opacity:0;transition:opacity 1s ease}
+  .valley.on{opacity:.9}
 
-  /* ─── Click hint ─────────────────────────────────────── */
-  .click-hint {
-    position: absolute; bottom: 88px; left: 50%;
-    transform: translateX(-50%);
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'Helvetica Neue', sans-serif; font-size: 9px;
-    font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(11,31,58,0.72); z-index: 6; white-space: nowrap;
-    background: rgba(243,238,230,0.92);
-    padding: 10px 18px;
-    border: 1px solid rgba(11,31,58,0.12);
-    box-shadow: 0 6px 20px rgba(11,31,58,0.05);
-  }
-  .click-hint__dot {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
-    animation: hint-pulse 1.4s ease-in-out infinite; flex-shrink: 0;
-  }
-  @keyframes hint-pulse { 0%,100% { opacity:.5; transform:scale(1); } 50% { opacity:1; transform:scale(1.4); } }
+  /* labels */
+  .lab{font-family:"GFS Didot","Cormorant Garamond",serif;fill:var(--ink);letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
+  .lab.s{font-size:9px;opacity:.55}
+  .lab.m{font-size:11px;opacity:.85}
+  .lab.l{font-size:14px;opacity:.95}
+  .lab.tag{font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.28em;opacity:.55}
 
-  /* ─── Nav dots ───────────────────────────────────────── */
-  .nav-dots {
-    position: absolute; bottom: 50px; left: 50%;
-    transform: translateX(-50%);
-    display: flex; gap: 8px; align-items: center; z-index: 6;
-  }
-  .nav-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: rgba(11,31,58,0.22);
-    transition: background 0.4s, width 0.4s, border-radius 0.4s;
-  }
-  .nav-dot.active { background: var(--ink); width: 16px; border-radius: 3px; }
+  /* ---------- WHIRL (loader rings) ---------- */
+  #whirl{position:fixed;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none;transform:translateY(-7vh);transition:opacity .55s ease, transform .9s cubic-bezier(.7,0,.2,1)}
+  #whirl.off{opacity:0;transform:translateY(-7vh) scale(1.4)}
+  .whirl-box{position:relative;width:300px;height:300px}
+  .whirl-box svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .ring{fill:none;stroke:var(--ink);stroke-width:.6;opacity:.55}
+  .ring.dot{stroke-dasharray:1 5;stroke-width:1}
+  .ring.dash{stroke-dasharray:14 8 2 8}
+  .ring.hair{stroke-dasharray:1 3;opacity:.35}
+  .tick{stroke:var(--ink);stroke-width:.6;opacity:.5}
+  .spin-cw{transform-origin:50% 50%;animation:spin 22s linear infinite}
+  .spin-ccw{transform-origin:50% 50%;animation:spin 38s linear infinite reverse}
+  .spin-fast{transform-origin:50% 50%;animation:spin 11s linear infinite}
+  .spin-slow{transform-origin:50% 50%;animation:spin 90s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ─── Controls (Volver / Saltar) ────────────────────── */
-  .controls {
-    position: absolute; bottom: 44px; right: 48px;
-    z-index: 8; display: flex; gap: 10px; align-items: center;
-  }
-  .controls button {
-    background: transparent; border: 0;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ink); opacity: 0.38; padding: 4px 0;
-    transition: opacity 0.3s; cursor: pointer;
-  }
-  .controls button:hover { opacity: 0.75; }
-  .controls button:disabled { opacity: 0.15; pointer-events: none; }
-  .controls .divider { width: 1px; height: 10px; background: var(--s3); }
+  /* ---------- LOADER chrome (frame + corners) ---------- */
+  #chrome{position:fixed;inset:0;display:grid;place-items:center;z-index:5;pointer-events:none;transition:opacity .5s ease}
+  #chrome.off{opacity:0}
+  .frame{position:relative;width:min(86vmin,640px);aspect-ratio:1/1;display:grid;place-items:center}
+  .corner{position:absolute;width:30px;height:30px;border:1px solid var(--ink);opacity:.5}
+  .corner.tl{top:0;left:0;border-right:none;border-bottom:none}
+  .corner.tr{top:0;right:0;border-left:none;border-bottom:none}
+  .corner.bl{bottom:0;left:0;border-right:none;border-top:none}
+  .corner.br{bottom:0;right:0;border-left:none;border-top:none}
+  .meta{position:absolute;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);opacity:.55}
+  .meta.tl{top:-22px;left:0}.meta.tr{top:-22px;right:0}
+  .meta.bl{bottom:-22px;left:0}.meta.br{bottom:-22px;right:0}
+  .cap{position:absolute;left:50%;transform:translateX(-50%);bottom:-58px;text-align:center;
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);opacity:.7;white-space:nowrap}
+  .cap .dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--ink);margin:0 .55em;vertical-align:middle;opacity:.6}
+  .cap small{display:block;margin-top:8px;font-family:"Cormorant Garamond",serif;font-size:14px;font-style:italic;letter-spacing:.02em;text-transform:none;opacity:.7}
 
-  /* ─── Tarjeta final (stage 3) ────────────────────────── */
-  .card {
-    position: absolute; left: 50%; bottom: -240px;
-    transform: translateX(-50%);
-    z-index: 7; width: min(640px, 88vw);
-    background: var(--paper); border: 1px solid var(--ink);
-    padding: 28px 32px;
-    display: grid; grid-template-columns: 64px 1fr auto;
-    gap: 24px; align-items: center;
-    transition: bottom 0.9s var(--ease);
-  }
-  .stage[data-stage="3"] .card { bottom: 60px; }
-  .card__thumb {
-    width: 64px; height: 64px;
-    border: 1px solid rgba(11,31,58,0.12);
-    overflow: hidden; flex-shrink: 0;
-  }
-  .card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .card .info { display: flex; flex-direction: column; gap: 4px; }
-  .card .info .name { font-family: 'Cinzel', serif; font-size: 19px; letter-spacing: 0.05em; }
-  .card .info .coord-txt {
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    letter-spacing: 0.18em; color: var(--s1);
-  }
-  .card .enter {
-    background: transparent; border: 1px solid var(--ink);
-    padding: 12px 28px; font-family: 'Helvetica Neue', sans-serif;
-    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink);
-    transition: background 0.5s, color 0.5s; cursor: pointer;
-  }
-  .card .enter:hover { background: var(--ink); color: var(--paper); }
+  /* ---------- HUD ---------- */
+  #hud{position:fixed;top:22px;left:24px;right:24px;display:flex;justify-content:space-between;
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .6s ease;z-index:5;pointer-events:none}
+  #hud.on{opacity:.7}
+  #hud.hide{opacity:0}
+  #hud .crumbs em{font-style:normal;color:var(--gold)}
+  #hud .crumbs span{opacity:.4;margin:0 .5em}
+  #hint{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .5s ease;z-index:5;pointer-events:none;white-space:nowrap}
+  #hint.on{opacity:.75}
+  #hint::before,#hint::after{content:"——";opacity:.5;margin:0 .8em}
+  #coords{position:fixed;right:24px;bottom:24px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .5s ease;z-index:5;pointer-events:none;text-align:right;line-height:1.7}
+  #coords.on{opacity:.55}
+  #coords b{font-weight:400;color:var(--gold)}
+  #reticle{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(1);z-index:4;pointer-events:none;opacity:0;transition:opacity .7s ease, transform 1.4s ease}
+  #reticle.on{opacity:.65}
+  #reticle.tight{transform:translate(-50%,-50%) scale(.45)}
+  #reticle svg{display:block;overflow:visible}
+  .ret{fill:none;stroke:var(--ink);stroke-width:.7;opacity:.7}
+  .ret.thin{stroke-width:.4;opacity:.4;stroke-dasharray:2 4}
+  .ret-tick{stroke:var(--ink);stroke-width:.6}
 
-  /* ─── Grain ──────────────────────────────────────────── */
-  .grain {
-    position: absolute; inset: 0;
-    mix-blend-mode: multiply; opacity: 0.16;
-    pointer-events: none; z-index: 2;
-  }
+  /* ---------- Tweaks panel ---------- */
+  #tweaks{position:fixed;right:18px;bottom:18px;z-index:11;width:300px;background:#F3EEE6f2;border:1px solid var(--ink);padding:14px 14px 12px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink);box-shadow:0 10px 30px #00000022;display:none}
+  #tweaks.on{display:block}
+  #tweaks h4{margin:0 0 10px;font:600 10px/1 "JetBrains Mono",monospace;letter-spacing:.3em;text-transform:uppercase;opacity:.8}
+  #tweaks .row{display:grid;grid-template-columns:1fr 60px;gap:10px;align-items:center;margin:6px 0;font-size:10.5px}
+  #tweaks .row label{letter-spacing:.18em;text-transform:uppercase;opacity:.8;font-size:9.5px}
+  #tweaks input[type=range]{width:100%;accent-color:var(--ink)}
+  #tweaks .val{font-feature-settings:"tnum";text-align:right;opacity:.85}
+  #tweaks .grp{border-top:1px solid var(--hair);margin-top:8px;padding-top:6px}
+  #tweaks .actions{display:flex;gap:8px;margin-top:10px}
+  #tweaks button{flex:1;border:1px solid var(--ink);background:transparent;color:var(--ink);font:600 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.22em;text-transform:uppercase;padding:8px 6px;cursor:pointer}
+  #tweaks button:hover{background:var(--ink);color:var(--paper)}
+  #tweaks .close{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--ink);font-size:14px;cursor:pointer;padding:2px 6px;width:auto;flex:none}
 
-  /* ─── Atmosphere bloom ───────────────────────────────── */
-  .atmos {
-    position: absolute; left: 50%; top: 50%;
-    width: 260px; height: 260px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    box-shadow: 0 0 90px 40px rgba(11,31,58,0.13);
-    pointer-events: none; z-index: 1;
-    opacity: 0; transition: opacity 1.1s var(--ease);
-  }
-  .stage[data-stage="0"] .atmos { opacity: 0; }
-  .stage[data-stage="1"] .atmos { opacity: 1; }
-  .stage[data-stage="2"] .atmos { opacity: 0.5; }
-  .stage[data-stage="3"] .atmos { opacity: 0; }
+  /* ---------- hide legacy chrome elements ---------- */
+  #chrome, #hud, #hint, #coords, #reticle, #back{display:none !important}
 
-  /* ─── Whirl (anillos orbitales — stage 0) ───────────── */
-  .whirl {
-    position: absolute; left: 50%; top: 50%;
-    width: 96vmin; height: 96vmin;
-    transform: translate(-50%, -50%);
-    pointer-events: none; z-index: 4;
-    transition: opacity 1s var(--ease);
-  }
-  .stage:not([data-stage="0"]) .whirl { opacity: 0; }
-  .whirl > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .whirl .ring-slow { animation: spin-slow 90s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
-  .whirl .ring-ccw  { animation: spin-ccw  40s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
-  .whirl .ring-cw   { animation: spin-cw   24s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
-  .whirl .ring-fast { animation: spin-fast 12s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
-  @keyframes spin-slow { to { transform: rotate(360deg);  } }
-  @keyframes spin-ccw  { to { transform: rotate(-360deg); } }
-  @keyframes spin-cw   { to { transform: rotate(360deg);  } }
-  @keyframes spin-fast { to { transform: rotate(720deg);  } }
-  .whirl text {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 7px; letter-spacing: 0.42em;
-    fill: var(--ink); opacity: 0.5;
-  }
+  /* ---------- Navbar ---------- */
+  .navbar{position:fixed;top:0;left:0;right:0;height:64px;z-index:40;
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 34px;
+    pointer-events:none;opacity:0;transition:opacity 1s ease}
+  .navbar.show{opacity:1}
+  .navbar__logo{grid-column:2;justify-self:center;display:flex;align-items:center;pointer-events:auto;outline:none}
+  .navbar__firma{height:40px;width:auto;display:block}
+  .navbar__right{grid-column:3;justify-self:end;display:flex;align-items:center;pointer-events:auto}
+  .menu-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:8px}
+  .menu-btn span{width:26px;height:1.4px;background:var(--ink);display:block;transition:transform .35s ease,opacity .25s ease}
+  .menu-btn.is-open span:nth-child(1){transform:translateY(6.4px) rotate(45deg)}
+  .menu-btn.is-open span:nth-child(2){opacity:0}
+  .menu-btn.is-open span:nth-child(3){transform:translateY(-6.4px) rotate(-45deg)}
 
-  /* ─── Corners cartográficos ──────────────────────────── */
-  .corner {
-    position: absolute; width: 26px; height: 26px;
-    z-index: 5; pointer-events: none; opacity: 0.5;
-  }
-  .corner.tl { top: 60px; left: 22px;    border-top: 1px solid var(--ink); border-left:  1px solid var(--ink); }
-  .corner.tr { top: 60px; right: 22px;   border-top: 1px solid var(--ink); border-right: 1px solid var(--ink); }
-  .corner.bl { bottom: 22px; left: 22px;  border-bottom: 1px solid var(--ink); border-left:  1px solid var(--ink); }
-  .corner.br { bottom: 22px; right: 22px; border-bottom: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+  .nav-overlay{position:fixed;inset:0;z-index:44;background:transparent;pointer-events:none;transition:background .45s ease}
+  .nav-overlay.is-active{background:rgba(11,31,58,.30);pointer-events:auto}
+  .nav-panel{position:fixed;top:0;right:0;width:min(320px,84vw);height:100%;z-index:45;
+    background:var(--paper-2);border-left:1px solid var(--hair);
+    transform:translateX(100%);transition:transform .5s cubic-bezier(.6,.04,.32,1);
+    padding:84px 40px;pointer-events:none;box-shadow:-20px 0 60px rgba(11,31,58,.12)}
+  .nav-panel.is-open{transform:translateX(0);pointer-events:auto}
+  .nav-panel__group{font:400 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--muted);margin:22px 0 8px;padding-top:16px;border-top:1px solid var(--hair)}
+  .nav-panel__group:first-child{padding-top:0;border-top:none;margin-top:0}
+  .nav-panel__link{display:block;font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:500;
+    letter-spacing:.02em;color:var(--ink);text-decoration:none;padding:7px 0;transition:color .25s,padding-left .25s}
+  .nav-panel__link:hover{color:var(--gold);padding-left:6px}
+  .nav-panel__foot{position:absolute;bottom:34px;left:40px;font:400 8px/1.4 "JetBrains Mono",monospace;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
 
-  /* ─── Reticle (cruceta cartográfica) ────────────────── */
-  .reticle {
-    position: absolute; left: 50%; top: 50%;
-    width: 220px; height: 220px;
-    transform: translate(-50%, -50%) scale(1);
-    pointer-events: none; z-index: 5;
-    opacity: 0; transition: opacity 0.7s var(--ease), transform 0.9s var(--ease);
-  }
-  .stage[data-stage="1"] .reticle { opacity: 0.9;  transform: translate(-50%, -50%) scale(1); }
-  .stage[data-stage="2"] .reticle { opacity: 0.55; transform: translate(-50%, -50%) scale(0.6); }
-  .stage[data-stage="3"] .reticle { opacity: 0;    transform: translate(-50%, -50%) scale(0.35); }
-  .reticle svg { width: 100%; height: 100%; display: block; }
-  .reticle line   { stroke: var(--ink); stroke-width: 0.55; opacity: 0.4; }
-  .reticle circle { fill: none; stroke: var(--ink); stroke-width: 0.45; opacity: 0.28; stroke-dasharray: 2 5; }
+  /* ---------- Cuadros de texto narrativos ---------- */
+  .panels{position:fixed;bottom:8vh;left:50%;transform:translateX(-50%);
+    width:min(560px,90vw);text-align:center;z-index:20;pointer-events:none}
+  .panel{position:absolute;bottom:0;left:0;right:0;opacity:0;transform:translateY(14px);
+    transition:opacity .8s ease,transform .8s ease}
+  .panel.active{opacity:1;transform:translateY(0)}
+  .panel__card{position:relative;padding:32px 48px 30px;
+    background:linear-gradient(177deg, rgba(244,241,234,.97), rgba(234,230,220,.97));
+    border:1px solid rgba(120,106,78,.18);
+    box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 22px 52px -24px rgba(92,78,50,.36)}
+  .panel__title{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:clamp(22px,2.6vw,30px);
+    font-weight:400;letter-spacing:.008em;line-height:1.24;color:var(--ink);margin:0 0 14px;text-wrap:balance}
+  .panel__rule{width:34px;height:1px;margin:0 auto 14px;border:0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.75}
+  .panel__body{font-family:"Cormorant Garamond",serif;font-size:17px;font-weight:400;font-style:italic;
+    letter-spacing:.01em;line-height:1.5;color:var(--muted);margin:0;text-wrap:pretty}
 
-  /* ─── HUD ────────────────────────────────────────────── */
-  .hud { position: absolute; z-index: 6; pointer-events: none; color: var(--ink); }
-  .hud.tl { top: 70px; left: 56px; }
-  .hud.tr { top: 70px; right: 56px; text-align: right; }
-  .hud.bl { bottom: 36px; left: 56px; }
-  .hud.br { bottom: 36px; right: 56px; text-align: right; }
-  .hud .hlabel {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8.5px; letter-spacing: 0.32em; text-transform: uppercase;
-    color: var(--s1); margin-bottom: 4px; display: block;
-  }
-  .hud .hval { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; color: var(--ink); }
-  .breadcrumb-hud { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .breadcrumb-hud .bc-item {
-    font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
-    letter-spacing: 0.16em; color: var(--s2);
-    transition: color 0.5s var(--ease);
-  }
-  .breadcrumb-hud .bc-item.bc-active { color: var(--ink); }
-  .breadcrumb-hud .bc-sep { color: var(--s3); font-size: 8.5px; opacity: 0.6; }
-  .stage[data-stage="1"] .hud .hlabel,
-  .stage[data-stage="2"] .hud .hlabel,
-  .stage[data-stage="3"] .hud .hlabel { color: rgba(243,238,230,0.45); }
-  .stage[data-stage="1"] .hud .hval,
-  .stage[data-stage="2"] .hud .hval,
-  .stage[data-stage="3"] .hud .hval { color: var(--paper); }
-  .stage[data-stage="1"] .breadcrumb-hud .bc-item,
-  .stage[data-stage="2"] .breadcrumb-hud .bc-item,
-  .stage[data-stage="3"] .breadcrumb-hud .bc-item { color: rgba(243,238,230,0.35); }
-  .stage[data-stage="1"] .breadcrumb-hud .bc-item.bc-active,
-  .stage[data-stage="2"] .breadcrumb-hud .bc-item.bc-active,
-  .stage[data-stage="3"] .breadcrumb-hud .bc-item.bc-active { color: rgba(243,238,230,0.85); }
-  .stage[data-stage="1"] .breadcrumb-hud .bc-sep,
-  .stage[data-stage="2"] .breadcrumb-hud .bc-sep,
-  .stage[data-stage="3"] .breadcrumb-hud .bc-sep { color: rgba(243,238,230,0.2); }
-  .stage[data-stage="1"] .corner,
-  .stage[data-stage="2"] .corner,
-  .stage[data-stage="3"] .corner { border-color: rgba(243,238,230,0.3); }
-  .hud .hlabel, .hud .hval, .breadcrumb-hud .bc-item, .breadcrumb-hud .bc-sep,
-  .corner { transition: color 0.7s var(--ease), border-color 0.7s var(--ease); }
+  /* hint de clic */
+  .vhint{position:fixed;bottom:3.4vh;left:50%;transform:translateX(-50%);z-index:20;
+    display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
+    font:400 9px/1 "JetBrains Mono",monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
+    background:rgba(243,238,230,.9);padding:9px 16px;border:1px solid var(--hair);
+    opacity:0;transition:opacity .6s ease;pointer-events:none}
+  .vhint.show{opacity:1}
+  .vhint i{width:6px;height:6px;border-radius:50%;background:var(--gold);
+    animation:vpulse 1.5s ease-in-out infinite}
+  @keyframes vpulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
 
-  @media (max-width: 768px) {
-    .hud.tl { top: 64px; left: 20px; }
-    .hud.tr { top: 64px; right: 20px; }
-    .hud.bl { bottom: 96px; left: 20px; }
-    .hud.br { bottom: 96px; right: 20px; }
-    .reticle { width: 180px; height: 180px; }
-    .panels { width: min(calc(100% - 40px), 560px); bottom: max(120px, env(safe-area-inset-bottom, 0px) + 100px); }
-    .panel__card { padding: 20px 20px 18px; }
-    .panel__title { font-size: clamp(18px,5.5vw,26px); letter-spacing: 0.05em; }
-    .click-hint { bottom: 92px; font-size: 8px; letter-spacing: 0.24em; }
-    .nav-dots { bottom: 60px; }
-    .controls { bottom: 36px; right: 20px; }
-    .card { width: min(calc(100% - 32px), 520px); padding: 20px; grid-template-columns: 48px 1fr; gap: 16px; }
-    .card .enter { grid-column: 1/-1; width: 100%; padding: 14px; font-size: 9px; }
-    .stage[data-stage="3"] .card { bottom: 80px; }
-    .navbar { padding: 0 18px; }
-    .navbar__firma { height: 30px; }
+  /* durante el clavado, ocultar narrativa y navbar */
+  body.diving .panels, body.diving .vhint, body.diving .navbar{opacity:0 !important;pointer-events:none}
+
+  /* back button */
+  .back{position:fixed;top:14px;left:14px;z-index:10;border:1px solid var(--ink);background:transparent;color:var(--ink);
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;padding:8px 12px;cursor:pointer;opacity:.7;transition:opacity .25s, background .25s, color .25s}
+  .back:hover{opacity:1;background:var(--ink);color:var(--paper)}
+  .back[hidden]{display:none}
+
+  /* custom cursor */
+  #cursor{position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:var(--ink);
+    pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s,width .25s,height .25s}
+
+  @media (max-width:768px){
+    .navbar{padding:0 18px}
+    .navbar__firma{height:32px}
+    .panels{bottom:7vh;width:min(calc(100% - 36px),520px)}
+    .panel__card{padding:20px 22px 18px}
   }
 </style>
 </head>
 <body>
 
-<!-- Navbar (aparece tras step0) -->
+<div id="cursor" aria-hidden="true"></div>
+
+<!-- Navbar · firma Ofelia Vallejo -->
 <header class="navbar" id="navbar" role="banner">
-  <div aria-hidden="true"></div>
-  <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+  <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Casa">
     <img src="/assets/img/logo_firma_nav.png" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
   </a>
   <div class="navbar__right">
@@ -480,595 +297,750 @@
   </div>
 </header>
 
+<!-- Nav overlay + panel -->
 <div class="nav-overlay" id="navOverlay"></div>
 <nav class="nav-panel" id="navPanel" aria-label="Menú principal">
-  <p class="nav-panel__group">Casa</p>
-  <a href="/home"         class="nav-panel__link">Inicio</a>
-  <a href="/coleccion"    class="nav-panel__link">Colección</a>
-  <p class="nav-panel__group">Maison</p>
-  <a href="/manifiesto"   class="nav-panel__link">Historia</a>
-  <a href="/cuero"        class="nav-panel__link">Cuero</a>
-  <p class="nav-panel__group">Atelier</p>
-  <a href="/personalizar" class="nav-panel__link">Personalizar</a>
-  <a href="/contacto"     class="nav-panel__link">Contacto</a>
+  <div class="nav-panel__links">
+    <p class="nav-panel__group">Casa</p>
+    <a href="/home" class="nav-panel__link">Inicio</a>
+    <a href="/coleccion" class="nav-panel__link">Colección</a>
+    <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
+    <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
+    <p class="nav-panel__group">Maison</p>
+    <a href="/manifiesto" class="nav-panel__link">Historia</a>
+    <a href="/cuero" class="nav-panel__link">Cuero</a>
+    <p class="nav-panel__group">Atelier</p>
+    <a href="/personalizar" class="nav-panel__link">Personalizar</a>
+    <a href="/contacto" class="nav-panel__link">Contacto</a>
+  </div>
   <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
 </nav>
 
-<!-- Pantalla oscura de entrada -->
-<div class="step0" id="step0">
-  <img src="/assets/img/logo_sello.png" alt="" class="step0__logo" id="step0Logo" aria-hidden="true" width="120" height="80">
-  <p class="step0__tag" id="step0Tag">Leather House · Medellín, Colombia</p>
-  <span class="step0__loading" id="step0Loading">Cartografía · cargando atlas</span>
+<!-- Cuadros de texto narrativos -->
+<div class="panels" id="panels">
+  <div class="panel active" data-panel="0">
+    <div class="panel__card">
+      <h2 class="panel__title">El mundo de Ofelia Vallejo.</h2>
+      <hr class="panel__rule" aria-hidden="true">
+      <p class="panel__body">Un proyecto que nace en algún lugar de la tierra.</p>
+    </div>
+  </div>
+  <div class="panel" data-panel="1">
+    <div class="panel__card">
+      <h2 class="panel__title">Donde la tradición se transforma en arte.</h2>
+      <hr class="panel__rule" aria-hidden="true">
+      <p class="panel__body">Antioquia — tierra de talabarteros, curtidores y artesanos.</p>
+    </div>
+  </div>
 </div>
 
-<!-- Escena del globo -->
-<div class="stage" id="stage" data-stage="0">
+<!-- Hint de clic -->
+<div class="vhint" id="vhint"><i></i><span id="vhintText">Haga clic en el globo</span></div>
 
-  <span class="corner tl"></span>
-  <span class="corner tr"></span>
-  <span class="corner bl"></span>
-  <span class="corner br"></span>
+<!-- Back button (oculto vía CSS) -->
+<button class="back" id="back" hidden>← Volver</button>
 
-  <div class="atmos"></div>
+<!-- Globe -->
+<div id="cam">
+  <svg id="canvas"></svg>
+</div>
+<div id="atmo"></div>
+<div id="lux"></div>
+<div id="vignette"></div>
 
-  <!-- Anillos orbitales (stage 0) -->
-  <div class="whirl" id="whirl">
-    <svg viewBox="0 0 380 380" class="ring-slow">
-      <defs>
-        <path id="whirl-arc" d="M 190,190 m -178,0 a 178,178 0 1,1 356,0 a 178,178 0 1,1 -356,0" fill="none"/>
-      </defs>
-      <circle cx="190" cy="190" r="178" fill="none" stroke="#0B1F3A" stroke-width="0.4" stroke-dasharray="1 14" opacity="0.38"/>
-      <text><textPath href="#whirl-arc" startOffset="0">ANTIOQUIA  ·  MEDELLÍN  ·  COLOMBIA  ·  LATINOAMÉRICA  ·  ATLÁNTICO  ·  PACÍFICO  ·  </textPath></text>
-    </svg>
-    <svg viewBox="0 0 380 380" class="ring-ccw">
-      <circle cx="190" cy="190" r="156" fill="none" stroke="#0B1F3A" stroke-width="0.55" stroke-dasharray="3 9" opacity="0.45"/>
-    </svg>
-    <svg viewBox="0 0 380 380" class="ring-cw">
-      <circle cx="190" cy="190" r="140" fill="none" stroke="#5B1E24" stroke-width="0.5" stroke-dasharray="38 230" opacity="0.65"/>
-    </svg>
-    <svg viewBox="0 0 380 380" class="ring-fast">
-      <circle cx="190" cy="190" r="124" fill="none" stroke="#0B1F3A" stroke-width="0.28" stroke-dasharray="1 4" opacity="0.55"/>
-      <g stroke="#0B1F3A" stroke-width="0.45" opacity="0.35">
-        <line x1="190" y1="12"  x2="190" y2="0"/>
-        <line x1="190" y1="380" x2="190" y2="368"/>
-        <line x1="0"   y1="190" x2="12"  y2="190"/>
-        <line x1="380" y1="190" x2="368" y2="190"/>
-      </g>
-    </svg>
-  </div>
-
-  <!-- Reticle cartográfico -->
-  <div class="reticle">
-    <svg viewBox="0 0 220 220">
-      <line x1="110" y1="0"   x2="110" y2="78"/>
-      <line x1="110" y1="142" x2="110" y2="220"/>
-      <line x1="0"   y1="110" x2="78"  y2="110"/>
-      <line x1="142" y1="110" x2="220" y2="110"/>
-      <circle cx="110" cy="110" r="36"/>
-      <circle cx="110" cy="110" r="58"/>
-    </svg>
-  </div>
-
-  <!-- HUD — breadcrumb (esquina superior izquierda) -->
-  <div class="hud tl">
-    <div class="breadcrumb-hud" id="breadcrumbHud">
-      <span class="bc-item bc-active" data-i="0">Mundo</span>
-      <span class="bc-sep">›</span>
-      <span class="bc-item" data-i="1">Colombia</span>
-      <span class="bc-sep">›</span>
-      <span class="bc-item" data-i="2">Antioquia</span>
-      <span class="bc-sep">›</span>
-      <span class="bc-item" data-i="3">Guatapé</span>
-    </div>
-  </div>
-
-  <!-- HUD — contador (esquina superior derecha) -->
-  <div class="hud tr">
-    <span class="hlabel">Atlas</span>
-    <span class="hval" id="atlasCounter">01 · 04</span>
-  </div>
-
-  <!-- HUD — coordenadas en vivo (esquina inferior izquierda) -->
-  <div class="hud bl">
-    <span class="hlabel">Coordenadas · proyección</span>
-    <span class="hval" id="coordsDisplay">00°00′N · 00°00′O</span>
-  </div>
-
-  <!-- HUD — firma (esquina inferior derecha) -->
-  <div class="hud br">
-    <span class="hlabel">Cartografía</span>
-    <span class="hval">Ofelia Vallejo</span>
-  </div>
-
-  <!-- SVG del globo -->
-  <div class="tilt-wrap" id="tiltWrap">
-    <svg class="globe-svg" id="svg">
-      <defs>
-        <filter id="grain-filter" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3"/>
-          <feColorMatrix values="0 0 0 0 0.04
-                                 0 0 0 0 0.12
-                                 0 0 0 0 0.23
-                                 0 0 0 0.38 0"/>
-        </filter>
-        <clipPath id="globe-clip"><circle id="clipCircle" cx="0" cy="0" r="100"/></clipPath>
-      </defs>
-      <g clip-path="url(#globe-clip)">
-        <g class="layer-water"     id="lWater"><circle id="waterCircle" cx="0" cy="0" r="0" visibility="hidden"/></g>
-        <g class="layer-graticule" id="lGrat"></g>
-        <g class="layer-world"     id="lWorld"></g>
-        <g class="layer-inked"     id="lInked"></g>
-        <g class="layer-depts"     id="lDepts"></g>
-        <g class="layer-region"    id="lRegion"></g>
-        <g class="layer-decorative" id="lDeco"></g>
-        <g class="pin" id="pin">
-          <circle class="halo halo--1" cx="0" cy="0" r="5"/>
-          <circle class="halo halo--2" cx="0" cy="0" r="5"/>
-          <circle class="core" cx="0" cy="0" r="3.2"/>
-        </g>
-      </g>
-    </svg>
-  </div>
-
-  <!-- Grain paper texture -->
-  <svg class="grain" aria-hidden="true" preserveAspectRatio="none">
-    <rect width="100%" height="100%" filter="url(#grain-filter)"/>
+<!-- Reticle (oculto vía CSS) -->
+<div id="reticle">
+  <svg width="520" height="520" viewBox="0 0 520 520">
+    <circle class="ret" cx="260" cy="260" r="250"/>
+    <circle class="ret thin" cx="260" cy="260" r="180"/>
+    <circle class="ret thin" cx="260" cy="260" r="120"/>
+    <line class="ret-tick" x1="260" y1="0"   x2="260" y2="24"/>
+    <line class="ret-tick" x1="260" y1="496" x2="260" y2="520"/>
+    <line class="ret-tick" x1="0"   y1="260" x2="24"  y2="260"/>
+    <line class="ret-tick" x1="496" y1="260" x2="520" y2="260"/>
   </svg>
+</div>
 
-  <div class="vignette"></div>
+<!-- Whirl rings (loader) -->
+<div id="whirl">
+  <div class="whirl-box">
+    <svg viewBox="0 0 300 300">
+      <defs><path id="arc" d="M150,150 m-135,0 a135,135 0 1,1 270,0 a135,135 0 1,1 -270,0"/></defs>
+      <g class="spin-slow">
+        <circle class="ring" cx="150" cy="150" r="146"/>
+        <circle class="ring hair" cx="150" cy="150" r="142"/>
+      </g>
+      <g class="spin-ccw">
+        <circle class="ring dash" cx="150" cy="150" r="136"/>
+        <g id="ticks"></g>
+      </g>
+      <g class="spin-cw">
+        <circle class="ring dot" cx="150" cy="150" r="128"/>
+      </g>
+      <g class="spin-fast">
+        <circle class="ring hair" cx="150" cy="150" r="122"/>
+      </g>
+      <g class="spin-slow">
+        <text font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="6" fill="#0B1F3A" opacity=".55">
+          <textPath href="#arc" startOffset="0">ANTIOQUIA · MEDELLÍN · COLOMBIA · LATINOAMÉRICA · </textPath>
+        </text>
+      </g>
+    </svg>
+  </div>
+</div>
 
-  <!-- Paneles de contenido -->
-  <div class="panels" id="panels">
-    <div class="panel active" data-panel="0">
-      <div class="panel__card">
-        <h2 class="panel__title">El mundo de Ofelia Vallejo.</h2>
-        <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Un proyecto que nace en algún lugar de la tierra.</p>
-      </div>
-    </div>
-    <div class="panel" data-panel="1">
-      <div class="panel__card">
-        <h2 class="panel__title">Donde la tradición se transforma en arte.</h2>
-        <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">y se crea con paciencia y con amor.</p>
-      </div>
-    </div>
-    <div class="panel" data-panel="2">
-      <div class="panel__card">
-        <h2 class="panel__title">Tierra de talabarteros.</h2>
-        <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Curtidores y artesanos firman cada pieza como una promesa heredada.</p>
-      </div>
-    </div>
-    <div class="panel" data-panel="3">
-      <div class="panel__card">
-        <h2 class="panel__title">El Eje de la eterna primavera.</h2>
-        <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Talleres entre montañas y valles — donde el cuero toma forma.</p>
-      </div>
-    </div>
-    <div class="panel" data-panel="4">
-      <div class="panel__card">
-        <h2 class="panel__title">Cuero hecho para durar.</h2>
-        <hr class="panel__rule" aria-hidden="true">
-        <p class="panel__body">Una promesa que nació en Guatapé y viaja al mundo en cuero.</p>
-      </div>
+<!-- Loader chrome (oculto vía CSS) -->
+<div id="chrome">
+  <div class="frame">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+    <div class="meta tl">N · 06° 14′</div>
+    <div class="meta tr">W · 75° 34′</div>
+    <div class="meta bl">Loading · 0001</div>
+    <div class="meta br">Cartografía</div>
+    <div class="cap">
+      Cargando <span class="dot"></span> el mundo de Ofelia <span class="dot"></span> haga clic
+      <small>"la voz que cabe en un continente"</small>
     </div>
   </div>
+</div>
 
-  <!-- Indicador de clic -->
-  <div class="click-hint" id="clickHint">
-    <span class="click-hint__dot"></span>
-    <span id="hintText">Haga clic en el globo</span>
+<!-- HUD (oculto vía CSS) -->
+<div id="hud">
+  <div class="crumbs"><b id="crumb">Mundo</b> <span>/</span> <em id="crumbSub">seleccione una región</em></div>
+  <div>Atlas · <span id="step">01</span> / 02</div>
+</div>
+<div id="hint">Haga clic en el globo</div>
+<div id="coords">
+  <div><b id="coordLat">06° 14′ N</b></div>
+  <div><b id="coordLon">75° 34′ W</b></div>
+  <div id="coordZoom" style="margin-top:4px">z 0.10×</div>
+</div>
+
+<!-- Tweaks panel -->
+<aside id="tweaks">
+  <button class="close" id="tweaksClose">×</button>
+  <h4>Tweaks · Cámara</h4>
+  <div class="row"><label>T1 · loader→latam (s)</label><span class="val" id="vT1">2.0</span></div>
+  <input id="t1" type="range" min="0.8" max="4.5" step="0.1" value="2.0">
+  <div class="row"><label>T2 · latam→colombia (s)</label><span class="val" id="vT2">1.3</span></div>
+  <input id="t2" type="range" min="0.8" max="4.5" step="0.1" value="1.3">
+  <div class="row"><label>T3 · antioquia→entrar (s)</label><span class="val" id="vT3">1.1</span></div>
+  <input id="t3" type="range" min="0.6" max="3" step="0.1" value="1.1">
+  <div class="row"><label>T4 · zoom final (s)</label><span class="val" id="vT4">0.9</span></div>
+  <input id="t4" type="range" min="0.5" max="2.5" step="0.1" value="0.9">
+  <div class="grp"></div>
+  <div class="row"><label>Tilt (cámara °)</label><span class="val" id="vTilt">12</span></div>
+  <input id="tilt" type="range" min="0" max="35" step="1" value="12">
+  <div class="row"><label>Zoom Latam</label><span class="val" id="vZ1">0.44</span></div>
+  <input id="z1" type="range" min="0.35" max="1.2" step="0.01" value="0.44">
+  <div class="row"><label>Zoom Colombia</label><span class="val" id="vZ2">2.4</span></div>
+  <input id="z2" type="range" min="2" max="6" step="0.1" value="2.4">
+  <div class="row"><label>Zoom Antioquia</label><span class="val" id="vZ3">8</span></div>
+  <input id="z3" type="range" min="6" max="22" step="1" value="8">
+  <div class="row"><label>Zoom final (entrada)</label><span class="val" id="vZ4">28</span></div>
+  <input id="z4" type="range" min="18" max="48" step="1" value="28">
+  <div class="actions">
+    <button id="replay">Replay</button>
+    <button id="jumpEnd">Ir a Colombia</button>
   </div>
+</aside>
 
-  <!-- Nav dots -->
-  <div class="nav-dots" id="navDots">
-    <span class="nav-dot active" data-n="0"></span>
-    <span class="nav-dot" data-n="1"></span>
-    <span class="nav-dot" data-n="2"></span>
-  </div>
-
-  <!-- Controles -->
-  <div class="controls">
-    <button id="backBtn" disabled>← Volver</button>
-    <span class="divider"></span>
-    <button id="skipBtn">Saltar →</button>
-  </div>
-
-  <!-- Tarjeta final -->
-  <div class="card" id="card">
-    <div class="card__thumb">
-      <img src="/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg" alt="Atelier en Guatapé — cuero Ofelia Vallejo" width="64" height="64" loading="eager" decoding="async">
-    </div>
-    <div class="info">
-      <span class="name">Guatapé · Antioquia</span>
-      <span class="coord-txt">06° 14′ N · 75° 09′ O · 1.880 m s.n.m.</span>
-    </div>
-    <button class="enter" id="enterBtn">Entrar a la casa →</button>
-  </div>
-
-</div><!-- .stage -->
-
-<script src="/assets/data/d3.min.js"></script>
-<script src="/assets/data/topojson-client.min.js"></script>
 <script>
-(async function(){
-  const svgEl   = document.getElementById('svg');
-  const stageEl = document.getElementById('stage');
-  const tiltEl  = document.getElementById('tiltWrap');
-  const clipC   = document.getElementById('clipCircle');
-  const step0El = document.getElementById('step0');
-  const pinEl   = document.getElementById('pin');
-  const backBtn = document.getElementById('backBtn');
-  const navbarEl = document.getElementById('navbar');
+/* ============================================================
+   One canvas. One projection. Continuous camera moves through
+   loader → LatAm → Colombia → Antioquia/Medellín.
+   ============================================================ */
 
-  const lWater  = document.getElementById('lWater');
-  const lGrat   = document.getElementById('lGrat');
-  const lWorld  = document.getElementById('lWorld');
-  const lInked  = document.getElementById('lInked');
-  const lDepts  = document.getElementById('lDepts');
-  const lRegion = document.getElementById('lRegion');
-  const lDeco   = document.getElementById('lDeco');
+const ENTER_URL = '/home';
 
-  const $world  = d3.select(lWorld);
-  const $inked  = d3.select(lInked);
-  const $depts  = d3.select(lDepts);
-  const $region = d3.select(lRegion);
-  const $deco   = d3.select(lDeco);
-  const $grat   = d3.select(lGrat);
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const canvas = $('canvas');
 
-  let W = window.innerWidth, H = window.innerHeight;
-  const INIT_SCALE = Math.min(W, H) * 0.36;
-  const proj = d3.geoOrthographic()
-    .scale(INIT_SCALE)
-    .translate([W/2, H/2])
-    .clipAngle(90)
-    .precision(0.1);
-  const path = d3.geoPath(proj).pointRadius(1.35);
-  let currentClip = INIT_SCALE;
-  let currentTilt = 0;
-  let redrawQueued = false;
+let W = innerWidth, H = innerHeight;
+canvas.setAttribute('viewBox', `0 0 ${W} ${H}`);
+canvas.setAttribute('preserveAspectRatio','xMidYMid meet');
 
-  const waterCircle = lWater.querySelector('circle');
+/* tweakable knobs */
+const TW = {
+  t1: 2.0, t2: 1.3, t3: 1.1, t4: 0.9,
+  tilt: 12,
+  z1: 0.44, z2: 2.4, z3: 8, z4: 28
+};
 
-  function syncGlobeMask() {
-    const [cx, cy] = proj.translate();
-    const r = proj.scale();
-    currentClip = r;
-    clipC.setAttribute('cx', cx);
-    clipC.setAttribute('cy', cy);
-    clipC.setAttribute('r', r);
-    waterCircle.setAttribute('cx', cx);
-    waterCircle.setAttribute('cy', cy);
-    waterCircle.setAttribute('r', r + 2);
-    waterCircle.removeAttribute('visibility');
-    stageEl.classList.add('is-atlas-ready');
+/* projection */
+const proj = d3.geoOrthographic()
+  .scale(98)
+  .translate([W/2, H/2])
+  .rotate([70, -8, 0])
+  .clipAngle(90);
+const path = d3.geoPath(proj);
+
+/* SVG layers */
+const svg = d3.select(canvas);
+
+/* defs: sombreado 3D de la esfera */
+svg.append('defs').html(
+  '<radialGradient id="ocean" cx="0.38" cy="0.30" r="0.78" gradientUnits="objectBoundingBox">' +
+    '<stop offset="0" stop-color="#fdfaf3" stop-opacity="0.82"/>' +
+    '<stop offset="0.34" stop-color="#efece4" stop-opacity="0.40"/>' +
+    '<stop offset="0.74" stop-color="#cabfa6" stop-opacity="0.16"/>' +
+    '<stop offset="0.92" stop-color="#a99a78" stop-opacity="0.24"/>' +
+    '<stop offset="1" stop-color="#8d7d5b" stop-opacity="0.32"/>' +
+  '</radialGradient>'
+);
+const gSphere = svg.append('g');
+const gGrid   = svg.append('g');
+const gLand   = svg.append('g');
+const gBord   = svg.append('g');
+const gColHi  = svg.append('g');
+const gDept   = svg.append('g');
+const gSubAnt = svg.append('g');
+const gValley = svg.append('g').attr('class','valley');
+const gPin    = svg.append('g');
+const gLabels = svg.append('g');
+const gSphStr = svg.append('g').append('path').datum({type:'Sphere'}).attr('class','sphere-stroke').attr('stroke-width', 0.7).attr('d', path);
+
+let world, colombia, antFeat;
+let mode = 'loader';
+let stage = 0;
+let busy = false;
+let freeSpin = true;
+const MED = [-75.5744, 6.2442];
+const COLOMBIA_CTR = [-74, 4];
+const ANTIOQUIA_CTR = [-75.6, 6.7];
+
+/* ----------- circular clip-path ----------- */
+function setClipR(r){
+  canvas.style.clipPath = `circle(${r}px at 50% 50%)`;
+  canvas.style.webkitClipPath = `circle(${r}px at 50% 50%)`;
+}
+function getClipR(){
+  const m = (canvas.style.clipPath||'').match(/[\d.]+/);
+  return m ? parseFloat(m[0]) : 100;
+}
+setClipR(100);
+
+/* ----------- camera tilt ----------- */
+function setTilt(deg){
+  canvas.style.transform = `rotateX(${deg}deg)`;
+}
+
+/* ----------- whirl ticks ----------- */
+(function(){
+  const g = $('ticks');
+  if (!g) return;
+  for (let a=0;a<360;a+=15){
+    const long = (a%90===0);
+    const r1 = long ? 126 : 130, r2 = 136;
+    const rad = a*Math.PI/180;
+    const x1 = 150 + Math.cos(rad)*r1, y1 = 150 + Math.sin(rad)*r1;
+    const x2 = 150 + Math.cos(rad)*r2, y2 = 150 + Math.sin(rad)*r2;
+    const l = document.createElementNS(NS,'line');
+    l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);
+    l.setAttribute('class','tick');
+    g.appendChild(l);
   }
-  syncGlobeMask();
+})();
 
-  function setTilt(deg) {
-    currentTilt = deg;
-    tiltEl.style.transform = 'rotateX(' + deg + 'deg) translateZ(0)';
-  }
+/* ============================================================
+   SCENE BUILD
+   ============================================================ */
+function buildScene(){
+  gSphere.append('path').datum({type:'Sphere'}).attr('class','sphere-fill').attr('d', path);
+  gGrid.append('path').datum(d3.geoGraticule().step([15,15])()).attr('class','graticule').attr('d', path).attr('stroke-width', 0.4);
 
-  function lerpLon(from, to, t) {
-    let delta = to - from;
-    if (delta >  180) delta -= 360;
-    if (delta < -180) delta += 360;
-    return from + delta * t;
-  }
+  const feats = topojson.feature(world, world.objects.countries).features;
+  gLand.selectAll('path').data(feats).join('path').attr('class','land').attr('d', path).attr('stroke-width', 0.55);
+  gBord.append('path').datum(topojson.mesh(world, world.objects.countries, (a,b)=>a!==b))
+    .attr('class','borders').attr('d', path).attr('stroke-width', 0.5);
 
-  function strokeFor(scale) {
-    return {
-      land:   Math.min(1.1,  0.45 + scale / 6000),
-      dept:   Math.min(1.5,  0.50 + scale / 4000),
-      region: Math.min(2.0,  0.50 + scale / 2500)
-    };
-  }
+  const co = feats.find(f => String(f.id) === '170' || /colombia/i.test(f.properties.name||''));
+  if (co) gColHi.append('path').datum(co).attr('class','country hi').attr('d', path);
 
-  function formatCoord(lng, lat) {
-    const la = Math.abs(lat), lo = Math.abs(lng);
-    const latD = Math.floor(la), latM = Math.floor((la - latD) * 60);
-    const lonD = Math.floor(lo), lonM = Math.floor((lo - lonD) * 60);
-    return latD.toString().padStart(2,'0') + '°' + latM.toString().padStart(2,'0') + '′' + (lat >= 0 ? 'N' : 'S')
-         + ' · ' + lonD.toString().padStart(2,'0') + '°' + lonM.toString().padStart(2,'0') + '′' + (lng >= 0 ? 'E' : 'O');
-  }
+  gSphStr.attr('d', path);
 
-  const coordsEl  = document.getElementById('coordsDisplay');
-  const counterEl = document.getElementById('atlasCounter');
-  const bcItems   = document.querySelectorAll('#breadcrumbHud .bc-item');
+  gDept.selectAll('path').data(colombia.features).join('path')
+    .attr('class', d => {
+      const nm = (d.properties.NOMBRE_DPT||d.properties.name||'').toString().toUpperCase();
+      return 'dept' + (nm.includes('ANTIOQUIA') ? ' ant' : '');
+    })
+    .attr('d', path).attr('stroke-width', 0.45);
 
-  function syncHUD(stageIdx) {
-    if (counterEl) counterEl.textContent = (stageIdx + 1).toString().padStart(2,'0') + ' · 04';
-    bcItems.forEach(it => it.classList.toggle('bc-active', +it.dataset.i <= stageIdx));
-  }
+  const surrounding = colombia.features.filter(f=>{
+    const nm = (f.properties.NOMBRE_DPT||f.properties.name||'').toString().toUpperCase();
+    return /CHOCO|CALDAS|CORDOBA|RISARALDA|SANTANDER|BOYACA|BOLIVAR/.test(nm);
+  });
+  gSubAnt.selectAll('path').data(surrounding).join('path')
+    .attr('class','dept subant').attr('d', path);
 
-  function scheduleRedraw(immediate) {
-    if (immediate) { redrawQueued = false; redraw(); return; }
-    if (redrawQueued) return;
-    redrawQueued = true;
-    requestAnimationFrame(() => { redrawQueued = false; redraw(); });
-  }
+  buildValley();
 
-  let stage = 0, mapVisual = 0, busy = false;
-
-  function applyLayerState() {
-    const showGlobe = mapVisual === 0;
-    lGrat.classList.toggle('is-hidden', !showGlobe);
-    lWorld.classList.toggle('is-hidden', !showGlobe);
-    lInked.classList.toggle('off', mapVisual < 1);
-    lDepts.classList.toggle('on', mapVisual >= 2);
-    lRegion.classList.toggle('on', mapVisual >= 3);
-    lDeco.classList.remove('on');
-    const showPin = mapVisual >= 3 && mapVisual < 5 && pinEl.dataset.placed === '1';
-    pinEl.classList.toggle('on', showPin);
-    if (mapVisual < 3) pinEl.classList.remove('on', 'deep');
-    if (mapVisual !== 5) pinEl.classList.remove('deep');
-  }
-
-  function setPinAt(lng, lat) {
-    pinEl.dataset.lng = lng;
-    pinEl.dataset.lat = lat;
-    pinEl.dataset.placed = '0';
-    redraw();
-  }
-
-  function setStage(n) {
-    stage = n;
-    stageEl.dataset.stage = String(n);
-  }
-
-  function revealMap(n) {
-    mapVisual = n;
-    applyLayerState();
-  }
-
-  function redraw() {
-    syncGlobeMask();
-    const sw = strokeFor(proj.scale());
-    $grat.selectAll('path').attr('d', path);
-    $world.selectAll('path').attr('d', path).attr('stroke-width', sw.land);
-    $inked.selectAll('path').attr('d', path);
-    $depts.selectAll('path').attr('d', path).attr('stroke-width', sw.dept);
-    $region.selectAll('path').attr('d', path).attr('stroke-width', sw.region);
-    $deco.selectAll('path').attr('d', path);
-    if (coordsEl) { const r = proj.rotate(); coordsEl.textContent = formatCoord(-r[0], -r[1]); }
-    if (pinEl.dataset.lng) {
-      const pt = proj([+pinEl.dataset.lng, +pinEl.dataset.lat]);
-      if (pt) {
-        pinEl.setAttribute('transform', 'translate(' + pt[0] + ',' + pt[1] + ')');
-        pinEl.dataset.placed = '1';
-      } else {
-        pinEl.dataset.placed = '0';
-      }
-    }
-    applyLayerState();
-  }
-
-  /* ─── Cargar datos locales ────────────────────────── */
-  let world50, colombiaGeo;
-  try {
-    const [w, c] = await Promise.all([
-      d3.json('/assets/data/countries-50m.json'),
-      d3.json('/assets/data/Colombia.geo.json')
-    ]);
-    world50 = w; colombiaGeo = c;
-  } catch(err) {
-    const el = document.getElementById('step0Loading');
-    if (el) el.textContent = 'Error cargando atlas · revisa conexión';
-    return;
-  }
-
-  const countries  = topojson.feature(world50, world50.objects.countries);
-  const colombia   = countries.features.find(f => String(f.id) === '170') ||
-                     countries.features.find(f => f.properties && /colombia/i.test(f.properties.name || ''));
-  const antioquia  = colombiaGeo.features.find(f => f.properties &&
-    /antioquia/i.test(f.properties.NOMBRE_DPT || f.properties.name || ''));
-
-  const colombiaCenter  = colombia  ? d3.geoCentroid(colombia)  : [-74.3, 4.6];
-  const antioquiaCenter = antioquia ? d3.geoCentroid(antioquia) : [-75.5, 6.5];
-  const guatapeCenter   = [-75.1489, 6.2303];
-
-  /* ─── Dibujar capas ──────────────────────────────── */
-  const graticule = d3.geoGraticule().step([10, 10]);
-  $grat.append('path').datum(graticule()).attr('class', 'globe-stroke').attr('d', path);
-
-  const worldBorders = topojson.mesh(world50, world50.objects.countries);
-  $world.append('path').datum(worldBorders).attr('class', 'globe-stroke').attr('d', path);
-
-  if (colombia) $inked.append('path').datum(colombia).attr('d', path);
-
-  $depts.selectAll('path')
-    .data(colombiaGeo.features)
-    .join('path')
-    .attr('class', 'globe-stroke')
-    .attr('d', path);
-
-  if (antioquia) $region.append('path').datum(antioquia).attr('d', path);
-
-  pinEl.dataset.lng = guatapeCenter[0];
-  pinEl.dataset.lat = guatapeCenter[1];
-  pinEl.style.visibility = 'hidden';
+  const pinG = gPin.append('g').attr('class','pin');
+  pinG.append('circle').attr('class','halo a');
+  pinG.append('circle').attr('class','halo b');
+  pinG.append('circle').attr('class','ring-outer').attr('r', 9);
+  pinG.append('circle').attr('class','ring-inner').attr('r', 4);
+  pinG.append('line').attr('class','leader').attr('x1',12).attr('y1',-2).attr('x2',54).attr('y2',-2);
+  pinG.append('text').attr('class','lab m').attr('x',60).attr('y',-7).text('ANTIOQUIA');
+  pinG.append('text').attr('class','lab tag').attr('x',60).attr('y',8).text('DEPARTAMENTO · 06° N');
+  pinG.on('click', (ev)=>{ ev?.stopPropagation(); pinClicked(); });
 
   redraw();
-  pinEl.style.visibility = '';
 
-  const step0Logo = document.getElementById('step0Logo');
-  const step0Tag  = document.getElementById('step0Tag');
-  const step0Load = document.getElementById('step0Loading');
-  if (step0Load) step0Load.textContent = 'Atlas · listo';
+  showPanel(0);
+  setVhint('Haga clic en el globo');
+  setTimeout(()=>{ navbarOn(true); vhintOn(true); }, 600);
+}
 
-  setTimeout(() => { if (step0Logo) step0Logo.classList.add('vis'); }, 300);
-  setTimeout(() => { if (step0Tag)  step0Tag.classList.add('vis');  }, 900);
-  setTimeout(() => step0El.classList.add('out'), 2200);
-  setTimeout(() => {
-    step0El.remove();
-    syncUI();
-    syncHUD(0);
-    if (navbarEl) navbarEl.classList.add('show');
-  }, 3800);
-
-  /* ─── Spin libre (stage 0) ───────────────────────── */
-  function spinFrame() {
-    if (stage === 0 && !busy) {
-      const r = proj.rotate();
-      proj.rotate([r[0] + 0.045, r[1], r[2]]);
-      scheduleRedraw();
-    }
-  }
-  let spinTimer = d3.timer(spinFrame);
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) spinTimer.stop();
-    else if (stage === 0 && !busy) spinTimer = d3.timer(spinFrame);
-  });
-
-  /* ─── Panel + dots + hint ────────────────────────── */
-  const tap = ('ontouchstart' in window) ? 'Toque' : 'Clic';
-  const hints = [
-    `${tap} en el globo`,
-    tap === 'Toque' ? 'Toque Colombia' : 'Haga clic en Colombia',
-    `${tap} en Antioquia`,
-    `${tap} en Guatapé`,
-    ''
+/* Aburrá valley silhouette (decorativa) */
+function buildValley(){
+  const ridge = [
+    [-75.66, 6.45],[-75.60, 6.42],[-75.55, 6.38],[-75.50, 6.30],
+    [-75.49, 6.18],[-75.53, 6.10],[-75.58, 6.05],[-75.65, 6.10],
+    [-75.70, 6.18],[-75.72, 6.30],[-75.70, 6.40],[-75.66, 6.45]
   ];
+  const g = gValley;
+  g.append('path').datum({type:'Polygon', coordinates:[ridge]})
+    .attr('class','land').attr('d', path).attr('stroke-width', .6).attr('opacity', .35);
+  g.append('path').datum({type:'LineString', coordinates:[[-75.57,6.45],[-75.57,6.05]]})
+    .attr('class','land').attr('d', path).attr('stroke-width', .4).attr('opacity', .5);
+  const hills = [[-75.66,6.30],[-75.50,6.20],[-75.55,6.10],[-75.65,6.20],[-75.62,6.36]];
+  hills.forEach(h=>{
+    g.append('path').datum({type:'Point', coordinates:h})
+      .attr('class','land').attr('d', path).attr('opacity',.4);
+  });
+}
 
-  function updatePanel(panelIdx) {
-    const showPanel = stage < 3 && panelIdx < 4;
-    document.querySelectorAll('.panel').forEach(p =>
-      p.classList.toggle('active', showPanel && +p.dataset.panel === panelIdx));
-    document.querySelectorAll('.nav-dot').forEach(d =>
-      d.classList.toggle('active', stage < 3 && +d.dataset.n === stage));
-    const hintEl   = document.getElementById('hintText');
-    const hintWrap = document.getElementById('clickHint');
-    if (hintEl)   hintEl.textContent = hints[stage] || '';
-    if (hintWrap) hintWrap.style.display = (stage < 3 && hints[stage]) ? 'inline-flex' : 'none';
-    backBtn.disabled = stage <= 0;
-  }
+function redraw(){
+  gSphere.select('path').attr('d', path);
+  gGrid.select('path').attr('d', path);
+  gLand.selectAll('path').attr('d', path);
+  gBord.select('path').attr('d', path);
+  gColHi.selectAll('path').attr('d', path);
+  gDept.selectAll('path').attr('d', path);
+  gSubAnt.selectAll('path').attr('d', path);
+  gValley.selectAll('path').attr('d', path);
+  gSphStr.attr('d', path);
 
-  function syncUI() {
-    const panelIdx = stage >= 3 ? 3 : stage;
-    updatePanel(panelIdx);
-  }
+  const sc = proj.scale();
+  const landW = Math.min(1.1, 0.45 + sc / 6000);
+  const deptW = Math.min(1.5, 0.5  + sc / 4000);
+  const valW  = Math.min(1.9, 0.5  + sc / 2500);
+  gLand.selectAll('path').attr('stroke-width', landW);
+  gBord.select('path').attr('stroke-width', landW * 0.85);
+  gDept.selectAll('path:not(.subant)').attr('stroke-width', deptW);
+  gSubAnt.selectAll('path').attr('stroke-width', deptW * 0.7);
+  gValley.selectAll('path').attr('stroke-width', valW);
+  gSphStr.attr('stroke-width', Math.min(1.0, 0.6 + sc / 5000));
 
-  /* ─── Animación ──────────────────────────────────── */
-  const ease = t => (t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2);
+  const p = proj(MED);
+  if (p && isFinite(p[0])) gPin.select('.pin').attr('transform', `translate(${p[0]},${p[1]})`);
 
-  function animate({ rotTo, scaleTo, tiltTo, ms = 1600 }) {
-    return new Promise(resolve => {
-      const r0 = proj.rotate().slice();
-      const s0 = proj.scale();
-      const t0val = currentTilt;
-      const t0 = performance.now();
-      function frame(now) {
-        const k = ease(Math.min(1, (now - t0) / ms));
-        if (rotTo)   proj.rotate([lerpLon(r0[0], rotTo[0], k), r0[1]+(rotTo[1]-r0[1])*k, (r0[2]||0)+((rotTo[2]||0)-(r0[2]||0))*k]);
-        if (scaleTo !== undefined) proj.scale(s0 + (scaleTo - s0) * k);
-        if (tiltTo  !== undefined) setTilt(t0val + (tiltTo - t0val) * k);
-        scheduleRedraw(true);
-        if (k < 1) requestAnimationFrame(frame); else resolve();
+  drawLabels();
+  updateCoords();
+}
+
+function drawLabels(){
+  gLabels.selectAll('*').remove();
+  const sc = proj.scale();
+
+  const fadeLatam = bandOpacity(sc, 220, 380, 1100, 1800);
+  if (fadeLatam > 0.01){
+    const items = [
+      {coord:[-74,4.6], text:'COLOMBIA', cls:'lab l'},
+      {coord:[-66, 8.5], text:'Venezuela', cls:'lab s'},
+      {coord:[-78, -1.5], text:'Ecuador', cls:'lab s'},
+      {coord:[-75,-9.2], text:'Perú', cls:'lab s'},
+      {coord:[-55,-10], text:'Brasil', cls:'lab s'},
+      {coord:[-79, 9], text:'Panamá', cls:'lab s'},
+    ];
+    items.forEach(it=>{
+      const p = proj(it.coord); if (!p) return;
+      const t = gLabels.append('text').attr('x',p[0]).attr('y',p[1]).attr('text-anchor','middle')
+        .attr('class',it.cls).attr('opacity', fadeLatam).text(it.text);
+      if (it.text==='COLOMBIA' && document.querySelector('.country.hi.on')){
+        t.attr('fill','#F3EEE6');
       }
-      requestAnimationFrame(frame);
     });
   }
 
-  /* ─── Máquina de estados ─────────────────────────── */
-  function beginFlight() { busy = true;  stageEl.dataset.flight = '1'; }
-  function endFlight()   { busy = false; stageEl.dataset.flight = '0'; }
-
-  async function toStage1() {
-    if (spinTimer) spinTimer.stop();
-    pinEl.dataset.placed = '0';
-    pinEl.classList.remove('on', 'deep');
-    await animate({ rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0], scaleTo: Math.min(W,H)*2.8, tiltTo: 2, ms: 1600 });
-    setStage(1); revealMap(1); syncUI(); syncHUD(1);
+  const fadeAnt = bandOpacity(sc, 1500, 2400, 7000, 11000);
+  if (fadeAnt > 0.01 && antFeat){
+    const c = path.centroid(antFeat);
+    if (isFinite(c[0])){
+      gLabels.append('text').attr('x',c[0]).attr('y',c[1]-6).attr('text-anchor','middle').attr('class','lab m').attr('fill','#F3EEE6').attr('opacity',fadeAnt).text('ANTIOQUIA');
+      gLabels.append('text').attr('x',c[0]).attr('y',c[1]+10).attr('text-anchor','middle').attr('class','lab tag').attr('fill','#F3EEE6').attr('opacity',fadeAnt*0.85).text('DEPARTAMENTO');
+    }
   }
+}
 
-  async function toStage2() {
-    await animate({ rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0], scaleTo: Math.min(W,H)*5.5, tiltTo: 6, ms: 1600 });
-    setStage(2); revealMap(2); syncUI(); syncHUD(2);
+function bandOpacity(x,a,b,c,d){
+  if (x<=a||x>=d) return 0;
+  if (x<b) return (x-a)/(b-a);
+  if (x>c) return 1-(x-c)/(d-c);
+  return 1;
+}
+
+function updateCoords(){
+  const r = proj.rotate();
+  const lat = -r[1], lon = -r[0];
+  const cLat = $('coordLat'); if (cLat) cLat.textContent = fmtLat(lat);
+  const cLon = $('coordLon'); if (cLon) cLon.textContent = fmtLon(lon);
+  const cZoom = $('coordZoom');
+  if (cZoom){
+    const z = proj.scale() / 98;
+    cZoom.textContent = 'z ' + (z<10 ? z.toFixed(2) : z.toFixed(0)) + '×';
   }
+}
+function fmtLat(lat){
+  const h = lat>=0 ? 'N':'S'; const v = Math.abs(lat);
+  const d = Math.floor(v), m = Math.floor((v-d)*60);
+  return `${pad(d)}° ${pad(m)}′ ${h}`;
+}
+function fmtLon(lon){
+  const h = lon>=0 ? 'E':'W'; const v = Math.abs(lon);
+  const d = Math.floor(v), m = Math.floor((v-d)*60);
+  return `${pad(d)}° ${pad(m)}′ ${h}`;
+}
+function pad(n){return (n<10?'0':'')+n}
 
-  async function toStage3() {
-    revealMap(3);
-    setPinAt(guatapeCenter[0], guatapeCenter[1]);
-    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', +p.dataset.panel === 3));
-    const hintWrap = document.getElementById('clickHint');
-    if (hintWrap) hintWrap.style.display = 'none';
-    await animate({ rotTo: [-guatapeCenter[0], -guatapeCenter[1], 0], scaleTo: Math.min(W,H)*8, tiltTo: 8, ms: 1600 });
-    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', +p.dataset.panel === 4));
-    await animate({ scaleTo: Math.min(W,H)*22, tiltTo: 14, ms: 1700 });
-    setStage(3); syncUI(); syncHUD(3);
-  }
+/* ============================================================
+   FREE SPIN (loader only)
+   ============================================================ */
+let spinPhase = 0;
+const timer = d3.timer(()=>{
+  if (!freeSpin) return;
+  spinPhase += 0.0042;
+  const lon = 70 + Math.sin(spinPhase) * 48;
+  const lat = -8 + Math.sin(spinPhase * 0.7) * 5;
+  proj.rotate([lon, lat, 0]);
+  redraw();
+});
 
-  async function resetAll() {
-    pinEl.classList.remove('on', 'deep');
-    const resetScale = Math.min(window.innerWidth, window.innerHeight) * 0.36;
-    await animate({ rotTo: [20, -10, 0], scaleTo: resetScale, tiltTo: 0, ms: 1600 });
-    setStage(0); revealMap(0); syncUI(); syncHUD(0);
-    spinTimer = d3.timer(spinFrame);
-  }
+/* ============================================================
+   ANIMATOR
+   ============================================================ */
+const easeIn  = t => t*t*t;
+const easeOut = t => 1 - Math.pow(1-t, 3);
+const easeIO  = t => t<0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
 
-  async function runStage(fn) {
-    beginFlight();
-    try { await fn(); } finally { endFlight(); }
-  }
-
-  /* ─── Click handlers ─────────────────────────────── */
-  let lastAdvanceAt = 0;
-  svgEl.addEventListener('click', e => {
-    e.preventDefault(); e.stopPropagation();
-    const now = Date.now();
-    if (busy || now - lastAdvanceAt < 900) return;
-    lastAdvanceAt = now;
-    if (stage >= 3) return;
-    if (stage === 0) runStage(toStage1);
-    else if (stage === 1) runStage(toStage2);
-    else if (stage === 2) runStage(toStage3);
+function animate({rotTo, scaleTo, clipTo, tiltTo, ms, ease=easeIO, onTick}){
+  return new Promise(res=>{
+    const r0 = proj.rotate().slice();
+    const s0 = proj.scale();
+    const c0 = getClipR();
+    const tlt0 = currentTilt();
+    const rI = (rotTo) ? (function(){
+      const a0=r0[0], b0=r0[1], g0=r0[2]||0;
+      const a1=rotTo[0], b1=(rotTo[1]!=null?rotTo[1]:b0), g1=(rotTo[2]!=null?rotTo[2]:0);
+      let dl = ((a1-a0) % 360 + 540) % 360 - 180;
+      return (t)=>[a0+dl*t, b0+(b1-b0)*t, g0+(g1-g0)*t];
+    })() : null;
+    const sI = (scaleTo!=null) ? d3.interpolate(s0, scaleTo) : null;
+    const cI = (clipTo!=null) ? d3.interpolate(c0, clipTo) : null;
+    const tI = (tiltTo!=null) ? d3.interpolate(tlt0, tiltTo) : null;
+    const t0 = performance.now();
+    function step(now){
+      const t = Math.min(1,(now-t0)/ms);
+      const e = ease(t);
+      if (rI) proj.rotate(rI(e));
+      if (sI) proj.scale(sI(e));
+      if (cI) setClipR(cI(e));
+      if (tI) setTilt(tI(e));
+      redraw();
+      if (onTick) onTick(t,e);
+      if (t<1) requestAnimationFrame(step);
+      else res();
+    }
+    requestAnimationFrame(step);
   });
+}
+function currentTilt(){
+  const m = (canvas.style.transform||'').match(/rotateX\(([-\d.]+)deg\)/);
+  return m ? parseFloat(m[1]) : 0;
+}
 
-  async function stepBack() {
-    if (stage <= 0 || busy) return;
-    beginFlight();
-    try {
-      if (stage === 1) {
-        await resetAll();
-      } else if (stage === 2) {
-        await animate({ rotTo: [-colombiaCenter[0], -colombiaCenter[1], 0], scaleTo: Math.min(W,H)*2.8, tiltTo: 2, ms: 1400 });
-        setStage(1); revealMap(1); syncUI(); syncHUD(1);
-      } else if (stage === 3) {
-        pinEl.classList.remove('on', 'deep');
-        await animate({ rotTo: [-antioquiaCenter[0], -antioquiaCenter[1], 0], scaleTo: Math.min(W,H)*5.5, tiltTo: 6, ms: 1400 });
-        setStage(2); revealMap(2); syncUI(); syncHUD(2);
+/* ============================================================
+   FLOW
+   ============================================================ */
+async function flyToColombia(){
+  if (busy) return; busy = true;
+  mode = 'journey-1';
+  freeSpin = false;
+
+  $('whirl').classList.add('off');
+  $('chrome').classList.add('off');
+  $('atmo').classList.add('on');
+
+  await animate({
+    rotTo: [74.5, -5.5, 0],
+    scaleTo: Math.min(W,H) * TW.z2,
+    clipTo: Math.max(W,H) * 1.6,
+    tiltTo: TW.tilt * 0.18,
+    ms: 2500,
+    ease: easeIO,
+    onTick: ()=>{
+      const sc = proj.scale();
+      if (sc > 300) document.querySelector('.country.hi')?.classList.add('on');
+      if (sc > 900) gDept.selectAll('path').classed('on', true);
+      if (sc > 1300){
+        const hi = document.querySelector('.country.hi');
+        if (hi && !hi.classList.contains('fadeout')) hi.classList.add('fadeout');
       }
-    } finally { endFlight(); }
+    }
+  });
+
+  $('atmo').classList.remove('on');
+  gDept.selectAll('path').classed('on', true);
+  gDept.select('.dept.ant').classed('on', true);
+  gSubAnt.selectAll('path').classed('on', true);
+  gPin.select('.pin').classed('on', true);
+
+  $('hud').classList.add('on');
+  $('coords').classList.add('on');
+  $('crumb').textContent = 'Colombia';
+  $('crumbSub').innerHTML = '<em>Antioquia</em>';
+  $('step').textContent = '02';
+  $('hint').textContent = 'Haga clic en Antioquia ●';
+  $('hint').classList.add('on');
+  $('reticle').classList.add('on','tight');
+  canvas.classList.add('click');
+
+  showPanel(1);
+  setVhint('Haga clic en Antioquia para entrar');
+  vhintOn(true);
+  $('whirl').style.visibility = 'hidden';
+
+  stage = 1;
+  busy = false;
+}
+
+async function diveAndEnter(){
+  if (busy || stage !== 1) return; busy = true;
+  mode = 'journey-2';
+  document.body.classList.add('diving');
+  vhintOn(false);
+  $('hint').classList.remove('on');
+  $('reticle').classList.remove('tight');
+  $('vignette').classList.add('on');
+  gValley.classed('on', true);
+  gPin.select('.pin').classed('deep', true);
+
+  $('crumb').textContent = 'Antioquia';
+  $('crumbSub').innerHTML = '<em>entrando…</em>';
+  $('step').textContent = '03';
+
+  const _c2 = proj.rotate();
+  const _d2 = ((75.5744 - _c2[0]) % 360 + 540) % 360 - 180;
+  await animate({
+    rotTo: [_c2[0] + _d2, -6.2442, 0],
+    scaleTo: Math.min(W,H) * TW.z4,
+    tiltTo: TW.tilt,
+    ms: (TW.t3 + TW.t4) * 1000,
+    ease: easeIn,
+    onTick: (t)=>{
+      if (t > 0.55){
+        $('hud').classList.add('hide');
+        $('reticle').classList.remove('on');
+        $('coords').classList.remove('on');
+      }
+    }
+  });
+
+  await fadeAndEnter();
+  stage = 2;
+  busy = false;
+}
+
+function fadeAndEnter(){
+  return new Promise(res=>{
+    try { window.parent?.postMessage({type:'ofelia:enter'}, '*'); } catch(e){}
+    const veil = document.createElement('div');
+    veil.style.cssText = 'position:fixed;inset:0;z-index:50;background:var(--paper);opacity:0;transition:opacity .8s ease;pointer-events:none';
+    document.body.appendChild(veil);
+    requestAnimationFrame(()=>{ veil.style.opacity = '1'; });
+    setTimeout(()=>{
+      if (ENTER_URL) { try { window.location.href = ENTER_URL; } catch(e){} }
+      res();
+    }, 820);
+  });
+}
+
+function pinClicked(){
+  if (stage === 1) return diveAndEnter();
+}
+
+/* ============================================================
+   INPUT
+   ============================================================ */
+function dispatchClick(){
+  if (mode === 'loader' && stage === 0) return flyToColombia();
+  if (stage === 1) return diveAndEnter();
+}
+
+canvas.addEventListener('click', dispatchClick);
+['whirl','chrome'].forEach(id => {
+  const el = $(id);
+  if (!el) return;
+  el.style.pointerEvents = 'auto';
+  el.style.cursor = 'pointer';
+  el.addEventListener('click', dispatchClick);
+});
+
+/* ---------- luz cálida que sigue el cursor ---------- */
+(function(){
+  const lux = $('lux');
+  if (!lux) return;
+  let lx = innerWidth/2, ly = innerHeight*0.43, tx = lx, ty = ly, raf = null;
+  function tick(){
+    lx += (tx-lx)*0.16; ly += (ty-ly)*0.16;
+    lux.style.transform = `translate(${lx}px,${ly}px)`;
+    if (Math.abs(tx-lx) > 0.4 || Math.abs(ty-ly) > 0.4) raf = requestAnimationFrame(tick);
+    else { lux.style.transform = `translate(${tx}px,${ty}px)`; raf = null; }
   }
+  lux.style.transform = `translate(${lx}px,${ly}px)`;
+  window.addEventListener('pointermove', (e)=>{
+    tx = e.clientX; ty = e.clientY;
+    lux.classList.add('on');
+    if (!raf) raf = requestAnimationFrame(tick);
+  }, {passive:true});
+  window.addEventListener('pointerdown', (e)=>{
+    const p = document.createElement('div');
+    p.className = 'pulse';
+    p.style.left = e.clientX + 'px';
+    p.style.top  = e.clientY + 'px';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(), 1000);
+    lux.classList.add('on','flash');
+    setTimeout(()=>lux.classList.remove('flash'), 280);
+  }, {passive:true});
+})();
 
-  backBtn.addEventListener('click', () => { if (!busy) stepBack(); });
+const backEl = $('back');
+if (backEl) backEl.addEventListener('click', resetAll);
 
-  document.getElementById('skipBtn').addEventListener('click', () => {
-    window.location.href = '/home';
+async function resetAll(){
+  if (busy) return; busy = true;
+  if (backEl) backEl.hidden = true;
+  $('hud').classList.remove('hide');
+  gPin.select('.pin').classed('on', false).classed('deep', false);
+  gDept.selectAll('path').classed('on', false);
+  gSubAnt.selectAll('path').classed('on', false);
+  gValley.classed('on', false);
+  document.querySelector('.country.hi')?.classList.remove('on','fadeout');
+  $('hud').classList.remove('on');
+  $('coords').classList.remove('on');
+  $('hint').classList.remove('on');
+  $('reticle').classList.remove('on','tight');
+  $('vignette').classList.remove('on');
+  $('atmo').classList.add('on');
+
+  await animate({
+    rotTo: [20,-10,0],
+    scaleTo: 98,
+    clipTo: 100,
+    tiltTo: 0,
+    ms: 1300,
+    ease: easeIO
   });
 
-  document.getElementById('enterBtn').addEventListener('click', () => {
-    document.body.style.transition = 'opacity 1.1s ease';
-    document.body.style.opacity = '0';
-    setTimeout(() => { window.location.href = '/home'; }, 1100);
-  });
+  $('atmo').classList.remove('on');
+  $('whirl').classList.remove('off');
+  $('chrome').classList.remove('off');
+  $('hint').textContent = 'Haga clic en el globo';
+  setTimeout(()=>$('hint').classList.add('on'), 400);
+  document.body.classList.remove('diving');
+  $('whirl').style.visibility = '';
+  showPanel(0);
+  setVhint('Haga clic en el globo');
+  navbarOn(true); vhintOn(true);
+  mode='loader'; stage=0; freeSpin=true;
+  busy = false;
+}
 
-  /* ─── Resize ──────────────────────────────────────── */
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      W = window.innerWidth; H = window.innerHeight;
-      proj.translate([W/2, H/2]);
-      if (stage === 0) proj.scale(Math.min(W,H)*0.36);
-      scheduleRedraw(true);
-    }, 120);
-  });
+/* resize */
+addEventListener('resize', ()=>{
+  W = innerWidth; H = innerHeight;
+  canvas.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  proj.translate([W/2, H/2]);
+  redraw();
+});
 
+/* ============================================================
+   TWEAKS PANEL
+   ============================================================ */
+const tweaksEl = $('tweaks');
+window.addEventListener('message', (e)=>{
+  if (e.data?.type === '__activate_edit_mode') tweaksEl.classList.add('on');
+  if (e.data?.type === '__deactivate_edit_mode') tweaksEl.classList.remove('on');
+});
+window.parent?.postMessage({type:'__edit_mode_available'}, '*');
+$('tweaksClose').addEventListener('click', ()=>{
+  tweaksEl.classList.remove('on');
+  window.parent?.postMessage({type:'__edit_mode_dismissed'}, '*');
+});
+
+function bindRange(id, key, label){
+  const el = $(id); if (!el) return;
+  el.addEventListener('input', (e)=>{
+    TW[key] = parseFloat(e.target.value);
+    $(label).textContent = TW[key];
+  });
+}
+bindRange('t1','t1','vT1');
+bindRange('t2','t2','vT2');
+bindRange('t3','t3','vT3');
+bindRange('t4','t4','vT4');
+bindRange('tilt','tilt','vTilt');
+bindRange('z1','z1','vZ1');
+bindRange('z2','z2','vZ2');
+bindRange('z3','z3','vZ3');
+bindRange('z4','z4','vZ4');
+
+$('replay').addEventListener('click', async ()=>{
+  if (stage!==0) await resetAll();
+  await flyToColombia();
+});
+
+$('jumpEnd').addEventListener('click', async ()=>{
+  if (stage===0){ await flyToColombia(); }
+});
+
+/* ============================================================
+   NAVBAR + CUADROS DE TEXTO
+   ============================================================ */
+function showPanel(n){
+  document.querySelectorAll('#panels .panel').forEach(p=>{
+    p.classList.toggle('active', +p.dataset.panel === n);
+  });
+}
+function setVhint(txt){
+  const t = $('vhintText'); if (t) t.textContent = txt;
+}
+function vhintOn(on){ const v = $('vhint'); if (v) v.classList.toggle('show', !!on); }
+function navbarOn(on){ const n = $('navbar'); if (n) n.classList.toggle('show', !!on); }
+
+/* ============================================================
+   LOAD — async from local files
+   ============================================================ */
+(async () => {
+  try {
+    [world, colombia] = await Promise.all([
+      d3.json('/assets/data/countries-50m.json'),
+      d3.json('/assets/data/Colombia.geo.json')
+    ]);
+    antFeat = colombia.features.find(f => {
+      const nm = (f.properties.NOMBRE_DPT||f.properties.name||'').toString().toUpperCase();
+      return nm.includes('ANTIOQUIA');
+    });
+    buildScene();
+  } catch(err) {
+    console.error('No se pudo cargar el mapa:', err);
+    const t = $('vhintText');
+    if (t){ $('vhint').classList.add('show'); t.textContent = 'No se pudo cargar el mapa'; }
+  }
 })();
 </script>
 <script src="/assets/js/brand.js"></script>
