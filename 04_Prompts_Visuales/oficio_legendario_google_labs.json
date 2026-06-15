@@ -1,0 +1,69 @@
+{
+  "project": "Ofelia Vallejo - Oficio legendario",
+  "language": "es",
+  "format": {
+    "aspect_ratio": "16:9",
+    "clip_duration_seconds": 6,
+    "style": "luxury editorial documentary, Colombian heritage, cinematic, photorealistic",
+    "color_grade": "warm amber highlights, deep navy shadows, subtle natural film grain",
+    "global_negative_prompt": "no grandmother, no elderly woman, no readable text, no logos, no watermark, no flags, no tourist stereotypes, no sombrero vueltiao, no crowded scene, no modern factory, no plastic materials, no cartoon style, no distorted hands, no extra fingers"
+  },
+  "capcut_sequence": [
+    "01-maestro",
+    "02-cuero",
+    "03-corte-fuego",
+    "04-costura",
+    "05-pieza-final"
+  ],
+  "text_overlay_suggestion": {
+    "opening": "Antes de ser bolso, fue oficio.",
+    "closing": "Cuero pleno colombiano. Hecho para durar."
+  },
+  "scenes": [
+    {
+      "id": "01-maestro",
+      "title": "El maestro",
+      "image_reference": "assets/img/generated/oficio-legendario-01-maestro.png",
+      "duration_seconds": 6,
+      "camera_motion": "slow dolly in toward the artisan's hands and face, subtle handheld documentary movement",
+      "google_labs_prompt": "Cinematic documentary shot of an elderly Colombian master leather artisan working in a beautiful colonial atelier in Antioquia, warm morning light entering through tall wooden doors, mountain greenery softly visible outside, old wooden workbench with full-grain cognac leather and brass tools. The artisan is dignified and focused, face partially visible in profile, expressive realistic hands shaping a luxury leather bag. Slow dolly in, shallow depth of field, luxury editorial documentary, Colombian heritage, emotional but restrained, photorealistic, warm amber highlights, deep navy shadows, subtle film grain. No text, no logos.",
+      "negative_prompt": "no grandmother, no elderly woman, no readable text, no logos, no watermark, no flags, no tourist stereotypes, no crowded scene, no modern factory, no cartoon style, no distorted hands"
+    },
+    {
+      "id": "02-cuero",
+      "title": "El cuero despierta",
+      "image_reference": "assets/img/generated/oficio-legendario-02-cuero.png",
+      "duration_seconds": 6,
+      "camera_motion": "macro push-in across the leather grain, very slow and tactile",
+      "google_labs_prompt": "Extreme close-up macro video of full-grain cognac leather being gently pressed and smoothed by aged Colombian artisan hands on an old wooden workbench. Brass tools and waxed thread are softly blurred in the background, warm morning light, refined colonial atelier in Antioquia. Emphasize leather grain, touch, patience, and craft. Slow macro push-in, shallow depth of field, luxury editorial documentary, photorealistic, warm amber highlights, deep navy shadows, subtle natural film grain. No text, no logos.",
+      "negative_prompt": "no grandmother, no readable text, no logos, no watermark, no plastic shine, no factory, no distorted fingers, no extra fingers, no cartoon style"
+    },
+    {
+      "id": "03-corte-fuego",
+      "title": "Corte y fuego",
+      "image_reference": "assets/img/generated/oficio-legendario-03-corte-fuego.png",
+      "duration_seconds": 6,
+      "camera_motion": "slow side tracking shot following the knife and edge tool across the leather",
+      "google_labs_prompt": "A master Colombian leatherworker cuts and edge-finishes cognac leather for a luxury bag on an old wooden workbench inside a colonial atelier in Antioquia. Warm light through tall wooden doors, stone floor, subtle mountain greenery outside. The elderly male artisan wears a linen apron and works with focused precision using a leather knife and edge tool; a subtle warm glow suggests edge finishing, not dramatic fire. Slow side tracking shot, cinematic shadows, luxury editorial documentary, photorealistic, warm amber highlights, deep navy shadows, subtle film grain. No text, no logos.",
+      "negative_prompt": "no grandmother, no elderly woman, no readable text, no logos, no watermark, no big flames, no modern machinery, no factory, no tourist costume, no distorted hands"
+    },
+    {
+      "id": "04-costura",
+      "title": "La costura",
+      "image_reference": "assets/img/generated/oficio-legendario-04-costura.png",
+      "duration_seconds": 6,
+      "camera_motion": "slow push-in on the stitch line as the thread moves through leather",
+      "google_labs_prompt": "Close cinematic shot of an elderly Colombian artisan hand-stitching a luxury cognac leather bag with waxed thread. The stitch line, aged realistic hands, thick leather, and brass hardware are in sharp focus; the artisan's linen apron and colonial atelier are softly blurred. Warm morning light, intimate and emotional craftsmanship, slow push-in camera movement, high-end fashion film look, Colombian craft heritage, photorealistic, subtle film grain. No text, no logos.",
+      "negative_prompt": "no grandmother, no readable text, no logos, no watermark, no cheap sewing machine, no factory, no extra fingers, no distorted hands, no cartoon style"
+    },
+    {
+      "id": "05-pieza-final",
+      "title": "La pieza nace",
+      "image_reference": "assets/img/generated/oficio-legendario-05-pieza-final.png",
+      "duration_seconds": 7,
+      "camera_motion": "slow pull back from the finished bag, artisan softly out of focus in the background",
+      "google_labs_prompt": "Finished luxury cognac leather bag resting on an old artisan workbench while elderly Colombian master artisan hands gently close the strap. Beautiful colonial atelier in Antioquia, open wooden doors, soft mountain greenery outside, stone floor, old tools, warm golden morning light. The bag is the hero in sharp focus, artisan softly out of focus, quiet legendary atmosphere. Slow cinematic pull back, luxury editorial documentary, Colombian emotional heritage, photorealistic, warm amber highlights, deep navy shadows, subtle film grain. No text, no logos.",
+      "negative_prompt": "no grandmother, no elderly woman, no readable text, no logos, no watermark, no modern factory, no plastic shine, no flags, no crowded background, no distorted hands"
+    }
+  ]
+}
