@@ -75,16 +75,21 @@
 
 ## Producto y catálogo
 
-**Producto hero del lanzamiento (mockup actual):**
-- **Travel Bag I · II · III** — bolsas de viaje weekender en cuero colombiano. Variantes de color: espresso, navy, verde profundo.
+**Moneda:** CHF (francos suizos) — mercado europeo.
 
-**Catálogo extendido existente:**
-- Bandolera Moderna, Bandolera Elite (crossbody slings)
-- Morral Elite, Morral Clásico (backpacks)
-- Bolso Dama (tote)
-- Cinturones (unisex y línea femenina)
+**Colecciones activas (`data/catalog.json`):**
 
-**Servicio insignia:** *"Tu nombre. En cuero."* — grabado láser personalizado sobre cualquier pieza.
+| Colección | Categoría | Productos hero |
+|---|---|---|
+| **Guanábana** | Mujer | Travel Bag I · II · III (weekender), Bolso Dama |
+| **Borojó** | Hombre | Travel Bag I · II · III, Morral Elite, Morral Clásico |
+| **Uchuva** | Bandoleras y riñoneras | Bandolera Moderna, Bandolera Elite, riñoneras |
+| **Chontaduro** | Morrales | Morral Elite, Morral Clásico |
+| **Curuba** | Accesorios | Cinturones unisex / femeninos, neceser, cartera |
+
+**Slug de producto:** `/producto/{slug}` → PDP dinámico (`producto/index.html`). Hub Travel Bag en `/producto/travel-bag.html`.
+
+**Servicio insignia:** *"Tu nombre. En cuero."* — grabado láser personalizado. Página dedicada: `/personalizar.html` (acepta `?producto=` y `?color=`).
 
 **Colores de cuero estándar:** Negro, Rústico (cognac/tan), Café Oscuro. Línea de campaña añade: Espresso, Vino, Verde profundo.
 
@@ -142,20 +147,38 @@ La marca **NO tiene un avatar Pixar**. Tiene **modelos de campaña editorial**.
 
 ---
 
-## Experiencia Web (basada en `index.html` activo)
+## Experiencia Web
 
 **La web se siente:** editorial · respirable · pausada · serif romano · cursor pequeño · scroll suave · revelaciones discretas.
 
-**Estructura confirmada:**
-1. Navbar fija con logo de firma cursiva
-2. Hero split 50/50: copy a la izquierda (Cinzel) + media a la derecha (gradient espresso→vino→navy o foto real)
-3. Statement: "Nacida de una firma" + watermark de la firma + body breve
-4. Grid de 3 productos hero (Travel Bag I/II/III)
-5. Split editorial: media + body con label/título/copy/CTA
-6. Sección "Tu nombre. En cuero." sobre fondo navy
-7. Footer minimal en navy
+**Páginas activas:**
 
-**Microinteracciones:** cursor custom 6px que escala a 18px en hover; reveal-on-scroll suave; transition lerp.
+| Ruta | Archivo | Propósito |
+|---|---|---|
+| `/` | `index.html` | Intro globo D3 → entrada al sitio |
+| `/home` | `home.html` | Home editorial (producción) — hero + colecciones + firma |
+| `/coleccion` | `coleccion.html` | Catálogo completo (render dinámico) |
+| `/producto/{slug}` | `producto/index.html` | PDP dinámico por slug |
+| `/producto/travel-bag` | `producto/travel-bag.html` | Hub Travel Bag |
+| `/personalizar` | `personalizar.html` | Engrave Studio — «Tu nombre. En cuero.» |
+| `/manifiesto` | `manifiesto.html` | Historia / firma / heritage |
+| `/cuero` | `cuero.html` | Página editorial sobre el material |
+| `/checkout` | `checkout.html` | Carrito + pago (Stripe) |
+| `/cuenta` | `cuenta.html` | Área de cliente (login/registro/pedidos) |
+| `/contacto` | `contacto.html` | Contacto / reparación / privacidad |
+| `/gracias` | `gracias.html` | Confirmación de compra |
+| `/admin` | API protegida | Panel de administración (productos, inventario) |
+
+**Estructura `home.html`:**
+1. Navbar fija (partial `assets/partials/navbar.html`) con logo firma cursiva
+2. Hero split 50/50: copy Cinzel + media (gradient espresso→vino→navy o foto editorial)
+3. Statement «Nacida de una firma» + watermark + body breve
+4. Grid colecciones (Travel Bag I/II/III hero)
+5. Split editorial: media + label/título/copy/CTA
+6. Sección «Tu nombre. En cuero.» sobre fondo navy
+7. Footer (partial `assets/partials/footer.html`) en navy
+
+**Microinteracciones:** cursor custom 6px → 18px en hover; reveal-on-scroll suave; GSAP 3 + ScrollTrigger; transition lerp.
 
 ---
 
@@ -274,37 +297,99 @@ La dirección correcta SIEMPRE es: **Colombian Heritage Leather House × Europea
 
 ---
 
+## Stack Técnico
+
+| Capa | Tecnología |
+|---|---|
+| Frontend | HTML puro + Vanilla JS + GSAP 3 + ScrollTrigger |
+| CSS | Variables CSS (`--marfil`, `--navy`, `--espresso`…) — archivos en `assets/css/` |
+| JS módulos | `brand.js`, `gsap-animations.js`, `cart.js`, `cart-ui.js`, `pdp.js`, `coleccion-render.js`, `engrave-studio.js`, `personalizar-form.js`, `checkout-page.js`, `account.js`, `seo-meta.js`, `whatsapp.js` |
+| Partials HTML | `assets/partials/navbar.html`, `footer.html`, `head-seo.html` |
+| API (serverless) | Vercel Functions — `api/products.js`, `api/contact.js`, `api/personalizar.js`, `api/checkout/`, `api/account/`, `api/admin/`, `api/stripe/` |
+| Base de datos | PostgreSQL (`DATABASE_URL`) · esquema en `database/schema.sql` |
+| Almacenamiento | `@vercel/blob` para imágenes de producto |
+| Pagos | Stripe v17 (`stripe` npm) · webhook en `api/checkout/webhook.js` |
+| Email | `nodemailer` v8 |
+| Validación | `zod` v4 |
+| Deploy | Vercel (`vercel.json` — cleanUrls, rewrites, redirects, headers) |
+| Catálogo fallback | `data/catalog.json` (si falla DB) · `data/inventory-sheet.json` |
+| Globo intro | D3.js v7 + TopoJSON (`assets/data/`) |
+
+**Variables de entorno requeridas:** `DATABASE_URL`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `BLOB_READ_WRITE_TOKEN`, `SMTP_*`, `ADMIN_PASSWORD`.
+
+---
+
 ## Estructura del Proyecto
 
 ```
 ofelia vallejo/
-├── CLAUDE.md                          ← este archivo (referencia maestra bloqueada)
-├── README.md
-├── VERSION
+├── CLAUDE.md                          ← referencia maestra (este archivo)
+├── prompt_master.md                   ← prompts comprimidos para sesiones IA
+├── GUIA-IA-CONTEXTO.md               ← cómo usar contexto en Claude/Cursor/ChatGPT/Codex
+├── ai-context-chatgpt.md             ← contexto para ChatGPT
 ├── index.html                         ← intro globo D3 → entrada al sitio
 ├── home.html                          ← home editorial (producción)
-├── vercel.json
-├── SETUP-ATELIER.md                   ← Postgres, Stripe, admin
-├── docs/VERCEL_CHECKLIST.md           ← checklist deploy
+├── coleccion.html                     ← catálogo dinámico
+├── manifiesto.html                    ← historia / firma / heritage
+├── cuero.html                         ← página editorial del material
+├── personalizar.html                  ← Engrave Studio — grabado láser
+├── checkout.html                      ← carrito + pago Stripe
+├── cuenta.html                        ← área de cliente
+├── contacto.html                      ← contacto / reparación / privacidad
+├── gracias.html                       ← confirmación de compra
+├── sitemap.xml
+├── vercel.json                        ← deploy config: cleanUrls, rewrites, redirects
+├── package.json                       ← deps: stripe, @vercel/blob, nodemailer, zod
+├── producto/
+│   ├── index.html                     ← PDP dinámico (?slug=)
+│   └── travel-bag.html               ← hub Travel Bag
+├── api/
+│   ├── products.js
+│   ├── contact.js
+│   ├── personalizar.js
+│   ├── checkout/create.js + webhook.js
+│   ├── account/[action].js (_login, _me, _register)
+│   ├── admin/[action].js (_products, _inventory, _categories, _upload, _login)
+│   └── stripe/
 ├── assets/
-│   └── img/                           ← logos web + fotos (logo_sello, logo_firma_nav, logo_firma_completa)
+│   ├── css/                           ← brand.css, mobile.css, cart.css, pdp-layout.css, maison.css…
+│   ├── js/                            ← brand.js, gsap-animations.js, cart.js, pdp.js, engrave-studio.js…
+│   ├── partials/                      ← navbar.html, footer.html, head-seo.html
+│   ├── img/                           ← logos web (logo_sello, logo_firma_nav, logo_firma_completa)
+│   └── data/                          ← Colombia.geo.json, d3.min.js, topojson-client.min.js
+├── data/
+│   ├── catalog.json                   ← catálogo web (fallback si falla DB)
+│   └── inventory-sheet.json          ← inventario / precios CHF editable
+├── database/
+│   └── schema.sql                     ← esquema PostgreSQL
+├── docs/
+│   ├── BASE_DE_DATOS.md
+│   ├── CATALOGO_PRODUCTOS.md
+│   ├── CATALOGO_CINTURONES.md
+│   ├── MAPA_ENLACES.md
+│   └── VERCEL_CHECKLIST.md
+├── scripts/                           ← apply-inventory-sheet.js, check-env.js, graphify-setup.sh
+├── graphify-out/                      ← GRAPH_REPORT.md + labels (generado por graphify)
 ├── 01_Contabilidad/                   ← finanzas, ingresos, egresos, facturación
 ├── 02_Publicaciones/                  ← calendario editorial, contenido RRSS
-├── 03_Productos/                      ← catálogo del ecosistema de cuero
-├── 04_Prompts_Visuales/               ← biblioteca de prompts/JSONs para Gemini/MJ
-├── 05_Copy_y_Voz/                     ← plantillas de copy, emails, lanzamientos
+├── 03_Productos/                      ← catálogo ecosistema cuero
+├── 04_Prompts_Visuales/               ← biblioteca prompts/JSONs para Gemini/MJ
+├── 05_Copy_y_Voz/                     ← plantillas copy, emails, lanzamientos
 ├── 06_Identidad_Marca/
-│   ├── brand_discovery.md             ← descubrimiento completo de marca
-│   ├── paleta_tipografia.md           ← sistema de color y tipografía exacto
-│   ├── avatar_prompts.md              ← prompts del modelo de campaña editorial
-│   └── logos/                         ← logo_sello.png + logo_firma.png (fuente bloqueada)
-├── imagenes base/                     ← 172 imágenes de referencia (kit GitHub)
-└── videos base/                       ← 5 videos de referencia
+│   ├── brand_discovery.md
+│   ├── paleta_tipografia.md
+│   ├── avatar_prompts.md
+│   └── logos/                         ← logo_sello.png + logo_firma.png (BLOQUEADOS)
+├── imagenes base/                     ← imágenes de referencia editorial
+└── videos base/                       ← videos de referencia
 ```
+
+**Mapa de rutas web → archivos (regla de enlace):**
+Ver `docs/MAPA_ENLACES.md`. Regla: grabado/personalización → `/personalizar.html`; productos → `/producto/{slug}`; nunca `.html` en links visibles (Vercel usa cleanUrls).
 
 ---
 
-*Última actualización: 2026-05-26 — Logos alineados (2 fuente + 3 web), PDP dinámico, enlaces unificados, checklist Vercel.*
+*Última actualización: 2026-06-13 — Stack técnico documentado (Postgres/Stripe/Vercel Functions), colecciones nombradas (Guanábana/Borojó/Uchuva/Chontaduro/Curuba), estructura de páginas completa (12 HTML + PDP dinámico + admin), CHF como moneda activa.*
 
 ---
 
