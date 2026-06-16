@@ -169,6 +169,24 @@
     );
   }
 
+  /** Hash de color válido en PDP (colorData); evita #v-standard en morrales/tallas. */
+  function colorHashForVariant(p, v) {
+    const key = v.colorKey || v.id;
+    if (p.colorData && Object.prototype.hasOwnProperty.call(p.colorData, key)) {
+      return key;
+    }
+    const keys = p.colorData ? Object.keys(p.colorData) : [];
+    return keys.length === 1 ? keys[0] : '';
+  }
+
+  function pdpHref(p, colorHash) {
+    const base = p.pdpPath || '/producto/' + p.slug;
+    if (colorHash && p.colorData && p.colorData[colorHash]) {
+      return base + '#' + colorHash;
+    }
+    return base;
+  }
+
   function cartPayloadFor(p, variant) {
     if (!p || !p.slug) return null;
     const v = variant || (p.variants && p.variants[0]) || null;
@@ -194,9 +212,10 @@
         const stock = variantStock(v);
         if (p.hideOutOfStock && stock <= 0) return;
         const key = v.colorKey || v.id;
+        const colorHash = colorHashForVariant(p, v);
         cards.push({
           id: p.slug + '-' + key,
-          href: '/producto/' + p.slug + '#' + key,
+          href: pdpHref(p, colorHash),
           name: v.colorName || p.name,
           detail: p.shortDescription || '',
           badge: p.isNew ? 'Nuevo' : ((v.colorName || '').split(' · ')[0] || v.colorName),
@@ -219,7 +238,7 @@
     const firstVariant = (p.variants && p.variants[0]) || null;
     cards.push({
       id: p.slug || p.id,
-      href: p.pdpPath || '/producto/' + p.slug,
+      href: pdpHref(p, ''),
       name: p.name,
       detail: p.shortDescription || '',
       badge: p.isNew ? 'Nuevo' : (firstVariant ? firstVariant.colorName.split(' · ')[0] : ''),

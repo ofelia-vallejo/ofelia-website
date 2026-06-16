@@ -549,7 +549,7 @@
 
     function buildPersonalizarUrl() {
       const params = new URLSearchParams();
-      params.set('producto', product.name);
+      params.set('producto', product.slug || product.id);
       params.set('color', currentColor);
       const t = engraveInput && engraveInput.value.trim();
       if (t) {

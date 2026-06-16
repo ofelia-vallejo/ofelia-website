@@ -117,7 +117,15 @@
   const productoParam = params.get('producto');
   if (productoParam) {
     const opt = form.querySelector(`option[value="${productoParam}"]`);
-    if (opt) opt.selected = true;
+    if (opt) {
+      opt.selected = true;
+    } else if (window.OVCatalog) {
+      window.OVCatalog.fetchProduct(productoParam).then(function (p) {
+        if (!p) return;
+        const byName = form.querySelector(`option[value="${p.name}"]`);
+        if (byName) byName.selected = true;
+      }).catch(function () {});
+    }
   }
   const textoParam = params.get('texto_grabado');
   if (textoParam) {
