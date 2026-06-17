@@ -1,0 +1,304 @@
+{
+  "_meta": {
+    "proyecto": "Ofelia Vallejo — Leather House",
+    "version": "2.0",
+    "fecha": "2026-06-09",
+    "fuente": "index.html + 06_Identidad_Marca/paleta_tipografia.md + CLAUDE.md",
+    "uso": "Pegar como contexto en Claude.ai antes de pedir cualquier output de diseño, copy, imagen o código para Ofelia Vallejo.",
+    "instruccion": "Antes de generar cualquier output, verificar los 7 puntos de la sección 'reglas_absolutas'. Si alguno falla, corregir antes de entregar."
+  },
+
+  "identidad": {
+    "nombre": "Ofelia Vallejo",
+    "tipo": "Leather House",
+    "tagline_maestro": "Elegancia que permanece.",
+    "tagline_herencia": "Cuero hecho para durar.",
+    "posicionamiento": "Una Leather House paisa elevada al estándar editorial europeo — la firma de la abuela Ofelia Vallejo no es un logo: es patrimonio, herencia, alma de cada pieza.",
+    "formula": "Heritage paisa artesanal × estándar de lujo europeo × fotografía editorial fashion-house × grabado láser sobre cuero.",
+    "origen": "Medellín, Antioquia, Colombia",
+    "operacion_comercial": "Suiza (mercado europeo)",
+    "mercado_objetivo": ["Suiza", "Italia", "Francia", "Alemania", "UK", "España"],
+    "competidores_referencia": ["Hermès", "Loewe", "Bottega Veneta", "The Row", "Brunello Cucinelli", "Khaite", "Lemaire", "Saddleback Leather", "Bellroy"],
+    "sensacion_objetivo": "Una Leather House paisa fotografiada por Vogue Italia / AnOther / Document Journal en un lobby de hotel milanés al amanecer."
+  },
+
+  "colores": {
+    "core": {
+      "marfil":       { "hex": "#F3EEE6", "rgb": [243, 238, 230], "css_var": "--marfil",      "uso": "Fondo principal, lime-wash, lino crudo" },
+      "beige_medio":  { "hex": "#EDE5D8", "rgb": [237, 229, 216], "css_var": "--beige-medio", "uso": "Fondo secundario, transición suave" },
+      "navy":         { "hex": "#0B1F3A", "rgb": [11,  31,  58],  "css_var": "--navy",        "uso": "Texto principal, secciones oscuras, firma original" },
+      "espresso":     { "hex": "#3B2B26", "rgb": [59,  43,  38],  "css_var": "--espresso",    "uso": "Cuero hero, atmósfera de taller" },
+      "vino":         { "hex": "#5B1E24", "rgb": [91,  30,  36],  "css_var": "--vino",        "uso": "Acento de campaña, cuero teñido vino" },
+      "verde":        { "hex": "#1F3527", "rgb": [31,  53,  39],  "css_var": "--verde",       "uso": "Cuero verde profundo, naturaleza andina" },
+      "carbon":       { "hex": "#141414", "rgb": [20,  20,  20],  "css_var": "--carbon",      "uso": "Negro absoluto, hardware oscuro" }
+    },
+    "derivados": {
+      "text_primary":  "rgba(11, 31, 58, 1.00)",
+      "text_soft":     "rgba(11, 31, 58, 0.45)",
+      "text_muted":    "rgba(11, 31, 58, 0.35)",
+      "rule_default":  "rgba(11, 31, 58, 0.10)",
+      "rule_strong":   "rgba(11, 31, 58, 0.20)"
+    },
+    "metalicos_permitidos": {
+      "laton_antiguo": { "aprox_hex": "#9B7C4E", "descripcion": "Brass patinado, mate — hebillas, cierres, herrajes" },
+      "gunmetal":      { "aprox_hex": "#3D4248", "descripcion": "Gris oscuro mate cepillado — hardware industrial" },
+      "plata_brunida": { "aprox_hex": "#B8B5B0", "descripcion": "Plata mate bruñida — accesorios femeninos" }
+    },
+    "prohibido": ["lavanda", "morado", "lila", "fucsia", "neón", "oro brillante vectorial", "oro rosa", "cromados espejo", "foil dorado", "gradientes saturados"]
+  },
+
+  "gradientes": {
+    "_regla": "Solo usar los siguientes. No crear gradientes fuera de este set sin aprobación explícita.",
+    "hero_background": "linear-gradient(160deg, #3B2B26 0%, #5B1E24 40%, #0B1F3A 100%)",
+    "card_espresso":   "linear-gradient(170deg, #EDE5D8 0%, #3B2B26 100%)",
+    "card_navy":       "linear-gradient(170deg, #EDE5D8 0%, #0B1F3A 100%)",
+    "card_verde":      "linear-gradient(170deg, #EDE5D8 0%, #1F3527 100%)",
+    "split_atelier":   "linear-gradient(135deg, #3B2B26 0%, #1a0d08 100%)"
+  },
+
+  "tipografia": {
+    "display": {
+      "familia": "Cinzel, serif",
+      "peso": 400,
+      "google_fonts_url": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap",
+      "uso": "H1, H2, H3, captions de marca, watermarks tipográficos",
+      "regla": "Solo en mayúsculas o iniciales — preserva el DNA romano. Nunca en bold ni italic."
+    },
+    "body": {
+      "familia": "'Helvetica Neue', Helvetica, Arial, sans-serif",
+      "peso_default": 300,
+      "size_base": "13px",
+      "line_height": 1.6,
+      "letter_spacing": "0.04em",
+      "uso": "Párrafos, navegación, CTAs, captions UI",
+      "regla": "Helvetica light 300 para párrafos. Nunca regular o medium en body."
+    },
+    "jerarquia": [
+      { "nivel": "Hero Title",     "familia": "Cinzel", "size": "clamp(32px, 4vw, 52px)",  "letter_spacing": "-0.01em", "uso": "H1 hero" },
+      { "nivel": "Statement",      "familia": "Cinzel", "size": "clamp(24px, 3vw, 40px)",  "letter_spacing": "0.01em",  "uso": "H2 statement" },
+      { "nivel": "Split Title",    "familia": "Cinzel", "size": "clamp(26px, 3vw, 42px)",  "letter_spacing": "0.02em",  "uso": "H2 split" },
+      { "nivel": "Custom Title",   "familia": "Cinzel", "size": "clamp(28px, 4vw, 52px)",  "letter_spacing": "0.03em",  "uso": "H2 custom section" },
+      { "nivel": "Card Name",      "familia": "Cinzel", "size": "11px",                    "letter_spacing": "0.12em",  "uso": "Nombre de producto en card" },
+      { "nivel": "Section Label",  "familia": "Cinzel", "size": "11px",                    "letter_spacing": "0.3em",   "uso": "Header de sección UPPERCASE" },
+      { "nivel": "Navbar Link",    "familia": "Helvetica 400", "size": "11px",             "letter_spacing": "0.12em",  "uso": "Navegación UPPERCASE" },
+      { "nivel": "Body",           "familia": "Helvetica 300", "size": "13–14px",          "letter_spacing": "0.04em",  "uso": "Párrafos" },
+      { "nivel": "Caption / Meta", "familia": "Helvetica 400", "size": "10–11px",          "letter_spacing": "0.2–0.3em","uso": "Etiquetas, índices UPPERCASE" },
+      { "nivel": "CTA",            "familia": "Helvetica 400", "size": "10px",             "letter_spacing": "0.2em",   "uso": "Botones, links UPPERCASE" }
+    ],
+    "principios": [
+      "Tracking generoso en uppercase (0.12em – 0.3em)",
+      "Line-height cómodo en body (1.6 – 1.85)",
+      "Máximo 3 niveles tipográficos por pantalla",
+      "Nunca fuentes decorativas, script extra o sans grotescas agresivas"
+    ]
+  },
+
+  "espaciado": {
+    "escala": {
+      "xs":  "4px",
+      "sm":  "8px",
+      "md":  "16px",
+      "lg":  "32px",
+      "xl":  "64px",
+      "2xl": "128px"
+    },
+    "layout": {
+      "pad_x_desktop": "48px",
+      "pad_x_mobile":  "20px",
+      "navbar_height": "56px"
+    },
+    "border_radius": "0px — esquinas rectas. El editorial fashion-house no usa border-radius en cards ni secciones. Excepción: cursor custom (50%)."
+  },
+
+  "sombras_efectos": {
+    "_filosofia": "Sombras mínimas. La profundidad viene de la fotografía y la luz natural. No Material Design, no glows neón.",
+    "navbar_glass": {
+      "background": "rgba(243, 238, 230, 0.92)",
+      "backdrop_filter": "blur(12px)",
+      "border_bottom": "1px solid rgba(11, 31, 58, 0.10)"
+    },
+    "card_hover": "transform: scale(1.04) — transition 1s ease",
+    "reveal_scroll": "opacity 0→1 + translateY(30px→0) — transition 0.9s ease",
+    "prohibido": ["drop-shadow Material Design", "glows neón", "sombras coloradas", "inner glow dorado"]
+  },
+
+  "animaciones": {
+    "ease_principal": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    "duraciones": {
+      "hover_link":    "0.3s",
+      "hover_nav":     "0.4s",
+      "image_scale":   "1s",
+      "reveal_scroll": "0.9s",
+      "cta_gap":       "0.4s"
+    },
+    "cursor": {
+      "size_default":  "6px",
+      "size_hover":    "18px",
+      "color_light":   "#0B1F3A",
+      "color_dark_bg": "#F3EEE6",
+      "hover_style":   "fondo transparente + borde 1px solid"
+    },
+    "prohibido": ["bounce", "spring agresivo", "parallax pronunciado", "animaciones llamativas"]
+  },
+
+  "logos": {
+    "_regla_absoluta": "NUNCA modificar, redibujar, reinterpretar, recolorear ni animar los logos. Son la firma a mano de la abuela Ofelia Vallejo — patrimonio familiar. Solo trabajo permitido: eliminar fondo para transparencia y reescalar manteniendo proporción.",
+    "versiones": [
+      {
+        "id": "logo_sello_laser",
+        "archivo": "06_Identidad_Marca/logos/logo_sello_laser.png",
+        "descripcion": "Monograma OV con tridente — versión sólida alto contraste",
+        "uso_exclusivo": "Grabado láser CO₂ sobre cuero (todos los productos)"
+      },
+      {
+        "id": "logo_tarjetas_sello",
+        "archivo": "06_Identidad_Marca/logos/logo_tarjetas_sello.png",
+        "descripcion": "Monograma OV sobre pincelada navy — versión sello compacto",
+        "uso_exclusivo": "Tarjetas pequeñas, sellos físicos, RRSS avatar, watermark pequeño"
+      },
+      {
+        "id": "logo_firma_completa",
+        "archivo": "06_Identidad_Marca/logos/logo_firma_completa.png",
+        "descripcion": "Firma cursiva completa 'Ofelia Vallejo' + tagline",
+        "uso_exclusivo": "Web (header desktop + banner inferior móvil), footer, presentaciones, packaging"
+      }
+    ],
+    "placement_web": {
+      "desktop": "logo_firma_completa en esquina superior izquierda del navbar",
+      "mobile":  "logo_tarjetas_sello en navbar superior + logo_firma_completa en banner inferior antes del footer",
+      "regla":   "Siempre fondo transparente, sin caja, sin sombra, sin borde"
+    },
+    "grabado_laser": {
+      "tecnica": "CO₂ real engraving, 0.3–0.4mm profundidad, borde levemente carbonizado, grano heat-glossed",
+      "color_resultado": "Café oscuro quemado natural sobre tono del cuero (no navy literal)",
+      "spots_por_producto": {
+        "travel_bag":  "Esquina inferior derecha del panel frontal, ~4cm del borde inferior y derecho",
+        "tote_bolso":  "Centrado al frente bajo, ~6cm sobre la base",
+        "cinturon":    "Centrado en la punta, ~2cm del extremo",
+        "bandolera":   "Esquina inferior derecha del panel frontal, ~3cm de los bordes",
+        "morral":      "Sobre el passant superior o esquina inferior derecha"
+      },
+      "prohibido": ["placa metálica", "foil", "vinilo aplicado", "bordado"]
+    }
+  },
+
+  "productos": {
+    "hero_lanzamiento": [
+      { "nombre": "Travel Bag I",  "tipo": "Weekender de cuero colombiano", "color": "Espresso",     "hex": "#3B2B26" },
+      { "nombre": "Travel Bag II", "tipo": "Weekender de cuero colombiano", "color": "Navy",         "hex": "#0B1F3A" },
+      { "nombre": "Travel Bag III","tipo": "Weekender de cuero colombiano", "color": "Verde Profundo","hex": "#1F3527" }
+    ],
+    "catalogo_extendido": [
+      "Bandolera Moderna (crossbody sling)",
+      "Bandolera Elite (crossbody sling)",
+      "Morral Elite (backpack)",
+      "Morral Clásico (backpack)",
+      "Bolso Dama (tote)",
+      "Cinturones unisex",
+      "Cinturones línea femenina"
+    ],
+    "colores_cuero_estandar": ["Negro", "Rústico (cognac/tan)", "Café Oscuro"],
+    "colores_cuero_campana": ["Espresso", "Vino", "Verde Profundo"],
+    "servicio_insignia": "'Tu nombre. En cuero.' — grabado láser personalizado sobre cualquier pieza"
+  },
+
+  "voz_copy": {
+    "tono": ["sobrio", "romano", "patrimonial", "minimal", "cálido en raíz paisa", "sin adjetivos sobrantes"],
+    "ejemplos_aprobados": [
+      "Elegancia que permanece.",
+      "Nacida de una firma.",
+      "Hecho para durar.",
+      "Tu nombre. En cuero.",
+      "Leather House · Medellín, Colombia."
+    ],
+    "palabras_prohibidas": ["premium", "exclusivo", "único", "disfruta de", "vive la experiencia", "déjate sorprender", "energía", "vibra", "ritual", "sanación", "propósito", "lujo accesible", "sostenible"],
+    "regla": "Frases cortas. Sin retórica de bienestar. Máximo un punto de exclamación en toda la web y solo en contextos de acción (CTA)."
+  },
+
+  "fotografia": {
+    "estilo": "Editorial fashion-house. No still-life de catálogo, no retail head-on, no influencer.",
+    "caracteristicas_obligatorias": [
+      "Modelo presente con crop editorial (cara parcial o ausente)",
+      "Locación atmosférica: lobby europeo, atelier paisa, estación de tren, ventana arqueada",
+      "Luz natural lateral dramática (golden hour 3000–3200K)",
+      "Wardrobe tonal estricto en paleta de marca",
+      "Producto de cuero con láser-grabado visible",
+      "DNA paisa sutil como compañero de craft, nunca como costume"
+    ],
+    "camara_render": "ARRI Alexa Mini LF cinematic still | Hasselblad H6D | Phase One IQ4 | 50–80mm primes | ISO 100–400 | f/2.0–f/2.8 | Kodak Vision3 250D / Portra 400 emulation | fine film grain",
+    "color_grading": "Kodak Vision3 250D o Portra 400 emulation — ligeramente desaturado en highlights, sombras ricas, micro-contraste preservado",
+    "modelo_campana": {
+      "perfil": "Mujer u hombre latino, 25–45 años, presencia editorial (no influencer)",
+      "piel": "Oliva natural, sin maquillaje pesado",
+      "cabello": "Chignon bajo, suelto natural, corte limpio masculino",
+      "energia": "Serena, segura, sin sonrisa comercial — mirada lateral o tres-cuartos",
+      "wardrobe": "Estrictamente tonal: marfil / navy / espresso / vino / verde. Sin logos de otras marcas.",
+      "pose": "Editorial — caminando, sentada, en transición, cropped, de perfil. NUNCA head-on con smile.",
+      "regla": "El modelo eleva al producto. La pieza de cuero es el héroe inequívoco."
+    },
+    "prohibido": [
+      "still-life retail head-on", "influencer pose", "smile-to-camera",
+      "mármol con vetas doradas", "glassmorphism", "partículas flotantes",
+      "sombrero vueltiao", "mochila Wayuu", "ruana", "Botero", "iconografía narco",
+      "iconografía católica devocional", "kitsch tropical", "mariposas amarillas"
+    ]
+  },
+
+  "dna_paisa": {
+    "_regla": "Integrar con restraint milanés. DNA paisa sutil como compañero de craft, nunca folclorismo turístico.",
+    "si_usar": [
+      "Arquitectura tapia / lime-wash crema (casa paisa colonial, rendered con restraint)",
+      "Madera nogal colombiano oscuro",
+      "Cerámica de Carmen de Viboral (blanco con motivos florales cobalto — solo como acento heritage)",
+      "Café colombiano (granos verdes o tostados, ramas de cafeto)",
+      "Cabuya / fique (cuerdas, lino crudo)",
+      "Flora andina: helecho, eucalipto, orquídea cattleya",
+      "Luz Eje Cafetero / altura andina (1500m, 7am)"
+    ],
+    "nunca_usar": [
+      "Sombrero vueltiao", "sombrero aguadeño exagerado",
+      "Mochila Wayuu (es Guajira, no Antioquia)",
+      "Ruana roja o poncho colorido",
+      "Botero, Macondo, mariposas amarillas",
+      "Banderas, colores tricolor",
+      "Cualquier referencia narco / Pablo Escobar / violencia",
+      "Iconografía católica devocional",
+      "Kitsch turístico"
+    ]
+  },
+
+  "web_estructura": {
+    "secciones_confirmadas": [
+      "1. Navbar fija — logo firma cursiva",
+      "2. Hero split 50/50 — copy Cinzel izquierda + media gradiente/foto derecha",
+      "3. Statement — 'Nacida de una firma' + watermark firma + body",
+      "4. Grid 3 productos hero — Travel Bag I / II / III",
+      "5. Split editorial — media + label/título/copy/CTA",
+      "6. 'Tu nombre. En cuero.' — sección personalización sobre fondo navy",
+      "7. Footer minimal en navy"
+    ],
+    "microinteracciones": [
+      "Cursor custom 6px → 18px en hover",
+      "Reveal-on-scroll suave (translateY 30px → 0, opacity 0 → 1)",
+      "Image scale 1.04 en hover, 1s ease",
+      "CTA gap expand 0.4s ease",
+      "Navbar glass con backdrop-filter blur(12px)"
+    ],
+    "sensacion": "Editorial · respirable · pausada · serif romano · scroll suave · revelaciones discretas"
+  },
+
+  "reglas_absolutas": {
+    "_instruccion": "Verificar los 7 puntos antes de generar cualquier output. Si alguno falla → corregir primero.",
+    "checklist": [
+      "1. ¿Se siente editorial de moda fashion-house, NO commercial retail?",
+      "2. ¿Usa la paleta exacta (marfil / beige / navy / espresso / vino / verde)?",
+      "3. ¿La tipografía es Cinzel display + Helvetica Neue light body?",
+      "4. ¿El producto de cuero es el héroe, con láser-grabado visible en spot correcto?",
+      "5. ¿La voz es romana, minimal, sin adjetivos sobrantes?",
+      "6. ¿Hay DNA paisa sutil sin caer en folclorismo turístico?",
+      "7. ¿Evita TODO lo de las listas NUNCA (wellness, lavanda, Pixar, glassmorphism, Wayuu, Botero, narco)?"
+    ],
+    "direccion_correcta": "Colombian Heritage Leather House × European Editorial Fashion.",
+    "logos_bloqueados": "Los 3 logos son firma manuscrita de la abuela Ofelia Vallejo. NUNCA modificar, redibujar, recolorear, vectorizar a mano, limpiar trazos, animar o generar variantes con IA generativa."
+  }
+}
