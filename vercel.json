@@ -8,7 +8,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/producto/travel-bag", "destination": "/producto/travel-bag.html" },
-    { "source": "/producto/:slug", "destination": "/producto/index.html?slug=:slug" }
+    { "source": "/producto/:slug", "destination": "/producto/index.html" }
   ],
   "redirects": [
     { "source": "/coleccion.html", "destination": "/coleccion", "permanent": true },
