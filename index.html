@@ -72,7 +72,7 @@
   }
 
   /* ---------- persistent canvas (one SVG, one projection) ---------- */
-  #cam{position:fixed;inset:0;z-index:2;perspective:1400px;perspective-origin:50% 65%;transform:translateY(-7vh)}
+  #cam{position:fixed;inset:0;z-index:2;perspective:1400px;perspective-origin:50% 65%;transform:translateY(var(--globe-shift,-7vh))}
   #canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
     transform-origin:50% 60%;transform:rotateX(0deg);will-change:transform,clip-path}
   #canvas.click{cursor:pointer}
@@ -137,12 +137,13 @@
   .lab.tag{font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.28em;opacity:.55}
 
   /* ---------- WHIRL (loader rings) ----------
-     RING FIX: translateY(-7vh) matches #cam so rings sit on the globe,
-     not at viewport center. The .off transform retains the shift. */
+     RING FIX: usa --globe-shift (variable CSS seteada por JS desde innerHeight)
+     para que #whirl y #cam tengan exactamente el mismo desplazamiento en px
+     en CUALQUIER dispositivo — Safari móvil calcula 'vh' diferente a innerHeight. */
   #whirl{position:fixed;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none;
-    transform:translateY(-7vh);
+    transform:translateY(var(--globe-shift,-7vh));
     transition:opacity .55s ease, transform .9s cubic-bezier(.7,0,.2,1)}
-  #whirl.off{opacity:0;transform:translateY(-7vh) scale(1.4)}
+  #whirl.off{opacity:0;transform:translateY(var(--globe-shift,-7vh)) scale(1.4)}
   .whirl-box{position:relative;width:min(442px,90vw);aspect-ratio:1}
   .whirl-box svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .ring{fill:none;stroke:var(--ink);stroke-width:.6;opacity:.55}
@@ -501,6 +502,17 @@
    One canvas. One projection. Continuous camera through
    loader → LatAm → Colombia → Antioquia/Medellín → /home.
    ============================================================ */
+
+/* GLOBE SHIFT — calcula el desplazamiento vertical en píxeles reales y lo expone
+   como variable CSS antes de que el browser pinte nada.
+   Por qué: CSS 'vh' en Safari móvil incluye la barra URL (viewport total),
+   mientras que window.innerHeight es el viewport visual (sin barra).
+   Al usar la misma fuente (innerHeight) para #cam y #whirl se garantiza
+   alineación pixel-perfect de los aros sobre el globo en cualquier dispositivo. */
+(function initGlobeShift(){
+  const sh = Math.round(window.innerHeight * 0.07);
+  document.documentElement.style.setProperty('--globe-shift', `-${sh}px`);
+})();
 
 /* UTM pass-through — preserva parámetros de campaña al navegar a /home */
 function homeWithUtm(){
@@ -987,9 +999,10 @@ async function resetAll(){
   busy = false;
 }
 
-/* resize */
+/* resize — recalcula globe-shift para cubrir cambios del URL bar en móvil */
 addEventListener('resize', ()=>{
   W = innerWidth; H = innerHeight;
+  document.documentElement.style.setProperty('--globe-shift', `-${Math.round(H * 0.07)}px`);
   canvas.setAttribute('viewBox', `0 0 ${W} ${H}`);
   proj.translate([W/2, H/2]);
   redraw();

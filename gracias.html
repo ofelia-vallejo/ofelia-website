@@ -3,68 +3,336 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex">
-  <title>Gracias — Ofelia Vallejo</title>
+  <meta name="robots" content="noindex, nofollow">
+  <title>Confirmación — Ofelia Vallejo</title>
+  <meta name="description" content="El atelier ha recibido tu orden. Ofelia Vallejo Leather House — Medellín.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo_sello_badge.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
+  <meta name="theme-color" content="#0B1F3A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap"></noscript>
   <link rel="stylesheet" href="/assets/css/brand.css">
+  <link rel="stylesheet" href="/assets/css/mobile.css">
+  <link rel="stylesheet" href="/assets/css/account.css">
   <style>
-    .thanks {
-      margin-top: 56px;
-      min-height: calc(100vh - 56px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 48px 24px;
-      text-align: center;
+    /* ── post-compra ── */
+    .thanks-wrap {
+      min-height: calc(100vh - 64px);
+      display: grid;
+      place-items: center;
+      padding: clamp(72px, 10vw, 120px) var(--pad-x, 5vw) clamp(64px, 8vw, 100px);
       background: var(--marfil);
     }
-    .thanks h1 {
-      font-family: Cinzel, serif;
-      font-size: clamp(28px, 4vw, 40px);
-      color: var(--navy);
-      margin-bottom: 16px;
+
+    .thanks-inner {
+      max-width: 680px;
+      width: 100%;
     }
-    .thanks p {
-      font-size: 14px;
-      font-weight: 300;
-      color: rgba(11, 31, 58, 0.6);
-      max-width: 420px;
-      margin: 0 auto 28px;
-      line-height: 1.75;
-    }
-    .thanks a {
-      display: inline-block;
-      padding: 14px 36px;
-      border: 1px solid var(--navy);
-      font-family: Cinzel, serif;
-      font-size: 10px;
-      letter-spacing: 0.2em;
+
+    .thanks-eyebrow {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: .38em;
       text-transform: uppercase;
-      color: var(--navy);
+      color: var(--text-muted, rgba(11,31,58,.45));
+      margin: 0 0 22px;
     }
-    .thanks a:hover { background: var(--navy); color: var(--marfil); }
+
+    .thanks-rule {
+      width: 38px;
+      height: 1px;
+      background: var(--navy);
+      opacity: .22;
+      border: none;
+      margin: 0 0 32px;
+    }
+
+    .thanks-title {
+      font-family: Cinzel, serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: .01em;
+      color: var(--navy);
+      margin: 0 0 28px;
+    }
+
+    .thanks-body {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(11,31,58,.65);
+      max-width: 44ch;
+      margin: 0 0 48px;
+    }
+
+    /* pasos del proceso artesanal */
+    .thanks-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin: 0 0 52px;
+      border-top: 1px solid var(--rule, rgba(11,31,58,.12));
+      border-bottom: 1px solid var(--rule, rgba(11,31,58,.12));
+      padding: 28px 0;
+    }
+
+    .thanks-step {
+      padding: 0 20px 0 0;
+    }
+
+    .thanks-step__n {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 8.5px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--text-muted, rgba(11,31,58,.4));
+      margin: 0 0 8px;
+    }
+
+    .thanks-step__label {
+      font-family: Cinzel, serif;
+      font-size: 13px;
+      letter-spacing: .04em;
+      color: var(--navy);
+      margin: 0 0 6px;
+    }
+
+    .thanks-step__text {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(11,31,58,.55);
+      margin: 0;
+    }
+
+    /* referencia */
+    .thanks-ref {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--text-muted, rgba(11,31,58,.35));
+      margin: 0 0 48px;
+    }
+
+    .thanks-ref span {
+      color: var(--navy);
+      opacity: .7;
+    }
+
+    /* CTAs */
+    .thanks-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .thanks-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--navy);
+      color: var(--navy);
+      transition: background .22s, color .22s;
+    }
+    .thanks-btn:hover { background: var(--navy); color: var(--marfil); }
+    .thanks-btn--ghost {
+      border-color: rgba(11,31,58,.28);
+      color: rgba(11,31,58,.55);
+    }
+    .thanks-btn--ghost:hover { background: var(--navy); color: var(--marfil); border-color: var(--navy); }
+
+    /* banda de cierre navy */
+    .thanks-close {
+      background: var(--navy);
+      padding: clamp(56px, 8vw, 96px) var(--pad-x, 5vw);
+      text-align: center;
+    }
+
+    .thanks-close__logo {
+      display: block;
+      margin: 0 auto 20px;
+      opacity: .55;
+      height: 36px;
+      width: auto;
+    }
+
+    .thanks-close__copy {
+      font-family: Cinzel, serif;
+      font-size: clamp(11px, 1.4vw, 14px);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(243,238,230,.4);
+    }
+
+    @media (max-width: 640px) {
+      .thanks-steps {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .thanks-step {
+        padding: 0;
+        border-bottom: 1px solid var(--rule, rgba(11,31,58,.1));
+        padding-bottom: 20px;
+      }
+      .thanks-step:last-child { border-bottom: none; padding-bottom: 0; }
+    }
   </style>
 </head>
 <body>
-  <div class="thanks">
-    <div>
-      <h1>Elegancia que permanece.</h1>
-      <p id="thanksMsg">Tu pago fue recibido. El atelier confirmará el grabado y el envío por correo en las próximas horas.</p>
-      <p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
-        <a href="/coleccion">Volver a la colección</a>
-        <a href="/personalizar" style="border-color:rgba(11,31,58,0.35)">Estudio de grabado</a>
-      </p>
+
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="navbar" role="banner">
+    <div class="navbar__left" aria-hidden="true"></div>
+    <a href="/home" class="navbar__logo" aria-label="Ofelia Vallejo — Inicio">
+      <img src="/assets/img/logo_firma_nav.png?v=2" alt="Ofelia Vallejo" class="navbar__firma" width="280" height="80">
+    </a>
+    <div class="navbar__right">
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menú principal" data-dark>
+    <div class="nav-panel__links">
+      <p class="nav-panel__group">Casa</p>
+      <a href="/home" class="nav-panel__link">Inicio</a>
+      <a href="/coleccion" class="nav-panel__link">Colección</a>
+      <a href="/coleccion?cat=mujer" class="nav-panel__link">Mujer</a>
+      <a href="/coleccion?cat=hombre" class="nav-panel__link">Hombre</a>
+      <p class="nav-panel__group">Maison</p>
+      <a href="/manifiesto" class="nav-panel__link">Historia</a>
+      <a href="/cuero" class="nav-panel__link">Cuero</a>
+      <p class="nav-panel__group">Atelier</p>
+      <a href="/personalizar" class="nav-panel__link">Personalizar</a>
+      <a href="/contacto" class="nav-panel__link">Contacto</a>
+    </div>
+    <span class="nav-panel__foot">Leather House · Medellín → Lausanne</span>
+  </nav>
+
+  <main>
+
+    <div class="thanks-wrap">
+      <div class="thanks-inner">
+
+        <p class="thanks-eyebrow">Atelier · Medellín, Colombia</p>
+        <hr class="thanks-rule" aria-hidden="true">
+        <h1 class="thanks-title">La pieza está<br>en manos del atelier.</h1>
+        <p class="thanks-body" id="thanksMsg">
+          El atelier ha recibido tu orden. Recibirás confirmación por correo
+          con los detalles del grabado y el despacho en las próximas horas.
+        </p>
+
+        <div class="thanks-steps" aria-label="Proceso artesanal">
+          <article class="thanks-step">
+            <p class="thanks-step__n">01</p>
+            <h3 class="thanks-step__label">Confirmación</h3>
+            <p class="thanks-step__text">El atelier revisa tu orden y confirma los detalles del grabado.</p>
+          </article>
+          <article class="thanks-step">
+            <p class="thanks-step__n">02</p>
+            <h3 class="thanks-step__label">Grabado láser</h3>
+            <p class="thanks-step__text">Tu nombre se marca sobre el cuero a mano, en el punto exacto.</p>
+          </article>
+          <article class="thanks-step">
+            <p class="thanks-step__n">03</p>
+            <h3 class="thanks-step__label">Despacho</h3>
+            <p class="thanks-step__text">La pieza viaja desde Medellín con seguimiento y seguro de envío.</p>
+          </article>
+        </div>
+
+        <p class="thanks-ref" id="thanksRef" style="display:none">
+          Referencia · <span id="sessionRef"></span>
+        </p>
+
+        <nav class="thanks-ctas" aria-label="Continuar">
+          <a href="/coleccion" class="thanks-btn">Seguir explorando</a>
+          <a href="/personalizar" class="thanks-btn thanks-btn--ghost">Grabar otra pieza</a>
+        </nav>
+
+      </div>
+    </div>
+
+    <!-- banda de cierre -->
+    <div class="thanks-close" aria-hidden="true">
+      <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo" class="thanks-close__logo" width="60" height="40">
+      <p class="thanks-close__copy">Hecho a mano en Medellín · Elegancia que permanece</p>
+    </div>
+
+  </main>
+
+  <footer data-dark id="contacto">
+    <div class="foot__cols">
+      <div class="foot__brand">
+        <img src="/assets/img/logo_sello.png" alt="Ofelia Vallejo · Cuero hecho para durar" class="foot__logo" width="72" height="48">
+        <p class="foot__tag">Leather House · Medellín → Lausanne</p>
+      </div>
+      <nav class="foot__col" aria-label="Casa">
+        <h4>Casa</h4>
+        <ul>
+          <li><a href="/coleccion?cat=mujer">Mujer</a></li>
+          <li><a href="/coleccion?cat=hombre">Hombre</a></li>
+          <li><a href="/cuero">Cuero</a></li>
+          <li><a href="/manifiesto">Historia</a></li>
+        </ul>
+      </nav>
+      <nav class="foot__col" aria-label="Atelier">
+        <h4>Atelier</h4>
+        <ul>
+          <li><a href="/personalizar">Personalizar</a></li>
+          <li><a href="/coleccion">Colección</a></li>
+          <li><a href="/cuenta">Cuenta</a></li>
+          <li><a href="/contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav class="foot__col" aria-label="Contacto">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/573005526208" target="_blank" rel="noopener noreferrer">WhatsApp · Pedidos</a></li>
+          <li><a href="https://www.instagram.com/ofeliavallejoatelier/" target="_blank" rel="noopener noreferrer">@ofeliavallejoatelier</a></li>
+          <li><a href="mailto:hola@ofeliavallejo.com">hola@ofeliavallejo.com</a></li>
+        </ul>
+      </nav>
+      <nav class="foot__col" aria-label="Legal">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacidad">Privacidad</a></li>
+          <li><a href="/terminos">Términos</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Ofelia Vallejo · Hecho a mano en Medellín</span>
+      <span><a href="/privacidad">Privacidad</a> · <a href="/terminos">Términos</a></span>
+    </div>
+  </footer>
+
   <script>
+    // Muestra referencia de sesión Stripe si viene en la URL
     const sid = new URLSearchParams(location.search).get('session_id');
     if (sid) {
-      document.getElementById('thanksMsg').textContent +=
-        ' Referencia de sesión registrada.';
+      const ref = document.getElementById('sessionRef');
+      const refWrap = document.getElementById('thanksRef');
+      if (ref && refWrap) {
+        ref.textContent = sid.slice(-12).toUpperCase();
+        refWrap.style.display = 'block';
+      }
     }
   </script>
+  <script src="/assets/js/brand.js"></script>
+  <script src="/assets/js/account.js" defer></script>
 </body>
 </html>
