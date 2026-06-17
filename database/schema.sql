@@ -81,6 +81,17 @@ CREATE TABLE IF NOT EXISTS order_events (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- Migration: columnas de ficha técnica y product-copy (añadir si no existen)
+ALTER TABLE products ADD COLUMN IF NOT EXISTS tagline TEXT DEFAULT '';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS hero_description TEXT DEFAULT '';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS description_paragraphs JSONB NOT NULL DEFAULT '[]';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS material TEXT DEFAULT '';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS dimensions TEXT DEFAULT '';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS weight TEXT DEFAULT '';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS hardware TEXT DEFAULT '';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS care TEXT DEFAULT '';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS specs JSONB NOT NULL DEFAULT '[]';
+
 CREATE INDEX IF NOT EXISTS idx_products_slug ON products(slug);
 CREATE INDEX IF NOT EXISTS idx_products_active ON products(active);
 CREATE INDEX IF NOT EXISTS idx_variants_product ON product_variants(product_id);

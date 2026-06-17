@@ -209,6 +209,7 @@
 
     const heroSrc = hasGallery ? imgUrl(galleryImages[0]) : '';
     const editorial = p.editorialImage ? imgUrl(p.editorialImage) : '';
+    const fichaCaption = p.editorialCaption || '';
 
     const fichaMainSrc = editorial || heroSrc;
     const fichaMediaHtml = fichaMainSrc
@@ -218,7 +219,8 @@
             '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[1])) + '" alt="" loading="lazy">' +
             '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[2])) + '" alt="" loading="lazy">' +
             '</div>'
-          : '')
+          : '') +
+        (fichaCaption ? '<p class="pdp__ficha-caption">' + esc(fichaCaption) + '</p>' : '')
       : '<div class="pdp__ficha-img-placeholder"></div>';
 
     const stockText = stock <= 0 ? 'Agotado' : stock <= (p.lowStockAt || 2) ? '\u00daltimas unidades' : 'En stock';
@@ -292,6 +294,7 @@
       '<div class="pdp__ficha">' +
         '<div class="pdp__ficha-header">' +
           '<p class="pdp__ficha-label">Ficha Completa</p>' +
+          '<div class="pdp__ficha-header-rule" aria-hidden="true"></div>' +
           '<p class="pdp__ficha-subtitle">\u201cCuero hecho para durar.\u201d</p>' +
         '</div>' +
         '<div class="pdp__ficha-grid">' +
@@ -355,7 +358,7 @@
 
       // ── QUOTE BAND ─────────────────────────────────────────
       '<div class="pdp__quote">' +
-        '<p class="pdp__quote-text">\u201cCada pieza lleva la firma de la abuela Ofelia Vallejo \u2014 patrimonio, no producto.\u201d</p>' +
+        '<p class="pdp__quote-text">\u201cCuero hecho para durar \u2014 la firma de Ofelia Vallejo es patrimonio de la casa, no de una temporada.\u201d</p>' +
       '</div>' +
 
       // ── RELATED ────────────────────────────────────────────
