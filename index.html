@@ -144,13 +144,13 @@
     transform:translateY(var(--globe-shift,-7vh));
     transition:opacity .55s ease, transform .9s cubic-bezier(.7,0,.2,1)}
   #whirl.off{opacity:0;transform:translateY(var(--globe-shift,-7vh)) scale(1.4)}
-  .whirl-box{position:relative;width:min(442px,90vw);aspect-ratio:1}
+  .whirl-box{position:relative;width:var(--ring-size,min(560px,94vw));aspect-ratio:1}
   .whirl-box svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-  .ring{fill:none;stroke:var(--ink);stroke-width:.6;opacity:.55}
-  .ring.dot{stroke-dasharray:1 5;stroke-width:1}
-  .ring.dash{stroke-dasharray:14 8 2 8}
-  .ring.hair{stroke-dasharray:1 3;opacity:.35}
-  .tick{stroke:var(--ink);stroke-width:.6;opacity:.5}
+  .ring{fill:none;stroke:var(--ink);stroke-width:.9;opacity:.78}
+  .ring.dot{stroke-dasharray:1 5;stroke-width:1.4;opacity:.7}
+  .ring.dash{stroke-dasharray:14 8 2 8;stroke-width:1.1}
+  .ring.hair{stroke-dasharray:1 3;opacity:.5}
+  .tick{stroke:var(--ink);stroke-width:.9;opacity:.68}
   .spin-cw{transform-origin:50% 50%;animation:spin 22s linear infinite}
   .spin-ccw{transform-origin:50% 50%;animation:spin 38s linear infinite reverse}
   .spin-fast{transform-origin:50% 50%;animation:spin 11s linear infinite}
@@ -280,19 +280,26 @@
   .panel{position:absolute;bottom:0;left:0;right:0;opacity:0;transform:translateY(14px);
     transition:opacity .8s ease,transform .8s ease}
   .panel.active{opacity:1;transform:translateY(0)}
-  /* caption editorial sin marco — scrim suave que se funde con el lienzo */
-  .panel__card{position:relative;padding:22px 40px 20px;
-    background:radial-gradient(135% 150% at 50% 60%,rgba(243,238,230,.86) 0%,rgba(243,238,230,.60) 38%,rgba(243,238,230,0) 72%)}
-  .panel__eyebrow{margin:0 0 13px;
+  /* caption editorial — placa de papel marfil, like una ficha de cuidado de cuero.
+     Sin marco/brackets/glass: solo papel cálido con elevación difusa y detalle latón. */
+  .panel__card{position:relative;padding:30px 44px 30px;border-radius:3px;
+    background:linear-gradient(180deg,#f6f2ea 0%,#efe9de 100%);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset,
+               0 26px 60px -28px rgba(11,31,58,.32),
+               0 6px 22px -14px rgba(59,43,38,.22)}
+  /* hairline latón superior — única regla editorial, no enmarca la caja */
+  .panel__card::before{content:"";position:absolute;top:0;left:44px;right:44px;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(90,74,42,.55) 18%,rgba(90,74,42,.55) 82%,transparent)}
+  .panel__eyebrow{margin:0 0 14px;
     font:400 8.5px/1 "JetBrains Mono",monospace;letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
   .panel__eyebrow span{white-space:nowrap;display:inline-block}
-  .panel__title{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:clamp(22px,2.7vw,32px);
-    font-weight:400;letter-spacing:.006em;line-height:1.22;color:var(--ink);margin:0 0 14px;
+  .panel__title{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:clamp(23px,2.9vw,34px);
+    font-weight:400;letter-spacing:.006em;line-height:1.2;color:var(--ink);margin:0 0 15px;
     text-wrap:balance}
-  .panel__rule{width:30px;height:1px;margin:0 auto 14px;border:0;
+  .panel__rule{width:34px;height:1px;margin:0 auto 15px;border:0;
     background:linear-gradient(90deg,transparent,var(--gold) 50%,transparent)}
-  .panel__body{font-family:"Cormorant Garamond",serif;font-size:17px;font-weight:400;font-style:italic;
-    letter-spacing:.015em;line-height:1.55;color:var(--ink-2);margin:0 auto;max-width:38ch}
+  .panel__body{font-family:"Cormorant Garamond",serif;font-size:17.5px;font-weight:400;font-style:italic;
+    letter-spacing:.015em;line-height:1.56;color:var(--ink-2);margin:0 auto;max-width:38ch}
 
   /* hint de clic */
   .vhint{position:fixed;bottom:3.4vh;left:50%;transform:translateX(-50%);z-index:20;
@@ -540,8 +547,15 @@ const TW = {
 };
 
 /* radio base del globo — responsive, más grande, sin desbordar los anillos */
-const R0    = Math.max(158, Math.min(205, Math.min(W,H) * 0.26));
+const R0    = Math.max(150, Math.min(300, Math.min(W,H) * 0.30));
 const CLIP0 = R0 + 8;
+
+/* aros (#whirl): se dimensionan SIEMPRE a partir de R0 para que enmarquen el
+   globo con aire constante en cualquier pantalla (radio del aro ≈ 1.3× el globo). */
+(function sizeRings(){
+  const ring = Math.min(innerWidth * 0.96, innerHeight * 0.92, R0 * 2.62);
+  document.documentElement.style.setProperty('--ring-size', ring + 'px');
+})();
 
 /* projection */
 const proj = d3.geoOrthographic()

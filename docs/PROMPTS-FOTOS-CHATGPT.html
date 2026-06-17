@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompts de Foto · ChatGPT — Ofelia Vallejo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --marfil:#F3EEE6; --beige:#EDE5D8; --navy:#0B1F3A; --espresso:#3B2B26;
+    --vino:#5B1E24; --verde:#1F3527; --carbon:#141414; --gold:#5a4a2a;
+    --hair:rgba(11,31,58,.14); --muted:#6f6a60;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--marfil);color:var(--navy);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:300;
+    line-height:1.6;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+
+  /* ---------- Header ---------- */
+  header.masthead{padding:64px 0 40px;border-bottom:1px solid var(--hair)}
+  .eyebrow{font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.4em;
+    text-transform:uppercase;color:var(--gold);margin:0 0 18px}
+  h1{font-family:"Cinzel",serif;font-weight:400;font-size:clamp(28px,4.4vw,46px);
+    letter-spacing:.04em;line-height:1.15;margin:0 0 18px}
+  .lede{max-width:64ch;font-size:16px;color:#2a3b54;margin:0}
+  .lede strong{font-weight:400;color:var(--navy)}
+
+  /* ---------- Cómo usar ---------- */
+  .howto{margin:40px 0 0;padding:26px 30px;background:var(--beige);
+    border-left:3px solid var(--gold);border-radius:3px}
+  .howto h2{font-family:"Cinzel",serif;font-weight:400;font-size:18px;letter-spacing:.06em;
+    margin:0 0 16px;text-transform:uppercase}
+  .howto ol{margin:0;padding-left:20px}
+  .howto li{margin:0 0 10px;font-size:15px}
+  .howto code{font-family:"JetBrains Mono",monospace;font-size:13px;
+    background:rgba(11,31,58,.06);padding:2px 6px;border-radius:3px;color:var(--espresso)}
+
+  /* ---------- TOC ---------- */
+  nav.toc{position:sticky;top:0;z-index:30;background:rgba(243,238,230,.94);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--hair);padding:14px 0;margin:34px 0 0}
+  nav.toc .wrap{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+  nav.toc .toc-lbl{font:500 10px/1 "JetBrains Mono",monospace;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--muted);margin-right:6px}
+  nav.toc a{font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.06em;
+    text-decoration:none;color:var(--navy);opacity:.7;padding:4px 0;
+    border-bottom:1px solid transparent;transition:opacity .2s,border-color .2s}
+  nav.toc a:hover{opacity:1;border-color:var(--gold)}
+
+  /* ---------- Brand block ---------- */
+  section.brand-block{padding:48px 0 8px}
+  .section-head{display:flex;align-items:baseline;gap:16px;margin:0 0 8px;flex-wrap:wrap}
+  .section-head .num{font:500 12px/1 "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--gold)}
+  .section-head h2{font-family:"Cinzel",serif;font-weight:400;font-size:clamp(20px,2.6vw,28px);
+    letter-spacing:.05em;margin:0;text-transform:uppercase}
+  .section-note{max-width:62ch;color:var(--muted);font-size:14.5px;margin:6px 0 22px}
+
+  /* ---------- Producto ---------- */
+  section.product{padding:44px 0 8px;border-top:1px solid var(--hair);scroll-margin-top:170px}
+  .product-head{display:flex;align-items:baseline;justify-content:space-between;
+    gap:18px;flex-wrap:wrap;margin:0 0 6px}
+  .product-head .left{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .product-head .pname{font-family:"Cinzel",serif;font-weight:400;font-size:clamp(20px,2.8vw,30px);
+    letter-spacing:.04em;margin:0}
+  .product-head .pmeta{font:400 12px/1.4 "JetBrains Mono",monospace;letter-spacing:.05em;color:var(--muted)}
+  .badge{font:500 10px/1 "JetBrains Mono",monospace;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:6px 12px;white-space:nowrap}
+  .pinfo{font:400 13px/1.6 "JetBrains Mono",monospace;color:#3a4860;margin:10px 0 6px}
+  .pinfo span{color:var(--muted)}
+
+  /* ---------- Shot card ---------- */
+  .shot{margin:26px 0;border:1px solid var(--hair);border-radius:4px;overflow:hidden;
+    background:linear-gradient(180deg,#f6f2ea 0%,#efe9de 100%)}
+  .shot-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:16px 22px;border-bottom:1px solid var(--hair);flex-wrap:wrap}
+  .shot-id{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .shot-slot{font:500 12px/1 "JetBrains Mono",monospace;letter-spacing:.16em;color:var(--gold)}
+  .shot-name{font-family:"Cinzel",serif;font-weight:400;font-size:17px;letter-spacing:.03em}
+  .shot-tags{display:flex;gap:8px;flex-wrap:wrap}
+  .tag{font:500 10px/1 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;
+    color:#4a5468;background:rgba(11,31,58,.06);padding:6px 10px;border-radius:999px}
+  .tag.crit{color:#fff;background:var(--vino)}
+  .tag.modelo{color:var(--marfil);background:var(--espresso)}
+  .copy-btn{font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--marfil);background:var(--navy);border:0;border-radius:3px;padding:11px 18px;
+    cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
+  .copy-btn:hover{background:var(--espresso)}
+  .copy-btn:active{transform:translateY(1px)}
+  .copy-btn.ok{background:var(--verde)}
+  pre{margin:0;padding:22px 24px;overflow-x:auto;
+    font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.62;
+    color:#26303f;background:#fbf9f4;tab-size:2}
+  pre .ph{background:rgba(91,30,36,.12);color:var(--vino);font-weight:500;
+    padding:1px 4px;border-radius:3px}
+
+  footer{padding:56px 0 80px;border-top:1px solid var(--hair);margin-top:40px;
+    color:var(--muted);font:400 12px/1.6 "JetBrains Mono",monospace;letter-spacing:.05em}
+
+  .error{padding:40px;background:#fbeaea;border:1px solid var(--vino);border-radius:4px;
+    color:var(--vino);margin:40px 0}
+
+  @media (max-width:640px){
+    .wrap{padding:0 18px}
+    header.masthead{padding:44px 0 30px}
+    pre{font-size:11.5px;padding:18px}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Ofelia Vallejo · Leather House</p>
+    <h1>Prompts de Foto para ChatGPT</h1>
+    <p class="lede">Un prompt <strong>JSON exacto por cada toma faltante</strong> de cada producto.
+      Cada prompt ya lleva embebido <strong>«el pedazo de nosotros»</strong> — la identidad de marca,
+      la cámara, el modelo, las locaciones y las prohibiciones. Tú solo
+      <strong>adjuntas la foto real del producto</strong> y generas.</p>
+
+    <div class="howto">
+      <h2>Cómo usar</h2>
+      <ol>
+        <li>Elige el producto y la toma que necesitas abajo.</li>
+        <li>Pulsa <strong>Copiar JSON</strong> — el prompt completo (marca + toma) queda en tu portapapeles.</li>
+        <li>En ChatGPT, pega el JSON y <strong>adjunta la foto real del producto</strong> en el mismo mensaje.
+          El campo <code>&lt;&lt;ADJUNTA AQUÍ LA FOTO REAL DEL PRODUCTO&gt;&gt;</code> es solo un recordatorio —
+          la foto se sube como archivo, no se escribe.</li>
+        <li>Si la toma pide varios colores, genera <strong>una imagen por color</strong> listado en <code>colores_requeridos</code>.</li>
+        <li>Guarda con el nombre que indica <code>entrega</code> (ej. <code>travel-bag-i—hero-editorial—cognac.jpg</code>).</li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" id="toc"><div class="wrap"><span class="toc-lbl">Ir a</span></div></nav>
+
+<main id="app" class="wrap"></main>
+
+<footer><div class="wrap">
+  Fuente de datos: <code>data/photo-briefs.json</code> · Marca: CLAUDE.md · Brief: docs/FICHA-PRODUCTO-CLIENTE.md<br>
+  Generado para producción de contenido — Ofelia Vallejo · Medellín → Lausanne.
+</div></footer>
+
+<script>
+const DATA_URL = "../data/photo-briefs.json";
+
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const slugAnchor = s => "p-" + s;
+
+// El pedazo de nosotros — bloque de marca compartido, embebido en CADA prompt.
+function buildBrandBlock(d){
+  return {
+    casa: d.brand,
+    mercado: d.mercado,
+    posicionamiento: "Marroquinería paisa hecha a mano en Medellín (Colombia), elevada al estándar editorial europeo. El cuero es el héroe; el grabado láser es real, nunca placa ni vinilo.",
+    estilo: "Editorial fashion-house · luxury heritage · slow craft · serif romano · paleta tonal restringida · luz natural lateral dramática · mucho espacio negativo.",
+    referencia_visual: "Vogue Italia / AnOther / Document Journal — una casa de cuero paisa fotografiada en un lobby milanés al amanecer.",
+    paleta: d.paleta,
+    especificaciones_tecnicas: d.especsTecnicas,
+    modelo_estandar: d.modeloStandard,
+    locaciones: d.locacionesPrioritarias,
+    prohibiciones: d.prohibiciones
+  };
+}
+
+// Construye el prompt JSON exacto de una toma (marca embebida + producto + toma).
+function buildShotPrompt(brand, prod, shot){
+  const toma = {
+    id: shot.id,
+    nombre: shot.nombre,
+    ratio: shot.ratio,
+    prioridad: shot.prioridad,
+    lleva_modelo: !!shot.modeloRequerido
+  };
+  // Volcar el brief tal cual (concepto, modelo, producto, locacion, luz, camara, composicion, posProduccion…)
+  if (shot.brief) for (const k in shot.brief) toma[k] = shot.brief[k];
+
+  return {
+    instruccion: "Genera una fotografía editorial de producto para Ofelia Vallejo siguiendo EXACTAMENTE este brief. Usa la foto adjunta como referencia fiel del producto (forma, color, herrajes, grabado, proporciones). No inventes ni alteres el producto: respeta su diseño real.",
+    marca: brand,
+    producto: {
+      nombre: prod.name,
+      coleccion: prod.coleccion,
+      codigo: prod.productCode,
+      tipo: prod.tipo,
+      dimensiones: prod.dimensiones,
+      colores_requeridos: shot.coloresRequeridos || prod.colores,
+      grabado_laser: prod.engraveZona,
+      foto_referencia_real: "<<ADJUNTA AQUÍ LA FOTO REAL DEL PRODUCTO>>"
+    },
+    toma: toma,
+    entrega: shot.entrega
+  };
+}
+
+function highlightPlaceholders(jsonStr){
+  return esc(jsonStr).replace(
+    /&lt;&lt;ADJUNTA AQUÍ LA FOTO REAL DEL PRODUCTO&gt;&gt;/g,
+    '<span class="ph">&lt;&lt;ADJUNTA AQUÍ LA FOTO REAL DEL PRODUCTO&gt;&gt;</span>'
+  );
+}
+
+function shotCard(prompt, shot){
+  const json = JSON.stringify(prompt, null, 2);
+  const tags = [];
+  if ((shot.prioridad||"").toUpperCase() === "CRÍTICA") tags.push('<span class="tag crit">Crítica</span>');
+  else if (shot.prioridad) tags.push('<span class="tag">'+esc(shot.prioridad)+'</span>');
+  if (shot.modeloRequerido) tags.push('<span class="tag modelo">Con modelo</span>');
+  if (shot.ratio) tags.push('<span class="tag">'+esc(shot.ratio)+'</span>');
+
+  const div = document.createElement('div');
+  div.className = 'shot';
+  div.innerHTML =
+    '<div class="shot-bar">'+
+      '<div class="shot-id">'+
+        '<span class="shot-slot">'+String(shot.slot||'').padStart(2,'0')+'</span>'+
+        '<span class="shot-name">'+esc(shot.nombre||shot.id)+'</span>'+
+        '<div class="shot-tags">'+tags.join('')+'</div>'+
+      '</div>'+
+      '<button class="copy-btn">Copiar JSON</button>'+
+    '</div>'+
+    '<pre>'+highlightPlaceholders(json)+'</pre>';
+
+  const btn = div.querySelector('.copy-btn');
+  btn.addEventListener('click', async () => {
+    try{ await navigator.clipboard.writeText(json);
+      btn.textContent = '✓ Copiado'; btn.classList.add('ok');
+      setTimeout(()=>{ btn.textContent='Copiar JSON'; btn.classList.remove('ok'); },1600);
+    }catch(e){ btn.textContent='Selecciona y copia ↑'; }
+  });
+  return div;
+}
+
+(async function init(){
+  const app = document.getElementById('app');
+  const toc = document.querySelector('#toc .wrap');
+  let d;
+  try{
+    const res = await fetch(DATA_URL);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    d = await res.json();
+  }catch(err){
+    app.innerHTML = '<div class="error"><strong>No se pudo cargar '+DATA_URL+'.</strong><br>'+
+      'Abre este documento desde el servidor local o desde el sitio en línea (no con doble-clic / file://). '+
+      'Detalle: '+esc(err.message)+'</div>';
+    return;
+  }
+
+  const brand = buildBrandBlock(d);
+
+  // ---- Sección: el pedazo de nosotros ----
+  const bsec = document.createElement('section');
+  bsec.className = 'brand-block';
+  const bjson = JSON.stringify(brand, null, 2);
+  bsec.innerHTML =
+    '<div class="section-head"><span class="num">00</span><h2>El pedazo de nosotros</h2></div>'+
+    '<p class="section-note">Este bloque de marca ya va <strong>embebido dentro de cada prompt</strong> de abajo, '+
+      'así que normalmente no necesitas copiarlo aparte. Lo dejamos aquí como referencia única.</p>'+
+    '<div class="shot"><div class="shot-bar"><div class="shot-id">'+
+      '<span class="shot-slot">★</span><span class="shot-name">marca · contexto compartido</span>'+
+      '</div><button class="copy-btn">Copiar JSON</button></div><pre>'+esc(bjson)+'</pre></div>';
+  const bbtn = bsec.querySelector('.copy-btn');
+  bbtn.addEventListener('click', async()=>{ try{ await navigator.clipboard.writeText(bjson);
+    bbtn.textContent='✓ Copiado'; bbtn.classList.add('ok');
+    setTimeout(()=>{bbtn.textContent='Copiar JSON'; bbtn.classList.remove('ok');},1600);}catch(e){} });
+  app.appendChild(bsec);
+
+  // ---- Productos ----
+  (d.products||[]).forEach((prod, idx) => {
+    const sec = document.createElement('section');
+    sec.className = 'product';
+    sec.id = slugAnchor(prod.slug);
+
+    const isExample = idx === 0;
+    sec.innerHTML =
+      '<div class="product-head">'+
+        '<div class="left">'+
+          '<h2 class="pname">'+esc(prod.name)+'</h2>'+
+          '<span class="pmeta">'+esc(prod.productCode||'')+' · '+esc(prod.coleccion||'')+'</span>'+
+        '</div>'+
+        (isExample ? '<span class="badge">Ejemplo completo</span>' : '<span class="badge">'+(prod.shots||[]).length+' tomas</span>')+
+      '</div>'+
+      '<p class="pinfo"><span>colores:</span> '+esc((prod.colores||[]).join(' · '))+
+        '  &nbsp;·&nbsp; <span>medidas:</span> '+esc(prod.dimensiones||'—')+
+        '  &nbsp;·&nbsp; <span>grabado:</span> '+esc(prod.engraveZona||'—')+'</p>';
+
+    (prod.shots||[]).forEach(shot => {
+      const prompt = buildShotPrompt(brand, prod, shot);
+      sec.appendChild(shotCard(prompt, shot));
+    });
+    app.appendChild(sec);
+
+    const a = document.createElement('a');
+    a.href = '#'+slugAnchor(prod.slug);
+    a.textContent = prod.name;
+    toc.appendChild(a);
+  });
+})();
+</script>
+</body>
+</html>

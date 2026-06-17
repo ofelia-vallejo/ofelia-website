@@ -1,0 +1,1841 @@
+{
+  "version": 1,
+  "brand": "Ofelia Vallejo · Leather House",
+  "mercado": "Lausanne, Suiza → Europa",
+  "generatedAt": "2026-06-17",
+  "instrucciones": "Ver GUIA-FOTOGRAFICA.md para uso completo. Nomenclatura: {slug}—{shot-id}—{color}.jpg",
+  "especsTecnicas": {
+    "camara": "ARRI Alexa Mini LF · Hasselblad H6D · Phase One IQ4 (o equivalente MF)",
+    "lentes": "50–80mm primes · no gran angular",
+    "iso": "100–400",
+    "apertura": "f/2.0–f/2.8",
+    "emulacion": "Kodak Vision3 250D / Portra 400 en posproducción",
+    "temperatura": "3000–3200K · golden hour preferido",
+    "dimensionesMinimas": "2400px lado corto · 300dpi",
+    "formato": "JPG calidad 95+ · entregar RAW original",
+    "perfilColor": "sRGB para entrega web · ProPhoto en master"
+  },
+  "modeloStandard": {
+    "perfil": "Mujer o hombre latino/a, 25–45 años, presencia editorial no comercial",
+    "energia": "Serena, segura — sin sonrisa, sin actitud de catálogo",
+    "mirada": "Lateral, tres cuartos, hacia abajo o fuera de campo — nunca directo a cámara",
+    "wardrobe": "Tonos de paleta marca: marfil · lino · navy · espresso · vino · verde profundo. Sin logos de otras marcas",
+    "pelo": "Chignon bajo suelto, trenza lateral, suelto natural, o corte masculino limpio",
+    "maquillaje": "Minimal — piel natural con hidratante, sin base pesada"
+  },
+  "locacionesPrioritarias": [
+    "Lobby hotel europeo — travertino, latón, ventanas altas, luz de cúpula",
+    "Atelier paisa — tapia cal, madera nogal oscuro, cuero sobre mesa de trabajo",
+    "Calle colonial Medellín — zócalo pañete, sombra dura de fachada, luz Eje Cafetero",
+    "Estación de tren europea — andén, luz difusa de cúpula, ambiente de viaje",
+    "Interior lino / nogal — ventana arqueada, cortina lino, luz lateral suave",
+    "Guatapé — zócalo colonial colorido como fondo neutro · no primer plano"
+  ],
+  "prohibiciones": [
+    "Sonrisa comercial · head-on · pose de influencer · actitud retail",
+    "Fondo blanco de estudio genérico — si se hace estudio, usar superficie natural (lino, madera, pañete)",
+    "Sombrero vueltiao · Wayuu · folclorismo turístico · iconografía colombiana kitsch",
+    "Logo sobre papel, vinilo o placa metálica — solo grabado láser real sobre cuero",
+    "Flash frontal · luz plana sin dirección · Softbox de beauty dish",
+    "Filtros de color saturados · Instagram filters · preset de moda rápida",
+    "Accesorios visibles de otras marcas",
+    "Mármol con vetas doradas vectoriales · fondos degradados",
+    "Paisajes urbanos reconocibles de narco aesthetic o turismo masivo"
+  ],
+  "paleta": {
+    "marfil": "#F3EEE6",
+    "beige": "#EDE5D8",
+    "navy": "#0B1F3A",
+    "espresso": "#3B2B26",
+    "cognac": "#8B5E3C",
+    "vino": "#5B1E24",
+    "verde": "#1F3527",
+    "carbon": "#141414"
+  },
+
+  "products": [
+
+    {
+      "slug": "travel-bag-i",
+      "name": "Travel Bag I",
+      "productCode": "OV-TB-I",
+      "coleccion": "Guanábana",
+      "tipo": "bag-duffel",
+      "colores": ["cognac", "espresso"],
+      "primerColor": "cognac",
+      "precioBase": 300,
+      "engraveZona": "Esquina inferior derecha del panel frontal · ~4 cm del borde inferior y derecho",
+      "dimensiones": "48 × 28 × 22 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
+        "/imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/mujer/duffel-espresso-jet-lifestyle.jpg"
+      ],
+      "totalShotsFaltantes": 9,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac", "espresso"],
+          "estado": { "cognac": "actualizar", "espresso": "falta" },
+          "imagenExistente": { "cognac": "/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg" },
+          "brief": {
+            "concepto": "Modelo caminando o en transición en locación atmosférica. Bag colgado del hombro o tomado del asa — el cuero cognac o espresso debe ser el héroe visual.",
+            "modelo": "Mujer 25–40 · wardrobe marfil o lino crudo · sin accesorios competidores · mirada lateral o tres cuartos · paso natural",
+            "producto": "Bag colgado del hombro izquierdo o tomado del asa superior · grabado OV visible en esquina frontal inferior derecha",
+            "locacion": "Lobby europeo (primera opción) o atelier paisa con tapia cal · piso travertino o madera nogal",
+            "luz": "Golden hour lateral desde ventana alta · sombras largas sobre el cuero · 3000K",
+            "camara": "70–80mm · f/2.2 · ISO 200 · modelo a un tercio izquierdo del encuadre",
+            "composicion": "Modelo no centrada · bag ocupa ~40% del encuadre inferior · espacio negativo en zona superior",
+            "posProduccion": "Emulación Portra 400 · ligero virado cálido en shadows · no sobreexponer el cognac"
+          },
+          "entrega": "travel-bag-i—hero-editorial—{color}.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-asa",
+          "slot": 2,
+          "nombre": "Detalle Asa",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del asa superior de cuero doble cosido. Mostrar grosor, saddlestitch a mano y el tono natural del cuero cognac.",
+            "producto": "Bag en superficie de lino o madera nogal · asa en primer plano con hebilla latón visible al fondo",
+            "locacion": "Interior · superficie lino crudo o mesa nogal",
+            "luz": "Luz lateral suave desde ventana · sin flash · rebote en lino claro",
+            "camara": "80mm macro o 50mm cerrado · f/2.8 · ISO 200 · foco en nudo de costura",
+            "composicion": "Asa diagonal en el encuadre · textura del cuero llena la mitad del frame",
+            "posProduccion": "Sin sobre-sharpening · el grano del cuero debe verse natural"
+          },
+          "entrega": "travel-bag-i—detalle-asa—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "vista-trasera",
+          "slot": 3,
+          "nombre": "Vista Trasera",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Panel trasero del bag limpio, mostrando la estructura y el cuero sin hardware.",
+            "producto": "Bag de pie sobre superficie plana o colgado en pared de tapia · panel trasero centrado",
+            "locacion": "Pared pañete / tapia cal · o superficie lino",
+            "luz": "Luz lateral suave que muestre el grano del cuero · sin reflejos directos",
+            "camara": "50–60mm · f/2.8 · ISO 150 · perpendicular al panel",
+            "composicion": "Bag centrado con margen generoso · sin distractores",
+            "posProduccion": "Neutro · recuperar detalle en sombras del cuero"
+          },
+          "entrega": "travel-bag-i—vista-trasera—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 4,
+          "nombre": "Interior Abierto",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Bag abierto mostrando el forro de lino crudo interior y los bolsillos. Puede incluir un solo prop editorial: granos de café, hoja andina o tela lino.",
+            "producto": "Bag abierto plano o ligeramente inclinado · forro lino visible · cierre YKK latón en foco",
+            "locacion": "Mesa de madera nogal o superficie lino",
+            "luz": "Luz desde arriba-lateral · rebote suave para iluminar el interior",
+            "camara": "50mm · f/3.5 · ISO 200 · picado suave 45° desde arriba",
+            "composicion": "Interior ocupa ~60% del encuadre · prop mínimo si se usa",
+            "posProduccion": "Blancos del lino neutros · no sobreexponer el interior"
+          },
+          "entrega": "travel-bag-i—interior-abierto—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-sentada",
+          "slot": 5,
+          "nombre": "Lifestyle Sentada",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["cognac", "espresso"],
+          "estado": {
+            "cognac": "existente",
+            "espresso": "existente"
+          },
+          "imagenExistente": {
+            "cognac": "/imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg",
+            "espresso": "/imagenes nuevas/lifestyle/mujer/duffel-espresso-jet-lifestyle.jpg"
+          },
+          "brief": {
+            "concepto": "Modelo sentada (lobby, banco de estación, escalón colonial) con bag apoyado a su lado o sobre las rodillas. Narrativa de tránsito y pausa.",
+            "modelo": "Wardrobe espresso o navy · postura natural, no performativa · manos sobre bag o en regazo",
+            "producto": "Bag visible en su totalidad junto al modelo · grabado OV hacia cámara",
+            "locacion": "Banco de lobby europeo o escalón colonial · luz de ventana lateral",
+            "luz": "Golden hour desde lateral · model en media sombra · bag iluminado",
+            "camara": "70mm · f/2.0 · ISO 400",
+            "posProduccion": "Skin tones naturales · cuero calidez +5 · no limpiar piel en exceso"
+          },
+          "entrega": "travel-bag-i—lifestyle-sentada—{color}.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 6,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro extremo del grabado láser OV en esquina inferior derecha del panel frontal. El borde carbonizado y el grano comprimido deben ser legibles.",
+            "producto": "Panel frontal del bag · zona de grabado en foco nítido · bg desenfocado",
+            "locacion": "Cualquier superficie — lo que importa es la luz sobre el grabado",
+            "luz": "Luz rasante lateral muy dirigida (ventana estrecha o reflector de 30cm) para revelar profundidad del grabado · ~2700K",
+            "camara": "80–100mm macro · f/4 · ISO 200 · trípode",
+            "composicion": "Grabado ocupa 40% del encuadre · cuero circundante contextualizando",
+            "posProduccion": "Sin filtros · contraste local mínimo para revelar textura · no sharpening artificial"
+          },
+          "entrega": "travel-bag-i—grabado-laser-macro—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-costuras",
+          "slot": 7,
+          "nombre": "Detalle Costuras",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del saddlestitch a mano en el canto del bag. Mostrar ritmo de la costura, hilo encerado y el canto pintado y pulido.",
+            "producto": "Canto lateral o inferior del bag · costura en diagonal en el encuadre",
+            "luz": "Luz rasante lateral para revelar elevación del hilo · 3000K",
+            "camara": "80mm macro · f/3.5 · ISO 200",
+            "composicion": "Costura en diagonal / un tercio del encuadre · cuero de fondo ligeramente desenfocado",
+            "posProduccion": "Textura natural · hilo debe distinguirse del cuero sin sobre-saturar"
+          },
+          "entrega": "travel-bag-i—detalle-costuras—cognac.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "travel-bag-ii",
+      "name": "Travel Bag II · Maletín Antioquia",
+      "productCode": "OV-TB-II",
+      "coleccion": "Borojó",
+      "tipo": "bag-maletin",
+      "colores": ["negro"],
+      "primerColor": "negro",
+      "precioBase": 450,
+      "engraveZona": "Esquina inferior derecha del panel frontal · ~4 cm del borde inferior y derecho",
+      "dimensiones": "42 × 32 × 12 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
+        "/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg"
+      ],
+      "totalShotsFaltantes": 5,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "actualizar" },
+          "imagenExistente": { "negro": "/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg" },
+          "brief": {
+            "concepto": "Hombre en tránsito de negocios · maletín negro como pieza de identidad. Locación con arquitectura europea sobria. Bag tomado del asa superior.",
+            "modelo": "Hombre 30–45 · saco navy o espresso · sin corbata · mirada hacia destino o tres cuartos · paso con propósito",
+            "producto": "Maletín negro tomado del asa · estructura rígida visible de perfil · grabado OV en esquina frontal inferior derecha",
+            "locacion": "Lobby europeo (mármol/travertino) o pasillos de estación de tren · arquitectura limpia",
+            "luz": "Golden hour lateral desde alto · sombra del maletín sobre piso · 3100K",
+            "camara": "70–80mm · f/2.0 · ISO 300 · modelo a tercio izquierdo",
+            "composicion": "Bag en perfil · estructura del maletín legible · espacio aéreo por encima del modelo",
+            "posProduccion": "Negro profundo con detalle en shadows · no crushar · Portra 400 emulation · skin tones cálidos naturales"
+          },
+          "entrega": "travel-bag-ii—hero-editorial—negro.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-asa",
+          "slot": 2,
+          "nombre": "Detalle Asa",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Macro del asa superior de cuero negro doble cosido con herrajes latón antiguo.",
+            "producto": "Asa en primer plano · hebilla latón en segundo plano desenfocado",
+            "luz": "Lateral rasante · revelar superficie del cuero negro sin lavarlo",
+            "camara": "80mm · f/2.8 · ISO 200",
+            "composicion": "Asa diagonal · latón como acento cálido sobre negro profundo",
+            "posProduccion": "Negro con riqueza en shadows · latón con calidez natural"
+          },
+          "entrega": "travel-bag-ii—detalle-asa—negro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "vista-trasera",
+          "slot": 3,
+          "nombre": "Vista Trasera",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Panel trasero del maletín estructurado. Mostrar el porta-documentos o bolsillo trasero si existe.",
+            "producto": "Maletín de pie o apoyado · panel posterior centrado · cierre o acceso visible",
+            "locacion": "Superficie lino o mesa madera",
+            "luz": "Lateral suave · sin reflejos en cuero negro",
+            "camara": "50mm · f/3.2 · ISO 150",
+            "posProduccion": "Negro rico · no crushar sombras"
+          },
+          "entrega": "travel-bag-ii—vista-trasera—negro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 4,
+          "nombre": "Interior Abierto",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Maletín abierto mostrando forro de lino natural y compartimento para documentos/laptop.",
+            "producto": "Maletín abierto 90° · forro lino natural · compartimentos visibles · cierre latón en primer plano",
+            "locacion": "Mesa madera oscura o superficie lino",
+            "luz": "Desde arriba-lateral · interior iluminado uniformemente",
+            "camara": "50mm · f/3.5 · ISO 200 · 45° desde arriba",
+            "posProduccion": "Contraste moderado · lino neutro no sobreexpuesto"
+          },
+          "entrega": "travel-bag-ii—interior-abierto—negro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-sentada",
+          "slot": 5,
+          "nombre": "Lifestyle Sentado",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "existente" },
+          "imagenExistente": { "negro": "/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg" },
+          "brief": {
+            "concepto": "Hombre sentado con maletín sobre las rodillas o a su lado. Pausa en tránsito.",
+            "modelo": "Hombre 30–45 · postura seria, no tensa · maletín sobre muslos o junto a él",
+            "locacion": "Banco lobby · peldaño arquitectónico europeo",
+            "luz": "Golden hour lateral",
+            "camara": "70mm · f/2.2 · ISO 400"
+          },
+          "entrega": "travel-bag-ii—lifestyle-sentada—negro.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 6,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado láser OV sobre cuero negro. El contraste es menor que en cognac — la luz rasante es más crítica.",
+            "luz": "Luz rasante extrema desde 10° sobre el cuero · revelar profundidad del grabado · 2700K",
+            "camara": "80–100mm macro · f/4 · ISO 200 · trípode",
+            "posProduccion": "Sin artificios · contraste local muy sutil para revelar marca"
+          },
+          "entrega": "travel-bag-ii—grabado-laser-macro—negro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-costuras",
+          "slot": 7,
+          "nombre": "Detalle Costuras",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Saddlestitch sobre cuero negro. El hilo en contraste sutil sobre negro profundo.",
+            "luz": "Rasante lateral · revelar el hilo encerado y el canto pulido",
+            "camara": "80mm macro · f/3.5 · ISO 200"
+          },
+          "entrega": "travel-bag-ii—detalle-costuras—negro.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "travel-bag-iii",
+      "name": "Travel Bag III",
+      "productCode": "OV-TB-III",
+      "coleccion": "Guanábana",
+      "tipo": "bag-morral-weekender",
+      "colores": ["cognac"],
+      "primerColor": "cognac",
+      "precioBase": 350,
+      "engraveZona": "Passant superior o esquina inferior derecha del panel frontal",
+      "dimensiones": "38 × 30 × 18 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg"
+      ],
+      "totalShotsFaltantes": 6,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "actualizar" },
+          "imagenExistente": { "cognac": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg" },
+          "brief": {
+            "concepto": "Modelo con morral weekender en espalda o sostenido sobre un hombro. Silueta viajera — ciudad y camino. DNA paisa visible en locación.",
+            "modelo": "Mujer 25–38 · wardrobe lino crudo o espresso · correa del morral sobre hombro izquierdo · paso natural",
+            "producto": "Morral cognac en espalda o costado · grabado OV visible si el passant está al frente · correas ajustadas naturalmente",
+            "locacion": "Calle colonial Medellín (primera opción) · o corredor de hotel europeo",
+            "luz": "Luz lateral 7am eje cafetero o golden hour europeo · 3000–3200K",
+            "camara": "70mm · f/2.0 · ISO 300 · modelo a tercio del encuadre",
+            "posProduccion": "Cognac calidez natural · sombras ricas · sin HDR"
+          },
+          "entrega": "travel-bag-iii—hero-editorial—cognac.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-asa",
+          "slot": 2,
+          "nombre": "Detalle Correas y Passant",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro de las correas acolchadas y el sistema de hebilla latón. Mostrar el grosor del cuero y el acolchado.",
+            "luz": "Lateral rasante · revelar relieve del acolchado",
+            "camara": "80mm macro · f/2.8 · ISO 200"
+          },
+          "entrega": "travel-bag-iii—detalle-correas—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "vista-trasera",
+          "slot": 3,
+          "nombre": "Vista Trasera con Modelo",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Modelo de espaldas con morral puesto. Silueta viajera. El cuero cognac ocupa toda la espalda del encuadre.",
+            "modelo": "Mismo de hero · mirada ligeramente girada pero sin enfrentar cámara · pelo recogido o suelto hacia frente para mostrar morral",
+            "locacion": "Calle o corredor con perspectiva hacia fondo · modelo a un tercio superior del encuadre",
+            "luz": "Contraluzy dorado suave desde frente (rebote) + golden hour desde detrás",
+            "camara": "70mm · f/2.2 · ISO 400 · metering en cuero del morral"
+          },
+          "entrega": "travel-bag-iii—vista-trasera—cognac.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 4,
+          "nombre": "Interior Abierto",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Morral abierto con cordón de cierre extendido. Mostrar capacidad interior y lino o forro natural.",
+            "luz": "Desde arriba-lateral · interior iluminado sin sombras duras",
+            "camara": "50mm · f/3.5 · 45° desde arriba"
+          },
+          "entrega": "travel-bag-iii—interior-abierto—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-camino",
+          "slot": 5,
+          "nombre": "Lifestyle Camino",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Modelo en movimiento en locación exterior andina o urbana. Morral en espalda — naturalidad de quien viaja ligero. No pose: acción real.",
+            "modelo": "Mujer en paso natural · no mirar cámara · morral bien puesto en espalda",
+            "locacion": "Calle empedrada, corredor arbolado andino, o andén urbano con arquitectura de fondo",
+            "luz": "Golden hour desde frente o lateral · luz sobre cuero cognac prioritaria",
+            "camara": "80mm · f/2.0 · ISO 400 · barrido suave si hay movimiento"
+          },
+          "entrega": "travel-bag-iii—lifestyle-camino—cognac.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 6,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado OV en passant superior o esquina de panel frontal. Cuero cognac contrasta bien — la marca debe leerse con nitidez.",
+            "luz": "Rasante extrema · 2700K · trípode",
+            "camara": "80–100mm macro · f/4 · ISO 200"
+          },
+          "entrega": "travel-bag-iii—grabado-laser-macro—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-costuras",
+          "slot": 7,
+          "nombre": "Detalle Costuras",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Saddlestitch en canto del morral. Costura y canto pintado.",
+            "luz": "Rasante lateral · 3000K",
+            "camara": "80mm macro · f/3.5 · ISO 200"
+          },
+          "entrega": "travel-bag-iii—detalle-costuras—cognac.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "bolso-dama",
+      "name": "Bolso Dama",
+      "productCode": "OV-BD",
+      "coleccion": "Guanábana",
+      "tipo": "bag-tote",
+      "colores": ["cognac"],
+      "primerColor": "cognac",
+      "precioBase": 400,
+      "engraveZona": "Centrado al frente bajo · ~6 cm sobre la base del tote",
+      "dimensiones": "38 × 32 × 14 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg",
+        "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg"
+      ],
+      "totalShotsFaltantes": 5,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "existente" },
+          "imagenExistente": { "cognac": "/imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg" },
+          "brief": {
+            "concepto": "Mujer portando el tote en asa de mano o en pliegue del brazo. El tote ocupa el centro bajo del encuadre. Locación con arquitectura sobria.",
+            "modelo": "Mujer 28–42 · wardrobe marfil o lino · tote en brazo doblado o mano derecha · mirada hacia el lado",
+            "producto": "Tote cognac con grabado OV centrado bajo visible · asas dobles relajadas",
+            "locacion": "Lobby europeo o galería con piso travertino",
+            "luz": "Luz lateral alta · 3000K · sombra suave del tote",
+            "camara": "70mm · f/2.2 · ISO 200 · modelo a tercio izquierdo"
+          },
+          "entrega": "bolso-dama—hero-editorial—cognac.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-asa",
+          "slot": 2,
+          "nombre": "Detalle Asas",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Las dos asas doble cosidas en primer plano. El empalme al cuerpo del tote visible.",
+            "luz": "Lateral rasante · revelar doble costura",
+            "camara": "80mm · f/2.8 · ISO 200",
+            "composicion": "Las dos asas paralelas en el encuadre · latón de herraje como acento"
+          },
+          "entrega": "bolso-dama—detalle-asas—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "vista-trasera",
+          "slot": 3,
+          "nombre": "Vista Trasera",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Panel trasero del tote de pie sobre superficie plana. Mostrar la silueta limpia y la estructura.",
+            "locacion": "Superficie lino o madera",
+            "luz": "Lateral suave",
+            "camara": "50mm · f/3.2 · ISO 150 · perpendicular"
+          },
+          "entrega": "bolso-dama—vista-trasera—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 4,
+          "nombre": "Interior Abierto",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Tote abierto desde arriba mostrando forro lino y bolsillo interior. Puede incluir un pañuelo de lino como prop mínimo.",
+            "luz": "Cenital suave · rebote desde superficie clara",
+            "camara": "50mm · f/3.5 · ISO 200 · cenital"
+          },
+          "entrega": "bolso-dama—interior-abierto—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-sentada",
+          "slot": 5,
+          "nombre": "Lifestyle Sentada",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "existente" },
+          "imagenExistente": { "cognac": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg" },
+          "brief": {
+            "concepto": "Mujer sentada con tote a su lado o sobre las rodillas. Narrativa de ciudad y pausa.",
+            "modelo": "Mujer en banco de lobby o escalón · tote apoyado · mirada lateral",
+            "locacion": "Lobby europeo o café paisa con madera oscura",
+            "luz": "Ventana lateral · golden hour"
+          },
+          "entrega": "bolso-dama—lifestyle-sentada—cognac.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 6,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado OV centrado al frente bajo del tote. Posición única de la firma en tote — diferente al resto de productos.",
+            "nota": "IMPORTANTE: El grabado en este producto va centrado frente inferior (~6 cm de la base) — encuadrar la zona media-baja del panel frontal",
+            "luz": "Rasante extrema lateral · 2700K · trípode obligatorio",
+            "camara": "80–100mm macro · f/4 · ISO 200"
+          },
+          "entrega": "bolso-dama—grabado-laser-macro—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-costuras",
+          "slot": 7,
+          "nombre": "Detalle Costuras",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Saddlestitch en canto del tote o en refuerzo de asa.",
+            "luz": "Rasante lateral · 3000K",
+            "camara": "80mm macro · f/3.5"
+          },
+          "entrega": "bolso-dama—detalle-costuras—cognac.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "morral-elite",
+      "name": "Morral Elite",
+      "productCode": "OV-ME",
+      "coleccion": "Chontaduro",
+      "tipo": "bag-morral",
+      "colores": ["negro"],
+      "primerColor": "negro",
+      "precioBase": 400,
+      "engraveZona": "Passant superior o esquina inferior derecha del panel frontal",
+      "dimensiones": "40 × 32 × 16 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
+        "/imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg"
+      ],
+      "totalShotsFaltantes": 5,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "existente" },
+          "imagenExistente": { "negro": "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg" },
+          "brief": {
+            "concepto": "Hombre con morral negro en espalda en locación con arquitectura sobria. Elegancia funcional — morral de quien trabaja con las manos y la mente.",
+            "modelo": "Hombre 28–42 · saco o camisa navy · morral bien puesto · mirada hacia adelante-lateral",
+            "locacion": "Corredor arquitectónico · lobby de edificio histórico · calle colonial Medellín",
+            "luz": "Golden hour lateral · 3000K",
+            "camara": "70mm · f/2.0 · ISO 300"
+          },
+          "entrega": "morral-elite—hero-editorial—negro.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-asa",
+          "slot": 2,
+          "nombre": "Detalle Correas Acolchadas",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Macro de las correas acolchadas ajustables sobre cuero negro. Mostrar ajuste y terminación.",
+            "luz": "Lateral rasante · revelar relieve del acolchado",
+            "camara": "80mm · f/2.8 · ISO 200"
+          },
+          "entrega": "morral-elite—detalle-correas—negro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "vista-trasera",
+          "slot": 3,
+          "nombre": "Vista Trasera con Modelo",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Hombre de espaldas con morral negro puesto. Silueta del morral elite limpia contra fondo arquitectónico.",
+            "modelo": "Hombre · mirada girada 30° · pelo corto · sin accesorios visibles",
+            "locacion": "Calle o corredor con arquitectura de fondo difuminado",
+            "luz": "Contralucy dorado suave · rebote desde pared de pañete",
+            "camara": "80mm · f/2.2 · ISO 400"
+          },
+          "entrega": "morral-elite—vista-trasera—negro.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 4,
+          "nombre": "Interior Organizado",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Morral abierto mostrando los compartimentos internos organizados y el organizador interior. Puede incluir un cuaderno de cuero o similar como prop editorial mínimo.",
+            "luz": "Desde arriba-lateral · interior iluminado · sin flash",
+            "camara": "50mm · f/3.5 · 45° desde arriba · ISO 200"
+          },
+          "entrega": "morral-elite—interior-abierto—negro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-sentada",
+          "slot": 5,
+          "nombre": "Lifestyle Sentado",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "existente" },
+          "imagenExistente": { "negro": "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg" },
+          "brief": {
+            "concepto": "Hombre sentado con morral a su lado o en regazo. Narrativa de trabajo y pausa.",
+            "locacion": "Silla o banco de lobby · luz de ventana lateral",
+            "camara": "70mm · f/2.0 · ISO 400"
+          },
+          "entrega": "morral-elite—lifestyle-sentada—negro.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 6,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado OV en cuero negro. Luz rasante crítica — el cuero negro requiere ángulo de 10–15° para revelar la marca.",
+            "luz": "Rasante extrema desde 10–15° · 2700K · trípode obligatorio",
+            "camara": "80–100mm macro · f/4 · ISO 200"
+          },
+          "entrega": "morral-elite—grabado-laser-macro—negro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-costuras",
+          "slot": 7,
+          "nombre": "Detalle Costuras",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro"],
+          "estado": { "negro": "falta" },
+          "brief": {
+            "concepto": "Costuras reforzadas a mano en canto del morral.",
+            "luz": "Rasante lateral",
+            "camara": "80mm macro · f/3.5 · ISO 200"
+          },
+          "entrega": "morral-elite—detalle-costuras—negro.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "morral-clasico",
+      "name": "Morral Clásico",
+      "productCode": "OV-MC",
+      "coleccion": "Chontaduro",
+      "tipo": "bag-morral",
+      "colores": ["cognac"],
+      "primerColor": "cognac",
+      "precioBase": 350,
+      "engraveZona": "Passant superior o panel frontal",
+      "dimensiones": "36 × 28 × 14 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg"
+      ],
+      "totalShotsFaltantes": 6,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "actualizar" },
+          "imagenExistente": { "cognac": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg" },
+          "brief": {
+            "concepto": "La forma clásica del morral paisa — cuero cognac puro sin estructura rígida. El morral cae naturalmente desde los hombros. Locación con carácter andino.",
+            "modelo": "Mujer joven (22–35) o hombre joven · morral puesto en ambas correas · postura natural sin rigidez",
+            "locacion": "Calle colonial Medellín o corredor con tapia cal · primera opción paisa",
+            "luz": "Luz andina de mañana (7–9am equivalente) · lateral difusa · 3200K",
+            "camara": "70mm · f/2.2 · ISO 250",
+            "posProduccion": "Cognac vivo pero natural · no sobreaturar"
+          },
+          "entrega": "morral-clasico—hero-editorial—cognac.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-correas",
+          "slot": 2,
+          "nombre": "Detalle Correas y Hebilla",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Correas de cuero reforzado y hebilla latón del cordón de cierre.",
+            "luz": "Lateral rasante",
+            "camara": "80mm · f/2.8 · ISO 200"
+          },
+          "entrega": "morral-clasico—detalle-correas—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "vista-trasera",
+          "slot": 3,
+          "nombre": "Vista Trasera",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Modelo de espaldas con morral clásico puesto. Las correas de cuero en diagonal sobre la espalda.",
+            "camara": "70mm · f/2.0 · ISO 400",
+            "luz": "Contraluz dorado suave"
+          },
+          "entrega": "morral-clasico—vista-trasera—cognac.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 4,
+          "nombre": "Interior Abierto",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Morral abierto con cordón extendido. Capacidad generosa interior visible.",
+            "luz": "Desde arriba-lateral",
+            "camara": "50mm · f/3.5 · ISO 200 · 45° cenital"
+          },
+          "entrega": "morral-clasico—interior-abierto—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-camino",
+          "slot": 5,
+          "nombre": "Lifestyle Camino",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Morral clásico en acción — caminando en locación exterior paisa. La silueta atemporal del morral antioqueño.",
+            "locacion": "Calle empedrada o camino andino · primera opción de DNA paisa para este producto",
+            "luz": "Golden hour andino · luz lateral desde fachada",
+            "camara": "70mm · f/2.0 · ISO 400 · captura en movimiento natural"
+          },
+          "entrega": "morral-clasico—lifestyle-camino—cognac.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 6,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado OV en passant superior o panel frontal.",
+            "luz": "Rasante extrema · 2700K · trípode",
+            "camara": "80–100mm macro · f/4 · ISO 200"
+          },
+          "entrega": "morral-clasico—grabado-laser-macro—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-costuras",
+          "slot": 7,
+          "nombre": "Detalle Costuras",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Costuras a mano en canto o refuerzo del morral.",
+            "luz": "Rasante lateral · 3000K",
+            "camara": "80mm macro · f/3.5"
+          },
+          "entrega": "morral-clasico—detalle-costuras—cognac.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "bandolera-moderna",
+      "name": "Bandolera Moderna",
+      "productCode": "OV-BM",
+      "coleccion": "Uchuva",
+      "tipo": "crossbody",
+      "colores": ["cognac", "negro"],
+      "primerColor": "cognac",
+      "precioBase": 250,
+      "engraveZona": "Esquina inferior derecha del panel frontal · ~3 cm de los bordes",
+      "dimensiones": "24 × 18 × 8 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/unisex/bandolera-moderna-negro-metrocable-lifestyle.jpg",
+        "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg"
+      ],
+      "totalShotsFaltantes": 8,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac", "negro"],
+          "estado": { "cognac": "falta", "negro": "actualizar" },
+          "imagenExistente": { "negro": "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg" },
+          "brief": {
+            "concepto": "Modelo con bandolera crossbody en porte natural. Pieza compacta pero protagonista. Composición donde la bandolera cae sobre el torso, visible en su totalidad.",
+            "modelo": "Mujer 25–38 · wardrobe lino o espresso · bandolera cruzada sobre el torso · brazo relajado",
+            "producto": "Los dos compartimentos zip visibles · correa ajustada a la talla · grabado OV en esquina inferior derecha visible",
+            "locacion": "Arquitectura con textura — tapia cal, pañete, travertino. No fondo plano ni genérico",
+            "luz": "Golden hour lateral · 3000K · sombra suave de la correa sobre el body",
+            "camara": "70–80mm · f/2.2 · ISO 250",
+            "composicion": "Bandolera en el centro-bajo del encuadre · modelo a dos tercios superiores"
+          },
+          "entrega": "bandolera-moderna—hero-editorial—{color}.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-frontal",
+          "slot": 2,
+          "nombre": "Detalle Frontal",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac", "negro"],
+          "estado": { "cognac": "falta", "negro": "falta" },
+          "brief": {
+            "concepto": "Vista frontal plana de la bandolera mostrando los dos compartimentos zip y el cierre latón.",
+            "producto": "Bandolera de frente sobre superficie lino · cierres latón cerrados · sin correa (colocar aparte)",
+            "luz": "Lateral suave · 3000K",
+            "camara": "50–60mm · f/3.2 · ISO 150 · perpendicular al panel frontal"
+          },
+          "entrega": "bandolera-moderna—detalle-frontal—{color}.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-caminando",
+          "slot": 3,
+          "nombre": "Lifestyle Caminando",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac", "negro"],
+          "estado": {
+            "cognac": "existente",
+            "negro": "existente"
+          },
+          "imagenExistente": {
+            "cognac": "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg",
+            "negro": "/imagenes nuevas/lifestyle/unisex/bandolera-moderna-negro-metrocable-lifestyle.jpg"
+          },
+          "brief": {
+            "concepto": "Modelo en movimiento natural con bandolera cruzada. Narrativa de manos libres y ciudad.",
+            "locacion": "Calle con arquitectura de fondo o corredor urbano con carácter",
+            "camara": "70mm · f/2.0 · ISO 400"
+          },
+          "entrega": "bandolera-moderna—lifestyle-caminando—{color}.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "interior-zip",
+          "slot": 4,
+          "nombre": "Interior y Compartimentos",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Bandolera abierta mostrando ambos compartimentos con cierre zip. Forro o interior visible.",
+            "luz": "Desde arriba-lateral · interior bien iluminado",
+            "camara": "50mm · f/3.5 · 45° cenital · ISO 200"
+          },
+          "entrega": "bandolera-moderna—interior-zip—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-sentada",
+          "slot": 5,
+          "nombre": "Lifestyle Sentada",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Modelo sentada con bandolera en el torso o sobre las piernas. Narrativa de pausa en la ciudad.",
+            "modelo": "Mujer · postura relajada · bandolera visible desde frente",
+            "locacion": "Banco de lobby, escalón, o silla de café",
+            "luz": "Luz de ventana lateral · 3000K"
+          },
+          "entrega": "bandolera-moderna—lifestyle-sentada—cognac.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 6,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado OV en esquina inferior derecha del panel frontal · ~3 cm de los bordes. Zona pequeña — usar macro 100mm si disponible.",
+            "luz": "Rasante extrema · 2700K · trípode · reflector de tarjeta blanca para fill mínimo",
+            "camara": "80–100mm macro · f/4 · ISO 200"
+          },
+          "entrega": "bandolera-moderna—grabado-laser-macro—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-correa",
+          "slot": 7,
+          "nombre": "Detalle Correa y Hebilla",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro de la correa ajustable y la hebilla de ajuste. Mostrar mecanismo y cuero de la correa.",
+            "luz": "Lateral rasante · 3000K",
+            "camara": "80mm · f/2.8 · ISO 200"
+          },
+          "entrega": "bandolera-moderna—detalle-correa—cognac.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "bandolera-elite",
+      "name": "Bandolera Pelo · Oro",
+      "productCode": "OV-BE",
+      "coleccion": "Uchuva",
+      "tipo": "crossbody-pelo",
+      "colores": ["marfil-oro"],
+      "primerColor": "marfil-oro",
+      "precioBase": 250,
+      "engraveZona": "Zona frontal según diseño de la pieza",
+      "dimensiones": "26 × 20 × 7 cm",
+      "notaMaterial": "Pelo sellado — NO usar luz rasante agresiva sobre la superficie de pelo · la textura es delicada",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/bandoleras/bandolera-pelo-oro-estudio.jpg",
+        "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg"
+      ],
+      "totalShotsFaltantes": 5,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "3:4",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "actualizar" },
+          "imagenExistente": { "marfil-oro": "/imagenes nuevas/producto/bandoleras/bandolera-pelo-oro-estudio.jpg" },
+          "brief": {
+            "concepto": "La bandolera de pelo sellado marfil con motivo oro sobre modelo. El material es el protagonista absoluto — inusual en el catálogo, contrasta con los cueros plenos.",
+            "modelo": "Mujer 28–42 · wardrobe navy o espresso · bandolera cruzada · el contraste marfil/oro sobre oscuro es la composición",
+            "producto": "Bandolera en porte natural · motivo oro visible · correa textil tejida en plano",
+            "locacion": "Interior con arquitectura europea histórica · o galería con paredes neutras oscuras",
+            "luz": "Luz lateral suave · NO luz rasante sobre pelo sellado · 3000K difusa",
+            "camara": "70mm · f/2.5 · ISO 300",
+            "notaLuz": "El pelo sellado refleja diferente al cuero liso — hacer pruebas antes del shoot principal"
+          },
+          "entrega": "bandolera-elite—hero-editorial—marfil-oro.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-frontal",
+          "slot": 2,
+          "nombre": "Detalle Motivo Oro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Macro del motivo oro sobre pelo sellado marfil. El detalle editorial que diferencia esta pieza en el catálogo.",
+            "luz": "Luz frontal-lateral muy suave y difusa para capturar el motivo oro sin sobreexponer el pelo marfil · usar diffuser suave",
+            "camara": "80–100mm · f/3.5 · ISO 200 · trípode",
+            "notaCritica": "El pelo sellado requiere luz cuidadosa — probar exposición antes del encuadre final"
+          },
+          "entrega": "bandolera-elite—detalle-motivo-oro—marfil-oro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-caminando",
+          "slot": 3,
+          "nombre": "Lifestyle Caminando",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "existente" },
+          "imagenExistente": { "marfil-oro": "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg" },
+          "brief": {
+            "concepto": "Modelo en movimiento en calle colonial. La bandolera marfil-oro contrasta con el entorno de pañete y color.",
+            "locacion": "Calle colonial Medellín · fachada oscura de fondo",
+            "camara": "70mm · f/2.0 · ISO 400"
+          },
+          "entrega": "bandolera-elite—lifestyle-caminando—marfil-oro.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "interior-zip",
+          "slot": 4,
+          "nombre": "Interior",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Bandolera abierta mostrando el cierre zip superior y el interior.",
+            "luz": "Desde arriba-lateral suave",
+            "camara": "50mm · f/3.5 · 45° cenital"
+          },
+          "entrega": "bandolera-elite—interior-zip—marfil-oro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-sentada",
+          "slot": 5,
+          "nombre": "Lifestyle Sentada",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Modelo sentada en lobby o interior noble. La bandolera marfil sobre oscuro crea el contraste editorial.",
+            "locacion": "Lobby europeo o interior café con madera oscura",
+            "luz": "Luz de ventana lateral · 3000K"
+          },
+          "entrega": "bandolera-elite—lifestyle-sentada—marfil-oro.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "detalle-correa-textil",
+          "slot": 6,
+          "nombre": "Detalle Correa Textil",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Macro de la correa textil tejida a juego con la bandolera. El tejido artesanal como elemento editorial.",
+            "luz": "Lateral rasante suave · revelar el tejido",
+            "camara": "80mm · f/2.8 · ISO 200"
+          },
+          "entrega": "bandolera-elite—detalle-correa-textil—marfil-oro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "marco-cuero-detalle",
+          "slot": 7,
+          "nombre": "Marco Cuero Café",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Macro de la transición entre pelo sellado marfil y marco de cuero café oscuro. La distinción de materiales como detalle de oficio.",
+            "luz": "Lateral rasante muy suave · revelar la unión de materiales",
+            "camara": "80–100mm · f/4 · ISO 200"
+          },
+          "entrega": "bandolera-elite—marco-cuero—marfil-oro.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "rinonera",
+      "name": "Riñonera",
+      "productCode": "OV-RIN",
+      "coleccion": "Uchuva",
+      "tipo": "accesorio-pequeno",
+      "colores": ["cognac", "negro"],
+      "primerColor": "cognac",
+      "precioBase": 150,
+      "engraveZona": "Zona frontal central",
+      "dimensiones": "22 × 14 × 6 cm",
+      "variantes": ["Moderna (cognac)", "Clásica (cognac)", "Elite (negro)"],
+      "imagenExistente": [
+        "/imagenes nuevas/producto/accesorios/rinonera/rinonera-cognac-estudio.jpg",
+        "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-multi-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-colonial-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/unisex/rinonera-negro-guatape-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/unisex/rinonera-negro-urban-lifestyle.jpg"
+      ],
+      "totalShotsFaltantes": 4,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac", "negro"],
+          "estado": { "cognac": "existente", "negro": "falta" },
+          "imagenExistente": { "cognac": "/imagenes nuevas/producto/accesorios/rinonera/rinonera-cognac-estudio.jpg" },
+          "brief": {
+            "concepto": "Modelo con riñonera en cintura o cruzada al torso. La pieza compacta define la composición — no el modelo. Acción de ciudad.",
+            "modelo": "Hombre o mujer · wardrobe minimal en tono · riñonera en cintura ajustada o crossbody",
+            "locacion": "Locación urbana con carácter — corredor, calle, transporte",
+            "luz": "Golden hour lateral · 3000–3200K · ISO 400",
+            "camara": "70mm · f/2.0 · encuadre desde cintura hacia arriba del modelo"
+          },
+          "entrega": "rinonera—hero-editorial—{color}.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "detalle-material",
+          "slot": 2,
+          "nombre": "Detalle Material y Superficie",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro de la superficie del cuero full-grain de la riñonera. El grano natural como prueba de material.",
+            "luz": "Lateral rasante · revelar grano natural del cuero",
+            "camara": "80–100mm · f/3.5 · ISO 200"
+          },
+          "entrega": "rinonera—detalle-material—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 3,
+          "nombre": "Interior Compartimentos",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Riñonera abierta mostrando compartimento principal y bolsillo zip. Mostrar capacidad real.",
+            "luz": "Desde arriba-lateral",
+            "camara": "50mm · f/3.5 · cenital"
+          },
+          "entrega": "rinonera—interior-abierto—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-mano",
+          "slot": 4,
+          "nombre": "Lifestyle Mano / Crossbody",
+          "ratio": "1:1",
+          "modeloRequerido": true,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["cognac", "negro"],
+          "estado": {
+            "cognac": "existente",
+            "negro": "existente"
+          },
+          "imagenExistente": {
+            "cognac": "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-multi-lifestyle.jpg",
+            "negro": "/imagenes nuevas/lifestyle/unisex/rinonera-negro-guatape-lifestyle.jpg"
+          },
+          "brief": {
+            "concepto": "Modelo con riñonera en uso real — en cintura o cruzada. Primer plano del torso.",
+            "camara": "70mm · f/2.0 · ISO 400 · encuadre torso"
+          },
+          "entrega": "rinonera—lifestyle-mano—{color}.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 5,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado OV en zona frontal central. Pieza pequeña — el encuadre macro es proporcional.",
+            "luz": "Rasante extrema · 2700K · trípode",
+            "camara": "80–100mm macro · f/4 · ISO 200"
+          },
+          "entrega": "rinonera—grabado-laser-macro—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-cierre",
+          "slot": 6,
+          "nombre": "Detalle Cierre Zip",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del cierre zip principal — tirador latón en primer plano.",
+            "luz": "Lateral rasante · latón como acento cálido",
+            "camara": "80mm · f/2.8"
+          },
+          "entrega": "rinonera—detalle-cierre—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "contexto-uso",
+          "slot": 7,
+          "nombre": "Contexto Uso Colonial",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "existente" },
+          "imagenExistente": { "cognac": "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-colonial-lifestyle.jpg" },
+          "brief": {
+            "concepto": "Modelo con riñonera en locación colonial paisa. El accesorio en su contexto de origen.",
+            "locacion": "Calle colonial Medellín · zócalo de fachada"
+          },
+          "entrega": "rinonera—contexto-uso—cognac.jpg · 1920×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "neceser",
+      "name": "Neceser de Viaje",
+      "productCode": "OV-NEC",
+      "coleccion": "Curuba",
+      "tipo": "accesorio-pequeno",
+      "colores": ["cognac", "cafe"],
+      "primerColor": "cognac",
+      "precioBase": 200,
+      "engraveZona": "Panel frontal central",
+      "dimensiones": "24 × 16 × 10 cm",
+      "imagenExistente": [
+        "/imagenes nuevas/lifestyle/mujer/neceser-cognac-colonial-lifestyle.jpg",
+        "/imagenes nuevas/lifestyle/mujer/neceser-cognac-coltejer-lifestyle.jpg",
+        "/imagenes nuevas/producto/accesorios/neceser/neceser-cognac-estudio.jpg",
+        "/imagenes nuevas/lifestyle/mujer/neceser-cafe-botero-lifestyle.jpg",
+        "/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg"
+      ],
+      "totalShotsFaltantes": 4,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac", "cafe"],
+          "estado": { "cognac": "existente", "cafe": "existente" },
+          "imagenExistente": {
+            "cognac": "/imagenes nuevas/producto/accesorios/neceser/neceser-cognac-estudio.jpg",
+            "cafe": "/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg"
+          },
+          "brief": {
+            "concepto": "Modelo con neceser en mano o sobre superficie de viaje. La forma rectangular y el asa superior son los signos de identidad.",
+            "modelo": "Mujer · wardrobe lino o navy · neceser tomado del asa superior o apoyado sobre superficie de mármol/madera",
+            "locacion": "Sobre mesón de hotel o superficie travertino · lifestyle de viaje",
+            "luz": "Golden hour lateral difuso · 3000K",
+            "camara": "60–70mm · f/2.5 · ISO 250"
+          },
+          "entrega": "neceser—hero-editorial—{color}.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "detalle-material",
+          "slot": 2,
+          "nombre": "Detalle Material",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro de la superficie del cuero full-grain del neceser. El grano natural como sello de calidad.",
+            "luz": "Lateral rasante · 3000K",
+            "camara": "80–100mm · f/3.5 · ISO 200"
+          },
+          "entrega": "neceser—detalle-material—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 3,
+          "nombre": "Interior Abierto",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Neceser abierto mostrando compartimento principal y bolsillo frontal zip. Interior con forro natural. Puede incluir un prop mínimo de viaje (lápiz fino, cinta lino).",
+            "luz": "Cenital suave desde arriba · interior iluminado uniformemente",
+            "camara": "50mm · f/3.5 · cenital · ISO 200"
+          },
+          "entrega": "neceser—interior-abierto—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-mano",
+          "slot": 4,
+          "nombre": "Lifestyle Mano",
+          "ratio": "1:1",
+          "modeloRequerido": true,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac", "cafe"],
+          "estado": {
+            "cognac": "existente",
+            "cafe": "falta"
+          },
+          "imagenExistente": { "cognac": "/imagenes nuevas/lifestyle/mujer/neceser-cognac-coltejer-lifestyle.jpg" },
+          "brief": {
+            "concepto": "Neceser tomado del asa superior con una mano. El asa de cuero en primer plano, el bolso en segundo.",
+            "modelo": "Mujer · mano limpia sin esmalte o con esmalte nude · wardrobe oscuro para que el neceser resalte",
+            "camara": "70mm · f/2.0 · ISO 400 · foco en asa y neceser"
+          },
+          "entrega": "neceser—lifestyle-mano—{color}.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 5,
+          "nombre": "Grabado Láser Macro",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del grabado OV en panel frontal del neceser.",
+            "luz": "Rasante extrema · 2700K · trípode",
+            "camara": "80–100mm macro · f/4"
+          },
+          "entrega": "neceser—grabado-laser-macro—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-cierre",
+          "slot": 6,
+          "nombre": "Detalle Cierre YKK Latón",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["cognac"],
+          "estado": { "cognac": "falta" },
+          "brief": {
+            "concepto": "Macro del cierre YKK latón del neceser. El tirador y la cremallera como detalle de calidad.",
+            "luz": "Lateral rasante · latón cálido",
+            "camara": "80mm · f/2.8"
+          },
+          "entrega": "neceser—detalle-cierre—cognac.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "contexto-bolso",
+          "slot": 7,
+          "nombre": "Contexto en Locación",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["cognac", "cafe"],
+          "estado": {
+            "cognac": "existente",
+            "cafe": "existente"
+          },
+          "imagenExistente": {
+            "cognac": "/imagenes nuevas/lifestyle/mujer/neceser-cognac-colonial-lifestyle.jpg",
+            "cafe": "/imagenes nuevas/lifestyle/mujer/neceser-cafe-botero-lifestyle.jpg"
+          },
+          "brief": {
+            "concepto": "Neceser en locación paisa con carácter. Narrativa de viaje y origen.",
+            "locacion": "Calle colonial o espacio Medellín con arquitectura visible"
+          },
+          "entrega": "neceser—contexto-locacion—{color}.jpg · 1920×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "cartera-pelo-oro",
+      "name": "Cartera Pelo · Oro",
+      "productCode": "OV-CAR",
+      "coleccion": "Curuba",
+      "tipo": "accesorio-pequeno-pelo",
+      "colores": ["marfil-oro"],
+      "primerColor": "marfil-oro",
+      "precioBase": 95,
+      "engraveZona": "N/A — producto sin grabado",
+      "dimensiones": "20 × 12 × 3 cm",
+      "notaMaterial": "Pelo sellado — mismas consideraciones de luz que bandolera-elite",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg"
+      ],
+      "totalShotsFaltantes": 6,
+      "shots": [
+        {
+          "id": "hero-editorial",
+          "slot": 1,
+          "nombre": "Hero Editorial",
+          "ratio": "4:5",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "actualizar" },
+          "imagenExistente": { "marfil-oro": "/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg" },
+          "brief": {
+            "concepto": "La cartera sobre superficie noble — travertino, lino oscuro, o madera nogal. El pelo sellado marfil contrasta con la superficie. Prop: ninguno o máximo un lápiz fino de madera.",
+            "locacion": "Superficie travertino o mesa nogal · fondo fuera de foco",
+            "luz": "Luz lateral suave difusa · NO luz rasante agresiva sobre pelo sellado · 3000K",
+            "camara": "70mm · f/2.5 · ISO 200 · ligeramente picado desde arriba"
+          },
+          "entrega": "cartera-pelo-oro—hero-editorial—marfil-oro.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "detalle-material",
+          "slot": 2,
+          "nombre": "Detalle Motivo Oro sobre Pelo",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Macro del motivo oro sobre pelo sellado marfil. El detalle editorial de la pieza — la razón por la que existe esta cartera.",
+            "luz": "Frontal-lateral difusa muy suave · diffuser obligatorio · probar antes",
+            "camara": "80–100mm · f/3.5 · trípode · ISO 200",
+            "notaCritica": "Probar exposición 10 min antes de grabar — el pelo sellado puede sobre-exponer el blanco marfil o apagar el motivo oro"
+          },
+          "entrega": "cartera-pelo-oro—detalle-motivo—marfil-oro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "interior-abierto",
+          "slot": 3,
+          "nombre": "Interior con Tarjetero",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Cartera abierta mostrando compartimento principal y tarjetero. El marco de cuero café oscuro visible en el borde.",
+            "luz": "Desde arriba-lateral suave · cuidar la transición marfil-café del marco",
+            "camara": "50mm · f/3.5 · cenital · ISO 200"
+          },
+          "entrega": "cartera-pelo-oro—interior-abierto—marfil-oro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-mano",
+          "slot": 4,
+          "nombre": "Lifestyle Mano",
+          "ratio": "1:1",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "La cartera en mano de modelo. Pieza íntima y compacta — la mano sostiene o abre la cartera. Primer plano.",
+            "modelo": "Mujer · mano limpia con nail neutral · wardrobe oscuro (navy, espresso) para contraste con marfil",
+            "producto": "Cartera visible en su totalidad en la mano · cierre zip y broche visibles",
+            "luz": "Luz lateral suave · 3000K",
+            "camara": "70mm · f/2.0 · ISO 300 · foco en cartera"
+          },
+          "entrega": "cartera-pelo-oro—lifestyle-mano—marfil-oro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "detalle-cierre",
+          "slot": 5,
+          "nombre": "Detalle Cierre y Broche",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "Macro del cierre zip superior y el broche central. Los herrajes latón antiguo como detalle de calidad.",
+            "luz": "Lateral rasante suave · NO rasante agresiva que revele imperfecciones del pelo",
+            "camara": "80mm · f/2.8"
+          },
+          "entrega": "cartera-pelo-oro—detalle-cierre—marfil-oro.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "junto-bandolera",
+          "slot": 6,
+          "nombre": "Conjunto con Bandolera Elite",
+          "ratio": "4:5",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "La cartera y la bandolera-elite juntas — el dúo de pelo sellado de la colección Uchuva/Curuba. Composición editorial sobre superficie noble.",
+            "nota": "Esta foto se puede usar también en la PDP de bandolera-elite como variante de conjunto",
+            "locacion": "Superficie travertino o lino oscuro · ambas piezas con motivo oro alineado",
+            "luz": "Lateral suave difusa · 3000K",
+            "camara": "50mm · f/3.5 · ligeramente picado"
+          },
+          "entrega": "cartera-pelo-oro—junto-bandolera-elite—marfil-oro.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "contexto-bolso",
+          "slot": 7,
+          "nombre": "Contexto en Bolso",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["marfil-oro"],
+          "estado": { "marfil-oro": "falta" },
+          "brief": {
+            "concepto": "La cartera asomando desde el interior de un bolso o sobre la tapa abierta del bolso-dama. Narrativa de ecosistema OV.",
+            "nota": "El bolso de contexto debe ser de la casa — usar bolso-dama cognac como contenedor",
+            "luz": "Lateral suave · 3000K",
+            "camara": "70mm · f/2.8"
+          },
+          "entrega": "cartera-pelo-oro—contexto-bolso—marfil-oro.jpg · 2400×2400px mínimo"
+        }
+      ]
+    },
+
+    {
+      "slug": "cinturon",
+      "name": "Cinturón",
+      "productCode": "OV-CIN",
+      "coleccion": "Curuba",
+      "tipo": "cinturon",
+      "colores": ["negro-liso", "negro-granulado", "navy-granulado", "espresso-liso", "espresso-granulado", "cognac-liso"],
+      "primerColor": "negro-liso",
+      "precioBase": 120,
+      "engraveZona": "Punta del cinturón · ~2 cm del extremo · centrado",
+      "dimensiones": "Ancho 3,5 cm · largos 90–110 cm",
+      "notaTipo": "El cinturón tiene slots propios — no tiene asa, interior ni vista trasera estándar",
+      "imagenExistente": [
+        "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-plano.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg",
+        "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
+      ],
+      "totalShotsFaltantes": 3,
+      "shots": [
+        {
+          "id": "plano-completo",
+          "slot": 1,
+          "nombre": "Plano Completo por Color",
+          "ratio": "3:4",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro-liso", "negro-granulado", "navy-granulado", "espresso-liso", "espresso-granulado", "cognac-liso"],
+          "estado": {
+            "negro-liso": "existente",
+            "negro-granulado": "existente",
+            "navy-granulado": "existente",
+            "espresso-liso": "existente",
+            "espresso-granulado": "existente",
+            "cognac-liso": "existente"
+          },
+          "imagenExistente": {
+            "negro-liso": "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+            "negro-granulado": "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-plano.jpg",
+            "navy-granulado": "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
+            "espresso-liso": "/imagenes nuevas/producto/accesorios/cinturon/espresso-liso-plano.jpg",
+            "espresso-granulado": "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-estudio.jpg",
+            "cognac-liso": "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg"
+          },
+          "brief": {
+            "concepto": "Cinturón enrollado o extendido sobre superficie plana. Mostrar el cuero en su totalidad con la punta del grabado visible.",
+            "producto": "Enrollado con la hebilla hacia afuera o extendido diagonal en el encuadre",
+            "locacion": "Superficie lino crudo o madera nogal",
+            "luz": "Lateral suave · 3000K · revelar el acabado liso vs granulado",
+            "camara": "50mm · f/3.2 · ISO 150"
+          },
+          "entrega": "cinturon—plano-completo—{color}.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "detalle-hebilla",
+          "slot": 2,
+          "nombre": "Detalle Hebilla Gunmetal",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["negro-liso"],
+          "estado": { "negro-liso": "falta" },
+          "brief": {
+            "concepto": "Macro de la hebilla gunmetal cepillada en primer plano con el cuero negro de fondo. La textura cepillada del gunmetal y el tono gunmetal vs cuero negro — sutil pero presente.",
+            "producto": "Hebilla centrada · pasador de cuero visible · el cinturón a los lados fuera de foco",
+            "luz": "Lateral rasante · revelar textura cepillada del gunmetal · 3000K cálido",
+            "camara": "80–100mm macro · f/3.5 · ISO 200 · trípode",
+            "posProduccion": "El gunmetal cepillado debe verse metálico pero no brillante — sin sobre-highlights"
+          },
+          "entrega": "cinturon—detalle-hebilla—negro-liso.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "grabado-laser-macro",
+          "slot": 3,
+          "nombre": "Grabado Láser Macro Punta",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["cognac-liso", "negro-liso"],
+          "estado": {
+            "cognac-liso": "existente",
+            "negro-liso": "existente"
+          },
+          "imagenExistente": {
+            "cognac-liso": "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg",
+            "negro-liso": "/imagenes nuevas/producto/accesorios/cinturon/negro-liso-detalle.jpg"
+          },
+          "brief": {
+            "concepto": "Macro del grabado OV en la punta del cinturón, ~2 cm del extremo. La posición de la firma en el cinturón — diferente a todos los demás productos.",
+            "luz": "Rasante extrema · 2700K · trípode",
+            "camara": "80–100mm macro · f/4 · ISO 200"
+          },
+          "entrega": "cinturon—grabado-laser-macro—{color}.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "lifestyle-outfit",
+          "slot": 4,
+          "nombre": "Lifestyle Outfit Completo",
+          "ratio": "4:5",
+          "modeloRequerido": true,
+          "prioridad": "CRÍTICA",
+          "coloresRequeridos": ["negro-liso", "cognac-liso"],
+          "estado": { "negro-liso": "falta", "cognac-liso": "falta" },
+          "brief": {
+            "concepto": "El cinturón en uso — modelo con el cinturón puesto en un outfit tonal de marca. El cinturón debe ser el elemento que define el outfit, no un accesorio secundario.",
+            "modelo": "Hombre o mujer · pantalón de corte recto navy o espresso · camisa lino blanco · el cinturón en el centro del encuadre · cintura arriba",
+            "producto": "Cinturón ajustado y bien colocado · hebilla gunmetal visible · NO punta colgando excesivamente",
+            "locacion": "Interior neutro o exterior arquitectónico · foco en el cinturón y la cintura",
+            "luz": "Luz lateral · 3000K · zona del cinturón bien iluminada",
+            "camara": "70mm · f/2.5 · ISO 300 · encuadre cintura · torso completo o de rodillas para arriba"
+          },
+          "entrega": "cinturon—lifestyle-outfit—{color}.jpg · 1920×2400px mínimo"
+        },
+        {
+          "id": "detalle-grano",
+          "slot": 5,
+          "nombre": "Detalle Grano / Superficie",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["negro-granulado", "navy-granulado", "espresso-granulado"],
+          "estado": {
+            "negro-granulado": "existente",
+            "navy-granulado": "existente",
+            "espresso-granulado": "existente"
+          },
+          "imagenExistente": {
+            "negro-granulado": "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg",
+            "navy-granulado": "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg",
+            "espresso-granulado": "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg"
+          },
+          "brief": {
+            "concepto": "Macro de la superficie granulada — el grano natural visible del cuero. Mostrar la diferencia entre acabado liso y granulado.",
+            "luz": "Lateral rasante · revelar la textura del grano",
+            "camara": "80–100mm macro · f/3.5 · ISO 200"
+          },
+          "entrega": "cinturon—detalle-grano—{color}.jpg · 2400×2400px mínimo"
+        },
+        {
+          "id": "plano-multi",
+          "slot": 6,
+          "nombre": "Familia de Colores",
+          "ratio": "3:4",
+          "modeloRequerido": false,
+          "prioridad": "ALTA",
+          "coloresRequeridos": ["todos"],
+          "estado": { "todos": "falta" },
+          "brief": {
+            "concepto": "Los 6 cinturones juntos en composición editorial. Negro · Negro Gran. · Navy · Espresso · Espresso Gran. · Cognac. El arcoíris de la paleta OV en cuero.",
+            "producto": "Los 6 cinturones enrollados o extendidos en disposición diagonal o escalonada · cada uno con su punta hacia la cámara mostrando el grabado",
+            "locacion": "Superficie lino oscuro o travertino · fondo oscuro preferido para que el cognac y navy destaquen",
+            "luz": "Luz lateral suave · uniforme en todos los cinturones · 3000K",
+            "camara": "50mm · f/4 · ISO 200 · cenital o 30° desde arriba",
+            "composicion": "Disponer en diagonal descendente · negro arriba · cognac abajo o viceversa"
+          },
+          "entrega": "cinturon—familia-colores—todos.jpg · 2400×3200px mínimo"
+        },
+        {
+          "id": "forro-natural",
+          "slot": 7,
+          "nombre": "Detalle Forro Natural",
+          "ratio": "1:1",
+          "modeloRequerido": false,
+          "prioridad": "MEDIA",
+          "coloresRequeridos": ["negro-liso"],
+          "estado": { "negro-liso": "falta" },
+          "brief": {
+            "concepto": "El interior natural del cinturón — el forro en tono natural que contrasta con el exterior negro. El detalle de calidad que no se ve pero existe.",
+            "producto": "Cinturón doblado mostrando simultáneamente el exterior negro y el interior natural",
+            "luz": "Lateral suave · revelar el contraste de colores",
+            "camara": "80mm · f/3.5 · ISO 200"
+          },
+          "entrega": "cinturon—forro-natural—negro-liso.jpg · 2400×2400px mínimo"
+        }
+      ]
+    }
+
+  ]
+}
