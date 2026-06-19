@@ -8,6 +8,8 @@
   <url><loc>https://ofeliavallejo.com/coleccion?cat=mujer</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://ofeliavallejo.com/coleccion?cat=hombre</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://ofeliavallejo.com/contacto</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ofeliavallejo.com/terminos</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://ofeliavallejo.com/privacidad</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://ofeliavallejo.com/producto/travel-bag-i</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://ofeliavallejo.com/producto/travel-bag-ii</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://ofeliavallejo.com/producto/travel-bag-iii</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>

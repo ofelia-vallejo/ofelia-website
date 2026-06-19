@@ -41,7 +41,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=GFS+Didot&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=GFS+Didot&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <script src="/assets/data/d3.min.js"></script>
 <script src="/assets/data/topojson-client.min.js"></script>
 <style>
@@ -55,7 +55,7 @@
     --gold:#5a4a2a;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
 
   /* paper grain */
   body::before{
@@ -130,7 +130,7 @@
   .valley.on{opacity:.9}
 
   /* labels */
-  .lab{font-family:"GFS Didot","Cormorant Garamond",serif;fill:#0B1F3A;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
+  .lab{font-family:"GFS Didot",Cinzel,serif;fill:#0B1F3A;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
   .lab.s{font-size:9px;opacity:.55}
   .lab.m{font-size:11px;opacity:.85}
   .lab.l{font-size:14px;opacity:.95}
@@ -172,7 +172,7 @@
   .cap{position:absolute;left:50%;transform:translateX(-50%);bottom:-58px;text-align:center;
     font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);opacity:.7;white-space:nowrap}
   .cap .dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--ink);margin:0 .55em;vertical-align:middle;opacity:.6}
-  .cap small{display:block;margin-top:8px;font-family:"Cormorant Garamond",serif;font-size:14px;font-style:italic;letter-spacing:.02em;text-transform:none;opacity:.7}
+  .cap small{display:block;margin-top:8px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-style:italic;letter-spacing:.02em;text-transform:none;opacity:.7}
 
   /* ---------- HUD ---------- */
   #hud{position:fixed;top:22px;left:24px;right:24px;display:flex;justify-content:space-between;
@@ -207,8 +207,8 @@
   #card .seal::before{left:50%;top:6px;bottom:6px;width:1px;margin-left:-.5px}
   #card .seal::after{top:50%;left:6px;right:6px;height:1px;margin-top:-.5px}
   #card .seal span{position:relative;z-index:1;background:#efece4;padding:0 4px;font-family:"GFS Didot",serif;font-size:22px;letter-spacing:.05em}
-  #card .ttl{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:30px;line-height:1;letter-spacing:-.005em;margin:0}
-  #card .ttl em{font-style:italic;color:var(--gold);font-family:"Cormorant Garamond",serif}
+  #card .ttl{font-family:"GFS Didot",Cinzel,serif;font-size:30px;line-height:1;letter-spacing:-.005em;margin:0}
+  #card .ttl em{font-style:italic;color:var(--gold);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
   #card .sub{margin-top:8px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.65}
   #card .cta{border:1px solid var(--ink);background:transparent;color:var(--ink);
     font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;padding:14px 18px;cursor:pointer;transition:background .25s,color .25s;white-space:nowrap}
@@ -268,8 +268,8 @@
   .nav-panel__group{font:400 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.28em;text-transform:uppercase;
     color:var(--muted);margin:22px 0 8px;padding-top:16px;border-top:1px solid var(--hair)}
   .nav-panel__group:first-child{padding-top:0;border-top:none;margin-top:0}
-  .nav-panel__link{display:block;font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:500;
-    letter-spacing:.02em;color:var(--ink);text-decoration:none;padding:7px 0;transition:color .25s,padding-left .25s}
+  .nav-panel__link{display:block;font-family:Cinzel,serif;font-size:19px;font-weight:500;
+    letter-spacing:.08em;color:var(--ink);text-decoration:none;padding:7px 0;transition:color .25s,padding-left .25s}
   .nav-panel__link:hover{color:var(--gold);padding-left:6px}
   .nav-panel__foot{position:absolute;bottom:34px;left:40px;font:400 8px/1.4 "JetBrains Mono",monospace;
     letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
@@ -293,13 +293,13 @@
   .panel__eyebrow{margin:0 0 14px;
     font:400 8.5px/1 "JetBrains Mono",monospace;letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
   .panel__eyebrow span{white-space:nowrap;display:inline-block}
-  .panel__title{font-family:"GFS Didot","Cormorant Garamond",serif;font-size:clamp(23px,2.9vw,34px);
+  .panel__title{font-family:"GFS Didot",Cinzel,serif;font-size:clamp(23px,2.9vw,34px);
     font-weight:400;letter-spacing:.006em;line-height:1.2;color:var(--ink);margin:0 0 15px;
     text-wrap:balance}
   .panel__rule{width:34px;height:1px;margin:0 auto 15px;border:0;
     background:linear-gradient(90deg,transparent,var(--gold) 50%,transparent)}
-  .panel__body{font-family:"Cormorant Garamond",serif;font-size:17.5px;font-weight:400;font-style:italic;
-    letter-spacing:.015em;line-height:1.56;color:var(--ink-2);margin:0 auto;max-width:38ch}
+  .panel__body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:16px;font-weight:300;font-style:italic;
+    letter-spacing:.015em;line-height:1.6;color:var(--ink-2);margin:0 auto;max-width:38ch}
 
   /* hint de clic */
   .vhint{position:fixed;bottom:3.4vh;left:50%;transform:translateX(-50%);z-index:20;
