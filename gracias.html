@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
+  <script src="/assets/js/analytics-config.js"></script>
+  <script src="/assets/js/analytics.js"></script>
   <title>Confirmación — Ofelia Vallejo</title>
   <meta name="description" content="El atelier ha recibido tu orden. Ofelia Vallejo Leather House — Medellín.">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -331,8 +333,26 @@
         refWrap.style.display = 'block';
       }
     }
+
+    // Evento purchase (GA4/Ads vía dataLayer). El snapshot lo guarda
+    // OVCart.startCheckout en 'ov_last_order' antes de vaciar la bolsa.
+    try {
+      var rawOrder = localStorage.getItem('ov_last_order');
+      if (rawOrder && window.OVAnalytics) {
+        var order = JSON.parse(rawOrder);
+        window.OVAnalytics.ecommerce('purchase', {
+          transaction_id: sid || ('OV-' + (order.ts || Date.now())),
+          value: order.value,
+          items: (order.lines || []).map(function (l, i) {
+            return window.OVAnalytics.itemFromLine(l, i);
+          }),
+        });
+        localStorage.removeItem('ov_last_order'); // evita doble conteo al recargar
+      }
+    } catch (e) {}
   </script>
   <script src="/assets/js/brand.js"></script>
   <script src="/assets/js/account.js" defer></script>
+  <script src="/assets/js/cookie-consent.js"></script>
 </body>
 </html>
