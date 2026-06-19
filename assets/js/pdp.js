@@ -689,26 +689,6 @@
 
       loading.hidden = true;
       renderProduct(product, related);
-
-      const ld = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        name: product.name,
-        brand: { '@type': 'Brand', name: 'Ofelia Vallejo' },
-        description: product.description,
-        offers: {
-          '@type': 'Offer',
-          price: String(product.basePrice),
-          priceCurrency: 'CHF',
-          availability: totalStock(product) > 0
-            ? 'https://schema.org/InStock'
-            : 'https://schema.org/OutOfStock',
-        },
-      };
-      const s = document.createElement('script');
-      s.type = 'application/ld+json';
-      s.textContent = JSON.stringify(ld);
-      document.head.appendChild(s);
     } catch (e) {
       loading.hidden = true;
       err.hidden = false;
