@@ -1,12 +1,7 @@
 /* Checkout · resumen + redirección Stripe Hosted Checkout */
 
 (function () {
-  function esc(s) {
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/"/g, '&quot;');
-  }
+  const esc = window.OVUtil.esc;
 
   function renderSummary() {
     const cart = window.OVCart.getCart();

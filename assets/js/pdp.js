@@ -12,12 +12,7 @@
     return null;
   }
 
-  function esc(s) {
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/"/g, '&quot;');
-  }
+  const esc = window.OVUtil.esc;
 
   function imgUrl(url) {
     if (window.OVMedia) return window.OVMedia.url(url);
@@ -68,9 +63,7 @@
     };
   }
 
-  function formatCHF(n) {
-    return 'CHF ' + Math.round(Number(n) || 0);
-  }
+  const formatCHF = window.OVUtil.formatCHF;
 
   function totalStock(p) {
     if (window.OVCatalog) return window.OVCatalog.totalStock(p);

@@ -38,12 +38,7 @@
     },
   ];
 
-  function esc(s) {
-    return String(s || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/"/g, '&quot;');
-  }
+  const esc = window.OVUtil.esc;
 
   function getFilter() {
     const params = new URLSearchParams(location.search);

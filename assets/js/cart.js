@@ -44,9 +44,7 @@
     return [line.slug, line.variantId || '', (line.engraveText || '').trim()].join('::');
   }
 
-  function formatCHF(n) {
-    return 'CHF ' + Math.round(Number(n) || 0);
-  }
+  const formatCHF = window.OVUtil.formatCHF;
 
   function lineTotal(line) {
     const qty = Number(line.quantity) || 1;

@@ -10,12 +10,7 @@
     return rel.startsWith('/') ? rel.slice(1) : rel;
   }
 
-  function esc(s) {
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/"/g, '&quot;');
-  }
+  const esc = window.OVUtil.esc;
 
   function injectNavbar() {
     const right = document.querySelector('.navbar__right');

@@ -30,9 +30,7 @@
     return (hero || product.images[0]).url;
   }
 
-  function formatCHF(n) {
-    return 'CHF ' + Math.round(Number(n) || 0);
-  }
+  const formatCHF = window.OVUtil.formatCHF;
 
   window.OVCatalog = {
     fetchCatalog,

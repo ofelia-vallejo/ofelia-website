@@ -498,13 +498,7 @@
     });
   }
 
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
+  const escapeHtml = window.OVUtil.esc;
 
   function loadDraftIntoForm(draft) {
     const form = document.getElementById('form-personalizar');
