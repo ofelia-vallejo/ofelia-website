@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Bag I — Ofelia Vallejo | Leather House Medellín</title>
+<meta name="description" content="Travel Bag I en cuero full-grain colombiano. Curtido vegetal, costura saddlestitch a mano. CHF 300. Grabado láser personalizado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     OFELIA VALLEJO — FICHA / PDP
+     Layout: design-system v2 (Kimi) · Tokens: marca bloqueada
+     ============================================ */
+  :root {
+    --marfil: #F3EEE6;
+    --beige: #EDE5D8;
+    --navy: #0B1F3A;
+    --espresso: #3B2B26;
+    --espresso-dark: #2A1F1B;
+    --cognac: #8B5E3C;
+    --vino: #5B1E24;
+    --verde: #1F3527;
+    --carbon: #141414;
+    --brass: #8A7549;
+    --brass-light: #A38F63;
+    --ivory: #F8F5F0;
+
+    --font-display: 'Cinzel', Georgia, serif;
+    --font-body: 'Helvetica Neue', -apple-system, sans-serif;
+
+    --section-padding: clamp(4rem, 8vw, 8rem);
+    --max-width: 1400px;
+
+    --shadow-elevated: 0 8px 40px rgba(59, 43, 38, 0.12);
+    --shadow-hover: 0 12px 48px rgba(59, 43, 38, 0.16);
+    --border-brass: 1px solid rgba(138, 117, 73, 0.3);
+    --transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--font-body);
+    background-color: var(--marfil);
+    color: var(--espresso);
+    line-height: 1.6;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+  /* placeholder de imagen (foto inventada) */
+  .ph {
+    position: relative;
+    width: 100%; height: 100%;
+    background:
+      repeating-linear-gradient(135deg, rgba(138,117,73,0.06) 0 12px, transparent 12px 24px),
+      linear-gradient(160deg, var(--espresso) 0%, var(--espresso-dark) 100%);
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .ph--light {
+    background:
+      repeating-linear-gradient(135deg, rgba(59,43,38,0.04) 0 12px, transparent 12px 24px),
+      linear-gradient(160deg, var(--beige) 0%, #E0D6C6 100%);
+    color: var(--espresso);
+  }
+  .ph__tag {
+    font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brass); padding: 10px 12px; font-weight: 500; line-height: 1.4;
+  }
+  .ph--light .ph__tag { color: var(--cognac); }
+
+  /* ============================================ HERO ============================================ */
+  .hero { background-color: var(--espresso); position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 28% 18%, rgba(138,117,73,0.06) 0%, transparent 52%),
+      radial-gradient(ellipse at 72% 82%, rgba(11,31,58,0.18) 0%, transparent 52%);
+  }
+  .hero__content {
+    display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center; min-height: 100vh; padding: var(--section-padding) 0;
+    position: relative; z-index: 1;
+  }
+  .eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.8rem; }
+  .eyebrow__line { width: 38px; height: 1px; background-color: var(--brass); opacity: 0.7; }
+  .eyebrow__text {
+    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--brass);
+  }
+  .hero__title {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: 1.08;
+    color: var(--ivory); letter-spacing: 0.04em; margin-bottom: 1.4rem;
+  }
+  .hero__tagline {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(0.9rem, 1.5vw, 1.15rem); letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--brass); margin-bottom: 1.8rem;
+  }
+  .hero__desc {
+    font-size: 0.98rem; font-weight: 300; color: var(--ivory);
+    opacity: 0.78; line-height: 1.75; max-width: 38ch; margin-bottom: 2.4rem;
+  }
+  .swatch-label {
+    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--brass); margin-bottom: 0.85rem;
+  }
+  .swatches { display: flex; gap: 0.85rem; align-items: center; }
+  .swatch {
+    width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+    border: 2px solid transparent; transition: var(--transition); position: relative;
+  }
+  .swatch:hover { transform: scale(1.15); border-color: var(--brass); }
+  .swatch.active { border-color: var(--brass); box-shadow: 0 0 0 3px rgba(138,117,73,0.3); }
+  .swatch[data-c="cognac"] { background: var(--cognac); }
+  .swatch[data-c="espresso"] { background: var(--espresso); border-color: rgba(138,117,73,0.4); }
+  .swatch__name {
+    font-size: 0.78rem; color: var(--ivory); opacity: 0.7; margin-left: 0.4rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* galería hero */
+  .hero__gallery { display: flex; flex-direction: column; gap: 0.85rem; }
+  .hero__main { aspect-ratio: 3/4; border-radius: 3px; overflow: hidden; box-shadow: var(--shadow-elevated); }
+  .hero__thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; }
+  .hero__thumb { aspect-ratio: 1; border-radius: 3px; overflow: hidden; cursor: pointer;
+    border: 2px solid transparent; transition: var(--transition); }
+  .hero__thumb.active, .hero__thumb:hover { border-color: var(--brass); }
+
+  /* ============================================ QUICK SPECS ============================================ */
+  .quick { background: var(--marfil); border-top: var(--border-brass); border-bottom: var(--border-brass);
+    padding: 1.6rem 0; }
+  .quick__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2rem; text-align: center; }
+  .quick__item { position: relative; }
+  .quick__item:not(:last-child)::after {
+    content: ''; position: absolute; right: -1rem; top: 50%; transform: translateY(-50%);
+    height: 58%; width: 1px; background: var(--brass); opacity: 0.3;
+  }
+  .quick__label { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--cognac); margin-bottom: 0.4rem; }
+  .quick__value { font-size: 0.86rem; color: var(--espresso); }
+
+  /* ============================================ DETALLES ============================================ */
+  .details { background: var(--marfil); padding: var(--section-padding) 0; }
+  .details__head { display: flex; align-items: center; gap: 1.6rem; margin-bottom: 3.2rem; }
+  .details__head-title { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--cognac); white-space: nowrap; }
+  .details__head-line { flex: 1; height: 1px; background: var(--brass); opacity: 0.3; }
+  .details__head-quote { font-family: var(--font-display); font-size: 0.92rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--espresso); white-space: nowrap; }
+
+  .details__grid { display: grid; grid-template-columns: 1fr 1.05fr 1fr; gap: 3rem; align-items: start; }
+
+  .lgallery { display: flex; flex-direction: column; gap: 0.85rem; }
+  .lgallery__main { aspect-ratio: 4/5; border-radius: 3px; overflow: hidden; }
+  .lgallery__thumbs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+  .lgallery__thumb { aspect-ratio: 1; border-radius: 3px; overflow: hidden; }
+
+  .col-title { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--cognac); margin-bottom: 1.5rem; }
+  .spec { display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.85rem 0; border-bottom: var(--border-brass); gap: 1rem; }
+  .spec__label { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--cognac); flex-shrink: 0; }
+  .spec__value { font-size: 0.84rem; color: var(--espresso); text-align: right; }
+
+  .desc { display: flex; flex-direction: column; gap: 1.8rem; }
+  .desc__text p { font-size: 0.92rem; font-weight: 300; line-height: 1.85;
+    color: var(--espresso); margin-bottom: 0.9rem; }
+  .desc__text p:last-child { margin-bottom: 0; }
+
+  .care { background: var(--beige); border-left: 3px solid var(--brass);
+    padding: 1.4rem 1.5rem; border-radius: 0 3px 3px 0; }
+  .care__title { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--cognac); margin-bottom: 0.6rem; }
+  .care__text { font-size: 0.84rem; font-weight: 300; line-height: 1.65; color: var(--espresso); }
+
+  .avail__title { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--cognac); margin-bottom: 0.7rem; }
+  .avail__list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .avail__item { display: flex; align-items: center; gap: 0.7rem; }
+  .avail__dot { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--espresso); }
+  .avail__name { font-size: 0.84rem; color: var(--espresso); }
+
+  .price { padding-top: 0.4rem; }
+  .price__currency { font-family: var(--font-display); font-size: 1.2rem; color: var(--espresso); }
+  .price__amount { font-family: var(--font-display); font-size: 2.6rem; font-weight: 600;
+    color: var(--espresso); line-height: 1; display: inline-block; margin-left: 0.3rem; }
+  .price__note { font-size: 0.72rem; color: var(--cognac); margin-top: 0.5rem; letter-spacing: 0.04em; }
+
+  .btns { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.6rem; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 0.95rem 2rem; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; cursor: pointer; transition: var(--transition);
+    border-radius: 2px; border: none; width: 100%; }
+  .btn--primary { background: var(--espresso); color: var(--ivory); }
+  .btn--primary:hover { background: var(--navy); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .btn--secondary { background: transparent; color: var(--espresso); border: 1.5px solid var(--espresso); }
+  .btn--secondary:hover { background: var(--espresso); color: var(--ivory); }
+
+  /* ============================================ FOOTER ============================================ */
+  .footer { background: var(--navy); padding: var(--section-padding) 0; position: relative; overflow: hidden; }
+  .footer::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 20% 50%, rgba(138,117,73,0.06) 0%, transparent 52%); }
+  .footer__content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center; position: relative; z-index: 1; }
+  .footer__brand { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--brass); margin-bottom: 1.4rem; }
+  .footer__quote { font-family: var(--font-display); font-size: clamp(1.3rem, 2.6vw, 2.1rem);
+    font-weight: 400; color: var(--ivory); line-height: 1.35; letter-spacing: 0.06em; max-width: 22ch; }
+  .footer__cta { display: flex; justify-content: flex-end; }
+  .footer__cta-link { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--brass); display: flex; align-items: center; gap: 0.5rem;
+    transition: var(--transition); }
+  .footer__cta-link:hover { color: var(--ivory); }
+
+  /* ============================================ RESPONSIVE ============================================ */
+  @media (max-width: 1024px) {
+    .hero__content { grid-template-columns: 1fr; gap: 3rem; }
+    .hero__gallery { order: -1; max-width: 560px; margin: 0 auto; }
+    .details__grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .desc { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .quick__grid { grid-template-columns: repeat(3, 1fr); }
+    .quick__item:nth-child(3)::after { display: none; }
+  }
+  @media (max-width: 768px) {
+    .details__grid, .desc { grid-template-columns: 1fr; }
+    .quick__grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .quick__item::after { display: none; }
+    .footer__content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+    .footer__cta { justify-content: center; }
+    .spec { flex-direction: column; gap: 0.3rem; }
+    .spec__value { text-align: left; }
+  }
+</style>
+</head>
+<body>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow__line"></span>
+            <span class="eyebrow__text">Colección Guanábana · OV-TB-I</span>
+          </div>
+          <h1 class="hero__title">Travel Bag I</h1>
+          <p class="hero__tagline">Elegancia que permanece</p>
+          <p class="hero__desc">
+            Weekender en cuero full-grain colombiano, concebido para acompañar cada viaje
+            y heredarse después. Curtido tradicional, costura a mano y grabado láser sobre el cuero.
+          </p>
+          <p class="swatch-label">Color</p>
+          <div class="swatches">
+            <button class="swatch active" data-c="cognac" aria-label="Cognac"></button>
+            <button class="swatch" data-c="espresso" aria-label="Espresso"></button>
+            <span class="swatch__name">Cognac · Espresso</span>
+          </div>
+        </div>
+        <div class="hero__gallery">
+          <div class="hero__main">
+            <div class="ph"><span class="ph__tag">Hero editorial · 3:4<br>modelo en tránsito · cuero cognac héroe</span></div>
+          </div>
+          <div class="hero__thumbs">
+            <div class="hero__thumb active"><div class="ph"><span class="ph__tag">Hero</span></div></div>
+            <div class="hero__thumb"><div class="ph"><span class="ph__tag">Asa</span></div></div>
+            <div class="hero__thumb"><div class="ph"><span class="ph__tag">Trasera</span></div></div>
+            <div class="hero__thumb"><div class="ph"><span class="ph__tag">Interior</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK SPECS -->
+  <section class="quick">
+    <div class="container">
+      <div class="quick__grid">
+        <div class="quick__item"><p class="quick__label">Material</p><p class="quick__value">Full-grain colombiano</p></div>
+        <div class="quick__item"><p class="quick__label">Dimensiones</p><p class="quick__value">48 × 28 × 22 cm</p></div>
+        <div class="quick__item"><p class="quick__label">Peso</p><p class="quick__value">1.1 kg</p></div>
+        <div class="quick__item"><p class="quick__label">Herrajes</p><p class="quick__value">Latón antiguo</p></div>
+        <div class="quick__item"><p class="quick__label">Personalización</p><p class="quick__value">Grabado láser +CHF 45</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETALLES -->
+  <section class="details">
+    <div class="container">
+      <div class="details__head">
+        <span class="details__head-title">Ficha completa</span>
+        <span class="details__head-line"></span>
+        <span class="details__head-quote">Cuero hecho para durar</span>
+      </div>
+
+      <div class="details__grid">
+        <!-- galería lifestyle -->
+        <div class="lgallery">
+          <div class="lgallery__main"><div class="ph"><span class="ph__tag">Lifestyle sentada · 4:5<br>banco de estación · pausa de viaje</span></div></div>
+          <div class="lgallery__thumbs">
+            <div class="lgallery__thumb"><div class="ph--light ph"><span class="ph__tag">Grabado láser OV · macro</span></div></div>
+            <div class="lgallery__thumb"><div class="ph--light ph"><span class="ph__tag">Costura saddlestitch</span></div></div>
+          </div>
+        </div>
+
+        <!-- specs -->
+        <div>
+          <h3 class="col-title">Especificaciones técnicas</h3>
+          <div class="spec"><span class="spec__label">Material exterior</span><span class="spec__value">Cuero full-grain colombiano</span></div>
+          <div class="spec"><span class="spec__label">Curtido</span><span class="spec__value">Vegetal tradicional</span></div>
+          <div class="spec"><span class="spec__label">Forro interior</span><span class="spec__value">Lino natural</span></div>
+          <div class="spec"><span class="spec__label">Cierre principal</span><span class="spec__value">Cremallera latón</span></div>
+          <div class="spec"><span class="spec__label">Bolsillos interiores</span><span class="spec__value">2 principales · 1 con cierre</span></div>
+          <div class="spec"><span class="spec__label">Bolsillo exterior</span><span class="spec__value">1 frontal con cierre</span></div>
+          <div class="spec"><span class="spec__label">Asas</span><span class="spec__value">Cuero doble cosido</span></div>
+          <div class="spec"><span class="spec__label">Correa hombro</span><span class="spec__value">Ajustable y desmontable</span></div>
+          <div class="spec"><span class="spec__label">Herrajes</span><span class="spec__value">Latón antiguo cepillado</span></div>
+          <div class="spec"><span class="spec__label">Costuras</span><span class="spec__value">Saddlestitch a mano</span></div>
+          <div class="spec"><span class="spec__label">Cantos</span><span class="spec__value">Pintados y pulidos a mano</span></div>
+          <div class="spec"><span class="spec__label">Grabado</span><span class="spec__value">Esquina inferior derecha · ~4 cm</span></div>
+          <div class="spec"><span class="spec__label">Hecho en</span><span class="spec__value">Medellín, Colombia</span></div>
+        </div>
+
+        <!-- descripción + care + colores + precio -->
+        <div class="desc">
+          <div>
+            <h3 class="col-title">Descripción</h3>
+            <div class="desc__text">
+              <p>El Travel Bag I es un weekender de líneas sobrias, dimensionado para una escapada de dos noches sin facturar equipaje. El cuero full-grain conserva el grano íntegro de la piel y desarrolla pátina con el uso.</p>
+              <p>Curtido de forma tradicional y cosido a mano con técnica saddlestitch en el taller de Medellín. Cada puntada queda independiente: si una cede, el resto sostiene la pieza.</p>
+              <p>El monograma OV se graba a láser sobre el cuero, en la esquina inferior derecha del panel frontal. Tu nombre o tus iniciales, en la misma técnica.</p>
+            </div>
+          </div>
+          <div class="care">
+            <p class="care__title">Cuidado del cuero</p>
+            <p class="care__text">Paño seco para el polvo. Cera neutra dos veces al año. Evitar humedad prolongada y sol directo sostenido. El cuero mejora con los años.</p>
+          </div>
+          <div>
+            <p class="avail__title">Colores disponibles</p>
+            <div class="avail__list">
+              <div class="avail__item"><span class="avail__dot" style="background:var(--cognac)"></span><span class="avail__name">Cognac</span></div>
+              <div class="avail__item"><span class="avail__dot" style="background:var(--espresso)"></span><span class="avail__name">Espresso</span></div>
+            </div>
+          </div>
+          <div class="price">
+            <span class="price__currency">CHF</span><span class="price__amount">300</span>
+            <p class="price__note">Grabado láser desde +CHF 45 · hecho a mano</p>
+          </div>
+          <div class="btns">
+            <button class="btn btn--secondary">Tu nombre. En cuero.</button>
+            <button class="btn btn--primary">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div>
+          <p class="footer__brand">Leather House · Medellín, Colombia</p>
+          <blockquote class="footer__quote">Nacida de una firma. Hecha para durar.</blockquote>
+        </div>
+        <div class="footer__cta">
+          <a href="/coleccion" class="footer__cta-link">Ver toda la colección <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.swatch').forEach(s => {
+      s.addEventListener('click', () => {
+        document.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
+        s.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.hero__thumb').forEach(t => {
+      t.addEventListener('click', () => {
+        document.querySelectorAll('.hero__thumb').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

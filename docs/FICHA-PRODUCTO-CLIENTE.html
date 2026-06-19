@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ficha de Producto</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Helvetica Neue',-apple-system,sans-serif; background:#fff; color:#2C1F1A; font-size:11pt; }
+
+/* ── ENCABEZADO ── */
+.header {
+  background:#0B1F3A;
+  color:#F3EEE6;
+  padding:36px 48px 30px;
+}
+.header-marca {
+  font-size:8pt;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:#8B5E3C;
+  margin-bottom:8px;
+}
+.header-titulo {
+  font-family:'Cinzel',Georgia,serif;
+  font-size:22pt;
+  color:#fff;
+  line-height:1.2;
+  margin-bottom:10px;
+}
+.header-bajada {
+  font-size:9.5pt;
+  color:#9AAABB;
+  line-height:1.55;
+  max-width:480px;
+  font-weight:300;
+}
+
+/* ── CUERPO ── */
+.body { padding:40px 48px; }
+
+/* ── BLOQUE ── */
+.bloque { margin-bottom:40px; }
+.bloque-titulo {
+  font-size:7.5pt;
+  letter-spacing:.38em;
+  text-transform:uppercase;
+  color:#8B5E3C;
+  font-weight:600;
+  padding-bottom:8px;
+  border-bottom:2px solid #EDE5D8;
+  margin-bottom:20px;
+}
+
+/* ── TABLA CAMPOS ── */
+.tabla-campos { width:100%; border-collapse:collapse; }
+.tabla-campos tr { border-bottom:1px solid #EDE5D8; }
+.tabla-campos tr:last-child { border-bottom:none; }
+
+.campo-nombre {
+  width:24%;
+  padding:14px 12px 14px 0;
+  vertical-align:top;
+}
+.cn-label {
+  font-size:9pt;
+  font-weight:600;
+  color:#0B1F3A;
+  margin-bottom:3px;
+}
+.cn-desc {
+  font-size:8.5pt;
+  color:#888;
+  line-height:1.45;
+}
+
+.campo-ejemplo {
+  width:36%;
+  padding:14px 16px;
+  vertical-align:top;
+  background:#FAFAF8;
+  border-left:1px solid #EDE5D8;
+  border-right:1px solid #EDE5D8;
+}
+.ejemplo-tag {
+  font-size:7pt;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#8B5E3C;
+  font-weight:600;
+  margin-bottom:5px;
+}
+.ejemplo-texto {
+  font-size:9.5pt;
+  color:#3B2B26;
+  line-height:1.55;
+  font-style:italic;
+}
+
+.campo-tuproducto {
+  width:40%;
+  padding:14px 0 14px 16px;
+  vertical-align:top;
+}
+.tu-tag {
+  font-size:7pt;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#0B1F3A;
+  font-weight:600;
+  margin-bottom:5px;
+}
+.tu-linea {
+  border:none;
+  border-bottom:1.5px solid #C5B9AD;
+  width:100%;
+  padding:4px 0;
+  font-family:'Helvetica Neue',-apple-system,sans-serif;
+  font-size:9.5pt;
+  color:#2C1F1A;
+  background:transparent;
+  margin-bottom:8px;
+  outline:none;
+}
+.tu-area {
+  border:none;
+  border-bottom:1.5px solid #C5B9AD;
+  width:100%;
+  padding:4px 0;
+  font-family:'Helvetica Neue',-apple-system,sans-serif;
+  font-size:9.5pt;
+  color:#2C1F1A;
+  background:transparent;
+  outline:none;
+  resize:none;
+  min-height:52px;
+}
+
+/* ── DATOS TÉCNICOS ── */
+.datos-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1.5px solid #EDE5D8;
+  border-radius:6px;
+  overflow:hidden;
+}
+.dato-item {
+  padding:14px 16px;
+  border-right:1px solid #EDE5D8;
+}
+.dato-item:last-child { border-right:none; }
+.dato-label {
+  font-size:7.5pt;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#8B5E3C;
+  font-weight:600;
+  margin-bottom:6px;
+}
+.dato-ejemplo {
+  font-size:8.5pt;
+  color:#888;
+  font-style:italic;
+  margin-bottom:5px;
+}
+.dato-linea {
+  border:none;
+  border-bottom:1.5px solid #C5B9AD;
+  width:100%;
+  padding:3px 0;
+  font-family:'Helvetica Neue',-apple-system,sans-serif;
+  font-size:9pt;
+  color:#2C1F1A;
+  background:transparent;
+  outline:none;
+}
+
+/* ── SEPARADOR ── */
+.sep { height:1px; background:#EDE5D8; margin:8px 0 32px; }
+
+/* ── FOTOS SECTION ── */
+.fotos-intro {
+  background:#F3EEE6;
+  border-left:4px solid #8B5E3C;
+  padding:12px 16px;
+  font-size:9.5pt;
+  color:#3B2B26;
+  margin-bottom:20px;
+  line-height:1.55;
+  border-radius:0 4px 4px 0;
+}
+.fotos-intro strong { color:#0B1F3A; }
+
+.fotos-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.foto-card {
+  border:1.5px solid #EDE5D8;
+  border-radius:6px;
+  overflow:hidden;
+}
+.foto-num-bar {
+  background:#0B1F3A;
+  color:#F3EEE6;
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.foto-num {
+  width:20px; height:20px;
+  background:#8B5E3C;
+  border-radius:50%;
+  font-size:9pt;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.foto-nombre {
+  font-size:8pt;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+/* Placeholder visual de la foto */
+.foto-placeholder {
+  background:#F3EEE6;
+  height:88px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.foto-placeholder svg {
+  opacity:.25;
+}
+.foto-placeholder-texto {
+  position:absolute;
+  bottom:8px; left:0; right:0;
+  text-align:center;
+  font-size:7.5pt;
+  color:#8B5E3C;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.foto-body {
+  padding:10px 12px 12px;
+}
+.foto-desc {
+  font-size:9pt;
+  color:#555;
+  line-height:1.5;
+  margin-bottom:8px;
+}
+.foto-tags {
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+.tag {
+  font-size:7.5pt;
+  padding:2px 7px;
+  border-radius:10px;
+  font-weight:600;
+  letter-spacing:.04em;
+}
+.tag-verde  { background:#1F3527; color:#fff; }
+.tag-cognac { background:#8B5E3C; color:#fff; }
+.tag-gris   { background:#EDE5D8; color:#3B2B26; }
+
+/* ── AVISO ── */
+.aviso {
+  margin-top:28px;
+  background:#0B1F3A;
+  color:#F3EEE6;
+  border-radius:6px;
+  padding:16px 20px;
+  font-size:9pt;
+  line-height:1.6;
+}
+.aviso strong { color:#fff; }
+
+/* ── FOOTER ── */
+.footer {
+  background:#EDE5D8;
+  padding:12px 48px;
+  font-size:8pt;
+  color:#8B5E3C;
+  display:flex;
+  justify-content:space-between;
+  letter-spacing:.06em;
+}
+
+/* ── BOTÓN PRINT ── */
+.btn-print-bar {
+  background:#F3EEE6;
+  padding:10px 48px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:12px;
+  border-bottom:1px solid #EDE5D8;
+}
+.btn-print {
+  background:#0B1F3A;
+  color:#F3EEE6;
+  border:none;
+  padding:9px 20px;
+  font-family:'Helvetica Neue',-apple-system,sans-serif;
+  font-size:9pt;
+  font-weight:600;
+  letter-spacing:.08em;
+  cursor:pointer;
+  border-radius:4px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.btn-print:hover { background:#1a3560; }
+.btn-print-hint {
+  font-size:8.5pt;
+  color:#888;
+}
+
+/* ══ PRINT ══ */
+@media print {
+  @page { size:A4 portrait; margin:10mm 12mm; }
+  .btn-print-bar { display:none !important; }
+  body { font-size:9.5pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .header { padding:22px 28px 18px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .body { padding:20px 28px; }
+  .footer { padding:8px 28px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .bloque { page-break-inside:avoid; break-inside:avoid; }
+  .fotos-grid { page-break-inside:avoid; break-inside:avoid; }
+  .foto-card { page-break-inside:avoid; break-inside:avoid; }
+  .aviso { page-break-inside:avoid; break-inside:avoid; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .foto-num-bar { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  input, textarea {
+    border:none !important;
+    border-bottom:1px solid #888 !important;
+    background:transparent !important;
+  }
+  .datos-grid { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .tag { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- BARRA DESCARGA -->
+<div class="btn-print-bar">
+  <span class="btn-print-hint">Abre este archivo en Chrome → haz clic en el botón →<br>cambia destino a «Guardar como PDF» → Guardar</span>
+  <button class="btn-print" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M12 15V3m0 12-4-4m4 4 4-4"/><rect x="3" y="17" width="18" height="4" rx="1"/>
+    </svg>
+    Guardar como PDF
+  </button>
+</div>
+
+<!-- ENCABEZADO -->
+<div class="header">
+  <div class="header-marca">Ofelia Vallejo · Leather House</div>
+  <div class="header-titulo">Ficha de Producto<br>para Página Web</div>
+  <div class="header-bajada" style="margin-top:10px">
+    Llena una ficha por cada artículo. La columna <strong style="color:#F3EEE6">Ejemplo</strong> muestra cómo se ve rellena — solo síguelo.
+  </div>
+</div>
+
+<!-- CUERPO -->
+<div class="body">
+
+  <!-- ══ TEXTOS DEL PRODUCTO ══ -->
+  <div class="bloque">
+    <div class="bloque-titulo">Textos del producto</div>
+
+    <table class="tabla-campos">
+      <thead>
+        <tr>
+          <td class="campo-nombre">
+            <div class="cn-label" style="color:#888;font-size:8pt;letter-spacing:.1em;text-transform:uppercase">Campo</div>
+          </td>
+          <td class="campo-ejemplo" style="background:#F3EEE6">
+            <div style="font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:#8B5E3C;font-weight:600">
+              📋 Ejemplo: Bolso Marinilla
+            </div>
+          </td>
+          <td class="campo-tuproducto">
+            <div style="font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:#0B1F3A;font-weight:600">
+              ✏️ Tu producto
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="campo-nombre">
+            <div class="cn-label">Nombre del producto</div>
+            <div class="cn-desc">El nombre propio de la pieza</div>
+          </td>
+          <td class="campo-ejemplo">
+            <div class="ejemplo-texto">Marinilla</div>
+          </td>
+          <td class="campo-tuproducto">
+            <input class="tu-linea" type="text" placeholder="Ej: Yarumal, El Retiro, Jericó…">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="campo-nombre">
+            <div class="cn-label">Colección</div>
+            <div class="cn-desc">La línea a la que pertenece</div>
+          </td>
+          <td class="campo-ejemplo">
+            <div class="ejemplo-texto">Memorias de Antioquia</div>
+          </td>
+          <td class="campo-tuproducto">
+            <input class="tu-linea" type="text" placeholder="Ej: Memorias de Antioquia…">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="campo-nombre">
+            <div class="cn-label">Historia</div>
+            <div class="cn-desc">De dónde viene el nombre y qué representa.<br><em style="color:#aaa">2–3 frases</em></div>
+          </td>
+          <td class="campo-ejemplo">
+            <div class="ejemplo-texto">"Inspirado en Marinilla, cuna de tradición, música y artesanía. Este bolso representa la elegancia cotidiana y la belleza de los detalles que perduran en el tiempo."</div>
+          </td>
+          <td class="campo-tuproducto">
+            <textarea class="tu-area" placeholder="Inspirado en _____, este producto representa…"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="campo-nombre">
+            <div class="cn-label">Descripción web</div>
+            <div class="cn-desc">Qué es, de qué está hecho y para qué sirve.<br><em style="color:#aaa">2–3 frases</em></div>
+          </td>
+          <td class="campo-ejemplo">
+            <div class="ejemplo-texto">"Elaborado en cuero full-grain, Marinilla combina oficio, funcionalidad y diseño versátil. Su tamaño y bolsillo frontal permiten llevar lo esencial con estilo."</div>
+          </td>
+          <td class="campo-tuproducto">
+            <textarea class="tu-area" placeholder="Elaborado en cuero _____, este producto…"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="campo-nombre">
+            <div class="cn-label">Frase del producto</div>
+            <div class="cn-desc">Una sola frase corta que lo define.<br><em style="color:#aaa">Máximo 8 palabras</em></div>
+          </td>
+          <td class="campo-ejemplo">
+            <div class="ejemplo-texto" style="font-style:normal;font-size:11pt;color:#0B1F3A;font-weight:500">"Tradición que inspira. Elegancia que acompaña."</div>
+          </td>
+          <td class="campo-tuproducto">
+            <input class="tu-linea" type="text" placeholder="Ej: Cuero hecho para durar.">
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ══ DATOS TÉCNICOS ══ -->
+  <div class="bloque">
+    <div class="bloque-titulo">Datos técnicos</div>
+
+    <div class="datos-grid">
+      <div class="dato-item">
+        <div class="dato-label">Material</div>
+        <div class="dato-ejemplo">Ej: Cuero full-grain</div>
+        <input class="dato-linea" type="text" placeholder="_______________">
+      </div>
+      <div class="dato-item">
+        <div class="dato-label">Colores</div>
+        <div class="dato-ejemplo">Ej: Cognac · Negro</div>
+        <input class="dato-linea" type="text" placeholder="_______________">
+      </div>
+      <div class="dato-item">
+        <div class="dato-label">Medidas</div>
+        <div class="dato-ejemplo">Ej: 24 × 17 × 8 cm</div>
+        <input class="dato-linea" type="text" placeholder="_______________">
+      </div>
+      <div class="dato-item" style="border-right:none">
+        <div class="dato-label">Precio</div>
+        <div class="dato-ejemplo">Ej: $450.000 COP</div>
+        <input class="dato-linea" type="text" placeholder="_______________">
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ══ FOTOS ══ -->
+  <div class="bloque">
+    <div class="bloque-titulo">Fotos requeridas</div>
+
+    <div class="fotos-intro">
+      Necesitamos <strong>6 fotos por producto</strong>. Abajo está el tipo de foto que va en cada posición de la página web y el estilo que debe tener. Si el producto viene en varios colores, la <strong>foto 1 y la foto 5</strong> se repiten por cada color.
+    </div>
+
+    <div class="fotos-grid">
+
+      <!-- FOTO 1 -->
+      <div class="foto-card">
+        <div class="foto-num-bar">
+          <div class="foto-num">1</div>
+          <div class="foto-nombre">Foto principal</div>
+        </div>
+        <div class="foto-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8B5E3C" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <div class="foto-placeholder-texto">Foto con modelo</div>
+        </div>
+        <div class="foto-body">
+          <div class="foto-desc">Modelo usando el producto. Se ve de la cintura para abajo, sin mostrar la cara. El bolso/artículo se ve completo.</div>
+          <div class="foto-tags">
+            <span class="tag tag-verde">Con modelo</span>
+            <span class="tag tag-gris">Vertical 4:5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 2 -->
+      <div class="foto-card">
+        <div class="foto-num-bar">
+          <div class="foto-num">2</div>
+          <div class="foto-nombre">Producto solo · frente</div>
+        </div>
+        <div class="foto-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8B5E3C" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <div class="foto-placeholder-texto">Sin modelo</div>
+        </div>
+        <div class="foto-body">
+          <div class="foto-desc">El producto de frente, solo, sobre una superficie de madera o tela neutra. Luz natural de lado. Sin fondos blancos de estudio.</div>
+          <div class="foto-tags">
+            <span class="tag tag-cognac">Sin modelo</span>
+            <span class="tag tag-gris">Cuadrada 1:1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 3 -->
+      <div class="foto-card">
+        <div class="foto-num-bar">
+          <div class="foto-num">3</div>
+          <div class="foto-nombre">Interior abierto</div>
+        </div>
+        <div class="foto-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8B5E3C" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <div class="foto-placeholder-texto">Sin modelo</div>
+        </div>
+        <div class="foto-body">
+          <div class="foto-desc">El bolso/artículo abierto, fotografiado desde arriba. Se ven los compartimentos y el interior. Sin objetos adentro (o mínimo: un lápiz).</div>
+          <div class="foto-tags">
+            <span class="tag tag-cognac">Sin modelo</span>
+            <span class="tag tag-gris">Cuadrada 1:1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 4 -->
+      <div class="foto-card">
+        <div class="foto-num-bar">
+          <div class="foto-num">4</div>
+          <div class="foto-nombre">Detalle del cuero</div>
+        </div>
+        <div class="foto-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8B5E3C" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <div class="foto-placeholder-texto">Macro · Sin modelo</div>
+        </div>
+        <div class="foto-body">
+          <div class="foto-desc">Primer plano muy cercano del cuero, las costuras o el cierre. Sirve para mostrar la calidad del material. Luz desde el lado para resaltar la textura.</div>
+          <div class="foto-tags">
+            <span class="tag tag-cognac">Sin modelo</span>
+            <span class="tag tag-gris">Cuadrada 1:1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 5 -->
+      <div class="foto-card">
+        <div class="foto-num-bar">
+          <div class="foto-num">5</div>
+          <div class="foto-nombre">Ambiente paisa</div>
+        </div>
+        <div class="foto-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8B5E3C" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <div class="foto-placeholder-texto">Locación paisa</div>
+        </div>
+        <div class="foto-body">
+          <div class="foto-desc">El producto en una locación con carácter antioqueño: escalera colonial, ventana con maceta, café con madera. Con modelo o sin modelo.</div>
+          <div class="foto-tags">
+            <span class="tag tag-verde">Con o sin modelo</span>
+            <span class="tag tag-gris">Vertical 4:5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 6 -->
+      <div class="foto-card">
+        <div class="foto-num-bar">
+          <div class="foto-num">6</div>
+          <div class="foto-nombre">Vista trasera</div>
+        </div>
+        <div class="foto-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8B5E3C" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <div class="foto-placeholder-texto">Sin modelo</div>
+        </div>
+        <div class="foto-body">
+          <div class="foto-desc">La parte de atrás del producto, sola. Muestra la correa, bolsillos traseros o el acabado posterior. Sobre la misma superficie de la foto 2.</div>
+          <div class="foto-tags">
+            <span class="tag tag-cognac">Sin modelo</span>
+            <span class="tag tag-gris">Cuadrada 1:1</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /fotos-grid -->
+
+    <div class="aviso">
+      <strong>⚠️ Lo que NO deben enviar:</strong> fondos blancos de estudio fotográfico · filtros de Instagram · fotos con cara completa mirando a cámara · logos de otras marcas visibles · selfies o fotos de mano.
+      <br><br>
+      <strong>✅ Lo que SÍ funciona:</strong> luz natural · ropa en tonos neutros (blanco, crema, café, negro) · locaciones con madera, pañete o arquitectura colonial.
+    </div>
+
+  </div>
+
+</div><!-- /body -->
+
+<div class="footer">
+  <span>Ofelia Vallejo · Leather House · Ficha de Producto Web</span>
+  <span>Una ficha por artículo · 5 textos + 6 fotos</span>
+</div>
+
+</body>
+</html>

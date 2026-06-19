@@ -83,6 +83,23 @@
         url: url,
       },
     });
+
+    let crumb = document.getElementById('ov-breadcrumb-jsonld');
+    if (!crumb) {
+      crumb = document.createElement('script');
+      crumb.id = 'ov-breadcrumb-jsonld';
+      crumb.type = 'application/ld+json';
+      document.head.appendChild(crumb);
+    }
+    crumb.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/home' },
+        { '@type': 'ListItem', position: 2, name: 'Colección', item: SITE + '/coleccion' },
+        { '@type': 'ListItem', position: 3, name: product.name, item: url },
+      ],
+    });
   }
 
   window.OVSeo = { applyProduct: applyProduct };

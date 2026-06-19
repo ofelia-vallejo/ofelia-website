@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ofelia Vallejo — Ficha Técnica Producto (C+D)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --marfil: #F3EEE6;
+    --beige: #EDE5D8;
+    --navy: #0B1F3A;
+    --espresso: #3B2B26;
+    --vino: #5B1E24;
+    --verde: #1F3527;
+    --carbon: #141414;
+    --oro: #8B7355;
+    --borde: #D4C8B8;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--marfil);
+    color: var(--espresso);
+  }
+
+  .cin { font-family: 'Cinzel', Georgia, serif; }
+  .cor { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+  .lbl {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--oro);
+  }
+
+  .lbl-lt { color: rgba(197,163,115,0.75); }
+
+  .spec-k {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--oro);
+    display: block;
+  }
+
+  .spec-v {
+    font-size: 13px;
+    color: var(--espresso);
+    margin-top: 3px;
+    display: block;
+  }
+
+  .swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 0.5px solid rgba(0,0,0,0.12);
+  }
+
+  .swatch-lt { border-color: rgba(255,255,255,0.3); }
+
+  .divider { width: 40px; height: 0.5px; background: var(--oro); }
+
+  /* ── BANDA 1: HERO ── */
+  .banda-hero {
+    background: var(--espresso);
+    padding: 3.5rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .banda-hero::after {
+    content: 'I';
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 280px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    right: -10px;
+    bottom: -70px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-copy { z-index: 1; }
+
+  .hero-copy h1 {
+    font-family: 'Cinzel', Georgia, serif;
+    color: var(--marfil);
+    font-size: 46px;
+    letter-spacing: 0.1em;
+    line-height: 1.05;
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+
+  .hero-copy .tagline {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: rgba(197,163,115,0.82);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-copy p {
+    font-size: 13px;
+    color: rgba(243,238,230,0.62);
+    line-height: 1.82;
+    max-width: 380px;
+  }
+
+  .colores-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1.5rem;
+  }
+
+  /* Galería hero */
+  .hero-galeria { z-index: 1; }
+
+  .foto-hero {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: rgba(0,0,0,0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    position: relative;
+    border-left: 2px solid var(--oro);
+    overflow: hidden;
+  }
+
+  .foto-hero img,
+  .foto-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .foto-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .foto-placeholder-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(243,238,230,0.28);
+  }
+
+  .foto-num {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 24px;
+    color: rgba(255,255,255,0.1);
+    line-height: 1;
+  }
+
+  .foto-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(11,31,58,0.8);
+    padding: 4px 10px;
+    z-index: 2;
+  }
+
+  .foto-tag span {
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--marfil);
+  }
+
+  .miniaturas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  .foto-slot {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── BANDA 2: SPECS RÁPIDAS ── */
+  .banda-specs-rapidas {
+    background: var(--beige);
+    padding: 1.4rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border-bottom: 0.5px solid var(--borde);
+  }
+
+  .spec-rapida {
+    padding: 0 1.4rem;
+    border-right: 0.5px solid var(--borde);
+  }
+
+  .spec-rapida:first-child { padding-left: 0; }
+  .spec-rapida:last-child { border-right: none; }
+
+  /* ── BANDA 3: FICHA COMPLETA ── */
+  .banda-ficha {
+    background: var(--marfil);
+    padding: 2.5rem 3rem;
+  }
+
+  .ficha-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.5px solid var(--borde);
+  }
+
+  .ficha-header .linea {
+    flex: 1;
+    height: 0.5px;
+    background: var(--borde);
+  }
+
+  .ficha-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  /* Col 1 galería */
+  .foto-editorial {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--espresso);
+    margin-bottom: 8px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .miniaturas-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .foto-mini {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .grabado-callout {
+    background: var(--navy);
+    padding: 1rem 1.25rem;
+  }
+
+  .grabado-callout p {
+    font-size: 12px;
+    color: rgba(243,238,230,0.72);
+    line-height: 1.65;
+    margin-top: 6px;
+  }
+
+  /* Col 2 specs */
+  .specs-tabla { padding-top: 0; }
+
+  .spec-row {
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--borde);
+  }
+
+  .spec-row:last-child { border-bottom: none; }
+
+  /* Col 3 descripción */
+  .col-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 520px;
+  }
+
+  .cuidado-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--beige);
+    border-left: 2px solid var(--oro);
+  }
+
+  .cuidado-box p {
+    font-size: 12px;
+    color: #5a4a3a;
+    line-height: 1.65;
+    margin-top: 5px;
+  }
+
+  .colores-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .color-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--oro);
+    letter-spacing: 0.06em;
+  }
+
+  .precio-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--borde);
+  }
+
+  .precio-row .precio {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 28px;
+    color: var(--navy);
+    letter-spacing: 0.06em;
+  }
+
+  .precio-row .incluido {
+    font-size: 11px;
+    color: var(--oro);
+  }
+
+  .cta-stack { display: flex; flex-direction: column; gap: 8px; }
+
+  .btn-navy {
+    background: var(--navy);
+    color: var(--marfil);
+    border: none;
+    padding: 13px 28px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .btn-navy:hover { background: #0f2a50; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    border: 0.5px solid var(--navy);
+    padding: 11px 28px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .btn-ghost:hover { background: rgba(11,31,58,0.05); }
+
+  /* ── BANDA 4: CIERRE ── */
+  .banda-cierre {
+    background: var(--navy);
+    padding: 2rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .banda-cierre .coleccion-label {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: rgba(197,163,115,0.55);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .banda-cierre .cita {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: rgba(243,238,230,0.87);
+    font-style: italic;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-light {
+    background: var(--marfil);
+    color: var(--navy);
+    border: none;
+    padding: 13px 28px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-light:hover { background: #e8e2d8; }
+
+  /* ── Foto placeholder visual ── */
+  .foto-bg-espresso { background: #3B2B26; }
+  .foto-bg-navy     { background: #0B1F3A; }
+  .foto-bg-carbon   { background: #1a1a1a; }
+  .foto-bg-verde    { background: #1F3527; }
+  .foto-bg-vino     { background: #5B1E24; }
+  .foto-bg-beige    { background: #EDE5D8; border: 0.5px solid #D4C8B8; }
+
+  .ph-text {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 130px;
+    padding: 0 8px;
+  }
+  .ph-light { color: rgba(243,238,230,0.32); }
+  .ph-dark  { color: rgba(59,43,38,0.3); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .banda-hero { grid-template-columns: 1fr; }
+    .banda-specs-rapidas { grid-template-columns: repeat(3, 1fr); }
+    .ficha-grid { grid-template-columns: 1fr; }
+    .banda-cierre { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .banda-specs-rapidas { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- BANDA 1: HERO EDITORIAL                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="banda-hero">
+
+  <!-- Copy izquierda -->
+  <div class="hero-copy">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+      <div class="divider"></div>
+      <span class="lbl lbl-lt">Leather Travel · Nº 001</span>
+    </div>
+
+    <h1>Nombre del<br>Producto</h1>
+
+    <p class="tagline">"Elegancia que permanece."</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cuero full-grain colombiano curtido artesanalmente en Medellín. Pieza concebida para durar generaciones, no temporadas.</p>
+
+    <div class="colores-row">
+      <span class="lbl lbl-lt">Color</span>
+      <span class="swatch swatch-lt" style="background:#3B2B26;" title="Espresso"></span>
+      <span class="swatch swatch-lt" style="background:#0B1F3A;" title="Navy"></span>
+      <span class="swatch swatch-lt" style="background:#1F3527;" title="Verde"></span>
+      <span class="swatch swatch-lt" style="background:#5B1E24;" title="Vino"></span>
+      <span class="swatch swatch-lt" style="background:#141414;" title="Carbón"></span>
+    </div>
+  </div>
+
+  <!-- Galería derecha -->
+  <div class="hero-galeria">
+    <!-- FOTO 1: Hero con modelo — reemplazar src -->
+    <div class="foto-hero foto-bg-carbon">
+      <div class="foto-tag"><span>📷 Foto 1 — Hero editorial</span></div>
+      <div class="foto-num">01</div>
+      <!-- Reemplazar con: <img src="fotos/foto-01-hero.jpg" alt="Hero editorial — modelo caminando con bolso"> -->
+      <div class="foto-placeholder">
+        <div style="width:90px;height:60px;border:0.5px solid rgba(255,255,255,0.12);"></div>
+        <p class="foto-placeholder-label">Foto 1 · Hero editorial<br>Modelo caminando · tres cuartos<br>Bolso al hombro · wardrobe marfil<br>Luz lateral dramática</p>
+      </div>
+    </div>
+
+    <!-- Miniaturas -->
+    <div class="miniaturas-grid">
+      <!-- FOTO 2 -->
+      <div class="foto-slot foto-bg-espresso">
+        <div class="foto-tag" style="top:5px;left:5px;padding:3px 7px;"><span style="font-size:7px;">📷 F2</span></div>
+        <!-- <img src="fotos/foto-02-detalle-asa.jpg" alt="Detalle asa"> -->
+        <p class="ph-text ph-light">F2<br>Detalle asa</p>
+      </div>
+      <!-- FOTO 3 -->
+      <div class="foto-slot foto-bg-navy">
+        <div class="foto-tag" style="top:5px;left:5px;padding:3px 7px;"><span style="font-size:7px;">📷 F3</span></div>
+        <!-- <img src="fotos/foto-03-trasera.jpg" alt="Vista trasera"> -->
+        <p class="ph-text ph-light">F3<br>Vista trasera</p>
+      </div>
+      <!-- FOTO 4 -->
+      <div class="foto-slot foto-bg-verde">
+        <div class="foto-tag" style="top:5px;left:5px;padding:3px 7px;"><span style="font-size:7px;">📷 F4</span></div>
+        <!-- <img src="fotos/foto-04-interior.jpg" alt="Interior abierto"> -->
+        <p class="ph-text ph-light">F4<br>Interior abierto</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- BANDA 2: SPECS RÁPIDAS HORIZONTALES                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="banda-specs-rapidas">
+  <div class="spec-rapida">
+    <span class="spec-k">Material</span>
+    <span class="spec-v">Full-grain colombiano</span>
+  </div>
+  <div class="spec-rapida">
+    <span class="spec-k">Dimensiones</span>
+    <span class="spec-v">42 × 28 × 18 cm</span>
+  </div>
+  <div class="spec-rapida">
+    <span class="spec-k">Peso</span>
+    <span class="spec-v">0.9 kg</span>
+  </div>
+  <div class="spec-rapida">
+    <span class="spec-k">Hardware</span>
+    <span class="spec-v">Latón antiguo</span>
+  </div>
+  <div class="spec-rapida">
+    <span class="spec-k">Personalización</span>
+    <span class="spec-v">Grabado láser</span>
+  </div>
+  <div class="spec-rapida">
+    <span class="spec-k">Origen</span>
+    <span class="spec-v">Medellín, Colombia</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- BANDA 3: FICHA COMPLETA 3 COLUMNAS                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="banda-ficha">
+
+  <div class="ficha-header">
+    <span class="lbl">Ficha completa</span>
+    <div class="linea"></div>
+    <span class="cor" style="font-size:13px;color:var(--oro);font-style:italic;">Cuero hecho para durar.</span>
+  </div>
+
+  <div class="ficha-grid">
+
+    <!-- COLUMNA 1: Galería editorial -->
+    <div>
+      <!-- FOTO 5: Lifestyle modelo sentada -->
+      <div class="foto-editorial foto-bg-espresso">
+        <div class="foto-tag"><span>📷 Foto 5 — Lifestyle</span></div>
+        <div class="foto-num">05</div>
+        <!-- <img src="fotos/foto-05-lifestyle.jpg" alt="Modelo sentada con bolso en falda"> -->
+        <div class="foto-placeholder">
+          <div style="width:60px;height:80px;border:0.5px solid rgba(255,255,255,0.12);"></div>
+          <p class="ph-text ph-light">F5 · Lifestyle<br>Modelo sentada · bolso en falda<br>Crop desde cadera · atmósfera atelier</p>
+        </div>
+      </div>
+
+      <!-- Miniaturas 2col -->
+      <div class="miniaturas-2col">
+        <!-- FOTO 6 -->
+        <div class="foto-mini foto-bg-beige">
+          <div class="foto-tag" style="top:5px;left:5px;padding:3px 7px;background:rgba(11,31,58,0.7);"><span style="font-size:7px;">📷 F6</span></div>
+          <!-- <img src="fotos/foto-06-grabado.jpg" alt="Detalle grabado láser"> -->
+          <p class="ph-text ph-dark">F6<br>Grabado láser<br>macro</p>
+        </div>
+        <!-- FOTO 7 -->
+        <div class="foto-mini foto-bg-vino">
+          <div class="foto-tag" style="top:5px;left:5px;padding:3px 7px;"><span style="font-size:7px;">📷 F7</span></div>
+          <!-- <img src="fotos/foto-07-costuras.jpg" alt="Detalle costuras"> -->
+          <p class="ph-text ph-light">F7<br>Detalle<br>costuras</p>
+        </div>
+      </div>
+
+      <!-- Callout grabado -->
+      <div class="grabado-callout">
+        <span class="lbl lbl-lt">Grabado láser</span>
+        <p>Esquina inferior derecha del panel frontal, ~4 cm del borde. CO₂ real sobre cuero, ~0.4 mm de profundidad.</p>
+      </div>
+    </div>
+
+    <!-- COLUMNA 2: Especificaciones técnicas -->
+    <div class="specs-tabla">
+      <p class="lbl" style="margin-bottom:1rem;">Especificaciones técnicas</p>
+
+      <div class="spec-row"><span class="spec-k">Material exterior</span><span class="spec-v">Full-grain colombiano</span></div>
+      <div class="spec-row"><span class="spec-k">Curtido</span><span class="spec-v">Vegetal artesanal</span></div>
+      <div class="spec-row"><span class="spec-k">Forro interior</span><span class="spec-v">Lorem ipsum tela natural</span></div>
+      <div class="spec-row"><span class="spec-k">Cierre principal</span><span class="spec-v">Lorem ipsum YKK latón</span></div>
+      <div class="spec-row"><span class="spec-k">Bolsillos interiores</span><span class="spec-v">2 principales · 1 laptop</span></div>
+      <div class="spec-row"><span class="spec-k">Bolsillo exterior</span><span class="spec-v">1 frontal con cierre</span></div>
+      <div class="spec-row"><span class="spec-k">Asa superior</span><span class="spec-v">Cuero doble cosido</span></div>
+      <div class="spec-row"><span class="spec-k">Correa hombro</span><span class="spec-v">Ajustable, desmontable</span></div>
+      <div class="spec-row"><span class="spec-k">Hardware</span><span class="spec-v">Latón antiguo cepillado</span></div>
+      <div class="spec-row"><span class="spec-k">Costuras</span><span class="spec-v">Saddlestitch a mano</span></div>
+      <div class="spec-row"><span class="spec-k">Cantos</span><span class="spec-v">Pintados y pulidos a mano</span></div>
+      <div class="spec-row"><span class="spec-k">Hecho en</span><span class="spec-v">Medellín, Colombia</span></div>
+    </div>
+
+    <!-- COLUMNA 3: Descripción + colores + CTA -->
+    <div class="col-desc">
+      <div>
+        <p class="lbl" style="margin-bottom:1rem;">Descripción</p>
+        <p style="font-size:13px;color:#5a4a3a;line-height:1.82;margin-bottom:1rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cuero full-grain colombiano curtido artesanalmente en Medellín. Pieza concebida para durar generaciones.</p>
+        <p style="font-size:13px;color:#5a4a3a;line-height:1.82;margin-bottom:1rem;">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum artesanal paisa, hecha para heredar, no para temporadas.</p>
+        <p style="font-size:13px;color:#5a4a3a;line-height:1.82;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore cuero colombiano.</p>
+
+        <div class="cuidado-box">
+          <span class="lbl" style="display:block;">Cuidado del cuero</span>
+          <p>Lorem ipsum cera natural, paño seco. El cuero full-grain mejora con el uso — cada pieza se vuelve única con el tiempo.</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="lbl" style="margin-bottom:12px;">Colores disponibles</p>
+        <div class="colores-grid">
+          <div class="color-item"><span class="swatch" style="background:#3B2B26;"></span>Espresso</div>
+          <div class="color-item"><span class="swatch" style="background:#0B1F3A;"></span>Navy</div>
+          <div class="color-item"><span class="swatch" style="background:#1F3527;"></span>Verde profundo</div>
+          <div class="color-item"><span class="swatch" style="background:#5B1E24;"></span>Vino</div>
+          <div class="color-item"><span class="swatch" style="background:#141414;"></span>Carbón</div>
+        </div>
+
+        <div class="precio-row">
+          <div>
+            <span class="lbl" style="display:block;margin-bottom:4px;">Precio</span>
+            <span class="precio">CHF 385</span>
+          </div>
+          <span class="incluido">Grabado láser incluido</span>
+        </div>
+
+        <div class="cta-stack">
+          <button class="btn-navy">Tu nombre. En cuero.</button>
+          <button class="btn-ghost">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- BANDA 4: CIERRE DE MARCA                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="banda-cierre">
+  <div>
+    <span class="coleccion-label">Leather House · Medellín, Colombia</span>
+    <p class="cita">"Cada pieza lleva la firma de Ofelia Vallejo — patrimonio, no producto."</p>
+  </div>
+  <button class="btn-light">Ver toda la colección</button>
+</section>
+
+</body>
+</html>
