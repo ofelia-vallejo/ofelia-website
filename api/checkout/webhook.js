@@ -13,6 +13,9 @@ const {
 } = require('../../lib/postgres');
 
 async function readRawBody(req) {
+  // Some runtimes attach the untouched bytes here. Checking this plain property is safe;
+  // never read req.body, which triggers Vercel's lazy parser and consumes the stream.
+  if (Buffer.isBuffer(req.rawBody)) return req.rawBody;
   return new Promise((resolve, reject) => {
     const chunks = [];
     req.on('data', (chunk) => chunks.push(chunk));
