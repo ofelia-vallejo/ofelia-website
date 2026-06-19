@@ -5,6 +5,7 @@
 
   async function fetchCatalog() {
     const res = await fetch(API);
+    if (!res.ok) throw new Error('Catálogo no disponible (HTTP ' + res.status + ')');
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'Catálogo no disponible');
     return json;
@@ -12,6 +13,7 @@
 
   async function fetchProduct(slugOrId) {
     const res = await fetch(API + '?slug=' + encodeURIComponent(slugOrId));
+    if (!res.ok) throw new Error('Producto no encontrado (HTTP ' + res.status + ')');
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'Producto no encontrado');
     return json.product;

@@ -147,6 +147,55 @@
     }
   }
 
+  function buildThumbsHtml(galleryImages, hasGallery) {
+    if (!hasGallery) return '';
+    return galleryImages.map((src, i) =>
+      '<button type="button" class="pdp__thumb' + (i === 0 ? ' is-active' : '') + '" role="tab" data-index="' + i + '" aria-selected="' + (i === 0) + '">' +
+        '<img src="' + esc(imgUrl(src)) + '" alt="" loading="' + (i === 0 ? 'eager' : 'lazy') + '">' +
+      '</button>'
+    ).join('');
+  }
+
+  function buildSlidesHtml(galleryImages, hasGallery, colorData, firstColor) {
+    if (!hasGallery) return '';
+    return galleryImages.map((src, i) =>
+      '<div class="pdp__slide"><img src="' + esc(imgUrl(src)) + '" alt="' + esc(colorData[firstColor].alts[i]) + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '"></div>'
+    ).join('');
+  }
+
+  function buildSwatchesHtml(colorKeys, colorData, firstColor) {
+    return colorKeys.map((k) =>
+      '<button type="button" class="pdp__swatch' + (k === firstColor ? ' is-active' : '') + '" data-color="' + esc(k) + '" style="background:' + esc(colorData[k].leather[1] || '#3B2B26') + '" aria-label="' + esc(colorData[k].label) + '"></button>'
+    ).join('');
+  }
+
+  function buildRelatedHtml(related) {
+    return (related || []).slice(0, 3).map((r) => {
+      const heroImg = (r.images && r.images[0]) ? imgUrl(r.images[0].url) : '';
+      return (
+        '<a href="/producto/' + esc(r.slug) + '" class="pdp__card">' +
+          '<div class="pdp__card-img">' +
+            (heroImg ? '<img src="' + esc(heroImg) + '" alt="' + esc(r.name) + '" loading="lazy">' : '') +
+          '</div>' +
+          '<p class="pdp__card-name">' + esc(r.name) + '</p>' +
+          '<p class="pdp__card-price">' + formatCHF(r.basePrice) + '</p>' +
+        '</a>'
+      );
+    }).join('');
+  }
+
+  function buildFichaMediaHtml(p, fichaMainSrc, galleryImages, fichaCaption) {
+    if (!fichaMainSrc) return '<div class="pdp__ficha-img-placeholder"></div>';
+    return '<img class="pdp__ficha-img-main" src="' + esc(fichaMainSrc) + '" alt="' + esc(p.name) + '" loading="lazy">' +
+      (galleryImages.length >= 3
+        ? '<div class="pdp__ficha-img-thumbs">' +
+          '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[1])) + '" alt="" loading="lazy">' +
+          '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[2])) + '" alt="" loading="lazy">' +
+          '</div>'
+        : '') +
+      (fichaCaption ? '<p class="pdp__ficha-caption">' + esc(fichaCaption) + '</p>' : '');
+  }
+
   function renderProduct(p, related) {
     const colorData = buildColorData(p);
     const colorKeys = Object.keys(colorData);
@@ -163,58 +212,23 @@
     const galleryImages = colorData[firstColor].images || [];
     const hasGallery = galleryImages.length > 0;
 
-    const thumbsHtml = hasGallery
-      ? galleryImages.map((src, i) =>
-          '<button type="button" class="pdp__thumb' + (i === 0 ? ' is-active' : '') + '" role="tab" data-index="' + i + '" aria-selected="' + (i === 0) + '">' +
-            '<img src="' + esc(imgUrl(src)) + '" alt="" loading="' + (i === 0 ? 'eager' : 'lazy') + '">' +
-          '</button>'
-        ).join('')
-      : '';
-
-    const slides = hasGallery
-      ? galleryImages.map((src, i) =>
-          '<div class="pdp__slide"><img src="' + esc(imgUrl(src)) + '" alt="' + esc(colorData[firstColor].alts[i]) + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '"></div>'
-        ).join('')
-      : '';
-
-    const swatches = colorKeys.map((k) =>
-      '<button type="button" class="pdp__swatch' + (k === firstColor ? ' is-active' : '') + '" data-color="' + esc(k) + '" style="background:' + esc(colorData[k].leather[1] || '#3B2B26') + '" aria-label="' + esc(colorData[k].label) + '"></button>'
-    ).join('');
-
+    const thumbsHtml = buildThumbsHtml(galleryImages, hasGallery);
+    const slides = buildSlidesHtml(galleryImages, hasGallery, colorData, firstColor);
+    const swatches = buildSwatchesHtml(colorKeys, colorData, firstColor);
     const specsBarHtml = buildSpecsBar(p);
 
     const specRowsHtml =
       '<p class="pdp__ficha-specs-title">Especificaciones t\u00e9cnicas</p>' +
       buildSpecRowsHtml(p, accordion);
 
-    const relatedHtml = (related || []).slice(0, 3).map((r) => {
-      const heroImg = (r.images && r.images[0]) ? imgUrl(r.images[0].url) : '';
-      return (
-        '<a href="/producto/' + esc(r.slug) + '" class="pdp__card">' +
-          '<div class="pdp__card-img">' +
-            (heroImg ? '<img src="' + esc(heroImg) + '" alt="' + esc(r.name) + '" loading="lazy">' : '') +
-          '</div>' +
-          '<p class="pdp__card-name">' + esc(r.name) + '</p>' +
-          '<p class="pdp__card-price">' + formatCHF(r.basePrice) + '</p>' +
-        '</a>'
-      );
-    }).join('');
+    const relatedHtml = buildRelatedHtml(related);
 
     const heroSrc = hasGallery ? imgUrl(galleryImages[0]) : '';
     const editorial = p.editorialImage ? imgUrl(p.editorialImage) : '';
     const fichaCaption = p.editorialCaption || '';
 
     const fichaMainSrc = editorial || heroSrc;
-    const fichaMediaHtml = fichaMainSrc
-      ? '<img class="pdp__ficha-img-main" src="' + esc(fichaMainSrc) + '" alt="' + esc(p.name) + '" loading="lazy">' +
-        (galleryImages.length >= 3
-          ? '<div class="pdp__ficha-img-thumbs">' +
-            '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[1])) + '" alt="" loading="lazy">' +
-            '<img class="pdp__ficha-img-thumb" src="' + esc(imgUrl(galleryImages[2])) + '" alt="" loading="lazy">' +
-            '</div>'
-          : '') +
-        (fichaCaption ? '<p class="pdp__ficha-caption">' + esc(fichaCaption) + '</p>' : '')
-      : '<div class="pdp__ficha-img-placeholder"></div>';
+    const fichaMediaHtml = buildFichaMediaHtml(p, fichaMainSrc, galleryImages, fichaCaption);
 
     const stockText = stock <= 0 ? 'Agotado' : stock <= (p.lowStockAt || 2) ? '\u00daltimas unidades' : 'En stock';
     const tagline = p.tagline || '\u201cElegancia que permanece.\u201d';
