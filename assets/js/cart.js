@@ -177,9 +177,15 @@
       return { ok: false, error: 'Tu bolsa está vacía.' };
     }
     const items = toCheckoutItems();
+    const headers = { 'Content-Type': 'application/json' };
+    // Attach the customer session token if logged in, so the order links to the account.
+    try {
+      const token = localStorage.getItem('ov_token');
+      if (token) headers.Authorization = 'Bearer ' + token;
+    } catch (e) {}
     const res = await fetch('/api/checkout/create', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({
         items,
         customerEmail: opts && opts.email ? opts.email : undefined,

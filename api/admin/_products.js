@@ -4,7 +4,6 @@ const {
   saveCatalog,
   findProduct,
   slugify,
-  newProductId,
 } = require('../../lib/store');
 
 module.exports = async (req, res) => {

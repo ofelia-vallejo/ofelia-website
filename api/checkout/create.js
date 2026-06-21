@@ -10,6 +10,7 @@ const { getStripe } = require('../../lib/stripe-client');
 const { loadCatalog, findProduct } = require('../../lib/store');
 const { buildStripeLineItems } = require('../../lib/build-stripe-lines');
 const { createOrder } = require('../../lib/postgres');
+const { verifyCustomerToken, getCustomerBearer } = require('../../lib/customer-auth');
 const config = require('../../lib/config');
 
 function generateOrderId() {
@@ -87,12 +88,14 @@ module.exports = async (req, res) => {
     if (config.dbConfigured) {
       try {
         const primary = orderLines[0];
+        const session_ = verifyCustomerToken(getCustomerBearer(req));
         await createOrder({
           id: orderId,
           stripeSessionId: session.id,
           status: 'pending',
-          customerEmail: customerEmail || null,
-          customerName: customerName || null,
+          customerId: session_ ? session_.id : null,
+          customerEmail: customerEmail || (session_ ? session_.email : null),
+          customerName: customerName || (session_ ? session_.nombre : null),
           productId: primary ? primary.productId : null,
           variantId: primary ? primary.variantId : null,
           totalChf,

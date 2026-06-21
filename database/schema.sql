@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS orders (
   stripe_session_id TEXT UNIQUE,
   stripe_payment_intent TEXT,
   status TEXT NOT NULL DEFAULT 'pending',
+  customer_id TEXT,
   customer_email TEXT,
   customer_name TEXT,
   product_id TEXT REFERENCES products(id),
@@ -80,6 +81,10 @@ CREATE TABLE IF NOT EXISTS order_events (
   payload JSONB NOT NULL DEFAULT '{}',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Migration: vincular pedidos a la cuenta del cliente (añadir si no existe)
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS customer_id TEXT;
+CREATE INDEX IF NOT EXISTS idx_orders_customer ON orders(customer_id);
 
 -- Migration: columnas de ficha técnica y product-copy (añadir si no existen)
 ALTER TABLE products ADD COLUMN IF NOT EXISTS tagline TEXT DEFAULT '';

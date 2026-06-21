@@ -10,6 +10,7 @@ const {
   getOrderBySession,
   logOrderEvent,
   decrementInventory,
+  isStripeEventProcessed,
 } = require('../../lib/postgres');
 
 async function readRawBody(req) {
@@ -47,11 +48,19 @@ module.exports = async (req, res) => {
   }
 
   try {
+    // Idempotency: Stripe redelivers events; skip ones already processed.
+    if (config.dbConfigured && (await isStripeEventProcessed(event.id))) {
+      return res.status(200).json({ received: true, duplicate: true });
+    }
+
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
       const orderId = session.metadata?.order_id;
-      const productId = session.metadata?.product_id;
-      const variantId = session.metadata?.variant_id || null;
+
+      // Only fulfill once payment is actually settled (async methods can be 'unpaid').
+      if (session.payment_status !== 'paid') {
+        return res.status(200).json({ received: true, pending: true });
+      }
 
       if (config.dbConfigured) {
         await updateOrderBySession(session.id, {
@@ -60,15 +69,21 @@ module.exports = async (req, res) => {
           customerEmail: session.customer_details?.email || session.customer_email,
         });
 
+        // Decrement inventory from the persisted order's line items (source of truth),
+        // honoring per-line quantity and variant. The session metadata does not carry these.
+        const order = await getOrderBySession(session.id);
+        const lineItems = Array.isArray(order?.line_items) ? order.line_items : [];
+        for (const line of lineItems) {
+          if (!line.productId) continue;
+          await decrementInventory(line.productId, line.variantId || null, Number(line.quantity) || 1);
+        }
+
         if (orderId) {
           await logOrderEvent(orderId, 'checkout.session.completed', {
+            stripe_event_id: event.id,
             amount_total: session.amount_total,
             currency: session.currency,
           });
-        }
-
-        if (productId) {
-          await decrementInventory(productId, variantId, 1);
         }
       }
     }
@@ -77,7 +92,7 @@ module.exports = async (req, res) => {
       const session = event.data.object;
       await updateOrderBySession(session.id, { status: 'expired' });
       const order = await getOrderBySession(session.id);
-      if (order) await logOrderEvent(order.id, 'checkout.session.expired', {});
+      if (order) await logOrderEvent(order.id, 'checkout.session.expired', { stripe_event_id: event.id });
     }
   } catch (err) {
     console.error('[webhook] handler:', err);

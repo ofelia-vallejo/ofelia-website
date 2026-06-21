@@ -10,6 +10,7 @@ const HANDLERS = {
   login:    () => require('./_login'),
   register: () => require('./_register'),
   me:       () => require('./_me'),
+  orders:   () => require('./_orders'),
 };
 
 module.exports = async (req, res) => {
