@@ -11,6 +11,9 @@ const {
   logOrderEvent,
   confirmOrderPaid,
   isStripeEventProcessed,
+  getOrderByPaymentIntent,
+  getRefundByStripeId,
+  createRefund,
 } = require('../../lib/postgres');
 
 // Snapshot de dirección desde la sesión de Stripe (envío preferente; si no, facturación).
@@ -99,6 +102,35 @@ module.exports = async (req, res) => {
             currency: session.currency,
           },
         });
+      }
+    }
+
+    // Reembolso iniciado en Stripe (dashboard o API): refleja el refund en la DB.
+    if (event.type === 'charge.refunded' && config.dbConfigured) {
+      const charge = event.data.object;
+      const paymentIntent = charge.payment_intent;
+      const order = paymentIntent ? await getOrderByPaymentIntent(paymentIntent) : null;
+      if (order) {
+        // Stripe puede reenviar el evento y un cargo puede tener varios refunds;
+        // identificamos el refund más reciente y evitamos duplicar por su id.
+        const refundList = (charge.refunds && charge.refunds.data) || [];
+        const latest = refundList.length ? refundList[refundList.length - 1] : null;
+        const stripeRefundId = latest ? latest.id : `re-${charge.id}`;
+        const already = await getRefundByStripeId(stripeRefundId);
+        if (!already) {
+          const amountChf = Math.round((Number(latest ? latest.amount : charge.amount_refunded) || 0) / 100);
+          await createRefund({
+            id: 'ref-' + stripeRefundId,
+            orderId: order.id,
+            amountChf,
+            reason: 'stripe',
+            note: 'Reembolso registrado desde Stripe',
+            restock: false, // restock manual desde el panel admin (no se conoce la línea aquí)
+            stripeRefundId,
+            stripePaymentIntent: paymentIntent,
+            createdBy: 'stripe-webhook',
+          });
+        }
       }
     }
 

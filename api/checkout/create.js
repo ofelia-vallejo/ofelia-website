@@ -9,7 +9,13 @@ const { corsJson } = require('../../lib/auth');
 const { getStripe } = require('../../lib/stripe-client');
 const { loadCatalog, findProduct } = require('../../lib/store');
 const { buildStripeLineItems } = require('../../lib/build-stripe-lines');
-const { createOrderWithDetails, findDiscountByCode } = require('../../lib/postgres');
+const {
+  createOrderWithDetails,
+  findDiscountByCode,
+  getDiscountConditions,
+  calculateTax,
+  listShippingRates,
+} = require('../../lib/postgres');
 const { evaluateDiscount } = require('../../lib/discounts');
 const { verifyCustomerToken, getCustomerBearer } = require('../../lib/customer-auth');
 const config = require('../../lib/config');
@@ -57,6 +63,9 @@ module.exports = async (req, res) => {
   }
 
   const couponCode = String(body.couponCode || body.coupon || '').trim();
+  // País e identificador de tarifa de envío (ISO-2). Default CH (mercado base).
+  const shippingCountry = String(body.shippingCountry || body.country || 'CH').trim().toUpperCase();
+  const requestedShippingRateId = String(body.shippingRateId || body.shipping_rate_id || '').trim();
 
   try {
     const stripe = getStripe(); // throws 503 if not configured
@@ -65,23 +74,71 @@ module.exports = async (req, res) => {
     const subtotalChf = totalChf;
 
     // ── Validación de cupón SERVER-SIDE (no se confía en el cliente) ──────────
-    // El descuento se evalúa contra la fila real de `discounts` y se aplica al
-    // total del lado servidor; si es inválido se rechaza el checkout (sin aplicarlo).
+    // El descuento se evalúa contra la fila real de `discounts` (+ condiciones) y
+    // se aplica del lado servidor; si es inválido se rechaza el checkout.
     let discountChf = 0;
     let appliedDiscount = null; // { discountId, code, amountChf }
+    let freeShipping = false;
     if (couponCode) {
       if (!config.dbConfigured) {
         return res.status(400).json({ ok: false, error: 'Cupones no disponibles en este momento.' });
       }
       const row = await findDiscountByCode(couponCode);
-      const check = evaluateDiscount(row, subtotalChf);
+      // Contexto del carrito para evaluar discount_conditions (producto/variante/cantidad).
+      const conditions = row ? await getDiscountConditions(row.id) : [];
+      const ctx = {
+        subtotalChf,
+        totalQuantity: orderLines.reduce((s, l) => s + (Number(l.quantity) || 0), 0),
+        productIds: new Set(orderLines.map((l) => l.productId).filter(Boolean)),
+        variantIds: new Set(orderLines.map((l) => l.variantId).filter(Boolean)),
+        collectionIds: new Set(),
+      };
+      const check = evaluateDiscount(row, subtotalChf, conditions, ctx);
       if (!check.valid) {
         return res.status(400).json({ ok: false, error: check.error || 'Cupón inválido.' });
       }
       discountChf = check.amountChf;
+      freeShipping = Boolean(check.freeShipping);
       appliedDiscount = { discountId: row.id, code: row.code, amountChf: discountChf };
     }
-    const orderTotalChf = Math.max(0, subtotalChf - discountChf);
+
+    const subtotalAfterDiscount = Math.max(0, subtotalChf - discountChf);
+
+    // ── Envío: tarifas aplicables al país (incluye pickup en atelier) ─────────
+    let shippingChf = 0;
+    let shippingLine = null; // { shippingRateId, title, method, carrier, priceChf }
+    if (config.dbConfigured) {
+      const rates = await listShippingRates(shippingCountry, subtotalAfterDiscount);
+      if (rates.length) {
+        const chosen = (requestedShippingRateId && rates.find((r) => r.id === requestedShippingRateId)) || rates[0];
+        if (chosen) {
+          shippingChf = freeShipping ? 0 : (Number(chosen.priceChf) || 0);
+          shippingLine = {
+            shippingRateId: chosen.id,
+            title: chosen.name,
+            method: chosen.method || 'shipping',
+            carrier: '',
+            priceChf: shippingChf,
+          };
+        }
+      }
+    }
+
+    // ── Impuesto: TVA por país. Si included_in_price, ya está dentro del precio
+    // (no se suma al cargo); si no, se añade al total y a Stripe. ───────────────
+    let taxChf = 0;
+    let addedTaxChf = 0;
+    let taxLine = null;
+    if (config.dbConfigured) {
+      const tax = await calculateTax(subtotalAfterDiscount, shippingCountry);
+      if (tax && tax.amountChf > 0) {
+        taxChf = tax.amountChf;
+        addedTaxChf = tax.included ? 0 : tax.amountChf;
+        taxLine = { title: tax.title || 'VAT', rate: tax.rate, amountChf: tax.amountChf };
+      }
+    }
+
+    const orderTotalChf = Math.max(0, subtotalAfterDiscount + shippingChf + addedTaxChf);
 
     const orderId = generateOrderId();
     const firstProduct = findProduct(catalog, items[0].slug);
@@ -109,6 +166,30 @@ module.exports = async (req, res) => {
       },
     };
 
+    // Envío como shipping_option de Stripe (refleja el coste exacto persistido).
+    if (shippingLine) {
+      sessionParams.shipping_options = [{
+        shipping_rate_data: {
+          type: 'fixed_amount',
+          fixed_amount: { amount: shippingChf * 100, currency: 'chf' },
+          display_name: shippingLine.title || (shippingLine.method === 'pickup' ? 'Retiro en atelier' : 'Envío'),
+        },
+      }];
+    }
+
+    // Impuesto NO incluido en precio: se añade como línea para que el cargo de
+    // Stripe cuadre con el total persistido (la TVA suiza va incluida → addedTax=0).
+    if (addedTaxChf > 0) {
+      sessionParams.line_items.push({
+        price_data: {
+          currency: 'chf',
+          unit_amount: addedTaxChf * 100,
+          product_data: { name: taxLine ? taxLine.title : 'Impuesto' },
+        },
+        quantity: 1,
+      });
+    }
+
     // Reflejar el descuento en el cargo de Stripe (cupón de un solo uso).
     // Si Stripe no acepta el cupón, anulamos el descuento para que el cargo y
     // el total persistido sean siempre consistentes.
@@ -129,7 +210,7 @@ module.exports = async (req, res) => {
     }
 
     const session = await stripe.checkout.sessions.create(sessionParams);
-    const finalTotalChf = Math.max(0, subtotalChf - discountChf);
+    const finalTotalChf = Math.max(0, subtotalChf - discountChf + shippingChf + addedTaxChf);
 
     if (config.dbConfigured) {
       try {
@@ -147,6 +228,8 @@ module.exports = async (req, res) => {
           totalChf: finalTotalChf,
           subtotalChf,
           discountChf,
+          shippingChf,
+          taxChf,
           couponCode: appliedDiscount ? appliedDiscount.code : '',
           currency: 'chf',
           lineItems: orderLines,
@@ -154,6 +237,8 @@ module.exports = async (req, res) => {
             .filter((l) => l.engrave)
             .map((l) => ({ slug: l.slug, text: l.engrave.text })),
           discount: appliedDiscount,
+          taxLine,
+          shippingLine,
         });
       } catch (dbErr) {
         console.warn('[checkout] order db:', dbErr.message);
@@ -162,7 +247,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({
       ok: true, sessionId: session.id, url: session.url, orderId,
-      subtotalChf, discountChf, totalChf: finalTotalChf,
+      subtotalChf, discountChf, shippingChf, taxChf, totalChf: finalTotalChf,
     });
   } catch (err) {
     if (err.statusCode) return res.status(err.statusCode).json({ ok: false, error: err.message });
