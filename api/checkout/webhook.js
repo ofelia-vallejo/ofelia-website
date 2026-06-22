@@ -9,9 +9,29 @@ const {
   updateOrderBySession,
   getOrderBySession,
   logOrderEvent,
-  decrementInventory,
+  confirmOrderPaid,
   isStripeEventProcessed,
 } = require('../../lib/postgres');
+
+// Snapshot de dirección desde la sesión de Stripe (envío preferente; si no, facturación).
+function mapStripeAddress(session) {
+  const sd = session.shipping_details || null;
+  const cd = session.customer_details || null;
+  const source = sd || cd;
+  if (!source) return null;
+  const a = (source.address) || (cd && cd.address) || {};
+  return {
+    fullName: source.name || (cd && cd.name) || '',
+    line1: a.line1 || '',
+    line2: a.line2 || '',
+    city: a.city || '',
+    region: a.state || '',
+    postalCode: a.postal_code || '',
+    country: a.country || '',
+    phone: (cd && cd.phone) || '',
+    email: (cd && cd.email) || session.customer_email || '',
+  };
+}
 
 async function readRawBody(req) {
   // Some runtimes attach the untouched bytes here. Checking this plain property is safe;
@@ -55,7 +75,6 @@ module.exports = async (req, res) => {
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
-      const orderId = session.metadata?.order_id;
 
       // Only fulfill once payment is actually settled (async methods can be 'unpaid').
       if (session.payment_status !== 'paid') {
@@ -63,28 +82,23 @@ module.exports = async (req, res) => {
       }
 
       if (config.dbConfigured) {
-        await updateOrderBySession(session.id, {
-          status: 'paid',
-          stripePaymentIntent: session.payment_intent,
+        // Confirmación transaccional: orders→paid · payments→paid · snapshot de
+        // dirección · historial de estado · corte de inventario sobre inventory_levels
+        // · marcador de idempotencia (order_events) — todo en UNA transacción pg.
+        await confirmOrderPaid({
+          sessionId: session.id,
+          eventId: event.id,
+          paymentIntent: session.payment_intent,
+          amountChf: Math.round((Number(session.amount_total) || 0) / 100),
+          currency: session.currency || 'chf',
           customerEmail: session.customer_details?.email || session.customer_email,
-        });
-
-        // Decrement inventory from the persisted order's line items (source of truth),
-        // honoring per-line quantity and variant. The session metadata does not carry these.
-        const order = await getOrderBySession(session.id);
-        const lineItems = Array.isArray(order?.line_items) ? order.line_items : [];
-        for (const line of lineItems) {
-          if (!line.productId) continue;
-          await decrementInventory(line.productId, line.variantId || null, Number(line.quantity) || 1);
-        }
-
-        if (orderId) {
-          await logOrderEvent(orderId, 'checkout.session.completed', {
+          shippingAddress: mapStripeAddress(session),
+          eventPayload: {
             stripe_event_id: event.id,
             amount_total: session.amount_total,
             currency: session.currency,
-          });
-        }
+          },
+        });
       }
     }
 
