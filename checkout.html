@@ -74,7 +74,31 @@
           </div>
         </form>
 
-        <p class="checkout-step" style="margin-top:32px">Paso 2 · Pago</p>
+        <p class="checkout-step" style="margin-top:32px">Paso 2 · Envío</p>
+        <div id="checkoutShipping">
+          <div class="checkout-field">
+            <label for="checkoutCountry">País de envío</label>
+            <select id="checkoutCountry" name="country" aria-describedby="checkoutShippingHint">
+              <option value="CH" selected>Suiza</option>
+              <option value="DE">Alemania</option>
+              <option value="FR">Francia</option>
+              <option value="IT">Italia</option>
+              <option value="ES">España</option>
+              <option value="GB">Reino Unido</option>
+              <option value="AT">Austria</option>
+              <option value="BE">Bélgica</option>
+              <option value="NL">Países Bajos</option>
+              <option value="LU">Luxemburgo</option>
+              <option value="PT">Portugal</option>
+            </select>
+          </div>
+          <fieldset class="checkout-shipping-rates" id="checkoutShippingRates">
+            <legend class="visually-hidden">Método de envío</legend>
+          </fieldset>
+          <p id="checkoutShippingHint" class="checkout-shipping-hint">Envío desde el atelier · Medellín.</p>
+        </div>
+
+        <p class="checkout-step" style="margin-top:32px">Paso 3 · Pago</p>
         <p style="font-size:14px;font-weight:300;color:var(--text-soft);line-height:1.75;max-width:420px;margin:0 0 8px">
           Dirección de envío y tarjeta en la pasarela segura de Stripe — el mismo flujo que usan las tiendas Shopify para pagos.
         </p>
@@ -88,6 +112,31 @@
       <aside class="checkout-aside" aria-label="Resumen del pedido">
         <p class="checkout-aside__title">Resumen</p>
         <div id="checkoutSummary"></div>
+        <div class="checkout-field checkout-field--aside">
+          <label for="checkoutCoupon">Cupón (opcional)</label>
+          <div class="checkout-coupon-row">
+            <input type="text" id="checkoutCoupon" name="coupon" autocomplete="off" placeholder="Código" spellcheck="false">
+            <button type="button" class="checkout-coupon-btn" id="checkoutCouponBtn">Aplicar</button>
+          </div>
+        </div>
+        <div id="checkoutTotals" class="checkout-totals">
+          <div class="checkout-totals__row">
+            <span>Subtotal</span>
+            <span id="checkoutSubtotal">CHF 0</span>
+          </div>
+          <div class="checkout-totals__row" id="checkoutDiscountRow" hidden>
+            <span>Descuento</span>
+            <span id="checkoutDiscount">− CHF 0</span>
+          </div>
+          <div class="checkout-totals__row" id="checkoutTaxRow" hidden>
+            <span id="checkoutTaxLabel">Impuesto</span>
+            <span id="checkoutTax">CHF 0</span>
+          </div>
+          <div class="checkout-totals__row">
+            <span>Envío</span>
+            <span id="checkoutShippingCost">—</span>
+          </div>
+        </div>
         <div class="checkout-summary-total">
           <span>Total</span>
           <span id="checkoutTotal">CHF 0</span>

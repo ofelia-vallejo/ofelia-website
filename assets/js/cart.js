@@ -154,7 +154,7 @@
 
   function fetchStripeConfig() {
     if (stripeConfigPromise) return stripeConfigPromise;
-    stripeConfigPromise = fetch('/api/stripe/config')
+    stripeConfigPromise = window.OVUtil.fetchWithTimeout('/api/stripe/config', { timeout: 6000 })
       .then((r) => r.json())
       .then((json) => {
         stripeEnabled = Boolean(json && json.enabled);
@@ -183,16 +183,25 @@
       const token = localStorage.getItem('ov_token');
       if (token) headers.Authorization = 'Bearer ' + token;
     } catch (e) {}
-    const res = await fetch('/api/checkout/create', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        items,
-        customerEmail: opts && opts.email ? opts.email : undefined,
-        customerName: opts && opts.name ? opts.name : undefined,
-      }),
-    });
-    const json = await res.json();
+    let json;
+    try {
+      const res = await window.OVUtil.fetchWithTimeout('/api/checkout/create', {
+        method: 'POST',
+        headers,
+        timeout: 12000,
+        body: JSON.stringify({
+          items,
+          customerEmail: opts && opts.email ? opts.email : undefined,
+          customerName: opts && opts.name ? opts.name : undefined,
+          shippingCountry: opts && opts.shippingCountry ? opts.shippingCountry : undefined,
+          shippingRateId: opts && opts.shippingRateId ? opts.shippingRateId : undefined,
+          couponCode: opts && opts.couponCode ? opts.couponCode : undefined,
+        }),
+      });
+      json = await res.json();
+    } catch (e) {
+      return { ok: false, error: 'No se pudo conectar con el pago. Revisa tu conexión e inténtalo de nuevo.' };
+    }
     if (!json.ok) {
       return { ok: false, error: json.error || 'No se pudo iniciar el pago.' };
     }
@@ -203,7 +212,7 @@
         localStorage.setItem(
           'ov_last_order',
           JSON.stringify({
-            value: cart.cost.totalAmount.amount,
+            value: (json.totalChf != null ? json.totalChf : cart.cost.totalAmount.amount),
             currency: cart.cost.totalAmount.currencyCode || 'CHF',
             lines: cart.lines,
             ts: Date.now(),

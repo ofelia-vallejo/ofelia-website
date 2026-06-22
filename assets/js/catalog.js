@@ -3,8 +3,10 @@
 (function () {
   const API = '/api/products';
 
+  const fetchJSON = window.OVUtil.fetchWithTimeout;
+
   async function fetchCatalog() {
-    const res = await fetch(API);
+    const res = await fetchJSON(API);
     if (!res.ok) throw new Error('Catálogo no disponible (HTTP ' + res.status + ')');
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'Catálogo no disponible');
@@ -12,7 +14,7 @@
   }
 
   async function fetchProduct(slugOrId) {
-    const res = await fetch(API + '?slug=' + encodeURIComponent(slugOrId));
+    const res = await fetchJSON(API + '?slug=' + encodeURIComponent(slugOrId));
     if (!res.ok) throw new Error('Producto no encontrado (HTTP ' + res.status + ')');
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'Producto no encontrado');

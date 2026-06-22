@@ -792,9 +792,9 @@ psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/migrations/003_functional_st
 **Pendiente (no forzado en esta pasada):**
 
 6. **Draft orders / gift cards / segmentos:** tablas listas; falta UI/endpoints de admin para cotizaciones, emisión/redención de gift cards y segmentos. (El panel actual cubre Productos, Inventario, Pedidos, Cupones y Secciones.)
-7. **Colecciones (`collection`) en condiciones de descuento:** el evaluador soporta el tipo `collection`, pero el checkout aún no resuelve `product_collections` para poblar `collectionIds` (las condiciones de colección no se cumplen hasta cablear ese lookup).
+7. ✅ **Colecciones (`collection`) en condiciones de descuento:** `lib/compute-checkout.js` llama `getCollectionIdsForProducts()` (lookup en `product_collections`) para poblar `collectionIds` en el contexto del carrito; el evaluador aplica condiciones de tipo `collection` en quote y create.
 8. **Backfill opcional:** poblar `inventory_adjustments` con un asiento inicial (`reason=restock`) por el stock vigente, y `product_media` desde `product_images`.
-9. **Selección de envío en el frontend del checkout:** el backend ya calcula/persiste envío; falta exponer el selector de tarifa (incl. pickup) en `checkout.html`.
+9. ✅ **Selección de envío en el frontend del checkout:** `checkout.html` + `checkout-page.js` exponen país, tarifas (pickup/estándar/gratis) y totales en vivo vía `POST /api/checkout/quote`; `cart.js` reenvía `shippingCountry`, `shippingRateId` y `couponCode` a `create`.
 
 ---
 

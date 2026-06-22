@@ -41,6 +41,38 @@ function loadEnv() {
 }
 loadEnv();
 
+// ── Rewrites de vercel.json (para que PDP/cleanUrls resuelvan igual que en prod) ──
+function loadRewrites() {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+    return (cfg.rewrites || []).map((r) => {
+      // :param* → (.*) ; :param → ([^/]+)
+      const pattern = r.source
+        .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+        .replace(/:(\w+)\*/g, '(.*)')
+        .replace(/:(\w+)/g, '([^/]+)');
+      return { regex: new RegExp('^' + pattern + '$'), destination: r.destination };
+    });
+  } catch {
+    return [];
+  }
+}
+const REWRITES = loadRewrites();
+
+// Aplica el primer rewrite que coincida (orden = prioridad, como en Vercel).
+function applyRewrites(pathname) {
+  for (const rw of REWRITES) {
+    const m = pathname.match(rw.regex);
+    if (!m) continue;
+    let dest = rw.destination;
+    m.slice(1).forEach((cap) => {
+      dest = dest.replace(/:[\w]+\*?/, cap == null ? '' : cap);
+    });
+    return dest;
+  }
+  return pathname;
+}
+
 // ── Resolución de handler de API (soporta rutas dinámicas [param].js) ────────
 function resolveApiHandler(pathname) {
   const rel = pathname.replace(/^\/api\//, '').replace(/\/+$/, '');
@@ -99,18 +131,34 @@ const MIME = {
   '.woff': 'font/woff', '.woff2': 'font/woff2', '.mp4': 'video/mp4',
 };
 
-function serveStatic(pathname, res) {
+// Devuelve el archivo a servir para una ruta, o null si no existe.
+// cleanUrls: /home → home.html · directorio → index.html
+function resolveStaticFile(pathname) {
   let rel = decodeURIComponent(pathname);
   if (rel === '/') rel = '/index.html';
   let filePath = path.join(ROOT, rel);
-  // cleanUrls: /home → home.html
   if (!fs.existsSync(filePath) && !path.extname(filePath)) {
     if (fs.existsSync(filePath + '.html')) filePath += '.html';
   }
-  if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+    const idx = path.join(filePath, 'index.html');
+    if (fs.existsSync(idx)) filePath = idx;
+  }
+  if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) return null;
+  return filePath;
+}
+
+function serveStatic(pathname, res) {
+  // Filesystem primero; si no existe, aplicar rewrites de vercel.json.
+  let filePath = resolveStaticFile(pathname);
+  if (!filePath) {
+    const rewritten = applyRewrites(pathname);
+    if (rewritten !== pathname) filePath = resolveStaticFile(rewritten);
+  }
+  if (!filePath) {
     res.statusCode = 404;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    return res.end('404 Not Found: ' + rel);
+    return res.end('404 Not Found: ' + decodeURIComponent(pathname));
   }
   const ext = path.extname(filePath).toLowerCase();
   res.setHeader('Content-Type', MIME[ext] || 'application/octet-stream');
