@@ -248,6 +248,27 @@ html[data-accounts='off'] .atelier-desk {
   display: none !important;
 }
 
+/* Cuenta deshabilitada: ocultar formularios sin handler (evita submit GET con
+   contraseña en la URL) y mostrar aviso. Se revierte solo al activar cuentas. */
+.cuenta-soon { display: none; }
+html[data-accounts='off'] .cuenta-page .ov-modal__tabs,
+html[data-accounts='off'] .cuenta-page .ov-modal__panel,
+html[data-accounts='off'] .cuenta-page .ov-modal__notice,
+html[data-accounts='off'] .cuenta-page .ov-modal__legal {
+  display: none !important;
+}
+html[data-accounts='off'] .cuenta-page .cuenta-soon {
+  display: block;
+  margin: 8px 0 0;
+  color: var(--navy);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+html[data-accounts='off'] .cuenta-page .cuenta-soon a {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
 .ov-modal__form {
   display: flex;
   flex-direction: column;
