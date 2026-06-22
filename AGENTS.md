@@ -10,6 +10,7 @@ Este repo pertenece a **Ofelia Vallejo Leather House**. Antes de tocar diseño, 
 4. `memory/project-structure.md` — stack, páginas y archivos clave.
 5. `memory/tools-and-workflow.md` — flujo Codex/Graphify/deploy.
 6. `assets/SITIO_REGLAS.md` y `GUIA-FOTOGRAFICA.md` cuando el cambio toque diseño visual o fotografía.
+7. `docs/FRONTEND_PLAN.md` — plan maestro para dejar el frontend perfecto: diseño, Ads, performance, accesibilidad y pruebas.
 
 ## Reglas absolutas
 

@@ -11,6 +11,7 @@
 - [tools-and-workflow.md](tools-and-workflow.md) — Graphify, GSAP, componentes UI, Vercel, flujos eficientes
 - [user-preferences.md](user-preferences.md) — Preferencias de comunicación, diseño y código de la fundadora
 - [../AGENTS.md](../AGENTS.md) — Contexto operativo para Codex: reglas, estado reciente, validación y git
+- [../docs/FRONTEND_PLAN.md](../docs/FRONTEND_PLAN.md) — Plan maestro frontend: diseño, UX, Ads, performance, accesibilidad y pruebas
 
 ---
 
@@ -32,6 +33,7 @@
 |---|---|
 | home.html | ✅ Producción — inicia en Mujer/Hombre; sección firma rediseñada con video/fallback |
 | AGENTS.md | ✅ Creado — puente operativo para Codex |
+| docs/FRONTEND_PLAN.md | ✅ Creado — roadmap frontend completo hasta QA final |
 | assets/video/firma-mandamiento-hero.mov | ✅ Conectado en `#historia` — video CapCut de firma; pesa ~40 MB |
 | assets/video/oficio-legendario-home.webp | ✅ Fallback visual de la sección firma |
 | assets/js/gsap-animations.js | ✅ Creado — 10 módulos de animación cinematic |
