@@ -1,0 +1,82 @@
+# Cursor · Ofelia Vallejo Leather House
+
+Leer siempre `AGENTS.md` y `CLAUDE.md` antes de cambios de diseño, copy, prompts, imágenes o experiencia web.
+
+## Identidad
+
+Ofelia Vallejo Leather House: marroquinería artesanal colombiana, producida en Medellín y vendida en Europa desde Lausanne. La firma cursiva de Ofelia Vallejo es patrimonio familiar y el logo oficial de la casa.
+
+## Stack
+
+- HTML puro + Vanilla JS + GSAP 3 + ScrollTrigger.
+- CSS custom con variables de marca.
+- Deploy: Vercel / ofeliavallejo.com.
+- No usar React, Vue ni frameworks en el sitio principal.
+- Archivos clave: `home.html`, `assets/css/brand.css`, `assets/js/brand.js`, `assets/js/gsap-animations.js`.
+
+## Paleta estricta
+
+- `--marfil`: `#F3EEE6`
+- `--beige-medio`: `#EDE5D8`
+- `--navy`: `#0B1F3A`
+- `--espresso`: `#3B2B26`
+- `--vino`: `#5B1E24`
+- `--verde`: `#1F3527`
+- `--carbon`: `#141414`
+
+No improvisar colores. Nunca morado, lavanda, fucsia, neón u oro brillante vectorial.
+
+## Tipografía
+
+- Títulos: Cinzel 400.
+- Body/UI: Helvetica Neue 300.
+- No introducir fuentes nuevas.
+
+## Logos
+
+Regla absoluta: nunca modificar, redibujar, vectorizar, recolorear, animar ni reinterpretar la firma/logo.
+
+Assets permitidos:
+- `assets/img/logo_sello.png`
+- `assets/img/logo_firma_nav.png`
+- `assets/img/logo_firma_completa.png`
+- fuentes patrimoniales en `06_Identidad_Marca/logos/`
+
+Solo se permite reescalar manteniendo proporción y nitidez.
+
+## Tono
+
+Sobrio, romano, patrimonial, editorial. Evitar copy genérico de marketing.
+
+Nunca usar: `premium`, `exclusivo`, `disfruta`, `vive la experiencia`, `ritual`, `sanación`, `energía`, `vibra`.
+
+Frases válidas:
+- "Elegancia que permanece."
+- "Nacida de una firma."
+- "Cuero hecho para durar."
+- "Tu nombre. En cuero."
+- "Leather House · Medellín, Colombia."
+
+## Diseño
+
+- Editorial fashion-house, quiet luxury, herencia paisa sutil.
+- Animaciones lentas, cinematográficas, nunca flashy.
+- Sin glassmorphism, partículas flotantes, gradientes saturados o plantillas genéricas.
+- No usar símbolos colombianos turísticos/kitsch.
+- En Ads, la primera pantalla debe vender producto/oficio y sentirse tienda real, no landing genérica.
+
+## Estado actual del home
+
+- `home.html` es producción.
+- La página inicia con `section.gender.shop-gate` para Mujer/Hombre.
+- El hero oscuro anterior `.campaign-hero` fue eliminado; no reintroducirlo sin instrucción explícita.
+- La sección `#historia` / "Nacida de una firma." usa `assets/video/firma-mandamiento-hero.mov`.
+- Esa sección tiene fallback `assets/video/oficio-legendario-home.webp` y poster `assets/video/oficio-legendario-poster.jpg`.
+- El `.mov` pesa ~40 MB. No agregar preload. Ideal: convertir a MP4/WebM comprimido antes de optimización final.
+
+## Validación
+
+- Antes de entregar HTML/CSS/JS: `git diff --check`.
+- Revisar `git status --short` antes de commit.
+- No mezclar cambios ajenos de admin/API/docs con cambios de diseño.
+- `npm run check:env` debe pasar para producción real; si falta Stripe/DB/admin/SITE_URL, reportarlo.

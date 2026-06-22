@@ -1,0 +1,91 @@
+---
+description: Contexto de marca Ofelia Vallejo — aplicar en cualquier tarea de código, diseño, copy o Ads
+alwaysApply: true
+---
+
+# Ofelia Vallejo Leather House
+
+Leer `AGENTS.md` y `CLAUDE.md` antes de tocar diseño, copy, prompts, imágenes o experiencia web.
+
+Marroquinería artesanal colombiana, producida en Medellín y vendida en Europa desde Lausanne.
+La firma cursiva de Ofelia Vallejo es el logo oficial: patrimonio familiar inmutable.
+
+## Stack
+
+HTML puro · Vanilla JS · GSAP 3 · CSS custom con variables · Deploy Vercel.
+
+Archivos principales:
+- `home.html`
+- `assets/css/brand.css`
+- `assets/js/brand.js`
+- `assets/js/gsap-animations.js`
+- `AGENTS.md`
+- `memory/MEMORY.md`
+
+No usar React, Vue ni frameworks en el sitio principal.
+
+## Paleta (estricta)
+
+```
+--marfil:       #F3EEE6
+--beige-medio:  #EDE5D8
+--navy:         #0B1F3A
+--espresso:     #3B2B26
+--vino:         #5B1E24
+--verde:        #1F3527
+--carbon:       #141414
+```
+
+Nunca morado, lavanda, fucsia, neón u oro brillante vectorial.
+
+## Tipografía
+
+Cinzel 400 (títulos) · Helvetica Neue 300 (body) — solo estas dos.
+
+## Tono
+
+Sobrio, romano, patrimonial, editorial. Nada de copy genérico.
+
+NUNCA: `premium`, `exclusivo`, `disfruta`, `vive la experiencia`, `ritual`, `sanación`, `energía`, `vibra`.
+
+Frases aprobadas:
+- "Elegancia que permanece."
+- "Nacida de una firma."
+- "Cuero hecho para durar."
+- "Tu nombre. En cuero."
+- "Leather House · Medellín, Colombia."
+
+## Logos — NO MODIFICAR NUNCA
+
+Nunca redibujar, vectorizar, recolorear, animar ni reinterpretar:
+- `assets/img/logo_sello.png`
+- `assets/img/logo_firma_nav.png`
+- `assets/img/logo_firma_completa.png`
+- `06_Identidad_Marca/logos/`
+
+Solo reescalar manteniendo proporción y nitidez.
+
+## Diseño
+
+- Editorial fashion-house, quiet luxury, herencia paisa sutil.
+- No plantillas genéricas ni UI SaaS genérica.
+- No glassmorphism, partículas flotantes, gradientes saturados, estética wellness o kitsch colombiano.
+- Animaciones lentas y cinematográficas con GSAP ScrollTrigger.
+- Para Google Ads: producto/oficio claro, cuero pleno, Medellín, grabado láser, Europa/CHF.
+
+## Home actual
+
+- `home.html` es producción.
+- Debe iniciar con `section.gender.shop-gate` para Mujer/Hombre.
+- El hero oscuro anterior `.campaign-hero` fue eliminado; no reintroducir sin instrucción explícita.
+- `#historia` / "Nacida de una firma." usa video `assets/video/firma-mandamiento-hero.mov`.
+- Fallback: `assets/video/oficio-legendario-home.webp`.
+- Poster: `assets/video/oficio-legendario-poster.jpg`.
+- El `.mov` pesa ~40 MB. No hacer preload. Ideal convertir a MP4/WebM comprimido antes de optimización final.
+
+## Validación
+
+- Ejecutar `git diff --check` antes de entregar HTML/CSS/JS.
+- Revisar `git status --short` antes de commit.
+- No mezclar cambios ajenos de admin/API/docs con cambios de diseño.
+- `npm run check:env` debe pasar antes de producción real; si faltan variables Stripe/DB/admin/SITE_URL, reportarlo.
