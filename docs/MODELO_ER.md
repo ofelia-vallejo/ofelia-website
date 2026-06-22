@@ -4,6 +4,7 @@
 >
 > - **Baseline (migración 001):** `database/schema.sql`
 > - **Evolución (migración 002):** `database/migrations/002_full_commerce_model.sql` — aditiva, idempotente, NO destructiva.
+> - **Tienda funcional (migración 003):** `database/migrations/003_functional_store.sql` — modelo operativo completo (impuestos, envíos, devoluciones, inventario operativo, gift cards, descuentos avanzados, canales). Aditiva, idempotente. **Ver §8 «v2 · Tienda funcional».**
 > - **Capa de acceso:** `lib/postgres.js`
 >
 > **Convención de dinero:** `INTEGER` en **CHF enteros** (francos), igual que el código actual (`base_price_chf`, `total_chf`, `price_chf`). Stripe recibe céntimos (`× 100`) en `lib/build-stripe-lines.js`. Solo los **porcentajes** de descuento usan `NUMERIC`.
@@ -393,13 +394,378 @@ CLIENTE            getOrdersByCustomer() · orders.customer_id · orders_count /
 
 ---
 
+## 8 · v2 · Tienda funcional (migración 003)
+
+> La 002 fue deliberadamente **pragmática** (no un clon de Shopify). La **003** completa las áreas operativas que faltaban para operar una tienda real, manteniéndolo como **Postgres propio** (Shopify es solo la referencia del modelo relacional). Sigue siendo **aditiva, idempotente y mono-moneda CHF**, y respeta el namespacing de PK de variante `<product_id>::<variant_id>`.
+
+### 8.1 · Entidades nuevas por área
+
+| Área | Tablas nuevas | Extensiones a tablas existentes |
+|---|---|---|
+| **Productos** | `product_tags`, `product_media`, `metafields` | `products` (+`vendor`, `product_type`, `status`, `seo_title`, `seo_description`, `published_at`) |
+| **Precios** | `price_lists`, `price_list_prices` | — (`compare_at_price_chf` ya existía en `product_variants` desde 002) |
+| **Impuestos** | `tax_zones`, `tax_rates`, `order_tax_lines` | — |
+| **Envíos** | `shipping_zones`, `shipping_rates`, `order_shipping_lines` | — (pickup vía `shipping_rates.location_id` → `locations`) |
+| **Inventario** | `inventory_adjustments` (libro mayor) | `inventory_levels` (+`incoming`) |
+| **Pedidos** | `draft_orders`, `draft_order_line_items`, `refunds`, `refund_line_items`, `returns`, `return_line_items`, `order_risks`, `order_tags` | `orders` (+`note`, `channel_id`, `refunded_chf`, `cancelled_at`, `cancel_reason`) |
+| **Clientes** | `customer_tags`, `customer_segments`, `customer_segment_members`, `gift_cards`, `gift_card_transactions` | `customers` (+`email_marketing_consent_at`) |
+| **Descuentos** | `discount_conditions` | `discounts` (+`method`, `target_type`, `priority`) |
+| **Operación** | `sales_channels`, `staff_users`, `audit_log` | — |
+
+**Seeds incluidos (idempotentes):** `tax-ch-vat` (TVA Suiza 8.1%, incluida en precio), zonas de envío `sz-ch`/`sz-eu`, tarifas `rate-ch-standard` (15 CHF, gratis ≥500), `rate-eu-standard` (25 CHF, gratis ≥700) y `rate-pickup-atelier` (retiro en `loc-medellin`, 0 CHF), lista de precio `pl-public`, canales `ch-web` y `ch-atelier`.
+
+### 8.2 · Tabla por entidad nueva
+
+#### Productos
+- **`product_tags`** — Etiquetas libres (Shopify `Product.tags`) como puente normalizado `(product_id, tag)` para filtrado/búsqueda.
+- **`product_media`** — Media enriquecida: `media_type` = image/video/external_video/model_3d. Coexiste con `product_images` (galería baseline), no la reemplaza.
+- **`metafields`** — Datos personalizados tipados clave/valor por entidad (`owner_type` = product/variant/customer/order/collection, `namespace`, `key`, `value`, `value_type`). `UNIQUE(owner_type, owner_id, namespace, key)`. Patrón canónico de Shopify Metafield (el proyecto ya usa JSONB para fichas; esto añade extensión tipada por entidad).
+
+#### Precios
+- **`price_lists` / `price_list_prices`** — Precios por contexto (mayorista/staff/campaña) sin tocar el precio base de la variante. CHF como única moneda; `currency` queda por extensibilidad. `price_chf` y `compare_at_price_chf` por variante.
+
+#### Impuestos
+- **`tax_zones`** — Agrupación de países (`countries TEXT[]`). Semilla `tz-ch` (CH, LI).
+- **`tax_rates`** — `rate NUMERIC(6,3)` (8.1 ⇒ 8.1%), `country` para lookup directo, `included_in_price` (B2C europeo IVA incluido). Semilla TVA Suiza.
+- **`order_tax_lines`** — Snapshot del impuesto aplicado por pedido/línea (Shopify `TaxLine`): `title`, `rate`, `amount_chf`.
+
+#### Envíos
+- **`shipping_zones`** — Países por zona. Semillas `sz-ch`, `sz-eu`.
+- **`shipping_rates`** — Método de entrega: `method` = shipping/pickup, `location_id` (pickup en atelier), `price_chf`, `free_over_chf` (umbral de envío gratis), días estimados.
+- **`order_shipping_lines`** — Tarifa materializada en el pedido (`title`, `carrier`, `method`, `price_chf`).
+
+#### Inventario operativo
+- **`inventory_levels` (+`incoming`)** — Suma stock entrante a los `available`/`reserved`/`on_hand` ya existentes.
+- **`inventory_adjustments`** — **Libro mayor inmutable** (Shopify `InventoryAdjustmentGroup`): cada variación de stock con `delta`, `reason` (sale/restock/manual/return/reservation/release/correction), `quantity_after`, y referencia al documento origen (`reference_type`/`reference_id`).
+
+#### Pedidos (ciclo completo)
+- **`draft_orders` / `draft_order_line_items`** — Pedidos/cotizaciones manuales del atelier (Shopify `DraftOrder`). `converted_order_id` enlaza al pedido real al confirmarse.
+- **`refunds` / `refund_line_items`** — Reembolsos (Shopify `Refund`). Reutiliza `payments` (kind=`refund`); `restock` por línea controla reposición.
+- **`returns` / `return_line_items`** — Devoluciones físicas / RMA (Shopify `Return`): `status` (requested→…→closed), `rma`, condición de cada ítem; `refund_id` enlaza el reembolso resultante.
+- **`order_risks`** — Evaluación de fraude opcional (Shopify `OrderRisk`).
+- **`order_tags`** — Etiquetas de pedido.
+- **`orders` (extendida)** — `note`, `channel_id` (ref. suelta a `sales_channels`, igual que `customer_id`), `refunded_chf`, `cancelled_at`, `cancel_reason`.
+
+#### Clientes
+- **`customer_tags`** — Etiquetas de cliente.
+- **`customer_segments` / `customer_segment_members`** — Segmentos para campañas (Shopify `Segment`).
+- **`gift_cards` / `gift_card_transactions`** — Tarjetas regalo con saldo CHF y libro mayor (negativo = redime, positivo = emite/recarga/reembolsa).
+- **`customers` (+`email_marketing_consent_at`)** — Fecha de consentimiento de marketing (complementa `accepts_marketing` de 002).
+
+#### Descuentos
+- **`discounts` (extendida)** — `method` (code/automatic), `target_type` (order/shipping = envío gratis), `priority`. El tipo `free_shipping` se modela con `target_type='shipping'` (no se fuerza CHECK nuevo sobre la columna heredada).
+- **`discount_conditions`** — Restricciones: `condition_type` = collection/product/variant/min_quantity/min_subtotal, con `ref_id`/`int_value`.
+
+#### Operación
+- **`sales_channels`** — Web vs. atelier (POS). Semillas `ch-web`, `ch-atelier`.
+- **`staff_users`** — Equipo del panel admin (owner/admin/staff).
+- **`audit_log`** — Bitácora de acciones del admin (`action`, `entity_type`, `entity_id`, `detail JSONB`).
+
+### 8.3 · Diagrama ER actualizado (v2 · solo entidades nuevas y sus enlaces)
+
+> Para no duplicar el diagrama de §3 (catálogo↔carrito↔pedido↔pago↔inventario), este muestra las **entidades nuevas de la 003** y cómo se conectan a las existentes.
+
+```mermaid
+erDiagram
+    products ||--o{ product_tags : etiqueta
+    products ||--o{ product_media : muestra
+    products ||--o{ metafields : extiende
+    product_variants ||--o{ price_list_prices : precio
+    price_lists ||--o{ price_list_prices : define
+
+    tax_zones ||--o{ tax_rates : agrupa
+    orders ||--o{ order_tax_lines : grava
+    order_line_items ||--o{ order_tax_lines : grava
+
+    shipping_zones ||--o{ shipping_rates : ofrece
+    locations ||--o{ shipping_rates : pickup
+    orders ||--o{ order_shipping_lines : envia
+    shipping_rates ||--o{ order_shipping_lines : aplica
+
+    product_variants ||--o{ inventory_adjustments : ajusta
+    locations ||--o{ inventory_adjustments : en
+
+    orders ||--o{ refunds : reembolsa
+    payments ||--o{ refunds : via
+    refunds ||--o{ refund_line_items : detalla
+    order_line_items ||--o{ refund_line_items : reembolsa
+    orders ||--o{ returns : devuelve
+    returns ||--o| refunds : genera
+    returns ||--o{ return_line_items : detalla
+    order_line_items ||--o{ return_line_items : devuelve
+    orders ||--o{ order_risks : evalua
+    orders ||--o{ order_tags : etiqueta
+    draft_orders ||--o{ draft_order_line_items : detalla
+    draft_orders ||--o| orders : convierte
+
+    customers ||--o{ customer_tags : etiqueta
+    customers ||--o{ customer_segment_members : pertenece
+    customer_segments ||--o{ customer_segment_members : agrupa
+    customers ||--o{ gift_cards : posee
+    gift_cards ||--o{ gift_card_transactions : registra
+
+    discounts ||--o{ discount_conditions : condiciona
+
+    sales_channels ||--o{ orders : origina
+    staff_users ||--o{ audit_log : registra
+
+    product_tags {
+        text product_id PK
+        text tag PK
+    }
+    product_media {
+        bigserial id PK
+        text product_id FK
+        text variant_id FK
+        text media_type
+        text url
+    }
+    metafields {
+        bigserial id PK
+        text owner_type
+        text owner_id
+        text namespace
+        text key
+        text value
+        text value_type
+    }
+    price_lists {
+        text id PK
+        text name
+        text currency
+        bool active
+    }
+    price_list_prices {
+        bigserial id PK
+        text price_list_id FK
+        text variant_id FK
+        int price_chf
+    }
+    tax_zones {
+        text id PK
+        text name
+        text_array countries
+    }
+    tax_rates {
+        text id PK
+        text zone_id FK
+        text country
+        numeric rate
+        bool included_in_price
+    }
+    order_tax_lines {
+        bigserial id PK
+        text order_id FK
+        bigint order_line_item_id FK
+        numeric rate
+        int amount_chf
+    }
+    shipping_zones {
+        text id PK
+        text name
+        text_array countries
+    }
+    shipping_rates {
+        text id PK
+        text zone_id FK
+        text method
+        text location_id FK
+        int price_chf
+        int free_over_chf
+    }
+    order_shipping_lines {
+        bigserial id PK
+        text order_id FK
+        text shipping_rate_id FK
+        text method
+        int price_chf
+    }
+    inventory_adjustments {
+        bigserial id PK
+        text variant_id FK
+        text location_id FK
+        int delta
+        text reason
+        text reference_type
+        text reference_id
+    }
+    draft_orders {
+        text id PK
+        text customer_id FK
+        text status
+        int total_chf
+        text converted_order_id FK
+    }
+    draft_order_line_items {
+        bigserial id PK
+        text draft_order_id FK
+        text variant_id FK
+        int quantity
+        int line_total_chf
+    }
+    refunds {
+        text id PK
+        text order_id FK
+        text payment_id FK
+        int amount_chf
+        text reason
+        bool restock
+    }
+    refund_line_items {
+        bigserial id PK
+        text refund_id FK
+        bigint order_line_item_id FK
+        int quantity
+        int amount_chf
+    }
+    returns {
+        text id PK
+        text order_id FK
+        text rma UK
+        text status
+        text refund_id FK
+    }
+    return_line_items {
+        bigserial id PK
+        text return_id FK
+        bigint order_line_item_id FK
+        int quantity
+        text condition
+    }
+    order_risks {
+        bigserial id PK
+        text order_id FK
+        text level
+        numeric score
+    }
+    order_tags {
+        text order_id PK
+        text tag PK
+    }
+    customer_tags {
+        text customer_id PK
+        text tag PK
+    }
+    customer_segments {
+        text id PK
+        text name
+    }
+    customer_segment_members {
+        text segment_id PK
+        text customer_id PK
+    }
+    gift_cards {
+        text id PK
+        text code UK
+        int balance_chf
+        text status
+    }
+    gift_card_transactions {
+        bigserial id PK
+        text gift_card_id FK
+        int amount_chf
+    }
+    discount_conditions {
+        bigserial id PK
+        text discount_id FK
+        text condition_type
+        text ref_id
+        int int_value
+    }
+    sales_channels {
+        text id PK
+        text name
+        text type
+    }
+    staff_users {
+        text id PK
+        text email UK
+        text role
+    }
+    audit_log {
+        bigserial id PK
+        text staff_user_id FK
+        text action
+        text entity_type
+    }
+```
+
+### 8.4 · Flujo operativo completo (catálogo → … → devolución)
+
+```
+CATÁLOGO        products (status/vendor/SEO/tags/metafields) → variants → product_media / product_images
+   │            colecciones (002) · price_lists (precio por contexto)
+   ▼
+PRECIO+IMPUESTO precio variante (CHF) → calculateTax(subtotal, país) → tax_rates (TVA CH 8.1%) → order_tax_lines
+   ▼
+CARRITO         assets/js/cart.js (localStorage) ──opcional──▶ carts / cart_items
+   │            [reserva] inventory_levels.reserved (committed) + inventory_adjustments(reason=reservation)
+   ▼
+CHECKOUT        build-stripe-lines.js + evaluateDiscount (discounts/discount_conditions) →
+   │            listShippingRates(país, subtotal) → order_shipping_lines · createOrderWithDetails()
+   ▼
+PAGO            Stripe → webhook confirmOrderPaid(): orders→paid · payments(paid) · order_status_history
+   ▼
+PEDIDO          orders (+note/tags/channel_id) · order_line_items · order_addresses · order_tax_lines
+   ▼
+FULFILLMENT     fulfillments / fulfillment_line_items (002) · order_shipping_lines (envío o pickup atelier)
+   ▼
+INVENTARIO      decrementInventoryLevel() (002) + inventory_adjustments(reason=sale, ref=order)
+   ▼
+DEVOLUCIÓN      returns / return_line_items (RMA) → createRefund(): refunds + refund_line_items +
+   │            payments(kind=refund) + inventory_adjustments(reason=return) + orders.refunded_chf/financial_status
+   ▼
+CLIENTE         customers (tags/segmentos/orders_count/total_spent) · gift_cards (saldo CHF)
+```
+
+### 8.5 · Mapeo «Objeto Shopify → tabla aquí» (v2)
+
+| Objeto Shopify Admin | Equivalente aquí | Notas |
+|---|---|---|
+| `Product` (status/vendor/productType/SEO) | `products` (campos 003) | `slug` = `handle`. |
+| `Product.tags` | `product_tags` | Puente normalizado. |
+| `Media` (Video/Model3d) | `product_media` | `product_images` queda como galería. |
+| `Metafield` / `Metaobject` | `metafields` | Clave/valor tipado por entidad. JSONB sigue para fichas grandes. |
+| `PriceList` | `price_lists` / `price_list_prices` | Mono-moneda CHF, extensible. |
+| `TaxLine` / tax settings | `tax_zones` / `tax_rates` / `order_tax_lines` | TVA Suiza 8.1% incluida en precio. |
+| `DeliveryProfile` / `ShippingRate` / `DeliveryMethod` | `shipping_zones` / `shipping_rates` / `order_shipping_lines` | Pickup = `method='pickup'` + `location_id`. |
+| `InventoryLevel` (incoming) | `inventory_levels.incoming` | available/reserved/on_hand/incoming. |
+| `InventoryAdjustmentGroup` / changes | `inventory_adjustments` | Libro mayor con motivo y referencia. |
+| `DraftOrder` | `draft_orders` / `draft_order_line_items` | Venta manual / cotización. |
+| `Refund` | `refunds` / `refund_line_items` | Reutiliza `payments` (kind=refund). |
+| `Return` (RMA) | `returns` / `return_line_items` | Estado y condición por ítem. |
+| `OrderRisk` | `order_risks` | Opcional. |
+| `Order.note` / `Order.tags` / cancel | `orders` (003) + `order_tags` | — |
+| `Customer.tags` / `Segment` | `customer_tags` / `customer_segments` (+members) | — |
+| `GiftCard` | `gift_cards` / `gift_card_transactions` | Saldo CHF + ledger. |
+| `DiscountAutomatic` / `DiscountCode` | `discounts.method` + `discount_conditions` | code vs. automatic; free shipping = `target_type='shipping'`. |
+| `Channel` / `Publication` | `sales_channels` | web / atelier. |
+| `StaffMember` | `staff_users` | — |
+| `Events` (admin) | `audit_log` | Bitácora del panel. |
+
+### 8.6 · Helpers añadidos en `lib/postgres.js` (003 · aditivos)
+
+| Helper | Propósito |
+|---|---|
+| `getTaxRate(country)` | Fila `tax_rates` por país (ISO-2). |
+| `calculateTax(subtotalChf, country)` | Impuesto en CHF enteros (extrae IVA si `included_in_price`, si no lo añade). |
+| `listShippingRates(country, subtotalChf)` | Tarifas aplicables (incluye pickup); aplica `free_over_chf`. |
+| `recordInventoryMovement(m, exec)` | Escribe en `inventory_adjustments` y ajusta `inventory_levels` + espejo en variante. Componible en tx. |
+| `createRefund(refund)` | Transaccional: `refunds` + `refund_line_items` + `payments(refund)` + reposición de stock + `orders.refunded_chf`/`financial_status` + historial. |
+| `setMetafield` / `getMetafields` | Upsert/lectura de metafields por entidad. |
+
+> Ninguno reescribe funciones existentes. Todos degradan suave (devuelven valor seguro / no lanzan) si la tabla aún no existe o falta `DATABASE_URL`.
+
+---
+
 ## 7 · Próximos pasos
 
 ### A) Aplicar a la base de datos
 ```bash
-psql "$DATABASE_URL" -f database/migrations/002_full_commerce_model.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/migrations/002_full_commerce_model.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/migrations/003_functional_store.sql
 ```
-> Idempotente y re-ejecutable. **No** usar el splitter de `scripts/db-migrate.js` para este archivo (solo lee `schema.sql` y filtra sentencias que empiezan por `--`).
+> Ambas idempotentes y re-ejecutables; aplicar **002 antes de 003**. **No** usar el splitter de `scripts/db-migrate.js` para estos archivos (solo lee `schema.sql` y filtra sentencias que empiezan por `--`).
 
 ### B) Helpers ya añadidos en `lib/postgres.js` (solo lectura, aditivos)
 - `getProductVariants(productId)` · `getVariantById(variantId)`
@@ -412,6 +778,15 @@ psql "$DATABASE_URL" -f database/migrations/002_full_commerce_model.sql
 3. **Validación de cupones server-side:** endpoint que use `findDiscountByCode()` + reglas (`min_subtotal_chf`, vigencia, `usage_limit`) y escriba `order_discounts`. Hoy `OV-TEMPORADA` solo se entrega por `lib/newsletter.js` y no se valida en el checkout.
 4. **Backfill:** poblar `order_line_items` desde `orders.line_items` (JSONB) y `inventory_levels` desde `product_variants.inventory` para datos históricos.
 5. **Sincronizar `customers.orders_count` / `total_spent_chf`** al marcar `paid` (trigger o en el webhook).
+
+### D) Cableado pendiente de la tienda funcional (migración 003)
+1. **Impuestos en checkout:** llamar `calculateTax(subtotal, país)` en `api/checkout/create.js` y persistir `order_tax_lines` (hoy Stripe Tax/manual no está cableado; el total persistido aún no incluye IVA desglosado).
+2. **Envío en checkout:** exponer `listShippingRates(país, subtotal)` en el frontend/checkout, persistir `order_shipping_lines` y reflejar el coste en la sesión de Stripe (`shipping_options`). Soportar selección de **pickup en atelier** (`rate-pickup-atelier`).
+3. **Devoluciones/reembolsos:** conectar `createRefund()` a un endpoint admin y al evento Stripe `charge.refunded` en `webhook.js` (hoy el helper existe pero no hay ruta que lo invoque).
+4. **Inventario operativo:** invocar `recordInventoryMovement()` desde `confirmOrderPaid()` (motivo `sale`) y desde restock/manual del admin, para poblar el libro mayor `inventory_adjustments` (hoy solo se descuenta `inventory_levels` sin asentar el movimiento).
+5. **Descuentos avanzados:** evaluar `discount_conditions` y descuentos `automatic` en `lib/discounts.js` (hoy `evaluateDiscount` solo cubre código + mínimo de subtotal).
+6. **Draft orders / gift cards / segmentos:** UI de admin para crear cotizaciones, emitir/redimir gift cards y armar segmentos (tablas listas, sin endpoints aún).
+7. **Backfill opcional:** poblar `inventory_adjustments` con un asiento inicial (`reason=restock`) por el stock vigente, y `product_media` desde `product_images`.
 
 ---
 
