@@ -56,6 +56,14 @@ function listInternalHtmlLinks(html, file) {
   return matches.map((m) => `${file}: ${m[1]}`);
 }
 
+function normalizeLocalPath(value) {
+  if (!value || value.startsWith('#')) return '';
+  if (/^(https?:|mailto:|tel:|javascript:)/.test(value)) return '';
+  const clean = value.split('#')[0].split('?')[0];
+  if (!clean) return '';
+  return decodeURIComponent(clean.replace(/^\//, ''));
+}
+
 function checkRequiredFiles() {
   for (const page of pages) {
     assert(exists(page), `Falta página crítica: ${page}`);
@@ -71,6 +79,46 @@ function checkCleanUrls() {
     offenders.push(...listInternalHtmlLinks(read(page), page));
   }
   assert(!offenders.length, `Hay links internos con .html:\n${offenders.join('\n')}`);
+}
+
+function checkSeoBasics() {
+  const offenders = [];
+  for (const page of pages) {
+    const html = read(page);
+    if (!/<title>[^<]{8,}<\/title>/.test(html)) offenders.push(`${page}: falta title útil`);
+    if (!/<meta\s+name=["']description["']\s+content=["'][^"']{30,}["']/.test(html)) {
+      offenders.push(`${page}: falta meta description útil`);
+    }
+    if (!/<link\s+rel=["']canonical["']\s+href=["']https:\/\/ofeliavallejo\.com\/[^"']*["']/.test(html)) {
+      offenders.push(`${page}: falta canonical`);
+    }
+  }
+  assert(!offenders.length, `SEO básico incompleto:\n${offenders.join('\n')}`);
+}
+
+function checkReferencedStaticAssets() {
+  const missing = [];
+  const staticPrefixes = [
+    'assets/',
+    'imagenes nuevas/',
+    'imagenes base/',
+    'videos base/',
+    'favicon.ico',
+    'site.webmanifest',
+  ];
+
+  for (const page of pages) {
+    const html = read(page);
+    const refs = [...html.matchAll(/\b(?:href|src|poster)=["']([^"']+)["']/g)].map((m) => m[1]);
+    for (const ref of refs) {
+      const relPath = normalizeLocalPath(ref);
+      if (!relPath) continue;
+      if (!staticPrefixes.some((prefix) => relPath.startsWith(prefix))) continue;
+      if (!exists(relPath)) missing.push(`${page}: ${ref}`);
+    }
+  }
+
+  assert(!missing.length, `Assets estáticos faltantes:\n${missing.join('\n')}`);
 }
 
 function checkHomeContract() {
@@ -136,6 +184,8 @@ function checkStructuredData() {
 function main() {
   checkRequiredFiles();
   checkCleanUrls();
+  checkSeoBasics();
+  checkReferencedStaticAssets();
   checkHomeContract();
   checkBrandCopyGuardrails();
   checkStructuredData();
