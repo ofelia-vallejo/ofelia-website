@@ -12,6 +12,9 @@
   "scripts": {
     "dev": "STORE_MODE=file npx vercel dev",
     "dev:local": "node scripts/dev-server.js",
+    "test": "node --test tests/unit/*.test.js",
+    "test:frontend": "node scripts/check-frontend.js",
+    "verify:frontend": "npm run test && npm run test:frontend",
     "check:env": "node scripts/check-env.js",
     "seed:catalog": "node scripts/seed-catalog.js",
     "db:migrate": "node scripts/db-migrate.js",

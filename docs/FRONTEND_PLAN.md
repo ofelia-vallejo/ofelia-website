@@ -26,6 +26,8 @@ Una página queda lista cuando cumple:
 
 **Meta:** crear un piso técnico para poder mejorar sin romper.
 
+**Estado:** en ejecución. Primer bloque completado con pruebas nativas `node:test` y smoke frontend sin dependencias externas.
+
 - Congelar inventario de rutas desde `docs/MAPA_ENLACES.md`.
 - Definir páginas críticas: `/`, `/home`, `/coleccion`, `/producto/{slug}`, `/producto/travel-bag`, `/personalizar`, `/checkout`, `/gracias`, `/cuenta`, `/contacto`, `/manifiesto`, `/cuero`.
 - Crear checklist visual por página: desktop 1440, tablet 768, mobile 390.
@@ -37,6 +39,11 @@ Una página queda lista cuando cumple:
 - `git diff --check`
 - script de enlaces internos rotos
 - `npm run check:env` para separar bloqueos de producción
+
+**Implementado:**
+- `npm run test` — unitarias iniciales para pricing, descuentos, checkout context y Stripe lines.
+- `npm run test:frontend` — smoke de rutas/assets/home/guardrails de marca.
+- `npm run verify:frontend` — ejecución conjunta del bloque frontend.
 
 ## Fase 1 · Sistema visual compartido
 
