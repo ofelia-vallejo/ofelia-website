@@ -1,4 +1,5 @@
 const { corsJson, requireAdmin } = require('../../lib/auth');
+const { requireDatabase } = require('../../lib/admin-guard');
 const { loadCatalog, saveCatalog, findProduct, totalInventory } = require('../../lib/store');
 const {
   hasPostgres,
@@ -14,6 +15,7 @@ module.exports = async (req, res) => {
 
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (!requireAdmin(req, res)) return;
+  if (!requireDatabase(res)) return;
 
   try {
     const catalog = await loadCatalog();

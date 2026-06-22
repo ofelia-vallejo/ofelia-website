@@ -4,9 +4,23 @@
 > y los cupones **sin tocar código y sin poder dejar la base en un estado inválido**.
 > Respeta la paleta y tipografía de marca (Cinzel + Helvetica light, navy/marfil).
 
+## Arquitectura
+
+```
+admin/ (UI Vanilla JS)
+  ↓  Authorization: Bearer <JWT>
+api/admin/[action].js  →  _login | _status | _products | _inventory | _orders | _discounts | _categories | _upload
+  ↓  requireAdmin + requireDatabase + zod (lib/validation.js)
+lib/postgres.js  →  queries parametrizadas
+  ↓
+PostgreSQL
+```
+
+La dueña **nunca ejecuta SQL** ni modifica el esquema: solo formularios validados server-side.
+
 - **Front:** `admin/index.html` · `admin/admin.js` · `admin/admin.css` (HTML + Vanilla JS, sin frameworks).
-- **API:** `api/admin/[action].js` (router de una sola Serverless Function) → sub-handlers `_login`, `_products`, `_inventory`, `_categories`, `_upload`, `_orders`, `_discounts`.
-- **Acceso:** `/admin`. Login con contraseña (`ADMIN_PASSWORD`) → token JWT firmado (`lib/auth.js`). **Todas** las rutas admin exigen `Authorization: Bearer <token>` (`requireAdmin`).
+- **API:** `api/admin/[action].js` (router de una sola Serverless Function) → sub-handlers.
+- **Acceso:** `/admin`. Login con contraseña (`ADMIN_PASSWORD`) → token JWT firmado (`lib/auth.js`, **7 días** en `localStorage`). **Todas** las rutas admin exigen `Authorization: Bearer <token>` (`requireAdmin`).
 
 ---
 
@@ -14,11 +28,30 @@
 
 | Sección | Qué puede hacer la dueña | Endpoint |
 |---|---|---|
-| **Productos** | Crear / editar / archivar piezas; variantes (color, SKU, precio CHF, stock); estado (borrador/activo/archivado); SEO; fotos; metafields. | `/api/admin/products` |
-| **Inventario** | Ver y ajustar stock por variante (capa real `inventory_levels`), con asiento en el libro mayor. | `/api/admin/inventory` |
-| **Pedidos** | Ver pedidos, su detalle (líneas, envío, impuesto, total) y **registrar reembolsos** (con reposición de stock). | `/api/admin/orders` |
-| **Cupones** | Crear / editar / eliminar descuentos (porcentaje o monto fijo; por código o automático; envío gratis; mínimo de subtotal; límite de usos). | `/api/admin/discounts` |
+| **Inicio (dashboard)** | Resumen: pedidos recientes, stock bajo (&lt; 3 uds.), accesos rápidos. | `/api/admin/status` |
+| **Productos** | Crear / editar / archivar piezas; variantes (color, SKU, precio CHF, stock); estado (borrador/activo/archivado); SEO; fotos. Slug sugerido al crear. | `/api/admin/products` |
+| **Inventario** | Ver y ajustar stock por variante en **Atelier Medellín** (+/− o número), capa real `inventory_levels`. | `/api/admin/inventory` |
+| **Pedidos** | Ver pedidos, detalle (líneas, envío, impuesto, total CHF) y **registrar reembolsos** (con reposición de stock). | `/api/admin/orders` |
+| **Cupones** | Crear / editar / eliminar descuentos (porcentaje o monto fijo; mínimo de subtotal). | `/api/admin/discounts` |
 | **Secciones** | Orden, título, columnas y visibilidad de las categorías en `/coleccion`. | `/api/admin/categories` |
+
+---
+
+## Login y sesión
+
+- URL: **`https://ofeliavallejo.com/admin`** (o `/admin` en local con `npm run dev:local`).
+- Contraseña: variable **`ADMIN_PASSWORD`** en Vercel (Environment Variables). También **`ADMIN_SECRET`** para firmar el JWT (si falta, usa `ADMIN_PASSWORD`).
+- Token guardado en `localStorage` (`ov_admin_token`), expira a los **7 días**.
+- Errores en español: «Contraseña incorrecta», «Sesión expirada», «Acceso no disponible» (prod sin `ADMIN_PASSWORD`).
+- Cerrar sesión: botón visible en la barra lateral.
+
+---
+
+## Base de datos obligatoria
+
+El panel admin **solo opera contra PostgreSQL** (`DATABASE_URL`). Si falta la variable, la API responde **503** con «Base de datos no configurada» y el panel muestra un aviso superior — no cae silenciosamente a `catalog.json`.
+
+El checkout valida stock contra **`inventory_levels`** vía `getVariantAvailable()` antes de crear la sesión Stripe (rechaza con «sin stock suficiente»).
 
 ---
 

@@ -4,6 +4,7 @@
 
   let catalog = { products: [], categories: [] };
   let editingId = null;
+  let dbConfigured = true;
 
   const $ = (sel) => document.querySelector(sel);
   const viewLogin = $('#viewLogin');
@@ -13,8 +14,13 @@
   const productsTable = $('#productsTable');
   const categoriesTable = $('#categoriesTable');
   const inventoryTable = $('#inventoryTable');
+  const inventoryNotice = $('#inventoryNotice');
   const categoriesNotice = $('#categoriesNotice');
   const statsRow = $('#statsRow');
+  const dashStats = $('#dashStats');
+  const dashOrders = $('#dashOrders');
+  const dashLowStock = $('#dashLowStock');
+  const dbBanner = $('#dbBanner');
   const mainTitle = $('#mainTitle');
   const mainActions = $('#mainActions');
   const productForm = $('#productForm');
@@ -40,6 +46,17 @@
       headers: { ...authHeaders(), ...(options && options.headers) },
     });
     const json = await res.json().catch(() => ({}));
+    if (res.status === 401) {
+      localStorage.removeItem(TOKEN_KEY);
+      viewApp.hidden = true;
+      viewLogin.hidden = false;
+      showNotice(loginNotice, 'Sesión expirada. Vuelve a entrar.', false);
+      throw new Error('Sesión expirada.');
+    }
+    if (res.status === 503 && json.dbConfigured === false) {
+      dbConfigured = false;
+      if (dbBanner) dbBanner.hidden = false;
+    }
     if (!res.ok) throw new Error(json.error || res.statusText);
     return json;
   }
@@ -50,6 +67,7 @@
   }
 
   function showView(name) {
+    $('#panelDashboard').hidden = name !== 'dashboard';
     $('#panelProducts').hidden = name !== 'products';
     $('#panelCategories').hidden = name !== 'categories';
     $('#panelInventory').hidden = name !== 'inventory';
@@ -59,9 +77,36 @@
   }
 
   // Muestra el error del servidor, anteponiendo el campo si zod devolvió issues.
+  function slugifyClient(text) {
+    return String(text || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 80);
+  }
+
+  function finStatusLabel(status) {
+    const map = {
+      paid: 'Pagado',
+      pending: 'Pendiente',
+      refunded: 'Reembolsado',
+      partially_refunded: 'Reembolso parcial',
+      voided: 'Anulado',
+    };
+    return map[status] || status || '—';
+  }
+
+  function productStatusBadge(p) {
+    const st = p.status || (p.active ? 'active' : 'draft');
+    if (st === 'archived') return '<span class="badge badge--out">Archivado</span>';
+    if (st === 'draft') return '<span class="badge badge--low">Borrador</span>';
+    return '<span class="badge badge--ok">Activo</span>';
+  }
+
   function showServerError(el, err) {
-    let msg = err.message || 'Error.';
-    showNotice(el, msg, false);
+    showNotice(el, err.message || 'Error.', false);
   }
 
   function setNav(view) {
@@ -112,6 +157,7 @@
           '<td>CHF ' + p.basePrice + '</td>' +
           '<td>+ CHF ' + (p.engravePrice || 0) + '</td>' +
           '<td>' + stockBadge(p) + '</td>' +
+          '<td>' + productStatusBadge(p) + '</td>' +
           '<td><button type="button" class="btn btn--sm btn--ghost" data-edit="' + esc(p.id) + '">Editar</button></td>' +
         '</tr>'
       );
@@ -122,17 +168,22 @@
     });
   }
 
-  function renderInventoryTable() {
-    const rows = [];
-    (catalog.products || []).forEach((p) => {
-      if (p.variants && p.variants.length) {
-        p.variants.forEach((v) => {
-          rows.push({ product: p, variant: v });
-        });
-      } else {
-        rows.push({ product: p, variant: null });
-      }
-    });
+  async function renderInventoryTable() {
+    showNotice(inventoryNotice, '', true);
+    let rows = [];
+    try {
+      const data = await api('/admin/inventory');
+      (data.inventory || []).forEach((p) => {
+        if (p.variants && p.variants.length) {
+          p.variants.forEach((v) => rows.push({ product: p, variant: v }));
+        } else {
+          rows.push({ product: p, variant: null });
+        }
+      });
+    } catch (err) {
+      inventoryTable.innerHTML = '<tr><td colspan="5">' + esc(err.message) + '</td></tr>';
+      return;
+    }
 
     inventoryTable.innerHTML = rows.map(({ product, variant }) => {
       const sku = variant ? variant.sku : '—';
@@ -142,18 +193,35 @@
       const id = product.id;
       const vid = variant ? variant.id : '';
       const low = Number(inv) <= (product.lowStockAt || 2);
-      const code = productCode(product);
+      const code = product.slug || product.id.slice(0, 8);
       return (
         '<tr data-pid="' + esc(id) + '" data-vid="' + esc(vid) + '">' +
           '<td><code>' + esc(code) + '</code><br>' + esc(sku) +
             (colorKey ? '<br><small>' + esc(colorKey) + ' · ' + esc(color) + '</small>' : '<br><small>' + esc(color) + '</small>') + '</td>' +
           '<td>' + esc(product.name) + '</td>' +
-          '<td><input type="number" class="inv-input" value="' + inv + '" min="0" style="width:72px;padding:6px"></td>' +
+          '<td><div class="inv-controls">' +
+            '<button type="button" class="btn btn--sm inv-minus" aria-label="Restar">−</button>' +
+            '<input type="number" class="inv-input" value="' + inv + '" min="0" style="width:56px;padding:6px;text-align:center">' +
+            '<button type="button" class="btn btn--sm inv-plus" aria-label="Sumar">+</button>' +
+          '</div></td>' +
           '<td>' + (Number(inv) <= 0 ? '<span class="badge badge--out">Agotado</span>' : low ? '<span class="badge badge--low">Bajo</span>' : '<span class="badge badge--ok">OK</span>') + '</td>' +
           '<td><button type="button" class="btn btn--sm inv-save">Guardar</button></td>' +
         '</tr>'
       );
     }).join('');
+
+    inventoryTable.querySelectorAll('.inv-minus').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = btn.closest('tr').querySelector('.inv-input');
+        input.value = Math.max(0, Number(input.value) - 1);
+      });
+    });
+    inventoryTable.querySelectorAll('.inv-plus').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = btn.closest('tr').querySelector('.inv-input');
+        input.value = Number(input.value) + 1;
+      });
+    });
 
     inventoryTable.querySelectorAll('.inv-save').forEach((btn) => {
       btn.addEventListener('click', async () => {
@@ -161,15 +229,21 @@
         const productId = tr.getAttribute('data-pid');
         const variantId = tr.getAttribute('data-vid') || undefined;
         const value = Number(tr.querySelector('.inv-input').value);
+        btn.disabled = true;
+        btn.textContent = '…';
         try {
           await api('/admin/inventory', {
             method: 'PATCH',
             body: JSON.stringify({ productId, variantId, mode: 'set', value, reason: 'correction' }),
           });
+          showNotice(inventoryNotice, 'Stock actualizado.', true);
           await loadCatalog();
           renderInventoryTable();
         } catch (e) {
-          alert(e.message);
+          showNotice(inventoryNotice, e.message, false);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Guardar';
         }
       });
     });
@@ -404,6 +478,52 @@
     renderProductsTable();
   }
 
+  async function goDashboard() {
+    mainTitle.textContent = 'Inicio';
+    mainActions.innerHTML = '';
+    setNav('dashboard');
+    showView('dashboard');
+    dashOrders.innerHTML = '<p class="hint">Cargando…</p>';
+    dashLowStock.innerHTML = '';
+    try {
+      const data = await api('/admin/status');
+      dbConfigured = data.dbConfigured !== false;
+      if (dbBanner) dbBanner.hidden = dbConfigured;
+      const s = data.stats || {};
+      dashStats.innerHTML =
+        '<div class="stat"><div class="stat__val">' + (s.products || 0) + '</div><div class="stat__label">Piezas</div></div>' +
+        '<div class="stat"><div class="stat__val">' + (s.recentOrders || 0) + '</div><div class="stat__label">Pedidos</div></div>' +
+        '<div class="stat"><div class="stat__val">' + (s.lowStockCount || 0) + '</div><div class="stat__label">Stock bajo</div></div>' +
+        '<div class="stat"><div class="stat__val">' + (s.outOfStock || 0) + '</div><div class="stat__label">Agotadas</div></div>';
+
+      const orders = data.recentOrders || [];
+      dashOrders.innerHTML = orders.length
+        ? orders.map((o) =>
+            '<div class="dash-row">' +
+              '<span><code>' + esc(o.id) + '</code> · ' + esc(o.customer_name || o.customer_email || '—') + '</span>' +
+              '<span>' + money(o.total_chf) + ' · ' + esc(finStatusLabel(o.financial_status || o.status)) + '</span>' +
+            '</div>'
+          ).join('')
+        : '<p class="hint">Aún no hay pedidos.</p>';
+
+      const low = data.lowStock || [];
+      dashLowStock.innerHTML = low.length
+        ? low.map((r) =>
+            '<div class="dash-row">' +
+              '<span>' + esc(r.productName) + (r.colorName ? ' · ' + esc(r.colorName) : '') + '</span>' +
+              '<span class="badge badge--low">' + r.available + ' uds.</span>' +
+            '</div>'
+          ).join('')
+        : '<p class="hint">Todo el stock está por encima del umbral.</p>';
+    } catch (err) {
+      dashOrders.innerHTML = '<p class="hint">' + esc(err.message) + '</p>';
+      if (err.message.includes('Base de datos')) {
+        dbConfigured = false;
+        if (dbBanner) dbBanner.hidden = false;
+      }
+    }
+  }
+
   async function saveProduct(e) {
     e.preventDefault();
     const body = {
@@ -526,7 +646,7 @@
           '<td><code>' + esc(o.id) + '</code></td>' +
           '<td>' + esc(o.customer_name || o.customer_email || '—') + '</td>' +
           '<td>' + money(o.total_chf) + (Number(o.refunded_chf) > 0 ? '<br><small>−' + money(o.refunded_chf) + '</small>' : '') + '</td>' +
-          '<td>' + esc(fin) + '</td>' +
+          '<td>' + esc(finStatusLabel(fin)) + '</td>' +
           '<td>' + esc(o.fulfillment_status || '') + '</td>' +
           '<td>' + esc(date) + '</td>' +
           '<td><button type="button" class="btn btn--sm btn--ghost" data-order="' + esc(o.id) + '">Ver</button></td>' +
@@ -703,6 +823,10 @@
 
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const btn = loginForm.querySelector('button[type="submit"]');
+    const origText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Entrando…';
     showNotice(loginNotice, '', true);
     try {
       const res = await fetch(API + '/admin/login', {
@@ -711,11 +835,20 @@
         body: JSON.stringify({ password: $('#loginPassword').value }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || 'Error');
+      if (!res.ok) {
+        const msg = res.status === 503
+          ? 'Acceso no disponible. Contacta soporte.'
+          : (json.error || 'Contraseña incorrecta.');
+        throw new Error(msg);
+      }
       localStorage.setItem(TOKEN_KEY, json.token);
+      $('#loginPassword').value = '';
       await initApp();
     } catch (err) {
       showNotice(loginNotice, err.message, false);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = origText;
     }
   });
 
@@ -723,22 +856,36 @@
     localStorage.removeItem(TOKEN_KEY);
     viewApp.hidden = true;
     viewLogin.hidden = false;
+    showNotice(loginNotice, 'Sesión cerrada.', true);
   });
+
+  document.querySelectorAll('.dash-link, .dash-quick .btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const v = btn.getAttribute('data-go');
+      if (v === 'products') goProducts();
+      if (v === 'inventory') goInventory();
+      if (v === 'orders') goOrders();
+      if (v === 'discounts') goDiscounts();
+    });
+  });
+
+  function goInventory() {
+    mainTitle.textContent = 'Inventario';
+    mainActions.innerHTML = '';
+    setNav('inventory');
+    showView('inventory');
+    renderInventoryTable();
+  }
 
   document.querySelectorAll('.sidebar__link').forEach((btn) => {
     btn.addEventListener('click', () => {
       const v = btn.getAttribute('data-view');
+      if (v === 'dashboard') goDashboard();
       if (v === 'products') goProducts();
       if (v === 'categories') goCategories();
       if (v === 'orders') goOrders();
       if (v === 'discounts') goDiscounts();
-      if (v === 'inventory') {
-        mainTitle.textContent = 'Inventario';
-        mainActions.innerHTML = '';
-        setNav('inventory');
-        showView('inventory');
-        renderInventoryTable();
-      }
+      if (v === 'inventory') goInventory();
       if (v === 'edit' && editingId) openEdit(editingId);
     });
   });
@@ -762,14 +909,28 @@
   });
 
   $('#btnDeleteProduct').addEventListener('click', async () => {
-    if (!confirm('¿Eliminar este producto del catálogo?')) return;
+    if (!confirm('¿Archivar esta pieza? Dejará de mostrarse en la web.')) return;
     try {
-      await api('/admin/products?id=' + encodeURIComponent(editingId), { method: 'DELETE' });
+      const p = catalog.products.find((x) => x.id === editingId);
+      if (!p) return;
+      const body = Object.assign({}, p, { status: 'archived', active: false });
+      await api('/admin/products?id=' + encodeURIComponent(editingId), {
+        method: 'PUT',
+        body: JSON.stringify(body),
+      });
+      showNotice(formNotice, 'Pieza archivada.', true);
       await loadCatalog();
-      goProducts();
+      setTimeout(goProducts, 600);
     } catch (err) {
       showNotice(formNotice, err.message, false);
     }
+  });
+
+  $('#fieldName').addEventListener('blur', () => {
+    if (editingId !== 'new') return;
+    const slugField = $('#fieldSlug');
+    if (slugField.value.trim()) return;
+    slugField.value = slugifyClient($('#fieldName').value);
   });
 
   $('#btnAddVariant').addEventListener('click', () => {
@@ -795,10 +956,14 @@
       fillCategories();
       viewLogin.hidden = true;
       viewApp.hidden = false;
-      goProducts();
+      if (dbBanner) dbBanner.hidden = dbConfigured;
+      goDashboard();
     } catch (err) {
       localStorage.removeItem(TOKEN_KEY);
-      showNotice(loginNotice, err.message || 'Sesión expirada.', false);
+      const msg = err.message && err.message.includes('Base de datos')
+        ? err.message
+        : (err.message || 'Sesión expirada.');
+      showNotice(loginNotice, msg, false);
       viewLogin.hidden = false;
       viewApp.hidden = true;
     }

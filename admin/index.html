@@ -29,7 +29,8 @@
     <aside class="sidebar">
       <p class="sidebar__brand">Atelier Admin</p>
       <nav class="sidebar__nav">
-        <button type="button" class="sidebar__link is-active" data-view="products">Productos</button>
+        <button type="button" class="sidebar__link is-active" data-view="dashboard">Inicio</button>
+        <button type="button" class="sidebar__link" data-view="products">Productos</button>
         <button type="button" class="sidebar__link" data-view="inventory">Inventario</button>
         <button type="button" class="sidebar__link" data-view="orders">Pedidos</button>
         <button type="button" class="sidebar__link" data-view="discounts">Cupones</button>
@@ -40,12 +41,38 @@
     </aside>
 
     <main class="main">
+      <div id="dbBanner" class="db-banner" hidden>
+        Base de datos no configurada. El panel requiere PostgreSQL en el servidor (variable <code>DATABASE_URL</code>).
+      </div>
       <header class="main__head">
         <h2 id="mainTitle">Productos</h2>
         <div class="main__actions" id="mainActions"></div>
       </header>
 
-      <section id="panelProducts" class="panel">
+      <section id="panelDashboard" class="panel">
+        <div class="stats" id="dashStats"></div>
+        <div class="dash-grid">
+          <div class="dash-block">
+            <h3>Pedidos recientes</h3>
+            <div id="dashOrders" class="dash-list"></div>
+            <button type="button" class="link-btn dash-link" data-go="orders">Ver todos los pedidos →</button>
+          </div>
+          <div class="dash-block">
+            <h3>Stock bajo (&lt; 3 uds.)</h3>
+            <p class="hint dash-location">Ubicación: Atelier Medellín</p>
+            <div id="dashLowStock" class="dash-list"></div>
+            <button type="button" class="link-btn dash-link" data-go="inventory">Ir a inventario →</button>
+          </div>
+        </div>
+        <div class="dash-quick">
+          <button type="button" class="btn btn--ghost" data-go="products">Productos</button>
+          <button type="button" class="btn btn--ghost" data-go="inventory">Inventario</button>
+          <button type="button" class="btn btn--ghost" data-go="orders">Pedidos</button>
+          <button type="button" class="btn btn--ghost" data-go="discounts">Cupones</button>
+        </div>
+      </section>
+
+      <section id="panelProducts" class="panel" hidden>
         <div class="stats" id="statsRow"></div>
         <div class="table-wrap">
           <table class="table">
@@ -56,6 +83,7 @@
                 <th>Precio</th>
                 <th>Grabado +</th>
                 <th>Stock</th>
+                <th>Estado</th>
                 <th></th>
               </tr>
             </thead>
@@ -89,6 +117,8 @@
       </section>
 
       <section id="panelInventory" class="panel" hidden>
+        <p class="hint" style="margin-bottom:16px">Stock en <strong>Atelier Medellín</strong>. Usa +/− o escribe la cantidad y guarda.</p>
+        <p class="form-notice" id="inventoryNotice" aria-live="polite"></p>
         <div class="table-wrap">
           <table class="table">
             <thead>
@@ -97,7 +127,7 @@
                 <th>Pieza</th>
                 <th>Unidades</th>
                 <th>Estado</th>
-                <th>Ajuste</th>
+                <th>Ajuste (+/−)</th>
               </tr>
             </thead>
             <tbody id="inventoryTable"></tbody>
@@ -317,7 +347,7 @@
           <div class="form-actions">
             <button type="button" class="btn btn--ghost" id="btnBackList">← Volver</button>
             <button type="submit" class="btn btn--primary">Guardar producto</button>
-            <button type="button" class="btn btn--danger" id="btnDeleteProduct" hidden>Eliminar</button>
+            <button type="button" class="btn btn--danger" id="btnDeleteProduct" hidden>Archivar pieza</button>
           </div>
           <p class="form-notice" id="formNotice" aria-live="polite"></p>
         </form>

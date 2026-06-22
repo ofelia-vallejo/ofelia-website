@@ -8,6 +8,7 @@ const { corsJson } = require('../../lib/auth');
 
 const HANDLERS = {
   login:      () => require('./_login'),
+  status:     () => require('./_status'),
   products:   () => require('./_products'),
   upload:     () => require('./_upload'),
   inventory:  () => require('./_inventory'),
