@@ -1,0 +1,398 @@
+{
+  "_note": "Manifiesto de videos por imagen de producto. Llenar 'videoUrl' con la ruta real del archivo MP4 una vez disponible. Ruta sugerida: /assets/video/productos/{slug}/{nombre-base}.mp4. Subir vía panel admin o Vercel Blob.",
+  "_convention": "Un video de ~8–15 seg por imagen: mostrar textura del cuero, grabado láser en movimiento, o secuencia editorial estudio. Codec H.264, max 4 MB por archivo, 1080p o 720p.",
+  "_updated": "2026-06-16",
+  "products": {
+
+    "travel-bag-i": {
+      "name": "Travel Bag I",
+      "category": "mujer",
+      "collection": "Guanábana",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/mujer/travel-bag-cognac-estudio.jpg",
+          "alt": "Travel Bag I — cuero cognac · estudio",
+          "kind": "hero",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/travel-bag-i/travel-bag-cognac-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/hombre/duffel-cognac-lifestyle.jpg",
+          "alt": "Travel Bag I — cognac · lifestyle",
+          "kind": "lifestyle",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/travel-bag-i/duffel-cognac-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/duffel-espresso-jet-lifestyle.jpg",
+          "alt": "Travel Bag I — espresso · lifestyle editorial",
+          "kind": "lifestyle",
+          "colorKey": "espresso",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/travel-bag-i/duffel-espresso-jet-lifestyle.mp4"
+        }
+      ]
+    },
+
+    "travel-bag-ii": {
+      "name": "Travel Bag II · Maletín Antioquia",
+      "category": "hombre",
+      "collection": "Borojó",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/hombre/travel-bag-negro-estudio.jpg",
+          "alt": "Travel Bag II — cuero negro · estudio",
+          "kind": "hero",
+          "colorKey": "negro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/travel-bag-ii/travel-bag-negro-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/inicio/hero-hombre-guatape-duffel-negro.jpg",
+          "alt": "Travel Bag II — negro · Guatapé",
+          "kind": "lifestyle",
+          "colorKey": "negro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/travel-bag-ii/hero-hombre-guatape-duffel-negro.mp4"
+        }
+      ]
+    },
+
+    "travel-bag-iii": {
+      "name": "Travel Bag III",
+      "category": "mujer",
+      "collection": "Guanábana",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-01.jpg",
+          "alt": "Travel Bag III — cognac · estudio",
+          "kind": "hero",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/travel-bag-iii/mochila-cognac-estudio-01.mp4"
+        }
+      ]
+    },
+
+    "bolso-dama": {
+      "name": "Bolso Dama",
+      "category": "mujer",
+      "collection": "Guanábana",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/mujer/tote-cognac-editorial.jpg",
+          "alt": "Bolso Dama — tote cognac · editorial",
+          "kind": "hero",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/bolso-dama/tote-cognac-editorial.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/tote-cognac-lifestyle.jpg",
+          "alt": "Bolso Dama — tote cognac · lifestyle",
+          "kind": "lifestyle",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/bolso-dama/tote-cognac-lifestyle.mp4"
+        }
+      ]
+    },
+
+    "morral-elite": {
+      "name": "Morral Elite",
+      "category": "morrales",
+      "collection": "Chontaduro",
+      "images": [
+        {
+          "image": "/imagenes nuevas/lifestyle/hombre/mochila-negro-lifestyle.jpg",
+          "alt": "Morral Elite — negro · lifestyle",
+          "kind": "hero",
+          "colorKey": "negro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/morral-elite/mochila-negro-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/hombre/mochila-negro-estudio.jpg",
+          "alt": "Morral Elite — negro · estudio",
+          "kind": "estudio",
+          "colorKey": "negro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/morral-elite/mochila-negro-estudio.mp4"
+        }
+      ]
+    },
+
+    "morral-clasico": {
+      "name": "Morral Clásico",
+      "category": "morrales",
+      "collection": "Chontaduro",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/mujer/mochila-cognac-estudio-02.jpg",
+          "alt": "Morral Clásico — cognac · estudio",
+          "kind": "hero",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/morral-clasico/mochila-cognac-estudio-02.mp4"
+        }
+      ]
+    },
+
+    "bandolera-moderna": {
+      "name": "Bandolera Moderna",
+      "category": "bandoleras",
+      "collection": "Uchuva",
+      "images": [
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/bandolera-cognac-lifestyle.jpg",
+          "alt": "Bandolera Moderna — cognac · lifestyle",
+          "kind": "hero",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/bandolera-moderna/bandolera-cognac-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/bandoleras/bandolera-moderna-negro-estudio.jpg",
+          "alt": "Bandolera Moderna — negro · estudio editorial",
+          "kind": "estudio",
+          "colorKey": "negro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/bandolera-moderna/bandolera-moderna-negro-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/unisex/bandolera-moderna-negro-metrocable-lifestyle.jpg",
+          "alt": "Bandolera Moderna — negro · Metrocable Medellín",
+          "kind": "lifestyle",
+          "colorKey": "negro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/bandolera-moderna/bandolera-moderna-negro-metrocable-lifestyle.mp4"
+        }
+      ]
+    },
+
+    "bandolera-elite": {
+      "name": "Bandolera Pelo · Oro",
+      "category": "bandoleras",
+      "collection": "Uchuva",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/bandoleras/bandolera-pelo-oro-estudio.jpg",
+          "alt": "Bandolera Pelo · Oro — estudio",
+          "kind": "hero",
+          "colorKey": "oro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/bandolera-elite/bandolera-pelo-oro-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/bandolera-pelo-oro-lifestyle.jpg",
+          "alt": "Bandolera Pelo · Oro — lifestyle colonial",
+          "kind": "lifestyle",
+          "colorKey": "oro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/bandolera-elite/bandolera-pelo-oro-lifestyle.mp4"
+        }
+      ]
+    },
+
+    "rinonera": {
+      "name": "Riñonera",
+      "category": "bandoleras",
+      "collection": "Uchuva",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/accesorios/rinonera/rinonera-cognac-estudio.jpg",
+          "alt": "Riñonera — cognac · estudio",
+          "kind": "hero",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/rinonera/rinonera-cognac-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-multi-lifestyle.jpg",
+          "alt": "Riñonera cognac multi — crossbody lifestyle",
+          "kind": "lifestyle",
+          "colorKey": "mod",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/rinonera/rinonera-cognac-multi-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/rinonera-cognac-colonial-lifestyle.jpg",
+          "alt": "Riñonera cognac — lifestyle colonial",
+          "kind": "lifestyle",
+          "colorKey": "clasica",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/rinonera/rinonera-cognac-colonial-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/unisex/rinonera-negro-guatape-lifestyle.jpg",
+          "alt": "Riñonera negro — Guatapé · zócalo colonial",
+          "kind": "lifestyle",
+          "colorKey": "elite",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/rinonera/rinonera-negro-guatape-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/unisex/rinonera-negro-urban-lifestyle.jpg",
+          "alt": "Riñonera negro — lifestyle urbano",
+          "kind": "lifestyle",
+          "colorKey": "elite",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/rinonera/rinonera-negro-urban-lifestyle.mp4"
+        }
+      ]
+    },
+
+    "neceser": {
+      "name": "Neceser de Viaje",
+      "category": "accesorios",
+      "collection": "Curuba",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/accesorios/neceser/neceser-cognac-estudio.jpg",
+          "alt": "Neceser de viaje — cognac · estudio",
+          "kind": "hero",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/neceser/neceser-cognac-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/neceser-cafe-botero-lifestyle.jpg",
+          "alt": "Neceser — café oscuro · Plaza Botero",
+          "kind": "lifestyle",
+          "colorKey": "cafe",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/neceser/neceser-cafe-botero-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/neceser-cognac-colonial-lifestyle.jpg",
+          "alt": "Neceser cognac — calle colonial",
+          "kind": "lifestyle",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/neceser/neceser-cognac-colonial-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/lifestyle/mujer/neceser-cognac-coltejer-lifestyle.jpg",
+          "alt": "Neceser cognac — Coltejer · Medellín",
+          "kind": "lifestyle",
+          "colorKey": "cognac",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/neceser/neceser-cognac-coltejer-lifestyle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/neceser/neceser-cafe-estudio.jpg",
+          "alt": "Neceser café oscuro — estudio",
+          "kind": "estudio",
+          "colorKey": "cafe",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/neceser/neceser-cafe-estudio.mp4"
+        }
+      ]
+    },
+
+    "cartera-pelo-oro": {
+      "name": "Cartera Pelo · Oro",
+      "category": "accesorios",
+      "collection": "Curuba",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cartera/cartera-pelo-oro-estudio.jpg",
+          "alt": "Cartera Pelo · Oro — estudio editorial",
+          "kind": "hero",
+          "colorKey": "oro",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cartera-pelo-oro/cartera-pelo-oro-estudio.mp4"
+        }
+      ]
+    },
+
+    "cinturon": {
+      "name": "Cinturón",
+      "category": "accesorios",
+      "collection": "Curuba",
+      "images": [
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-plano.jpg",
+          "alt": "Cinturón — cognac liso · plano editorial",
+          "kind": "hero",
+          "colorKey": "cognac-liso",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/cognac-liso-plano.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-detalle.jpg",
+          "alt": "Cinturón — cognac liso · grabado OV en punta",
+          "kind": "detalle",
+          "colorKey": "cognac-liso",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/cognac-liso-detalle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-plano.jpg",
+          "alt": "Cinturón — negro granulado · plano editorial",
+          "kind": "estudio",
+          "colorKey": "negro-granulado",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/negro-granulado-plano.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-estudio.jpg",
+          "alt": "Cinturón — navy granulado · vista estudio",
+          "kind": "estudio",
+          "colorKey": "navy-granulado",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/navy-granulado-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/navy-granulado-detalle.jpg",
+          "alt": "Cinturón — navy granulado · detalle de grano",
+          "kind": "detalle",
+          "colorKey": "navy-granulado",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/navy-granulado-detalle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/espresso-granulado-detalle.jpg",
+          "alt": "Cinturón — espresso granulado · forro natural",
+          "kind": "detalle",
+          "colorKey": "espresso-granulado",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/espresso-granulado-detalle.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/negro-granulado-estudio.jpg",
+          "alt": "Cinturón — negro granulado · vista estudio",
+          "kind": "estudio",
+          "colorKey": "negro-granulado",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/negro-granulado-estudio.mp4"
+        },
+        {
+          "image": "/imagenes nuevas/producto/accesorios/cinturon/cognac-liso-estudio.jpg",
+          "alt": "Cinturón — cognac liso · vista estudio",
+          "kind": "estudio",
+          "colorKey": "cognac-liso",
+          "videoUrl": null,
+          "suggestedPath": "/assets/video/productos/cinturon/cognac-liso-estudio.mp4"
+        }
+      ]
+    }
+
+  },
+
+  "home": {
+    "_note": "Videos de secciones del home — no son productos",
+    "images": [
+      {
+        "section": "banner-statement",
+        "image": "/assets/video/oficio-legendario-poster.jpg",
+        "alt": "Nacida de una firma — Ofelia Vallejo Leather House",
+        "videoUrl": null,
+        "suggestedPath": "/assets/video/oficio-legendario-home.mp4",
+        "status": "PENDIENTE — archivo MP4 no encontrado en repo"
+      }
+    ]
+  }
+}

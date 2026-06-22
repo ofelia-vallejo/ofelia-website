@@ -1,11 +1,16 @@
 node_modules/
 .claude/
+.codex/
 .env
 .env.local
 .DS_Store
 .vercel
 public/uploads/
 data/newsletter.json
+_extracts/
+graphify-out/
+*.bak.json
+*.docx
 
 # Local Netlify folder
 .netlify
