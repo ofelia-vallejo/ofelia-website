@@ -14,8 +14,7 @@
   <link rel="apple-touch-icon" href="/assets/img/logo_sello_badge.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/assets/img/logo_firma_nav.png?v=2" as="image">
-  <link rel="preload" href="/assets/video/oficio-legendario-poster.jpg" as="image">
-  <link rel="preload" href="/assets/video/oficio-legendario-home.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="/assets/img/logo_firma_completa.png" as="image">
   <meta name="theme-color" content="#0B1F3A">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
@@ -170,168 +169,6 @@
     }
 
     .reveal.is-in { opacity: 1; transform: translateY(0); }
-
-    /* CAMPAIGN HERO */
-    .campaign-hero {
-      margin-top: 92px;
-      min-height: calc(100vh - 92px);
-      position: relative;
-      overflow: hidden;
-      color: var(--marfil);
-      background: var(--navy);
-      display: grid;
-      align-items: end;
-    }
-
-    .campaign-hero__media {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: var(--navy);
-    }
-
-    .campaign-hero__media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 50%;
-      opacity: 0.78;
-      filter: saturate(0.86) contrast(1.05) brightness(0.86);
-    }
-
-    .campaign-hero__media::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(6, 18, 34, 0.88) 0%, rgba(6, 18, 34, 0.62) 42%, rgba(6, 18, 34, 0.18) 100%),
-        linear-gradient(0deg, rgba(6, 18, 34, 0.82) 0%, rgba(6, 18, 34, 0.24) 58%, rgba(6, 18, 34, 0.58) 100%);
-      pointer-events: none;
-    }
-
-    .campaign-hero__inner {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      display: grid;
-      grid-template-columns: minmax(0, 780px) minmax(260px, 360px);
-      align-items: end;
-      gap: clamp(40px, 8vw, 120px);
-      padding: clamp(96px, 13vw, 170px) var(--pad-x) clamp(56px, 7vw, 92px);
-    }
-
-    .campaign-hero__label,
-    .campaign-hero__kicker {
-      margin: 0;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 300;
-      font-size: 10px;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: rgba(243, 238, 230, 0.66);
-    }
-
-    .campaign-hero__title {
-      margin-top: 28px;
-      max-width: 760px;
-      font-size: clamp(46px, 7.8vw, 116px);
-      line-height: 0.96;
-      letter-spacing: 0;
-      color: var(--marfil);
-    }
-
-    .campaign-hero__copy {
-      margin-top: 30px;
-      max-width: 540px;
-      font-size: clamp(15px, 1.2vw, 18px);
-      line-height: 1.9;
-      color: rgba(243, 238, 230, 0.78);
-      letter-spacing: 0.03em;
-    }
-
-    .campaign-hero__actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 36px;
-    }
-
-    .campaign-hero__btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 26px;
-      border: 1px solid rgba(243, 238, 230, 0.48);
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--marfil);
-      transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
-    }
-
-    .campaign-hero__btn--primary {
-      background: var(--marfil);
-      color: var(--navy);
-      border-color: var(--marfil);
-    }
-
-    .campaign-hero__btn:hover {
-      background: rgba(243, 238, 230, 0.12);
-      color: var(--marfil);
-      border-color: rgba(243, 238, 230, 0.82);
-    }
-
-    .campaign-hero__btn--primary:hover {
-      background: transparent;
-      color: var(--marfil);
-    }
-
-    .campaign-hero__proof {
-      display: grid;
-      gap: 1px;
-      background: rgba(243, 238, 230, 0.16);
-      border: 1px solid rgba(243, 238, 230, 0.18);
-      align-self: stretch;
-      min-height: 320px;
-    }
-
-    .campaign-hero__proof-item {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 24px;
-      background: rgba(6, 18, 34, 0.34);
-      backdrop-filter: blur(10px);
-    }
-
-    .campaign-hero__proof strong {
-      font-family: Cinzel, serif;
-      font-weight: 400;
-      font-size: clamp(24px, 3vw, 42px);
-      line-height: 1;
-      color: var(--marfil);
-    }
-
-    .campaign-hero__proof span {
-      margin-top: 10px;
-      font-size: 10px;
-      line-height: 1.6;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(243, 238, 230, 0.58);
-    }
-
-    .campaign-hero__scroll {
-      position: absolute;
-      right: var(--pad-x);
-      bottom: 22px;
-      z-index: 2;
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(243, 238, 230, 0.52);
-    }
 
     /* GENDER SHOP GATE */
     .gender {
@@ -1033,19 +870,37 @@
     /* ── BANNER STATEMENT · ORIGEN CINEMATICO ─────────────── */
     .banner-statement {
       padding: 0;
-      /* Altar de la firma — pergamino cálido, no bloque navy */
-      background: linear-gradient(180deg, var(--marfil) 0%, var(--beige-medio) 100%);
+      background: var(--navy);
       border-top: 1px solid var(--rule);
       position: relative;
       overflow: hidden;
       min-height: clamp(640px, 86vh, 900px);
-      color: var(--navy);
+      color: var(--marfil);
       display: grid;
       align-items: stretch;
     }
 
-    /* El altar no lleva video — calma, aire, la firma como protagonista */
-    .banner-statement__media { display: none; }
+    .banner-statement::before {
+      content: "OV";
+      position: absolute;
+      right: -0.12em;
+      top: -0.18em;
+      font-family: Cinzel, serif;
+      font-size: clamp(160px, 24vw, 420px);
+      line-height: 1;
+      letter-spacing: 0;
+      color: rgba(243, 238, 230, 0.055);
+      pointer-events: none;
+    }
+
+    .banner-statement::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(243, 238, 230, 0), rgba(243, 238, 230, 0.42), rgba(243, 238, 230, 0));
+      pointer-events: none;
+    }
 
     .banner-statement__stack {
       width: 100%;
@@ -1054,7 +909,7 @@
       z-index: 1;
       display: grid;
       align-items: end;
-      padding: clamp(120px, 14vw, 180px) var(--pad-x) clamp(72px, 10vw, 120px);
+      padding: clamp(118px, 13vw, 172px) var(--pad-x) clamp(78px, 10vw, 128px);
     }
 
     .banner-statement__media {
@@ -1064,14 +919,25 @@
       background: var(--navy);
     }
 
+    .banner-statement__fallback,
     .banner-statement__video {
       display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: 50% 50%;
-      opacity: 0.74;
-      filter: saturate(0.78) contrast(1.06) brightness(0.78);
+      opacity: 0.88;
+      filter: saturate(0.88) contrast(1.08) brightness(0.78);
+    }
+
+    .banner-statement__fallback {
+      z-index: 0;
+    }
+
+    .banner-statement__video {
+      z-index: 1;
     }
 
     .banner-statement__media::after {
@@ -1079,8 +945,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(8, 21, 38, 0.82) 0%, rgba(8, 21, 38, 0.5) 42%, rgba(8, 21, 38, 0.2) 100%),
-        linear-gradient(0deg, rgba(8, 21, 38, 0.7) 0%, rgba(8, 21, 38, 0.1) 54%, rgba(8, 21, 38, 0.5) 100%);
+        linear-gradient(90deg, rgba(6, 18, 34, 0.92) 0%, rgba(6, 18, 34, 0.68) 44%, rgba(6, 18, 34, 0.28) 100%),
+        linear-gradient(0deg, rgba(6, 18, 34, 0.84) 0%, rgba(6, 18, 34, 0.18) 54%, rgba(6, 18, 34, 0.58) 100%);
       pointer-events: none;
     }
 
@@ -1094,7 +960,7 @@
        (.banner-statement{text-align:center} y .banner-statement__stack{max-width:720px}) */
     section.banner-statement { text-align: left; }
     .banner-statement .banner-statement__stack { max-width: none; }
-    .banner-statement .banner-statement__content { max-width: 920px; margin: 0; }
+    .banner-statement .banner-statement__content { max-width: 1040px; margin: 0; }
     .banner-statement .banner-statement__head { display: block; margin-bottom: 20px; }
     .banner-statement .banner-statement__rule { margin: 0 0 14px; }
     .banner-statement .banner-statement__eyebrow { text-align: left; }
@@ -1111,7 +977,7 @@
       width: 80px;
       height: 1px;
       background: #8A7549;
-      opacity: 0.55;
+      opacity: 0.78;
       flex-shrink: 0;
     }
 
@@ -1122,18 +988,18 @@
       font-size: 10px;
       letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: rgba(11, 31, 58, 0.5);
+      color: rgba(243, 238, 230, 0.64);
     }
 
     .banner-statement__title {
       font-family: Cinzel, serif;
       font-weight: 400;
-      font-size: clamp(32px, 4.4vw, 56px);
-      color: var(--navy);
-      letter-spacing: 0.01em;
-      line-height: 1.08;
+      font-size: clamp(42px, 6.1vw, 92px);
+      color: var(--marfil);
+      letter-spacing: 0;
+      line-height: 0.98;
       overflow: hidden;
-      max-width: 520px;
+      max-width: 820px;
     }
 
     .banner-statement__title a {
@@ -1146,20 +1012,32 @@
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(18px, 1.7vw, 23px);
+      font-size: clamp(18px, 1.9vw, 26px);
       line-height: 1.62;
       letter-spacing: 0.01em;
-      color: var(--espresso);
-      max-width: 580px;
+      color: rgba(243, 238, 230, 0.82);
+      max-width: 720px;
       margin-top: 30px;
+    }
+
+    .firma-vow {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.56fr);
+      gap: clamp(40px, 6vw, 92px);
+      align-items: end;
+      margin-top: clamp(44px, 6vw, 78px);
     }
 
     /* La firma como sello patrimonial — luminoso, no decorativo */
     .signature-seal {
-      margin: clamp(48px, 6vw, 72px) 0 clamp(40px, 5vw, 60px);
-      padding-bottom: 26px;
+      margin: 0;
+      padding: clamp(24px, 3vw, 38px) clamp(24px, 3.4vw, 48px) 34px;
       position: relative;
-      max-width: min(480px, 74vw);
+      max-width: min(540px, 82vw);
+      background: rgba(243, 238, 230, 0.9);
+      border: 1px solid rgba(243, 238, 230, 0.48);
+      box-shadow: 0 24px 80px rgba(3, 10, 20, 0.32);
+      backdrop-filter: blur(10px);
     }
 
     .signature-seal__mark {
@@ -1193,7 +1071,40 @@
       font-size: 9px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(11, 31, 58, 0.4);
+      color: rgba(11, 31, 58, 0.48);
+    }
+
+    .firma-commandment {
+      margin: 0;
+      padding: 28px 0 0;
+      border-top: 1px solid rgba(243, 238, 230, 0.24);
+      color: var(--marfil);
+    }
+
+    .firma-commandment__kicker {
+      margin: 0 0 18px;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(243, 238, 230, 0.56);
+    }
+
+    .firma-commandment__text {
+      margin: 0;
+      font-family: Cinzel, serif;
+      font-weight: 400;
+      font-size: clamp(24px, 3.1vw, 44px);
+      line-height: 1.12;
+      letter-spacing: 0;
+      color: var(--marfil);
+    }
+
+    .firma-commandment__sub {
+      margin: 22px 0 0;
+      max-width: 34ch;
+      font-size: clamp(13px, 1vw, 15px);
+      line-height: 1.75;
+      color: rgba(243, 238, 230, 0.72);
     }
 
     /* Tres firmas, una pieza — tríptico editorial */
@@ -1201,10 +1112,10 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0;
-      margin: 0;
+      margin: clamp(52px, 6vw, 84px) 0 0;
       padding: 0;
       list-style: none;
-      border-top: 1px solid rgba(138, 117, 73, 0.28);
+      border-top: 1px solid rgba(243, 238, 230, 0.24);
     }
 
     .tres-firmas__item {
@@ -1214,7 +1125,7 @@
 
     .tres-firmas__item + .tres-firmas__item {
       padding-left: clamp(20px, 2.6vw, 38px);
-      border-left: 1px solid rgba(138, 117, 73, 0.22);
+      border-left: 1px solid rgba(243, 238, 230, 0.2);
     }
 
     .tres-firmas__n {
@@ -1223,7 +1134,7 @@
       font-weight: 400;
       font-size: 13px;
       letter-spacing: 0.2em;
-      color: #8A7549;
+      color: rgba(243, 238, 230, 0.66);
       margin-bottom: 16px;
     }
 
@@ -1233,7 +1144,7 @@
       font-size: clamp(18px, 1.8vw, 24px);
       letter-spacing: 0.01em;
       line-height: 1.1;
-      color: var(--navy);
+      color: var(--marfil);
       margin: 0 0 12px;
     }
 
@@ -1242,7 +1153,7 @@
       font-weight: 300;
       font-size: clamp(13px, 0.95vw, 15px);
       line-height: 1.7;
-      color: rgba(11, 31, 58, 0.62);
+      color: rgba(243, 238, 230, 0.68);
       margin: 0;
     }
 
@@ -1255,7 +1166,7 @@
       gap: 18px 40px;
       margin-top: clamp(40px, 5vw, 60px);
       padding-top: 26px;
-      border-top: 1px solid rgba(138, 117, 73, 0.22);
+      border-top: 1px solid rgba(243, 238, 230, 0.22);
     }
 
     .banner-statement__credo {
@@ -1264,7 +1175,7 @@
       font-size: clamp(15px, 1.4vw, 19px);
       letter-spacing: 0.02em;
       line-height: 1.4;
-      color: var(--navy);
+      color: var(--marfil);
       margin: 0;
       max-width: 30ch;
     }
@@ -1365,11 +1276,6 @@
       min-height: calc(100vh - 92px);
     }
 
-    body:has(.announce-bar) .campaign-hero {
-      margin-top: 92px;
-      min-height: calc(100vh - 92px);
-    }
-
     @media (max-width: 600px) {
       .announce-bar {
         height: 30px;
@@ -1384,7 +1290,6 @@
       .announce-bar a { display: none; }
       body:has(.announce-bar) .navbar { top: 30px; }
       body:has(.announce-bar) .gender { margin-top: calc(56px + 30px); min-height: calc(100vh - 86px); }
-      body:has(.announce-bar) .campaign-hero { margin-top: 86px; min-height: calc(100vh - 86px); }
     }
 
     /* ── BANNER STATEMENT CTA ─────────────────────────────── */
@@ -1396,13 +1301,13 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.22em;
-      color: var(--navy);
-      border-bottom: 1px solid rgba(11, 31, 58, 0.34);
+      color: var(--marfil);
+      border-bottom: 1px solid rgba(243, 238, 230, 0.34);
       padding-bottom: 2px;
       transition: border-color 0.4s var(--ease);
     }
 
-    .banner-statement__cta:hover { border-bottom-color: var(--navy); }
+    .banner-statement__cta:hover { border-bottom-color: var(--marfil); }
 
     /* ── BANNER CUSTOM — split con imagen ─────────────────── */
     .banner-custom {
@@ -1476,9 +1381,23 @@
           linear-gradient(90deg, rgba(8, 21, 38, 0.6) 0%, rgba(8, 21, 38, 0.1) 100%);
       }
 
+      .firma-vow {
+        grid-template-columns: 1fr;
+        gap: 34px;
+        margin-top: 38px;
+      }
+
       .signature-seal {
         max-width: min(320px, 82vw);
-        margin: 40px 0 36px;
+        margin: 0;
+      }
+
+      .firma-commandment {
+        padding-top: 24px;
+      }
+
+      .firma-commandment__text {
+        max-width: 12ch;
       }
 
       .tres-firmas {
@@ -1523,64 +1442,6 @@
     /* RESPONSIVE — mobile */
     @media (max-width: 900px) {
       :root { --pad-x: 20px; }
-
-      .campaign-hero {
-        margin-top: 86px;
-        min-height: calc(100svh - 86px);
-      }
-
-      .campaign-hero__inner {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 72px 24px 40px;
-      }
-
-      .campaign-hero__title {
-        margin-top: 20px;
-        max-width: 340px;
-        font-size: clamp(34px, 10.8vw, 42px);
-        line-height: 1.08;
-      }
-
-      .campaign-hero__copy {
-        max-width: 320px;
-        margin-top: 20px;
-        font-size: 14px;
-        line-height: 1.75;
-      }
-
-      .campaign-hero__proof {
-        grid-template-columns: 1fr 1fr 1fr;
-        min-height: 0;
-      }
-
-      .campaign-hero__proof-item {
-        padding: 14px 12px;
-      }
-
-      .campaign-hero__proof strong {
-        font-size: 22px;
-      }
-
-      .campaign-hero__proof span {
-        margin-top: 7px;
-        font-size: 8px;
-        letter-spacing: 0.16em;
-      }
-
-      .campaign-hero__actions {
-        margin-top: 24px;
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .campaign-hero__btn {
-        min-height: 44px;
-      }
-
-      .campaign-hero__scroll {
-        display: none;
-      }
 
       .gender {
         grid-template-columns: 1fr;
@@ -1785,65 +1646,78 @@
     </div>
   </section>
 
-  <section class="banner-statement reveal" id="historia">
+  <section class="banner-statement" id="historia">
     <div class="banner-statement__media" data-dark aria-hidden="true">
+      <img
+        class="banner-statement__fallback"
+        src="/assets/video/oficio-legendario-home.webp"
+        alt=""
+        loading="lazy"
+        decoding="async">
       <video
         class="banner-statement__video"
         autoplay
         muted
         loop
         playsinline
-        poster="/assets/video/oficio-legendario-poster.jpg"
-        preload="metadata"
-        aria-hidden="true">
-        <source src="/assets/video/oficio-legendario-home.mp4" type="video/mp4">
-        <source src="/assets/video/oficio-legendario-home.webm" type="video/webm">
-        <!-- fallback: animated webp para navegadores sin soporte de fuente -->
-        <img src="/assets/video/oficio-legendario-home.webp" alt="" class="banner-statement__video">
+        preload="none"
+        poster="/assets/video/oficio-legendario-poster.jpg">
+        <source src="/assets/video/firma-mandamiento-hero.mov">
       </video>
     </div>
     <div class="banner-statement__stack">
       <div class="banner-statement__content">
         <header class="banner-statement__head">
           <div class="banner-statement__rule" aria-hidden="true"></div>
-          <p class="banner-statement__eyebrow">Marroquinería heredada · Medellín → Europa</p>
+          <p class="banner-statement__eyebrow">Mandamiento de la firma · Medellín → Europa</p>
         </header>
         <h2 class="banner-statement__title"><a href="/manifiesto">Nacida de una firma.</a></h2>
         <p class="banner-statement__lead">
-          No es un logotipo: es una firma hecha a mano, grabada en el cuero
-          como se hereda un apellido. De ese trazo nace cada pieza de la casa.
+          No es un logotipo. Es un trazo heredado, una promesa en cuero pleno:
+          lo que entra a la casa debe salir con alma, oficio y permanencia.
         </p>
 
-        <!-- La firma de la casa como sello -->
-        <figure class="signature-seal" aria-label="Firma de la casa Ofelia Vallejo">
-          <img src="/assets/img/logo_firma_completa.png"
-               alt="Firma Ofelia Vallejo grabada en cuero — Cuero hecho para durar"
-               class="signature-seal__mark" width="707" height="405" loading="lazy" decoding="async">
-          <figcaption class="signature-seal__caption">Firma de la casa · grabada en cuero pleno</figcaption>
-        </figure>
+        <div class="firma-vow">
+          <!-- La firma de la casa como sello -->
+          <figure class="signature-seal" aria-label="Firma de la casa Ofelia Vallejo">
+            <img src="/assets/img/logo_firma_completa.png"
+                 alt="Firma Ofelia Vallejo — Cuero hecho para durar"
+                 class="signature-seal__mark" width="707" height="405" loading="lazy" decoding="async">
+            <figcaption class="signature-seal__caption">Firma de la casa · grabada en cuero pleno</figcaption>
+          </figure>
+
+          <div class="firma-commandment" aria-label="Mandamiento de la firma">
+            <p class="firma-commandment__kicker">El mandamiento</p>
+            <p class="firma-commandment__text">Que ninguna pieza salga sin propósito.</p>
+            <p class="firma-commandment__sub">
+              Si no puede envejecer con belleza, no pertenece a esta casa.
+              Si no puede llevar tu nombre con dignidad, no está terminada.
+            </p>
+          </div>
+        </div>
 
         <!-- Tres firmas, una pieza -->
         <ol class="tres-firmas" aria-label="Tres firmas, una pieza">
           <li class="tres-firmas__item">
             <span class="tres-firmas__n" aria-hidden="true">I</span>
-            <h3 class="tres-firmas__t">La firma</h3>
-            <p class="tres-firmas__d">El nombre que da origen a la casa. Una sola firma, grabada en el cuero de cada pieza.</p>
+            <h3 class="tres-firmas__t">No se inventa</h3>
+            <p class="tres-firmas__d">La firma oficial se conserva tal cual: patrimonio familiar, no adorno, no tendencia.</p>
           </li>
           <li class="tres-firmas__item">
             <span class="tres-firmas__n" aria-hidden="true">II</span>
-            <h3 class="tres-firmas__t">Antioquia</h3>
-            <p class="tres-firmas__d">Cortador, cosedor, grabador. Tres oficios firman a mano cada pieza de cuero colombiano.</p>
+            <h3 class="tres-firmas__t">Se gana con oficio</h3>
+            <p class="tres-firmas__d">Corte, costura y grabado: la mano de Antioquia firma antes que cualquier palabra.</p>
           </li>
           <li class="tres-firmas__item">
             <span class="tres-firmas__n" aria-hidden="true">III</span>
-            <h3 class="tres-firmas__t">Tu nombre</h3>
-            <p class="tres-firmas__d">Personalización con grabado láser permanente. La última firma la eliges tú.</p>
+            <h3 class="tres-firmas__t">Permanece</h3>
+            <p class="tres-firmas__d">Tu nombre puede quedar grabado en la pieza: no para gritar, sino para pertenecer.</p>
           </li>
         </ol>
 
         <div class="banner-statement__close">
-          <p class="banner-statement__credo">Tres firmas, una pieza.</p>
-          <a href="/manifiesto" class="banner-statement__cta">Conoce la casa →</a>
+          <p class="banner-statement__credo">Una firma. Un oficio. Una pieza que permanece.</p>
+          <a href="/personalizar" class="banner-statement__cta">Grabar tu pieza →</a>
         </div>
       </div>
     </div>
