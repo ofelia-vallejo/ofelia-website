@@ -6,7 +6,7 @@ Guía para activar la tienda completa de **Ofelia Vallejo Leather House** en Ver
 
 **Requisitos:** acceso al [dashboard de Vercel](https://vercel.com) del proyecto **web**, una terminal en tu Mac (Terminal o Cursor), y el repositorio clonado en tu equipo.
 
-**Documentos relacionados:** [`DB_SETUP.md`](DB_SETUP.md) (detalle técnico local) · [`VERCEL_CHECKLIST.md`](VERCEL_CHECKLIST.md) (lista de casillas) · [`.env.example`](../.env.example) (plantilla de variables).
+**Documentos relacionados:** [`HANDOFF_CLAUDE_MCP.md`](HANDOFF_CLAUDE_MCP.md) (delegar a Claude MCP) · [`DB_SETUP.md`](DB_SETUP.md) (detalle técnico local) · [`VERCEL_CHECKLIST.md`](VERCEL_CHECKLIST.md) (lista de casillas) · [`.env.example`](../.env.example) (plantilla de variables).
 
 ---
 

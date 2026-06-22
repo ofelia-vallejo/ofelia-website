@@ -1,99 +1,108 @@
 # Checklist Vercel — Ofelia Vallejo
 
-Marca cada ítem en **Vercel → Project web → Settings → Environment Variables** (Production + Preview).
+> Marca cada ítem en **Vercel → Project → Settings → Environment Variables** (Production + Preview).  
+> **Handoff para agente MCP:** [`HANDOFF_CLAUDE_MCP.md`](HANDOFF_CLAUDE_MCP.md)  
+> **Guía paso a paso (dueña):** [`PRODUCCION_PASO_A_PASO.md`](PRODUCCION_PASO_A_PASO.md)
 
-**Guía detallada paso a paso:** [`PRODUCCION_PASO_A_PASO.md`](PRODUCCION_PASO_A_PASO.md)
-
----
-
-## Estado del código (ya en `main`)
-
-Estos ítems **no requieren acción en Vercel** — ya están implementados en el repositorio:
-
-- [x] Repo conectado: `ofelia-vallejo/ofelia-website`, rama `main` (Fase 7 · `97c0f6e`)
-- [x] Framework: **Other** (estático + serverless `/api`)
-- [x] `vercel.json`: cleanUrls, rewrites PDP, redirects legacy
-- [x] Esquema DB: `database/schema.sql` + migraciones `002` + `003`
-- [x] Seed catálogo: `npm run db:migrate` → `data/catalog.json`
-- [x] Checkout Stripe + webhook (`checkout.session.completed`, `expired`, `charge.refunded`)
-- [x] Panel admin `/admin` (productos, inventario, pedidos, cupones)
-- [x] Script validación: `npm run check:env`
-- [x] Dominio configurado en proyecto: `ofeliavallejo.com`
+**Proyecto Vercel:** `web` · `prj_9wsbmAXLTjuDqPB4KgsUdybOnmSx`  
+**Dominio:** `ofeliavallejo.com` · `SITE_URL=https://ofeliavallejo.com`  
+**Repo:** `ofelia-vallejo/ofelia-website` · rama `main`  
+**Commit referencia:** `97c0f6e` (checkout UI + quote + cupón)
 
 ---
 
-## 1. Base — pendiente en infra
+## Estado actual (2026-06-22)
 
-- [ ] `SITE_URL` = `https://ofeliavallejo.com` (Production)
-- [ ] Redeploy tras cualquier cambio de variables
+| Área | Código | Infra producción |
+|---|---|---|
+| Catálogo API | ✅ `api/products.js` | ⬜ DB + seed pendiente |
+| Checkout (impuestos/envío/cupón) | ✅ cableado | ⬜ Stripe + DB pendiente |
+| Panel admin `/admin` | ✅ completo | ⬜ `ADMIN_*` + DB pendiente |
+| Migraciones SQL 001–003 | ✅ en repo | ⬜ aplicar con `psql` |
+| Env vars Vercel | — | ⬜ verificar con `vercel env ls` |
 
-## 2. PostgreSQL — pendiente
+---
 
-- [ ] Crear base (**Neon** recomendado / Vercel Postgres / Supabase)
-- [ ] `DATABASE_URL` = connection string pooled + `?sslmode=require`
-- [ ] Aplicar esquema **en orden:** `schema.sql` → `002` → `003` (ver guía)
-- [ ] Seed: `DATABASE_URL=... npm run db:migrate`
-- [ ] (Recomendado) INSERT `inventory_levels` (comando en guía)
-- [ ] Verificar: `GET https://ofeliavallejo.com/api/products` → JSON con productos
+## 1. Base
 
-## 3. Admin — pendiente
+- [ ] Repo conectado: `ofelia-vallejo/ofelia-website`, rama `main`
+- [ ] Framework: **Other** (sitio estático + serverless en `/api`)
+- [ ] `SITE_URL` = `https://ofeliavallejo.com`
 
-- [ ] `ADMIN_PASSWORD` = contraseña fuerte (login `/admin`)
+## 2. PostgreSQL
+
+- [ ] Crear base (**Neon** recomendado, región EU)
+- [ ] `DATABASE_URL` = connection string con `?sslmode=require`
+- [ ] Aplicar en orden:
+  - [ ] `psql -f database/schema.sql`
+  - [ ] `psql -f database/migrations/002_full_commerce_model.sql`
+  - [ ] `psql -f database/migrations/003_functional_store.sql`
+  - [ ] `npm run db:migrate` (seed catálogo)
+  - [ ] INSERT `inventory_levels` (ver `DB_SETUP.md` §1.4)
+- [ ] Verificar: `GET https://ofeliavallejo.com/api/products` devuelve JSON con productos
+- [ ] Verificar: `psql -c "SELECT count(*) FROM products;"` > 0
+
+## 3. Admin
+
+- [ ] `ADMIN_PASSWORD` = contraseña fuerte (panel `/admin`)
 - [ ] `ADMIN_SECRET` = string aleatorio largo (`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`)
 - [ ] Probar login en `/admin` en producción
+- [ ] Probar CRUD producto + ajuste inventario
 
-## 4. Fotos (opcional)
+## 4. Fotos (opcional si URLs son externas)
 
-- [ ] `BLOB_READ_WRITE_TOKEN` = token Vercel Blob (Storage → Blob)
+- [ ] `BLOB_READ_WRITE_TOKEN` = token Vercel Blob
 - [ ] Subir imagen de prueba desde admin → producto
 
-## 5. Stripe — pendiente
+## 5. Stripe
 
-- [ ] Cuenta Stripe activa (modo **test** primero)
 - [ ] `STRIPE_SECRET_KEY` = `sk_test_...` (luego `sk_live_...`)
 - [ ] `STRIPE_PUBLISHABLE_KEY` = `pk_test_...`
 - [ ] Webhook en Stripe Dashboard:
   - URL: `https://ofeliavallejo.com/api/checkout/webhook`
   - Eventos: `checkout.session.completed`, `checkout.session.expired`, `charge.refunded`
 - [ ] `STRIPE_WEBHOOK_SECRET` = `whsec_...`
-- [ ] Verificar: `GET /api/stripe/config` → `"enabled": true`
-- [ ] Probar PDP → **Comprar** → tarjeta `4242 4242 4242 4242` → `/gracias`
+- [ ] `GET /api/stripe/config` → `{ "enabled": true }`
+- [ ] Probar PDP → carrito → `/checkout` → pago test `4242…` → `/gracias`
 
-## 6. Email (opcional — contacto / personalización)
+## 6. Email (personalizar)
 
 - [ ] `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
-- [ ] `EMAIL_TO` = bandeja del atelier (`atelierofelia.vallejo@gmail.com`)
+- [ ] `EMAIL_TO` = bandeja del atelier
 - [ ] Enviar solicitud desde `/personalizar` y confirmar recepción
 
-## 7. Opcionales de marca
+## 7. Opcionales
 
-- [ ] `WHATSAPP_NUMBER` = `573005526208` (o tu número)
-- [ ] `LAUNCH_COUPON_CODE` / `LAUNCH_DISCOUNT_LABEL` (defaults en código si vacíos)
-- [ ] `CUSTOMER_SECRET` (solo si quieres JWT de clientes distinto de admin)
+- [ ] `WHATSAPP_NUMBER` = `573005526208`
+- [ ] `LAUNCH_COUPON_CODE` = `OV-TEMPORADA`
+- [ ] `CUSTOMER_SECRET` (si distinto de `ADMIN_SECRET`)
 
-## 8. Smoke test post-deploy
+## 8. Validación pre-deploy
 
-- [ ] `/` — intro globo; navbar tras step 0
+```bash
+node scripts/check-env.js    # todas las REQUIRED en ✓
+```
+
+## 9. Smoke test post-deploy
+
+- [ ] `/` — intro globo sin rectángulo gris; navbar visible tras step 0
 - [ ] `/home` — enlaces producto y personalizar
-- [ ] `/coleccion` — grid con precios CHF
-- [ ] `/producto/travel-bag-ii` — PDP (no redirige a `maletin`)
+- [ ] `/coleccion` — productos desde DB
+- [ ] `/producto/travel-bag-ii` — PDP carga (no redirige a `maletin`)
 - [ ] `/personalizar` — estudio grabado
-- [ ] Carrito → `/checkout` → quote impuesto/envío
-- [ ] Pago test Stripe → `/gracias` → pedido en admin
-- [ ] `/admin` — login y listado productos
+- [ ] `/checkout` — selector envío CH/EU, cupón, total en vivo (`POST /api/checkout/quote`)
+- [ ] `/admin` — login, productos, inventario, pedidos, cupones
+- [ ] Compra test completa → inventario descontado en admin
 
 ---
 
 ## Referencia
 
-| Documento | Contenido |
-|-----------|-----------|
-| [`PRODUCCION_PASO_A_PASO.md`](PRODUCCION_PASO_A_PASO.md) | Guía completa DB + Stripe + verificación |
-| [`DB_SETUP.md`](DB_SETUP.md) | Detalle técnico local y producción |
-| [`ADMIN_PANEL.md`](ADMIN_PANEL.md) | Uso del panel `/admin` |
-| [`MAPA_ENLACES.md`](MAPA_ENLACES.md) | Rutas del sitio |
-| [`.env.example`](../.env.example) | Plantilla de variables |
-
----
-
-*Actualizado: junio 2026 · incluye migración 003 y guía de producción*
+| Doc | Contenido |
+|---|---|
+| [`HANDOFF_CLAUDE_MCP.md`](HANDOFF_CLAUDE_MCP.md) | Handoff completo para Claude MCP |
+| [`PRODUCCION_PASO_A_PASO.md`](PRODUCCION_PASO_A_PASO.md) | Guía dueña, español |
+| [`DB_SETUP.md`](DB_SETUP.md) | Postgres local + producción |
+| [`ADMIN_PANEL.md`](ADMIN_PANEL.md) | Panel de administración |
+| [`MODELO_ER.md`](MODELO_ER.md) | Modelo de datos (56 tablas) |
+| [`MAPA_ENLACES.md`](MAPA_ENLACES.md) | Rutas web |
