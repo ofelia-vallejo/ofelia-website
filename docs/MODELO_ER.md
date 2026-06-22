@@ -779,14 +779,22 @@ psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/migrations/003_functional_st
 4. **Backfill:** poblar `order_line_items` desde `orders.line_items` (JSONB) y `inventory_levels` desde `product_variants.inventory` para datos históricos.
 5. **Sincronizar `customers.orders_count` / `total_spent_chf`** al marcar `paid` (trigger o en el webhook).
 
-### D) Cableado pendiente de la tienda funcional (migración 003)
-1. **Impuestos en checkout:** llamar `calculateTax(subtotal, país)` en `api/checkout/create.js` y persistir `order_tax_lines` (hoy Stripe Tax/manual no está cableado; el total persistido aún no incluye IVA desglosado).
-2. **Envío en checkout:** exponer `listShippingRates(país, subtotal)` en el frontend/checkout, persistir `order_shipping_lines` y reflejar el coste en la sesión de Stripe (`shipping_options`). Soportar selección de **pickup en atelier** (`rate-pickup-atelier`).
-3. **Devoluciones/reembolsos:** conectar `createRefund()` a un endpoint admin y al evento Stripe `charge.refunded` en `webhook.js` (hoy el helper existe pero no hay ruta que lo invoque).
-4. **Inventario operativo:** invocar `recordInventoryMovement()` desde `confirmOrderPaid()` (motivo `sale`) y desde restock/manual del admin, para poblar el libro mayor `inventory_adjustments` (hoy solo se descuenta `inventory_levels` sin asentar el movimiento).
-5. **Descuentos avanzados:** evaluar `discount_conditions` y descuentos `automatic` en `lib/discounts.js` (hoy `evaluateDiscount` solo cubre código + mínimo de subtotal).
-6. **Draft orders / gift cards / segmentos:** UI de admin para crear cotizaciones, emitir/redimir gift cards y armar segmentos (tablas listas, sin endpoints aún).
-7. **Backfill opcional:** poblar `inventory_adjustments` con un asiento inicial (`reason=restock`) por el stock vigente, y `product_media` desde `product_images`.
+### D) Cableado de la tienda funcional (migración 003)
+
+> **Estado:** los puntos 1–5 quedaron **CABLEADOS** (2026-06-22). Ver detalle de pruebas en `docs/ADMIN_PANEL.md`.
+
+1. ✅ **Impuestos en checkout:** `api/checkout/create.js` llama `calculateTax(subtotal, país)`, persiste `order_tax_lines` y refleja `tax_chf` en `orders`. La TVA suiza va **incluida en precio** (no se suma al cargo); para tasas no incluidas se añade una línea a Stripe para que el cargo cuadre con el total persistido.
+2. ✅ **Envío en checkout:** `create.js` usa `listShippingRates(país, subtotal)`, persiste `order_shipping_lines` + `shipping_chf`, y añade `shipping_options` a la sesión de Stripe. Soporta **pickup en atelier** (`rate-pickup-atelier`, 0 CHF) y envío gratis por umbral (`free_over_chf`). Body acepta `shippingCountry` y `shippingRateId`.
+3. ✅ **Devoluciones/reembolsos:** ruta admin `POST /api/admin/orders?id=…` (emite refund en Stripe si hay claves, repone stock por línea) y evento `charge.refunded` en `webhook.js` → `createRefund()` (idempotente por `stripe_refund_id`).
+4. ✅ **Inventario operativo:** `confirmOrderPaid()` asienta `inventory_adjustments(reason='sale')` tras el corte atómico (sin duplicar el descuento, vía `recordInventoryLedger`). El admin escribe el libro mayor en cada ajuste (`recordInventoryMovement` para delta, `setInventoryLevel` para fijar absoluto).
+5. ✅ **Descuentos avanzados:** `lib/discounts.js` evalúa `discount_conditions` (collection/product/variant/min_quantity/min_subtotal) y soporta `method` (code/automatic) y `target_type` (order/shipping = envío gratis). El checkout carga las condiciones con `getDiscountConditions()` y arma el contexto del carrito.
+
+**Pendiente (no forzado en esta pasada):**
+
+6. **Draft orders / gift cards / segmentos:** tablas listas; falta UI/endpoints de admin para cotizaciones, emisión/redención de gift cards y segmentos. (El panel actual cubre Productos, Inventario, Pedidos, Cupones y Secciones.)
+7. **Colecciones (`collection`) en condiciones de descuento:** el evaluador soporta el tipo `collection`, pero el checkout aún no resuelve `product_collections` para poblar `collectionIds` (las condiciones de colección no se cumplen hasta cablear ese lookup).
+8. **Backfill opcional:** poblar `inventory_adjustments` con un asiento inicial (`reason=restock`) por el stock vigente, y `product_media` desde `product_images`.
+9. **Selección de envío en el frontend del checkout:** el backend ya calcula/persiste envío; falta exponer el selector de tarifa (incl. pickup) en `checkout.html`.
 
 ---
 

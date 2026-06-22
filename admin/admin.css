@@ -367,10 +367,33 @@ h1, h2, h3 {
 
 .variant-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 80px 80px auto;
+  grid-template-columns: 1fr 1fr 1fr 90px 100px 80px auto;
   gap: 8px;
   margin-bottom: 8px;
   align-items: end;
+}
+
+.variant-row input {
+  padding: 8px 10px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  font: inherit;
+}
+
+.order-detail { margin-top: 8px; }
+
+.refund-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--beige);
+}
+
+@media (max-width: 800px) {
+  .variant-row { grid-template-columns: 1fr 1fr; }
 }
 
 .form-actions {

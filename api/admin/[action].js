@@ -12,6 +12,8 @@ const HANDLERS = {
   upload:     () => require('./_upload'),
   inventory:  () => require('./_inventory'),
   categories: () => require('./_categories'),
+  orders:     () => require('./_orders'),
+  discounts:  () => require('./_discounts'),
 };
 
 module.exports = async (req, res) => {

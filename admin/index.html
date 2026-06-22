@@ -30,8 +30,10 @@
       <p class="sidebar__brand">Atelier Admin</p>
       <nav class="sidebar__nav">
         <button type="button" class="sidebar__link is-active" data-view="products">Productos</button>
-        <button type="button" class="sidebar__link" data-view="categories">Secciones</button>
         <button type="button" class="sidebar__link" data-view="inventory">Inventario</button>
+        <button type="button" class="sidebar__link" data-view="orders">Pedidos</button>
+        <button type="button" class="sidebar__link" data-view="discounts">Cupones</button>
+        <button type="button" class="sidebar__link" data-view="categories">Secciones</button>
         <button type="button" class="sidebar__link" data-view="edit" hidden id="navEdit">Editar pieza</button>
       </nav>
       <button type="button" class="sidebar__logout" id="btnLogout">Cerrar sesión</button>
@@ -103,6 +105,108 @@
         </div>
       </section>
 
+      <section id="panelOrders" class="panel" hidden>
+        <p class="hint">Pedidos recibidos. Selecciona uno para ver el detalle y registrar un reembolso.</p>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Pedido</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Pago</th>
+                <th>Envío</th>
+                <th>Fecha</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="ordersTable"></tbody>
+          </table>
+        </div>
+        <div id="orderDetail" class="order-detail" hidden></div>
+      </section>
+
+      <section id="panelDiscounts" class="panel" hidden>
+        <p class="hint">Cupones y descuentos automáticos. El descuento se valida en el servidor antes de aplicarse.</p>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Método</th>
+                <th>Mín. subtotal</th>
+                <th>Usos</th>
+                <th>Activo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="discountsTable"></tbody>
+          </table>
+        </div>
+
+        <div class="section-block">
+          <h3 id="discountFormTitle">Nuevo cupón</h3>
+          <form id="discountForm" class="edit-form">
+            <input type="hidden" id="dscId">
+            <div class="form-grid">
+              <label class="field">
+                <span>Código</span>
+                <input type="text" id="dscCode" required placeholder="OV-TEMPORADA">
+              </label>
+              <label class="field">
+                <span>Tipo</span>
+                <select id="dscType">
+                  <option value="percentage">Porcentaje (%)</option>
+                  <option value="fixed_amount">Monto fijo (CHF)</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Valor</span>
+                <input type="number" id="dscValue" min="0" step="1" required>
+              </label>
+              <label class="field">
+                <span>Método</span>
+                <select id="dscMethod">
+                  <option value="code">Por código</option>
+                  <option value="automatic">Automático</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Aplica a</span>
+                <select id="dscTarget">
+                  <option value="order">Total del pedido</option>
+                  <option value="shipping">Envío gratis</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Subtotal mínimo (CHF)</span>
+                <input type="number" id="dscMinSubtotal" min="0" step="1" value="0">
+              </label>
+              <label class="field">
+                <span>Límite de usos (opcional)</span>
+                <input type="number" id="dscUsageLimit" min="1" step="1" placeholder="Sin límite">
+              </label>
+              <label class="field field--check">
+                <input type="checkbox" id="dscActive" checked>
+                <span>Activo</span>
+              </label>
+              <label class="field field--full">
+                <span>Descripción (opcional)</span>
+                <input type="text" id="dscDescription" maxlength="200">
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn--ghost" id="btnNewDiscount">Limpiar</button>
+              <button type="submit" class="btn btn--primary">Guardar cupón</button>
+              <button type="button" class="btn btn--danger" id="btnDeleteDiscount" hidden>Eliminar</button>
+            </div>
+            <p class="form-notice" id="discountNotice" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
       <section id="panelEdit" class="panel" hidden>
         <form id="productForm" class="edit-form">
           <input type="hidden" id="fieldId">
@@ -156,13 +260,25 @@
               <span>Alerta stock bajo</span>
               <input type="number" id="fieldLowStock" min="0" step="1">
             </label>
-            <label class="field field--check">
-              <input type="checkbox" id="fieldActive" checked>
-              <span>Activo en web</span>
+            <label class="field">
+              <span>Estado de publicación</span>
+              <select id="fieldStatus">
+                <option value="active">Activo (visible en la web)</option>
+                <option value="draft">Borrador (oculto)</option>
+                <option value="archived">Archivado (retirado)</option>
+              </select>
             </label>
             <label class="field field--check">
               <input type="checkbox" id="fieldPersonalizable" checked>
               <span>Personalizable (grabado)</span>
+            </label>
+            <label class="field field--full">
+              <span>Título SEO (opcional)</span>
+              <input type="text" id="fieldSeoTitle" maxlength="200" placeholder="Aparece en buscadores y pestaña del navegador">
+            </label>
+            <label class="field field--full">
+              <span>Descripción SEO (opcional)</span>
+              <textarea id="fieldSeoDescription" rows="2" maxlength="400" placeholder="Resumen breve para buscadores"></textarea>
             </label>
             <label class="field">
               <span>Orden en sección</span>

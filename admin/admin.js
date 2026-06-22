@@ -53,7 +53,15 @@
     $('#panelProducts').hidden = name !== 'products';
     $('#panelCategories').hidden = name !== 'categories';
     $('#panelInventory').hidden = name !== 'inventory';
+    $('#panelOrders').hidden = name !== 'orders';
+    $('#panelDiscounts').hidden = name !== 'discounts';
     $('#panelEdit').hidden = name !== 'edit';
+  }
+
+  // Muestra el error del servidor, anteponiendo el campo si zod devolvió issues.
+  function showServerError(el, err) {
+    let msg = err.message || 'Error.';
+    showNotice(el, msg, false);
   }
 
   function setNav(view) {
@@ -152,11 +160,11 @@
         const tr = btn.closest('tr');
         const productId = tr.getAttribute('data-pid');
         const variantId = tr.getAttribute('data-vid') || undefined;
-        const inventory = Number(tr.querySelector('.inv-input').value);
+        const value = Number(tr.querySelector('.inv-input').value);
         try {
           await api('/admin/inventory', {
             method: 'PATCH',
-            body: JSON.stringify({ productId, variantId, inventory }),
+            body: JSON.stringify({ productId, variantId, mode: 'set', value, reason: 'correction' }),
           });
           await loadCatalog();
           renderInventoryTable();
@@ -252,6 +260,7 @@
         '<input type="text" placeholder="colorKey" value="' + esc(v.colorKey || '') + '" data-f="colorKey" title="Token cuero (cuentagotas)">' +
         '<input type="text" placeholder="Color" value="' + esc(v.colorName || '') + '" data-f="colorName">' +
         '<input type="text" placeholder="#hex" value="' + esc(v.colorHex || '') + '" data-f="colorHex">' +
+        '<input type="number" placeholder="Precio CHF" value="' + (v.priceCHF != null && v.priceCHF !== '' ? v.priceCHF : '') + '" data-f="priceCHF" min="0" title="Precio de esta variante (vacío = precio base)">' +
         '<input type="number" placeholder="Stock" value="' + (v.inventory != null ? v.inventory : 0) + '" data-f="inventory" min="0">' +
         '<button type="button" class="btn btn--sm btn--danger var-del">×</button>' +
       '</div>'
@@ -269,12 +278,14 @@
   function collectVariants() {
     return Array.from(variantsList.querySelectorAll('.variant-row')).map((row, i) => {
       const idVal = row.querySelector('[data-f="id"]').value.trim();
+      const priceRaw = row.querySelector('[data-f="priceCHF"]').value.trim();
       return {
         id: idVal || 'v_' + i,
         sku: row.querySelector('[data-f="sku"]').value.trim(),
         colorKey: row.querySelector('[data-f="colorKey"]').value.trim(),
         colorName: row.querySelector('[data-f="colorName"]').value.trim(),
         colorHex: row.querySelector('[data-f="colorHex"]').value.trim(),
+        priceCHF: priceRaw === '' ? null : Number(priceRaw),
         inventory: Number(row.querySelector('[data-f="inventory"]').value) || 0,
         sort: i,
       };
@@ -367,7 +378,9 @@
     $('#fieldEngravePrice').value = p.engravePrice || 0;
     $('#fieldInventory').value = p.inventory || 0;
     $('#fieldLowStock').value = p.lowStockAt || 2;
-    $('#fieldActive').checked = p.active !== false;
+    $('#fieldStatus').value = p.status || (p.active !== false ? 'active' : 'draft');
+    $('#fieldSeoTitle').value = p.seoTitle || '';
+    $('#fieldSeoDescription').value = p.seoDescription || '';
     $('#fieldPersonalizable').checked = p.personalizable !== false;
     $('#fieldSort').value = p.sort != null ? p.sort : 10;
     $('#fieldCollectionDisplay').value = p.collectionDisplay === 'variants' ? 'variants' : 'product';
@@ -407,7 +420,9 @@
       engravePrice: Number($('#fieldEngravePrice').value),
       inventory: Number($('#fieldInventory').value),
       lowStockAt: Number($('#fieldLowStock').value),
-      active: $('#fieldActive').checked,
+      status: $('#fieldStatus').value,
+      seoTitle: $('#fieldSeoTitle').value.trim(),
+      seoDescription: $('#fieldSeoDescription').value.trim(),
       personalizable: $('#fieldPersonalizable').checked,
       sort: Number($('#fieldSort').value) || 10,
       collectionDisplay: $('#fieldCollectionDisplay').value,
@@ -478,6 +493,214 @@
     });
   }
 
+  // ───────────────────────── PEDIDOS ─────────────────────────
+  const ordersTable = $('#ordersTable');
+  const orderDetail = $('#orderDetail');
+
+  function money(n) { return 'CHF ' + (Number(n) || 0); }
+
+  async function goOrders() {
+    mainTitle.textContent = 'Pedidos';
+    mainActions.innerHTML = '';
+    setNav('orders');
+    showView('orders');
+    orderDetail.hidden = true;
+    try {
+      const data = await api('/admin/orders');
+      renderOrdersTable(data.orders || []);
+    } catch (err) {
+      ordersTable.innerHTML = '<tr><td colspan="7">' + esc(err.message) + '</td></tr>';
+    }
+  }
+
+  function renderOrdersTable(orders) {
+    if (!orders.length) {
+      ordersTable.innerHTML = '<tr><td colspan="7" class="hint">Aún no hay pedidos.</td></tr>';
+      return;
+    }
+    ordersTable.innerHTML = orders.map((o) => {
+      const fin = o.financial_status || o.status;
+      const date = o.created_at ? new Date(o.created_at).toLocaleDateString('es') : '';
+      return (
+        '<tr>' +
+          '<td><code>' + esc(o.id) + '</code></td>' +
+          '<td>' + esc(o.customer_name || o.customer_email || '—') + '</td>' +
+          '<td>' + money(o.total_chf) + (Number(o.refunded_chf) > 0 ? '<br><small>−' + money(o.refunded_chf) + '</small>' : '') + '</td>' +
+          '<td>' + esc(fin) + '</td>' +
+          '<td>' + esc(o.fulfillment_status || '') + '</td>' +
+          '<td>' + esc(date) + '</td>' +
+          '<td><button type="button" class="btn btn--sm btn--ghost" data-order="' + esc(o.id) + '">Ver</button></td>' +
+        '</tr>'
+      );
+    }).join('');
+    ordersTable.querySelectorAll('[data-order]').forEach((btn) => {
+      btn.addEventListener('click', () => openOrderDetail(btn.getAttribute('data-order')));
+    });
+  }
+
+  async function openOrderDetail(id) {
+    try {
+      const d = await api('/admin/orders?id=' + encodeURIComponent(id));
+      const o = d.order;
+      const lines = (d.lines || []).map((l) =>
+        '<tr><td>' + esc(l.product_name || l.slug) + (l.variant_label ? ' · ' + esc(l.variant_label) : '') + '</td>' +
+        '<td>' + l.quantity + '</td><td>' + money(l.line_total_chf) + '</td></tr>'
+      ).join('');
+      const refundable = (Number(o.total_chf) || 0) - (Number(o.refunded_chf) || 0);
+      const addr = (d.addresses || [])[0];
+      orderDetail.hidden = false;
+      orderDetail.innerHTML =
+        '<div class="section-block">' +
+        '<h3>Pedido ' + esc(o.id) + '</h3>' +
+        '<p class="hint">' + esc(o.customer_name || '') + ' · ' + esc(o.customer_email || '') +
+          (addr ? ' · ' + esc([addr.city, addr.country].filter(Boolean).join(', ')) : '') + '</p>' +
+        '<table class="table"><thead><tr><th>Pieza</th><th>Cant.</th><th>Total</th></tr></thead><tbody>' + lines + '</tbody></table>' +
+        '<p style="margin-top:12px">Subtotal ' + money(o.subtotal_chf) + ' · Envío ' + money(o.shipping_chf) +
+          ' · Impuesto ' + money(o.tax_chf) + ' · <strong>Total ' + money(o.total_chf) + '</strong>' +
+          (Number(o.refunded_chf) > 0 ? ' · Reembolsado ' + money(o.refunded_chf) : '') + '</p>' +
+        (refundable > 0
+          ? '<div class="refund-box">' +
+              '<label class="field" style="max-width:220px"><span>Reembolsar (máx ' + refundable + ' CHF)</span>' +
+              '<input type="number" id="refundAmount" min="1" max="' + refundable + '" value="' + refundable + '"></label>' +
+              '<label class="field field--check"><input type="checkbox" id="refundRestock" checked><span>Reponer stock</span></label>' +
+              '<button type="button" class="btn btn--danger" id="btnDoRefund">Registrar reembolso</button>' +
+              '<p class="form-notice" id="refundNotice" aria-live="polite"></p>' +
+            '</div>'
+          : '<p class="hint">Pedido totalmente reembolsado.</p>') +
+        '</div>';
+      const btnRefund = $('#btnDoRefund');
+      if (btnRefund) {
+        btnRefund.addEventListener('click', async () => {
+          const amountChf = Number($('#refundAmount').value);
+          const restock = $('#refundRestock').checked;
+          if (!confirm('¿Registrar un reembolso de ' + amountChf + ' CHF?')) return;
+          try {
+            await api('/admin/orders?id=' + encodeURIComponent(o.id), {
+              method: 'POST',
+              body: JSON.stringify({ amountChf, restock, reason: 'customer' }),
+            });
+            showNotice($('#refundNotice'), 'Reembolso registrado.', true);
+            setTimeout(() => { goOrders(); }, 700);
+          } catch (err) {
+            showNotice($('#refundNotice'), err.message, false);
+          }
+        });
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  // ───────────────────────── CUPONES ─────────────────────────
+  const discountsTable = $('#discountsTable');
+  const discountForm = $('#discountForm');
+  const discountNotice = $('#discountNotice');
+
+  async function goDiscounts() {
+    mainTitle.textContent = 'Cupones y descuentos';
+    mainActions.innerHTML = '';
+    setNav('discounts');
+    showView('discounts');
+    resetDiscountForm();
+    try {
+      const data = await api('/admin/discounts');
+      renderDiscountsTable(data.discounts || []);
+    } catch (err) {
+      discountsTable.innerHTML = '<tr><td colspan="8">' + esc(err.message) + '</td></tr>';
+    }
+  }
+
+  function renderDiscountsTable(discounts) {
+    if (!discounts.length) {
+      discountsTable.innerHTML = '<tr><td colspan="8" class="hint">Aún no hay cupones.</td></tr>';
+      return;
+    }
+    discountsTable.innerHTML = discounts.map((d) => {
+      const val = d.type === 'percentage' ? (Number(d.value) + ' %') : ('CHF ' + Number(d.value));
+      return (
+        '<tr>' +
+          '<td><code>' + esc(d.code) + '</code></td>' +
+          '<td>' + esc(d.type) + (d.target_type === 'shipping' ? ' · envío' : '') + '</td>' +
+          '<td>' + esc(val) + '</td>' +
+          '<td>' + esc(d.method) + '</td>' +
+          '<td>' + (Number(d.min_subtotal_chf) || 0) + '</td>' +
+          '<td>' + (Number(d.used_count) || 0) + (d.usage_limit ? '/' + d.usage_limit : '') + '</td>' +
+          '<td>' + (d.active ? '<span class="badge badge--ok">Sí</span>' : '<span class="badge badge--out">No</span>') + '</td>' +
+          '<td><button type="button" class="btn btn--sm btn--ghost" data-disc="' + esc(d.id) + '">Editar</button></td>' +
+        '</tr>'
+      );
+    }).join('');
+    discountsTable.querySelectorAll('[data-disc]').forEach((btn) => {
+      btn.addEventListener('click', () => editDiscount(btn.getAttribute('data-disc')));
+    });
+  }
+
+  function resetDiscountForm() {
+    $('#dscId').value = '';
+    $('#dscCode').value = '';
+    $('#dscType').value = 'percentage';
+    $('#dscValue').value = '';
+    $('#dscMethod').value = 'code';
+    $('#dscTarget').value = 'order';
+    $('#dscMinSubtotal').value = 0;
+    $('#dscUsageLimit').value = '';
+    $('#dscActive').checked = true;
+    $('#dscDescription').value = '';
+    $('#discountFormTitle').textContent = 'Nuevo cupón';
+    $('#btnDeleteDiscount').hidden = true;
+    showNotice(discountNotice, '', true);
+  }
+
+  async function editDiscount(id) {
+    try {
+      const d = await api('/admin/discounts?id=' + encodeURIComponent(id));
+      const x = d.discount;
+      $('#dscId').value = x.id;
+      $('#dscCode').value = x.code;
+      $('#dscType').value = x.type;
+      $('#dscValue').value = Number(x.value);
+      $('#dscMethod').value = x.method;
+      $('#dscTarget').value = x.target_type;
+      $('#dscMinSubtotal').value = Number(x.min_subtotal_chf) || 0;
+      $('#dscUsageLimit').value = x.usage_limit || '';
+      $('#dscActive').checked = x.active !== false;
+      $('#dscDescription').value = x.description || '';
+      $('#discountFormTitle').textContent = 'Editar cupón · ' + x.code;
+      $('#btnDeleteDiscount').hidden = false;
+    } catch (err) {
+      showNotice(discountNotice, err.message, false);
+    }
+  }
+
+  async function saveDiscount(e) {
+    e.preventDefault();
+    const id = $('#dscId').value || undefined;
+    const body = {
+      id,
+      code: $('#dscCode').value.trim(),
+      type: $('#dscType').value,
+      value: Number($('#dscValue').value),
+      method: $('#dscMethod').value,
+      targetType: $('#dscTarget').value,
+      minSubtotalChf: Number($('#dscMinSubtotal').value) || 0,
+      usageLimit: $('#dscUsageLimit').value ? Number($('#dscUsageLimit').value) : null,
+      active: $('#dscActive').checked,
+      description: $('#dscDescription').value.trim(),
+    };
+    try {
+      await api('/admin/discounts', {
+        method: id ? 'PUT' : 'POST',
+        body: JSON.stringify(body),
+      });
+      showNotice(discountNotice, 'Cupón guardado.', true);
+      const data = await api('/admin/discounts');
+      renderDiscountsTable(data.discounts || []);
+      resetDiscountForm();
+    } catch (err) {
+      showNotice(discountNotice, err.message, false);
+    }
+  }
+
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     showNotice(loginNotice, '', true);
@@ -507,6 +730,8 @@
       const v = btn.getAttribute('data-view');
       if (v === 'products') goProducts();
       if (v === 'categories') goCategories();
+      if (v === 'orders') goOrders();
+      if (v === 'discounts') goDiscounts();
       if (v === 'inventory') {
         mainTitle.textContent = 'Inventario';
         mainActions.innerHTML = '';
@@ -521,6 +746,20 @@
   $('#btnBackList').addEventListener('click', goProducts);
   productForm.addEventListener('submit', saveProduct);
   $('#btnSaveCategories').addEventListener('click', saveCategories);
+  discountForm.addEventListener('submit', saveDiscount);
+  $('#btnNewDiscount').addEventListener('click', resetDiscountForm);
+  $('#btnDeleteDiscount').addEventListener('click', async () => {
+    const id = $('#dscId').value;
+    if (!id || !confirm('¿Eliminar este cupón?')) return;
+    try {
+      await api('/admin/discounts?id=' + encodeURIComponent(id), { method: 'DELETE' });
+      const data = await api('/admin/discounts');
+      renderDiscountsTable(data.discounts || []);
+      resetDiscountForm();
+    } catch (err) {
+      showNotice(discountNotice, err.message, false);
+    }
+  });
 
   $('#btnDeleteProduct').addEventListener('click', async () => {
     if (!confirm('¿Eliminar este producto del catálogo?')) return;

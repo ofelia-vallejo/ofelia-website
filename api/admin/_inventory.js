@@ -1,5 +1,13 @@
 const { corsJson, requireAdmin } = require('../../lib/auth');
 const { loadCatalog, saveCatalog, findProduct, totalInventory } = require('../../lib/store');
+const {
+  hasPostgres,
+  listInventoryDetailed,
+  getVariantAvailable,
+  setInventoryLevel,
+  recordInventoryMovement,
+} = require('../../lib/postgres');
+const { parseInventoryAdjust } = require('../../lib/validation');
 
 module.exports = async (req, res) => {
   corsJson(res);
@@ -11,6 +19,13 @@ module.exports = async (req, res) => {
     const catalog = await loadCatalog();
 
     if (req.method === 'GET') {
+      // Si hay Postgres, exponemos la capa normalizada inventory_levels (la real
+      // que usa el corte de stock en checkout); si no, caemos al espejo del catálogo.
+      let levels = [];
+      if (hasPostgres()) {
+        levels = await listInventoryDetailed();
+      }
+
       const summary = catalog.products.map((p) => ({
         id: p.id,
         slug: p.slug,
@@ -18,43 +33,77 @@ module.exports = async (req, res) => {
         inventory: totalInventory(p),
         lowStockAt: p.lowStockAt || 2,
         lowStock: totalInventory(p) <= (p.lowStockAt || 2),
-        variants: (p.variants || []).map((v) => ({
-          id: v.id,
-          sku: v.sku,
-          colorName: v.colorName,
-          inventory: Number(v.inventory) || 0,
-        })),
+        variants: (p.variants || []).map((v) => {
+          const row = levels.find(
+            (l) => l.product_id === p.id && (l.sku === v.sku || l.color_key === v.colorKey || l.variant_id.endsWith('::' + v.id))
+          );
+          return {
+            id: v.id,
+            sku: v.sku,
+            colorName: v.colorName,
+            colorKey: v.colorKey,
+            inventory: row ? Number(row.available) : (Number(v.inventory) || 0),
+            available: row ? Number(row.available) : null,
+            locationId: row ? row.location_id : 'loc-medellin',
+          };
+        }),
       }));
-      return res.status(200).json({ ok: true, inventory: summary });
+      return res.status(200).json({ ok: true, inventory: summary, levels });
     }
 
     if (req.method === 'PATCH') {
-      const { productId, variantId, inventory, delta } = req.body || {};
-      if (!productId) {
-        return res.status(400).json({ ok: false, error: 'productId requerido.' });
+      // Validación server-side: mode set|delta, value entero, no negativos.
+      const parsed = parseInventoryAdjust(req.body || {});
+      if (!parsed.ok) {
+        return res.status(400).json({ ok: false, error: parsed.error, issues: parsed.issues });
       }
+      const { productId, variantId, locationId, mode, value, reason, note } = parsed.data;
+
       const product = findProduct(catalog, productId);
       if (!product) return res.status(404).json({ ok: false, error: 'Producto no encontrado.' });
 
+      // Variante con stock normalizado (inventory_levels) — ruta robusta con ledger.
+      if (variantId && hasPostgres()) {
+        const v = (product.variants || []).find((x) => x.id === variantId || x.sku === variantId);
+        if (!v) return res.status(404).json({ ok: false, error: 'Variante no encontrada.' });
+
+        let result;
+        if (mode === 'delta') {
+          result = await recordInventoryMovement({
+            productId, variantId: v.id, locationId, delta: value,
+            reason: reason || 'manual', referenceType: 'admin', note, createdBy: 'admin',
+          });
+        } else {
+          result = await setInventoryLevel({
+            productId, variantId: v.id, locationId, target: value,
+            reason: reason || 'correction', note, createdBy: 'admin',
+          });
+        }
+        if (!result.ok) {
+          return res.status(400).json({ ok: false, error: 'No se pudo ajustar el inventario (' + (result.reason || 'desconocido') + ').' });
+        }
+        return res.status(200).json({
+          ok: true, productId, variantId: v.id,
+          available: result.available, delta: result.delta,
+        });
+      }
+
+      // Sin variante o sin Postgres: espejo en el catálogo (sin ledger).
       if (variantId && product.variants && product.variants.length) {
         const v = product.variants.find((x) => x.id === variantId || x.sku === variantId);
         if (!v) return res.status(404).json({ ok: false, error: 'Variante no encontrada.' });
-        if (delta != null) v.inventory = Math.max(0, (Number(v.inventory) || 0) + Number(delta));
-        else if (inventory != null) v.inventory = Math.max(0, Number(inventory));
-      } else if (inventory != null) {
-        product.inventory = Math.max(0, Number(inventory));
-      } else if (delta != null) {
-        product.inventory = Math.max(0, (Number(product.inventory) || 0) + Number(delta));
+        v.inventory = mode === 'delta'
+          ? Math.max(0, (Number(v.inventory) || 0) + value)
+          : Math.max(0, value);
       } else {
-        return res.status(400).json({ ok: false, error: 'inventory o delta requerido.' });
+        product.inventory = mode === 'delta'
+          ? Math.max(0, (Number(product.inventory) || 0) + value)
+          : Math.max(0, value);
       }
 
       const storage = await saveCatalog(catalog);
       return res.status(200).json({
-        ok: true,
-        productId: product.id,
-        inventory: totalInventory(product),
-        storage,
+        ok: true, productId: product.id, inventory: totalInventory(product), storage,
       });
     }
 
